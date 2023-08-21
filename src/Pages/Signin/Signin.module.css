@@ -1,0 +1,21 @@
+.signContainer {
+  background: linear-gradient(#6e78ff7e, #6e78ff7e),
+    url("https://static.vecteezy.com/system/resources/previews/026/481/324/original/the-world-of-classic-muscle-cars-with-this-captivating-4k-wallpaper-free-photo.jpg");
+  background-size: cover;
+  backdrop-filter: blur(20);
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  color: white;
+}
+.formContainer {
+  background: white;
+  padding: 50px;
+  border-radius: 10px;
+  width: 510px;
+  height: 554px;
+}

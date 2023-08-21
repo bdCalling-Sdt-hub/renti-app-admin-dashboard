@@ -1,15 +1,12 @@
-import { useState } from 'react'
-
-import './App.css'
+import Signin from "./Pages/Signin/Signin";
+import "./app.css";
 
 function App() {
-
-
   return (
     <>
-      <h1>tushar</h1>
+      <Signin />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
