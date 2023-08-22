@@ -12,4 +12,9 @@
   font-family: "Poppins", sans-serif;
 }
 
+.ant-layout-sider-children .ant-menu-item-selected{
+  color:#000b90;
+  font-weight: bold;
+}
+
 
