@@ -1,28 +1,19 @@
-import { LockOutlined, MailOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Form, Input } from "antd";
 import React from "react";
-import { useNavigate } from "react-router";
 import logo from "../../Images/Logo.png";
-import style from "./Signin.module.css";
+import style from "./UpdatePass.module.css";
 
-const Signin = () => {
+const UpdatePass = () => {
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
   };
-
-  const navigate = useNavigate();
-
-  const handleForget = () => {
-    navigate("/forget-password");
-  };
-
   return (
-    <div className={style.signContainer}>
+    <div className={style.updateContainer}>
       <div>
         <img src={logo} alt="" />
       </div>
       <div className={style.formContainer}>
-        <h2
+        <h1
           style={{
             color: "#000B90",
             fontWeight: "normal",
@@ -30,8 +21,8 @@ const Signin = () => {
             textShadow: "#bfbfbf 2px 2px 4px",
           }}
         >
-          Sign In
-        </h2>
+          Update Password
+        </h1>
         <Form
           name="normal_login"
           className="login-form"
@@ -42,7 +33,7 @@ const Signin = () => {
         >
           <div>
             <label htmlFor="email" className={style.label}>
-              Email
+              New Password
             </label>
             <Form.Item
               name="email"
@@ -50,21 +41,17 @@ const Signin = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your email!",
+                  message: "Please input your password!",
                 },
               ]}
             >
-              <Input
-                prefix={<MailOutlined className="site-form-item-icon" />}
-                placeholder="Enter your email address"
-                className={style.input}
-              />
+              <Input placeholder="Password" className={style.input} />
             </Form.Item>
           </div>
 
           <div>
             <label htmlFor="email" className={style.label}>
-              Password
+              Re-type Password
             </label>
             <Form.Item
               name="password"
@@ -76,26 +63,11 @@ const Signin = () => {
               ]}
             >
               <Input
-                prefix={<LockOutlined className="site-form-item-icon" />}
                 type="password"
-                placeholder="Enter your password"
+                placeholder="Confirm password"
                 className={style.input}
               />
             </Form.Item>
-          </div>
-          <div className={style.rememberAndPass}>
-            <Form.Item name="remember" valuePropName="checked" noStyle>
-              <Checkbox>Remember me</Checkbox>
-            </Form.Item>
-
-            <a
-              className="login-form-forgot"
-              style={{ color: "#000B90" }}
-              href=""
-              onClick={handleForget}
-            >
-              Forgot password
-            </a>
           </div>
 
           <Form.Item>
@@ -109,10 +81,10 @@ const Signin = () => {
                 fontWeight: "400px",
                 fontSize: "18px",
                 background: "#000B90",
-                marginTop: "60px",
+                marginTop: "100px",
               }}
             >
-              Sign In
+              Confirm
             </Button>
           </Form.Item>
         </Form>
@@ -121,4 +93,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default UpdatePass;
