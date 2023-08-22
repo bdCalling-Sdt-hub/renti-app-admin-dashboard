@@ -12,6 +12,10 @@ const UpdatePass = () => {
       setErr("Password must be 8 character");
       return;
     }
+    if (password !== confirmPassword) {
+      setErr("Please enter the same password!");
+      return;
+    }
     if (!password || !confirmPassword) {
       setErr("Please give your changes password");
       return;
@@ -30,10 +34,6 @@ const UpdatePass = () => {
     }
     if (!/(?=.*[0-9].*[0-9])/.test(password)) {
       setErr("Ensure string has two digits");
-      return;
-    }
-    if (password !== confirmPassword) {
-      setErr("Please enter the same password!");
       return;
     }
   };
