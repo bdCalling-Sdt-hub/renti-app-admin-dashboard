@@ -1,12 +1,43 @@
 import { Button, Form, Input } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import logo from "../../Images/Logo.png";
 import style from "./UpdatePass.module.css";
 
 const UpdatePass = () => {
+  const [err, setErr] = useState("");
   const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+    const { password, confirmPassword } = values;
+
+    if (password.length < 8) {
+      setErr("Password must be 8 character");
+      return;
+    }
+    if (password !== confirmPassword) {
+      setErr("Please enter the same password!");
+      return;
+    }
+    if (!password || !confirmPassword) {
+      setErr("Please give your changes password");
+      return;
+    }
+    if (!/(?=.*[!@#$&*])/.test(password)) {
+      setErr("Ensure string has one special case letter.");
+      return;
+    }
+    if (!/(?=.*[A-Z].*[A-Z])/.test(password)) {
+      setErr("Ensure string has two uppercase letters.");
+      return;
+    }
+    if (!/(?=.*[a-z].*[a-z].*[a-z])/.test(password)) {
+      setErr("Ensure string has three lowercase letters.");
+      return;
+    }
+    if (!/(?=.*[0-9].*[0-9])/.test(password)) {
+      setErr("Ensure string has two digits");
+      return;
+    }
   };
+
   return (
     <div className={style.updateContainer}>
       <div>
@@ -32,43 +63,49 @@ const UpdatePass = () => {
           onFinish={onFinish}
         >
           <div>
-            <label htmlFor="email" className={style.label}>
+            <label htmlFor="" className={style.label}>
               New Password
-            </label>
-            <Form.Item
-              name="email"
-              id="email"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your password!",
-                },
-              ]}
-            >
-              <Input placeholder="Password" className={style.input} />
-            </Form.Item>
-          </div>
-
-          <div>
-            <label htmlFor="email" className={style.label}>
-              Re-type Password
             </label>
             <Form.Item
               name="password"
               rules={[
                 {
                   required: true,
-                  message: "Please input your Password!",
+                  message: "Please enter new password!",
                 },
               ]}
             >
               <Input
-                type="password"
+                type="text"
+                placeholder="Password"
+                className={style.input}
+              />
+            </Form.Item>
+          </div>
+
+          <div>
+            <label htmlFor="" className={style.label}>
+              Re-type Password
+            </label>
+            <Form.Item
+              name="confirmPassword"
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter confirm Password!",
+                },
+              ]}
+            >
+              <Input
+                type="text"
                 placeholder="Confirm password"
                 className={style.input}
               />
             </Form.Item>
           </div>
+
+          {/* showing error */}
+          <label style={{ color: "red" }}>{err}</label>
 
           <Form.Item>
             <Button

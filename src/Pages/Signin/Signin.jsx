@@ -57,6 +57,7 @@ const Signin = () => {
               <Input
                 prefix={<MailOutlined className="site-form-item-icon" />}
                 placeholder="Enter your email address"
+                type="email"
                 className={style.input}
               />
             </Form.Item>
