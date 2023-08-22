@@ -373,9 +373,10 @@ const Dashboard = () => {
             marginLeft: collapsed ? "130px" : "360px",
             marginRight: "60px",
 
-            padding: 24,
+            padding: 50,
             minHeight: 280,
             background: colorBgContainer,
+            overflowY:"scroll"
 
           }}
         >
