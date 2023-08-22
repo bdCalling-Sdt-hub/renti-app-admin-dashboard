@@ -6,73 +6,165 @@ import {
   UploadOutlined,
   MenuOutlined,
   UserOutlined,
+  CarOutlined,
   VideoCameraOutlined,
 } from '@ant-design/icons';
-import { Layout, Menu, Button, theme, Dropdown } from 'antd';
+import { Layout, Menu, Button, theme, Dropdown, Select } from 'antd';
 import rentiLogo from '../../Images/renti-logo.png';
 import Styles from './Dashboard.module.css'
-<img src="" alt="" srcset="" />
+import { Link, Outlet } from 'react-router-dom';
+import { Divider } from 'antd';
+import { RxDashboard } from "react-icons/rx";
+import { GiReceiveMoney } from "react-icons/gi";
+import { MdCarRental, MdPayment, MdPeopleOutline } from "react-icons/md";
+import { GoPeople } from './../../../node_modules/react-icons/go/index.esm';
+import { FaUserLock } from "react-icons/fa";
+
+
+
+
+
+
 const { Header, Sider, Content } = Layout;
 const { SubMenu } = Menu;
+const { Option } = Select;
+
+const items = [...Array(5).keys()].map((item, index) => {
+  return (
+    {
+      key: index,
+      label: (
+        <a target="_blank" href="https://www.antgroup.com" style={{}}>
+          <div className={Styles.everyNotify} style={{ display: "flex", alignItems: "center" }}>
+            <img style={{ backgroundColor: "#d9cffb", borderRadius: "100%", padding: "5px", marginRight: "15px" }} width="30" height="30" src="https://img.icons8.com/3d-fluency/94/person-male--v2.png" alt="person-male--v2" />
+            <div className='' style={{ marginTop: "" }}>
+              <p><span>Sanchej haro manual </span>started a new trip from mexico.</p>
+              <span style={{ color: "#d2d2d2" }}>1 hr ago</span>
+            </div>
+          </div>
+
+        </a>
+      ),
+
+    }
+  )
+})
 
 
+// const items =
+//  [
+//   {
+//     key: '1',
+//     label: (
+//       <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
+//         <div className='' style={{display:"flex",alignItems:"center"}}>
+//              <img style={{backgroundColor:"#d9cffb",borderRadius:"100%",padding:"5px",marginRight:"15px"}} width="30" height="30" src="https://img.icons8.com/3d-fluency/94/person-male--v2.png" alt="person-male--v2"/>
+//              <div className='' style={{padding:0,margin:0}}>
+//                 <p style={{}}><span>Sanchej haro manual </span>started a new trip from mexico.</p>
+//                 <span style={{color:"#d2d2d2"}}>1 hr ago</span>
+//              </div>
+//         </div>
 
+//       </a>
+//     ),
 
-const items = [
-  {
-    key: '1',
-    label: (
-      <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-        <div className='' style={{display:"flex"}}>
-             <img style={{backgroundColor:"#d9cffb",borderRadius:"100%",padding:"5px",marginRight:"15px"}} width="30" height="30" src="https://img.icons8.com/3d-fluency/94/person-male--v2.png" alt="person-male--v2"/>
-             <div className='' style={{padding:0,margin:0,height:"50px"}}>
-                <p style={{padding:0}}><span>Sanchej haro manual </span>started a new trip from mexico.</p>
-                <p>1 hr ago</p>
-             </div>
-        </div>
-        
-      </a>
-    ),
-    
-  },
-  {
-    key: '2',
-    label: (
-      <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
-        2nd menu item
-      </a>
-    ),
-  },
-  {
-    key: '3',
-    label: (
-      <a target="_blank" rel="noopener noreferrer" href="https://www.luohanacademy.com">
-        3rd menu item
-      </a>
-    ),
-  },
-];
+//   },
+//   {
+//     key: '2',
+//     label: (
+//       <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
+//         <div className='' style={{display:"flex",alignItems:"center"}}>
+//              <img style={{backgroundColor:"#d9cffb",borderRadius:"100%",padding:"5px",marginRight:"15px"}} width="30" height="30" src="https://img.icons8.com/3d-fluency/94/person-male--v2.png" alt="person-male--v2"/>
+//              <div className='' style={{padding:0,margin:0}}>
+//                 <p style={{}}><span>Sanchej haro manual </span>started a new trip from mexico.</p>
+//                 <span style={{color:"#d2d2d2"}}>1 hr ago</span>
+//              </div>
+//         </div>
+
+//       </a>
+//     ),
+
+//   },
+//   {
+//     key: '3',
+//     label: (
+//       <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
+//         <div className='' style={{display:"flex",alignItems:"center"}}>
+//              <img style={{backgroundColor:"#d9cffb",borderRadius:"100%",padding:"5px",marginRight:"15px"}} width="30" height="30" src="https://img.icons8.com/3d-fluency/94/person-male--v2.png" alt="person-male--v2"/>
+//              <div className='' style={{padding:0,margin:0}}>
+//                 <p style={{}}><span>Sanchej haro manual </span>started a new trip from mexico.</p>
+//                 <span style={{color:"#d2d2d2"}}>1 hr ago</span>
+//              </div>
+//         </div>
+
+//       </a>
+//     ),
+
+//   },
+//   {
+//     key: '4',
+//     label: (
+//       <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
+//         <div className='' style={{display:"flex",alignItems:"center"}}>
+//              <img style={{backgroundColor:"#d9cffb",borderRadius:"100%",padding:"5px",marginRight:"15px"}} width="30" height="30" src="https://img.icons8.com/3d-fluency/94/person-male--v2.png" alt="person-male--v2"/>
+//              <div className='' style={{padding:0,margin:0}}>
+//                 <p style={{}}><span>Sanchej haro manual </span>started a new trip from mexico.</p>
+//                 <span style={{color:"#d2d2d2"}}>1 hr ago</span>
+//              </div>
+//         </div>
+
+//       </a>
+//     ),
+
+//   },
+//   {
+//     key: '5',
+//     label: (
+//       <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
+//         <div className='' style={{display:"flex",alignItems:"center"}}>
+//              <img style={{backgroundColor:"#d9cffb",borderRadius:"100%",padding:"5px",marginRight:"15px"}} width="30" height="30" src="https://img.icons8.com/3d-fluency/94/person-male--v2.png" alt="person-male--v2"/>
+//              <div className='' style={{display:"flex",flexDirection:"column",alignItems:"flex-start",justifyContent:"flex-start"}}>
+//                 <p style={{}}><span>Sanchej haro manual </span>started a new trip from mexico.</p>
+//                 <span style={{color:"#d2d2d2"}}>1 hr ago</span>
+//              </div>
+//         </div>
+
+//       </a>
+//     ),
+
+//   },
+// ];
 
 
 const Dashboard = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState('english');
   const {
     token: { colorBgContainer },
   } = theme.useToken();
 
+  const handleSelectLanguage = (value) => {
+    setSelectedLanguage(value);
+  };
 
 
   const menu = (
     <Menu>
       <Menu.Item disabled>
-        <h2 style={{color:"#000b90",fontWeight:"500",borderBottom:"1px solid #e6e7f4",paddingBottom:"20px"}}>Notifications</h2>
+        <h2 style={{ color: "#000b90", fontWeight: "500", borderBottom: "1px solid #e6e7f4", paddingBottom: "20px" }}>Notifications</h2>
         {/* <span style={{ fontWeight: 'bold', color: '#000' }}>Notifications</span> */}
       </Menu.Item>
       {items.map(item => (
         <Menu.Item key={item.key}>
           {item.label}
-          </Menu.Item>
+        </Menu.Item>
       ))}
+      <div className='' style={{ display: "flex", justifyContent: "center", alignItems: "center", margin: "15px" }}>
+        <Button type="primary" block style={{ height: "50px", backgroundColor: "#e6e7f4", color: "#000b90", fontSize: "18px", fontWeight: "bold" }}>
+          See All
+        </Button>
+      </div>
+
     </Menu>
   );
 
@@ -102,17 +194,15 @@ const Dashboard = () => {
         </div>
 
         <Menu
-
+          style={{ padding: collapsed ? "0px" : "20px", border: "none" }}
           mode="inline"
           defaultSelectedKeys={['1']}
         >
-          <Menu.Item key="1" icon={<UserOutlined />}>
-            <a href="#">Dashboard</a>
+          <Menu.Item key="1" icon={<RxDashboard style={{fontSize:"20px"}}/>}>
+            <Link to="#" style={{fontSize:"20px"}}>Dashboard</Link>
           </Menu.Item>
-          <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-            <a href="#">Earnings</a>
-          </Menu.Item>
-          <SubMenu key="3" icon={<UploadOutlined />} title="nav 3">
+          
+          <SubMenu key="2" icon={<GiReceiveMoney />} title="Earnings">
             <Menu.Item key="31">
               <a href="#">Subnav 3-1</a>
             </Menu.Item>
@@ -120,6 +210,53 @@ const Dashboard = () => {
               <a href="#">Subnav 3-2</a>
             </Menu.Item>
           </SubMenu>
+
+          <SubMenu key="3" icon={<MdPayment />} title="Payments">
+            <Menu.Item key="31">
+              <a href="#">Subnav 3-1</a>
+            </Menu.Item>
+            <Menu.Item key="32">
+              <a href="#">Subnav 3-2</a>
+            </Menu.Item>
+          </SubMenu>
+          <Divider/>
+
+          <SubMenu key="4" icon={<GoPeople />} title="Host information">
+            <Menu.Item key="31">
+              <a href="#">Subnav 3-1</a>
+            </Menu.Item>
+            <Menu.Item key="32">
+              <a href="#">Subnav 3-2</a>
+            </Menu.Item>
+          </SubMenu>
+
+          <Menu.Item key="5" icon={< MdPeopleOutline/>}>
+            <Link to="#">User information</Link>
+          </Menu.Item>
+
+          <Menu.Item key="6" icon={<MdCarRental />}>
+            <Link to="#">Rent information</Link>
+          </Menu.Item>
+
+          <Menu.Item key="7" icon={<CarOutlined />}>
+            <Link to="#">Car information</Link>
+          </Menu.Item>
+
+          <Divider/>
+
+          <SubMenu key="8" icon={<FaUserLock />} title="KYC">
+            <Menu.Item key="31">
+              <a href="#">Subnav 3-1</a>
+            </Menu.Item>
+            <Menu.Item key="32">
+              <a href="#">Subnav 3-2</a>
+            </Menu.Item>
+          </SubMenu>
+
+          <Menu.Item key="7" icon={<UserOutlined />}>
+            <Link to="#">Settings</Link>
+          </Menu.Item>
+
         </Menu>
       </Sider>
       <Layout>
@@ -127,15 +264,17 @@ const Dashboard = () => {
           style={{
             position: "fixed",
             width: "100vw",
-            height: "100px",
+            height: "80px",
             zIndex: 1,
             padding: 0,
             background: colorBgContainer,
             display: "flex",
             justifyContent: "space-between",
-            paddingRight: "150px"
+            paddingRight: "60px"
           }}
         >
+
+
           <div className='' style={{ display: "flex", alignItems: "center" }}>
             <Button
               type="text"
@@ -152,38 +291,75 @@ const Dashboard = () => {
             <h2>Dashboard</h2>
           </div>
 
-          <div className={Styles.notificaton_profile_section} style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <div className={Styles.notificaton}>
+          <div className={Styles.notificatonProfileSection} style={{ display: "flex", alignItems: "center", lineHeight: 0 }}>
+            <div className='' style={{ marginRight: "40px" }}>
+              <Select
+                value={selectedLanguage}
+                style={{ width: 150}}
+                onChange={handleSelectLanguage}
+              // Use the "value" property of options as the label
+              >
+                <Option value="english">
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <img
+                      src="https://cdn.britannica.com/29/22529-004-ED1907BE/Union-Flag-Cross-St-Andrew-of-George.jpg"
+                      alt="English"
+                      style={{ marginRight: 8, width: 16, height: 16 }}
+                    />
+                    English
+                  </div>
+                </Option>
+                <Option value="spanish">
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <img
+                      src="https://e0.pxfuel.com/wallpapers/630/608/desktop-wallpaper-spain-flag-in-collection.jpg"
+                      style={{ marginRight: 8, width: 16, height: 16 }}
+                    />
+                    Spanish
+                  </div>
+                </Option>
+                <Option value="bangla">
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <img
+                      src="https://www.babseacle.org/wp-content/uploads/2020/09/Bangla-flag.jpg"
+                      style={{ marginRight: 8, width: 16, height: 16 }}
+                    />
+                    Bangla
+                  </div>
+                </Option>
+              </Select>
+            </div>
+            <div className={Styles.notificaton} >
               <Dropdown
-              
+
                 overlay={menu}
                 placement="bottomRight"
                 arrow={{
                   pointAtCenter: true,
                 }}
               >
-                <Button className={Styles.notify_btn} style={{padding:"10px" ,border:"none"}}>
-                   <img width="30" height="30" src="https://img.icons8.com/ios/50/appointment-reminders--v1.png" alt="appointment-reminders--v1"/>
-                </Button>
+
+                <img style={{ cursor: "pointer" }} width="30" height="30" src="https://img.icons8.com/ios/50/appointment-reminders--v1.png" alt="appointment-reminders--v1" />
+
               </Dropdown>
-            
+
             </div>
-            <div className='profile'>
-            <Dropdown
-             
-             menu={{
-               items,
-             }}
-             placement="bottomLeft"
-             arrow={{
-               pointAtCenter: true,
-             }}
-           >
-             <Button className={Styles.profile_btn} style={{padding:"10px" ,border:"none"}}>
-                <img width="45" height="45" src="https://img.icons8.com/3d-fluency/94/person-male--v2.png" alt="person-male--v2"/>
-             </Button>
-           </Dropdown>
-                
+            <div className={Styles.profile}>
+              <Dropdown
+
+                menu={{
+                  items,
+                }}
+                placement="bottomRight"
+                arrow={{
+                  pointAtCenter: true,
+                }}
+              >
+
+                <img style={{ cursor: "pointer" }} width="40" height="40" src="https://img.icons8.com/3d-fluency/94/person-male--v2.png" alt="person-male--v2" />
+
+              </Dropdown>
+
             </div>
           </div>
 
@@ -193,14 +369,15 @@ const Dashboard = () => {
             marginTop: "120px",
             marginBottom: "50px",
             marginLeft: collapsed ? "130px" : "360px",
-            marginRight: "50px",
+            marginRight: "60px",
 
             padding: 24,
             minHeight: 280,
             background: colorBgContainer,
+
           }}
         >
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Debitis natus dolorum sit. Ullam voluptatem laboriosam ipsa eveniet rem vel voluptas earum ad. Asperiores blanditiis nemo unde aut voluptas iste explicabo reiciendis? Possimus officia iusto rerum et soluta praesentium corrupti fugiat, quam cumque officiis facilis, animi quis obcaecati blanditiis? Incidunt voluptates in, eius velit dignissimos vero alias temporibus molestias saepe atque excepturi dicta rerum numquam accusantium perspiciatis deserunt porro tempore illo expedita amet libero consectetur! Placeat, pariatur magnam quidem perferendis eveniet praesentium aspernatur nam optio iste ut, aperiam at quod omnis laboriosam nulla voluptatum quis, itaque quibusdam aliquam facere deleniti. Nemo?
+          <Outlet/>
         </Content>
       </Layout>
     </Layout>

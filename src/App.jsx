@@ -1,11 +1,12 @@
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { useState } from 'react'
+import { BrowserRouter as Router, Routes, Route,useNavigate, Navigate } from 'react-router-dom';
+import "./App.css"
+import Dashboard from './Pages/Dashboard/Dashboard';
 import Signin from "./Pages/Signin/Signin";
-import "./app.css";
-
-import Dashboard from "./Pages/Dashboard/Dashboard";
 import Email from "./Pages/Email/Email";
 import Otp from "./Pages/Otp/Otp";
 import UpdatePass from "./Pages/UpdatePass/UpdatePass";
+import DashboardHome from './Pages/Dashboard/DashboardHome/DashboardHome';
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
         <Router>
           <Routes>
             <Route exact path="/" element={<Dashboard />}>
-              {/* <Route path="/" element={<Dashboardhome/>} /> */}
+                <Route path="/" element={<DashboardHome/>} />
+                
             </Route>
 
             <Route path="/signin" element={<Signin />} />
