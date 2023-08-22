@@ -1,0 +1,18 @@
+.notification{
+   height: 100px;
+}
+
+
+
+.notify_btn:focus{
+     outline:none;
+}
+.profile_btn img{
+    background-color: #d9cffb;
+    padding: 5px;
+    border-radius: 100%;
+}
+
+.profile_btn:focus{
+   outline: none;
+}
