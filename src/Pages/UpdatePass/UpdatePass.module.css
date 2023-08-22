@@ -1,4 +1,4 @@
-.otpContainer {
+.updateContainer {
   background: linear-gradient(#000a738c, #000a738c),
     url("https://static.vecteezy.com/system/resources/previews/026/481/324/original/the-world-of-classic-muscle-cars-with-this-captivating-4k-wallpaper-free-photo.jpg");
   background-size: cover;
@@ -20,14 +20,11 @@
   height: 554px;
   box-shadow: 0 0 2px rgb(66, 66, 66);
 }
-.otpInput {
-  width: 50px;
-  height: 70px;
+.label {
+  color: #383737;
+  margin-bottom: 10px !important;
+  font-size: 16px !important;
 }
-
-.rememberAndPass {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 40px;
+.input {
+  height: 45px;
 }

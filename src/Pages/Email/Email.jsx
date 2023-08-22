@@ -1,16 +1,16 @@
 import { Button, Form, Input, Typography } from "antd";
 import React from "react";
 import logo from "../../Images/Logo.png";
-import style from "./Otp.module.css";
+import style from "./Email.module.css";
 
 const { Title, Paragraph, Text, Link } = Typography;
 
-const Otp = () => {
+const Email = () => {
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
   };
   return (
-    <div className={style.otpContainer}>
+    <div className={style.emailContainer}>
       <div>
         <img src={logo} alt="" />
       </div>
@@ -24,7 +24,7 @@ const Otp = () => {
             textShadow: "#bfbfbf 2px 2px 4px",
           }}
         >
-          Verify OTP
+          Email Verification
         </Title>
         <Paragraph style={{ marginBottom: "30px" }}>
           We'll send a verification code to your email. Check your inbox and
@@ -32,27 +32,25 @@ const Otp = () => {
         </Paragraph>
 
         <Form>
-          <Input.Group
-            style={{ display: "flex", gap: "10px", marginBottom: "10px" }}
-          >
-            <Input className={style.otpInput} />
-            <Input className={style.otpInput} />
-            <Input className={style.otpInput} />
-            <Input className={style.otpInput} />
-            <Input className={style.otpInput} />
-            <Input className={style.otpInput} />
-          </Input.Group>
-
-          <div className={style.rememberAndPass}>
-            <Text>Don't received code?</Text>
-
-            <a
-              className="login-form-forgot"
-              style={{ color: "#000B90" }}
-              href=""
+          <div>
+            <label htmlFor="email" className={style.label}>
+              Email
+            </label>
+            <Form.Item
+              name="email"
+              id="email"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your email!",
+                },
+              ]}
             >
-              Resend
-            </a>
+              <Input
+                placeholder="Enter your email address"
+                className={style.input}
+              />
+            </Form.Item>
           </div>
 
           <Form.Item>
@@ -70,7 +68,7 @@ const Otp = () => {
                 marginTop: "130px",
               }}
             >
-              Continue
+              Verify
             </Button>
           </Form.Item>
         </Form>
@@ -79,4 +77,4 @@ const Otp = () => {
   );
 };
 
-export default Otp;
+export default Email;
