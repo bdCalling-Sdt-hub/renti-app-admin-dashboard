@@ -1,18 +1,28 @@
 .notification{
-   height: 100px;
+ 
+  
+   background-color: green;
+   
 }
 
 
 
-.notify_btn:focus{
-     outline:none;
+.profile{
+  width: 100px;
+  
+  text-align: center;
 }
-.profile_btn img{
+.profile img{
     background-color: #d9cffb;
-    padding: 5px;
+    padding: 2px;
     border-radius: 100%;
+ 
+    
 }
 
 .profile_btn:focus{
    outline: none;
 }
+
+
+
