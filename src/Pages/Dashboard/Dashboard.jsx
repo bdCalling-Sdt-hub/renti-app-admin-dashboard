@@ -1,55 +1,61 @@
-import React, { useState } from 'react';
 import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
+  CarOutlined,
   CloseOutlined,
-  UploadOutlined,
   MenuOutlined,
   UserOutlined,
-  CarOutlined,
-  VideoCameraOutlined,
-} from '@ant-design/icons';
-import { Layout, Menu, Button, theme, Dropdown, Select } from 'antd';
-import rentiLogo from '../../Images/renti-logo.png';
-import Styles from './Dashboard.module.css'
-import { Link, Outlet } from 'react-router-dom';
-import { Divider } from 'antd';
-import { RxDashboard } from "react-icons/rx";
+} from "@ant-design/icons";
+import { Button, Divider, Dropdown, Layout, Menu, Select, theme } from "antd";
+import React, { useState } from "react";
+import { FaUserLock } from "react-icons/fa";
 import { GiReceiveMoney } from "react-icons/gi";
 import { MdCarRental, MdPayment, MdPeopleOutline } from "react-icons/md";
-import { GoPeople } from './../../../node_modules/react-icons/go/index.esm';
-import { FaUserLock } from "react-icons/fa";
-
-
-
-
-
+import { RxDashboard } from "react-icons/rx";
+import { Link, Outlet } from "react-router-dom";
+import rentiLogo from "../../Images/renti-logo.png";
+import { GoPeople } from "./../../../node_modules/react-icons/go/index.esm";
+import Styles from "./Dashboard.module.css";
 
 const { Header, Sider, Content } = Layout;
 const { SubMenu } = Menu;
 const { Option } = Select;
 
 const items = [...Array(5).keys()].map((item, index) => {
-  return (
-    {
-      key: index,
-      label: (
-        <a target="_blank" href="https://www.antgroup.com" style={{}}>
-          <div className={Styles.everyNotify} style={{ display: "flex", alignItems: "center" }}>
-            <img style={{ backgroundColor: "#d9cffb", borderRadius: "100%", padding: "5px", marginRight: "15px" }} width="30" height="30" src="https://img.icons8.com/3d-fluency/94/person-male--v2.png" alt="person-male--v2" />
-            <div className='' style={{ marginTop: "" }}>
-              <p><span>Sanchej haro manual </span>started a new trip from mexico.</p>
-              <span style={{ color: "#d2d2d2" }}>1 hr ago</span>
-            </div>
+  return {
+    key: index,
+    label: (
+      <a
+        target="_blank"
+        href="https://www.antgroup.com"
+        style={{}}
+        rel="noreferrer"
+      >
+        <div
+          className={Styles.everyNotify}
+          style={{ display: "flex", alignItems: "center" }}
+        >
+          <img
+            style={{
+              backgroundColor: "#d9cffb",
+              borderRadius: "100%",
+              padding: "5px",
+              marginRight: "15px",
+            }}
+            width="30"
+            height="30"
+            src="https://img.icons8.com/3d-fluency/94/person-male--v2.png"
+            alt="person-male--v2"
+          />
+          <div className="" style={{ marginTop: "" }}>
+            <p>
+              <span>Sanchej haro manual </span>started a new trip from mexico.
+            </p>
+            <span style={{ color: "#d2d2d2" }}>1 hr ago</span>
           </div>
-
-        </a>
-      ),
-
-    }
-  )
-})
-
+        </div>
+      </a>
+    ),
+  };
+});
 
 // const items =
 //  [
@@ -135,10 +141,9 @@ const items = [...Array(5).keys()].map((item, index) => {
 //   },
 // ];
 
-
 const Dashboard = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState('english');
+  const [selectedLanguage, setSelectedLanguage] = useState("english");
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -147,61 +152,97 @@ const Dashboard = () => {
     setSelectedLanguage(value);
   };
 
-
   const menu = (
     <Menu>
       <Menu.Item disabled>
-        <h2 style={{ color: "#000b90", fontWeight: "500", borderBottom: "1px solid #e6e7f4", paddingBottom: "20px" }}>Notifications</h2>
+        <h2
+          style={{
+            color: "#000b90",
+            fontWeight: "500",
+            borderBottom: "1px solid #e6e7f4",
+            paddingBottom: "20px",
+          }}
+        >
+          Notifications
+        </h2>
         {/* <span style={{ fontWeight: 'bold', color: '#000' }}>Notifications</span> */}
       </Menu.Item>
-      {items.map(item => (
-        <Menu.Item key={item.key}>
-          {item.label}
-        </Menu.Item>
+      {items.map((item) => (
+        <Menu.Item key={item.key}>{item.label}</Menu.Item>
       ))}
-      <div className='' style={{ display: "flex", justifyContent: "center", alignItems: "center", margin: "15px" }}>
-        <Button type="primary" block style={{ height: "50px", backgroundColor: "#e6e7f4", color: "#000b90", fontSize: "18px", fontWeight: "bold" }}>
+      <div
+        className=""
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          margin: "15px",
+        }}
+      >
+        <Button
+          type="primary"
+          block
+          style={{
+            height: "50px",
+            backgroundColor: "#e6e7f4",
+            color: "#000b90",
+            fontSize: "18px",
+            fontWeight: "bold",
+          }}
+        >
           See All
         </Button>
       </div>
-
     </Menu>
   );
 
   return (
-    <Layout
-      style={{ height: "100vh", width: "100vw" }}
-    >
+    <Layout style={{ height: "100vh", width: "100vw" }}>
       <Sider
         width="313px"
-
-
         trigger={null}
         collapsible
         collapsed={collapsed}
         style={{
-          overflow: 'auto',
-          position: 'fixed',
+          overflow: "auto",
+          position: "fixed",
           height: "100vh",
           zIndex: 2,
-          backgroundColor: "white"
-
+          backgroundColor: "white",
         }}
       >
         <div className="demo-logo-vertical" />
-        <div className='logo' style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "30px", marginBottom: "30px" }}>
-          <img src={rentiLogo} height={collapsed ? "40px" : "150px"} width={collapsed ? "40px" : "150px"} />
+        <div
+          className="logo"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "30px",
+            marginBottom: "30px",
+          }}
+        >
+          <img
+            src={rentiLogo}
+            height={collapsed ? "40px" : "150px"}
+            width={collapsed ? "40px" : "150px"}
+          />
         </div>
 
         <Menu
           style={{ padding: collapsed ? "0px" : "20px", border: "none" }}
           mode="inline"
-          defaultSelectedKeys={['1']}
+          defaultSelectedKeys={["1"]}
         >
-          <Menu.Item key="1" icon={<RxDashboard style={{fontSize:"20px"}}/>}>
-            <Link to="#" style={{fontSize:"20px"}}>Dashboard</Link>
+          <Menu.Item
+            key="1"
+            icon={<RxDashboard style={{ fontSize: "20px" }} />}
+          >
+            <Link to="#" style={{ fontSize: "20px" }}>
+              Dashboard
+            </Link>
           </Menu.Item>
-          
+
           <SubMenu key="2" icon={<GiReceiveMoney />} title="Earnings">
             <Menu.Item key="31">
               <a href="#">Subnav 3-1</a>
@@ -219,7 +260,7 @@ const Dashboard = () => {
               <a href="#">Subnav 3-2</a>
             </Menu.Item>
           </SubMenu>
-          <Divider/>
+          <Divider />
 
           <SubMenu key="4" icon={<GoPeople />} title="Host information">
             <Menu.Item key="31">
@@ -230,7 +271,7 @@ const Dashboard = () => {
             </Menu.Item>
           </SubMenu>
 
-          <Menu.Item key="5" icon={< MdPeopleOutline/>}>
+          <Menu.Item key="5" icon={<MdPeopleOutline />}>
             <Link to="#">User information</Link>
           </Menu.Item>
 
@@ -242,7 +283,7 @@ const Dashboard = () => {
             <Link to="#">Car information</Link>
           </Menu.Item>
 
-          <Divider/>
+          <Divider />
 
           <SubMenu key="8" icon={<FaUserLock />} title="KYC">
             <Menu.Item key="31">
@@ -256,7 +297,6 @@ const Dashboard = () => {
           <Menu.Item key="7" icon={<UserOutlined />}>
             <Link to="#">Settings</Link>
           </Menu.Item>
-
         </Menu>
       </Sider>
       <Layout>
@@ -270,37 +310,38 @@ const Dashboard = () => {
             background: colorBgContainer,
             display: "flex",
             justifyContent: "space-between",
-            paddingRight: "60px"
+            paddingRight: "60px",
           }}
         >
-
-
-          <div className='' style={{ display: "flex", alignItems: "center" }}>
+          <div className="" style={{ display: "flex", alignItems: "center" }}>
             <Button
               type="text"
               icon={collapsed ? <CloseOutlined /> : <MenuOutlined />}
               onClick={() => setCollapsed(!collapsed)}
               style={{
                 marginLeft: collapsed ? "125px" : "360px",
-                fontSize: '16px',
+                fontSize: "16px",
                 width: 45,
                 height: 45,
-                marginRight: "10px"
+                marginRight: "10px",
               }}
             />
             <h2>Dashboard</h2>
           </div>
 
-          <div className={Styles.notificatonProfileSection} style={{ display: "flex", alignItems: "center", lineHeight: 0 }}>
-            <div className='' style={{ marginRight: "40px" }}>
+          <div
+            className={Styles.notificatonProfileSection}
+            style={{ display: "flex", alignItems: "center", lineHeight: 0 }}
+          >
+            <div className="" style={{ marginRight: "40px" }}>
               <Select
                 value={selectedLanguage}
-                style={{ width: 150}}
+                style={{ width: 150 }}
                 onChange={handleSelectLanguage}
-              // Use the "value" property of options as the label
+                // Use the "value" property of options as the label
               >
                 <Option value="english">
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <div style={{ display: "flex", alignItems: "center" }}>
                     <img
                       src="https://cdn.britannica.com/29/22529-004-ED1907BE/Union-Flag-Cross-St-Andrew-of-George.jpg"
                       alt="English"
@@ -310,7 +351,7 @@ const Dashboard = () => {
                   </div>
                 </Option>
                 <Option value="spanish">
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <div style={{ display: "flex", alignItems: "center" }}>
                     <img
                       src="https://e0.pxfuel.com/wallpapers/630/608/desktop-wallpaper-spain-flag-in-collection.jpg"
                       style={{ marginRight: 8, width: 16, height: 16 }}
@@ -319,7 +360,7 @@ const Dashboard = () => {
                   </div>
                 </Option>
                 <Option value="bangla">
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <div style={{ display: "flex", alignItems: "center" }}>
                     <img
                       src="https://www.babseacle.org/wp-content/uploads/2020/09/Bangla-flag.jpg"
                       style={{ marginRight: 8, width: 16, height: 16 }}
@@ -329,24 +370,25 @@ const Dashboard = () => {
                 </Option>
               </Select>
             </div>
-            <div className={Styles.notificaton} >
+            <div className={Styles.notificaton}>
               <Dropdown
-
                 overlay={menu}
                 placement="bottomRight"
                 arrow={{
                   pointAtCenter: true,
                 }}
               >
-
-                <img style={{ cursor: "pointer" }} width="30" height="30" src="https://img.icons8.com/ios/50/appointment-reminders--v1.png" alt="appointment-reminders--v1" />
-
+                <img
+                  style={{ cursor: "pointer" }}
+                  width="30"
+                  height="30"
+                  src="https://img.icons8.com/ios/50/appointment-reminders--v1.png"
+                  alt="appointment-reminders--v1"
+                />
               </Dropdown>
-
             </div>
             <div className={Styles.profile}>
               <Dropdown
-
                 menu={{
                   items,
                 }}
@@ -355,14 +397,16 @@ const Dashboard = () => {
                   pointAtCenter: true,
                 }}
               >
-
-                <img style={{ cursor: "pointer" }} width="40" height="40" src="https://img.icons8.com/3d-fluency/94/person-male--v2.png" alt="person-male--v2" />
-
+                <img
+                  style={{ cursor: "pointer" }}
+                  width="40"
+                  height="40"
+                  src="https://img.icons8.com/3d-fluency/94/person-male--v2.png"
+                  alt="person-male--v2"
+                />
               </Dropdown>
-
             </div>
           </div>
-
         </Header>
         <Content
           style={{
@@ -374,10 +418,10 @@ const Dashboard = () => {
             padding: 24,
             minHeight: 280,
             background: colorBgContainer,
-
+            overflow: "auto",
           }}
         >
-          <Outlet/>
+          <Outlet />
         </Content>
       </Layout>
     </Layout>
