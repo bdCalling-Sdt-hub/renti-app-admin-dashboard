@@ -1,13 +1,15 @@
-import { Button, Drawer, Table } from "antd";
+import { Button, Drawer, Table, Typography } from "antd";
 import React, { useState } from "react";
 import { AiOutlinePrinter } from "react-icons/ai";
 import { LiaSaveSolid } from "react-icons/lia";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
+const { Title, Text } = Typography;
 
 const data = [
   {
     key: "1",
     tripNo: "1373700510",
+
     time: "18 Jul, 2023  4:30pm",
     username: "Fahim",
     method: "Credit Card",
@@ -16,7 +18,7 @@ const data = [
     printView: "Button",
   },
   {
-    key: "1",
+    key: "2",
     tripNo: "1373700510",
     time: "18 Jul, 2023  4:30pm",
     username: "Fahim",
@@ -26,7 +28,7 @@ const data = [
     printView: "Button",
   },
   {
-    key: "1",
+    key: "3",
     tripNo: "1373700510",
     time: "18 Jul, 2023  4:30pm",
     username: "Fahim",
@@ -240,12 +242,20 @@ const EarnHistoryTable = () => {
     <div>
       <Table columns={columns} dataSource={data} />
       <Drawer
-        title="Drawer Title"
+        title={
+          <div className="custom-drawer-header">
+            <Typography>
+              <Title level={5} strong>
+                Invoice# Trip No.{drawerData?.tripNo}
+              </Title>
+              <Text>See all information about the trip no. 68656</Text>
+            </Typography>
+          </div>
+        }
         placement="right"
-        closable={false}
         onClose={closeDrawer}
-        visible={isDrawerVisible}
-        width={400}
+        open={isDrawerVisible}
+        width={600}
       >
         {drawerData && <DrawerPage drawerData={drawerData} />}
       </Drawer>
