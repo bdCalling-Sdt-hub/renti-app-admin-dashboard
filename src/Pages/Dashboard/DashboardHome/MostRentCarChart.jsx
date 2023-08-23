@@ -41,7 +41,7 @@ const MostRentCarChart = () => {
       offset: '-30%',
       content: ({ percent }) => `${(percent * 100).toFixed(0)}%`,
       style: {
-        fontSize: 24,
+        fontSize: 20,
         textAlign: 'center',
       },
     },
@@ -51,7 +51,7 @@ const MostRentCarChart = () => {
       },
     ],
   };
-  return <Pie {...config} />;
+  return <Pie {...config} style={{height:"300px"}}/>;
 };
 
 

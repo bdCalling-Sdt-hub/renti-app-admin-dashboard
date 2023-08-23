@@ -123,7 +123,7 @@ export default function DailyRentChart() {
       <div style={{ width: '100%', border:"3px solid #000b90",borderRadius:"15px",padding:"20px" }}>
         <h1 style={{marginTop:"10px",marginBottom:"10px",color:"#000b90"}}>Daily rent</h1>
 
-        <ResponsiveContainer width="100%" height={400}>
+        <ResponsiveContainer width="100%" height={300}>
           <LineChart
             width={600}
             height={200}
