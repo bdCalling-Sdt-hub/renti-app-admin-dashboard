@@ -100,10 +100,10 @@ const HostInfoTable = () => {
             type="text"
             style={{ marginRight: "10px" }}
           >
-            <BsEye style={{ fontSize: "30px", color: "#999999" }} />
+            <BsEye style={{ fontSize: "25px", color: "#999999" }} />
           </Button>
           <Button type="text">
-            <RiDeleteBin5Line style={{ fontSize: "30px", color: "#999999" }} />
+            <RiDeleteBin5Line style={{ fontSize: "25px", color: "#999999" }} />
           </Button>
         </div>
       ),
