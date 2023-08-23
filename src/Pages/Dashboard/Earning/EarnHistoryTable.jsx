@@ -1,6 +1,7 @@
 import { Button, Drawer, Table, Typography } from "antd";
 import React, { useState } from "react";
 import { AiOutlinePrinter } from "react-icons/ai";
+import { IoMdClose } from "react-icons/io";
 import { LiaSaveSolid } from "react-icons/lia";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
@@ -226,16 +227,16 @@ const EarnHistoryTable = () => {
   ];
 
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
-  const [drawerData, setDrawerData] = useState(null);
+  const [earningData, setEarningData] = useState(null);
 
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
-    setDrawerData(record);
+    setEarningData(record);
   };
 
   const closeDrawer = () => {
     setIsDrawerVisible(false);
-    setDrawerData(null);
+    setEarningData(null);
   };
 
   return (
@@ -243,21 +244,31 @@ const EarnHistoryTable = () => {
       <Table columns={columns} dataSource={data} />
       <Drawer
         title={
-          <div className="custom-drawer-header">
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
             <Typography>
               <Title level={5} strong>
-                Invoice# Trip No.{drawerData?.tripNo}
+                Invoice# Trip No.{earningData?.tripNo}
               </Title>
               <Text>See all information about the trip no. 68656</Text>
             </Typography>
+            <Button type="text" onClick={closeDrawer}>
+              <IoMdClose fontSize={25} />
+            </Button>
           </div>
         }
+        closable={false}
         placement="right"
         onClose={closeDrawer}
         open={isDrawerVisible}
-        width={600}
+        width={500}
       >
-        {drawerData && <DrawerPage drawerData={drawerData} />}
+        {earningData && <DrawerPage earningData={earningData} />}
       </Drawer>
     </div>
   );
