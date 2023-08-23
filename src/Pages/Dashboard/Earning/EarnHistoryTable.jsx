@@ -1,6 +1,7 @@
 import { Button, Drawer, Table, Typography } from "antd";
 import React, { useState } from "react";
 import { AiOutlinePrinter } from "react-icons/ai";
+import { IoMdClose } from "react-icons/io";
 import { LiaSaveSolid } from "react-icons/lia";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
@@ -243,15 +244,25 @@ const EarnHistoryTable = () => {
       <Table columns={columns} dataSource={data} />
       <Drawer
         title={
-          <div className="custom-drawer-header">
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
             <Typography>
               <Title level={5} strong>
                 Invoice# Trip No.{drawerData?.tripNo}
               </Title>
               <Text>See all information about the trip no. 68656</Text>
             </Typography>
+            <Button type="text" onClick={closeDrawer}>
+              <IoMdClose fontSize={25} />
+            </Button>
           </div>
         }
+        closable={false}
         placement="right"
         onClose={closeDrawer}
         open={isDrawerVisible}
