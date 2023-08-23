@@ -227,16 +227,16 @@ const EarnHistoryTable = () => {
   ];
 
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
-  const [drawerData, setDrawerData] = useState(null);
+  const [earningData, setEarningData] = useState(null);
 
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
-    setDrawerData(record);
+    setEarningData(record);
   };
 
   const closeDrawer = () => {
     setIsDrawerVisible(false);
-    setDrawerData(null);
+    setEarningData(null);
   };
 
   return (
@@ -253,7 +253,7 @@ const EarnHistoryTable = () => {
           >
             <Typography>
               <Title level={5} strong>
-                Invoice# Trip No.{drawerData?.tripNo}
+                Invoice# Trip No.{earningData?.tripNo}
               </Title>
               <Text>See all information about the trip no. 68656</Text>
             </Typography>
@@ -268,7 +268,7 @@ const EarnHistoryTable = () => {
         open={isDrawerVisible}
         width={600}
       >
-        {drawerData && <DrawerPage drawerData={drawerData} />}
+        {earningData && <DrawerPage earningData={earningData} />}
       </Drawer>
     </div>
   );

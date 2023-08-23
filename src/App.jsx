@@ -3,6 +3,7 @@ import "./App.css";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import DashboardHome from "./Pages/Dashboard/DashboardHome/DashboardHome";
 import Earning from "./Pages/Dashboard/Earning/Earning";
+import HostInfo from "./Pages/Dashboard/HostInfo/HostInfo";
 import Email from "./Pages/Email/Email";
 import Otp from "./Pages/Otp/Otp";
 import Signin from "./Pages/Signin/Signin";
@@ -17,6 +18,7 @@ function App() {
             <Route exact path="/" element={<Dashboard />}>
               <Route path="/" element={<DashboardHome />} />
               <Route path="/earning" element={<Earning />} />
+              <Route path="/host-info" element={<HostInfo />} />
             </Route>
 
             <Route path="/signin" element={<Signin />} />
