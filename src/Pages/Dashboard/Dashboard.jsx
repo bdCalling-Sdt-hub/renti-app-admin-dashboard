@@ -414,10 +414,10 @@ const Dashboard = () => {
             marginBottom: "50px",
             marginLeft: collapsed ? "130px" : "360px",
             marginRight: "60px",
+            background: "#e6e7f4",
 
             padding: 24,
             minHeight: 280,
-            background: colorBgContainer,
             overflow: "auto",
           }}
         >

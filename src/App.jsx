@@ -4,6 +4,7 @@ import Dashboard from "./Pages/Dashboard/Dashboard";
 import DashboardHome from "./Pages/Dashboard/DashboardHome/DashboardHome";
 import Earning from "./Pages/Dashboard/Earning/Earning";
 import HostInfo from "./Pages/Dashboard/HostInfo/HostInfo";
+import HostRequest from "./Pages/Dashboard/HostInfo/HostRequest";
 import Email from "./Pages/Email/Email";
 import Otp from "./Pages/Otp/Otp";
 import Signin from "./Pages/Signin/Signin";
@@ -19,6 +20,7 @@ function App() {
               <Route path="/" element={<DashboardHome />} />
               <Route path="/earning" element={<Earning />} />
               <Route path="/host-info" element={<HostInfo />} />
+              <Route path="/host-request" element={<HostRequest />} />
             </Route>
 
             <Route path="/signin" element={<Signin />} />
