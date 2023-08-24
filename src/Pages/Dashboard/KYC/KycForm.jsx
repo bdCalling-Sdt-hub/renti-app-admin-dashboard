@@ -216,7 +216,7 @@ const KycForm = () => {
             </Row>
 
             <Dragger
-              style={{ background: "#B0B3DD", color: "#000b92" }}
+              style={{ background: "#E6E7F4", color: "#000b92" }}
               {...props}
             >
               <p className="ant-upload-drag-icon">
