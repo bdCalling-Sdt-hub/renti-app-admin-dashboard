@@ -53,7 +53,7 @@ function DashboardHome() {
 
     <Row gutter={16}>
       <Col className="gutter-row" style={{marginBottom:"10px"}} xs={{span:24}} sm={{span:24}} md={{span:12}} lg={{span:6}}>
-         <div  className='rent-status'>
+         <div  className='rent-status' style={{backgroundColor:"#fff"}}>
             <MdCarRental style={{fontSize:"30px",color:"#000b90"}}/>
             <div className='single-status'>
                 <h2 style={{fontSize:"1.5rem",fontWeight:"600",marginTop:"10px",marginBottom:"10px",color:"#000b90"}}>Today's Rent</h2>
@@ -63,7 +63,7 @@ function DashboardHome() {
          </div>
       </Col>
       <Col className="gutter-row" style={{marginBottom:"10px"}} xs={{span:24}} sm={{span:24}} md={{span:12}} lg={{span:6}}>
-      <div  className='rent-status'>
+      <div  className='rent-status' style={{backgroundColor:"#fff"}}>
             <GrHistory style={{fontSize:"30px",color:"#000b90"}}/>
             <div className='single-status'>
                 <h2 style={{fontSize:"1.5rem",fontWeight:"600",marginTop:"10px",marginBottom:"10px",color:"#000b90"}}>Pendings</h2>
@@ -73,7 +73,7 @@ function DashboardHome() {
          </div>
       </Col>
       <Col className="gutter-row" style={{marginBottom:"10px"}} xs={{span:24}} sm={{span:24}} md={{span:12}} lg={{span:6}}>
-      <div  className='rent-status'>
+      <div  className='rent-status' style={{backgroundColor:"#fff"}}>
             <SlRefresh style={{fontSize:"30px",color:"#000b90"}}/>
             <div className='single-status'>
                 <h2 style={{fontSize:"1.5rem",fontWeight:"600",marginTop:"10px",marginBottom:"10px",color:"#000b90"}}>Ongoing</h2>
@@ -83,7 +83,7 @@ function DashboardHome() {
          </div>
       </Col>
       <Col className="gutter-row" style={{marginBottom:"10px"}} xs={{span:24}} sm={{span:24}} md={{span:12}} lg={{span:6}}>
-        <div className='rent-status'>
+        <div className='rent-status' style={{backgroundColor:"#fff"}}>
             <BsFillCheckCircleFill style={{fontSize:"30px",color:"#000b90"}}/>
             <div className='single-status'>
                 <h2 style={{fontSize:"1.5rem",fontWeight:"600",marginTop:"10px",marginBottom:"10px",color:"#000b90"}}>Complete</h2>
@@ -99,7 +99,7 @@ function DashboardHome() {
            <DailyRentChart/>
         </Col>
         <Col lg={{span:12}}>
-         <div className=''  style={{border:"3px solid #000b90",padding:"30px",borderRadius:"15px"}}>
+         <div className=''  style={{border:"3px solid #000b90",padding:"30px",borderRadius:"15px",backgroundColor:"#fff"}}>
             <h1 style={{color:"#000b90"}}>Most using car</h1>
            <MostRentCarChart/>
          </div>

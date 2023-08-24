@@ -430,7 +430,7 @@ const Dashboard = () => {
 
             padding: 50,
             minHeight: 280,
-            background: colorBgContainer,
+            background: "#e6e7f4",
             overflow: "auto",
           }}
         >
