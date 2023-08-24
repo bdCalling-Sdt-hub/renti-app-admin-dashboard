@@ -1,5 +1,6 @@
 import { Button, Col, Form, Input, Radio, Row, Select } from "antd";
 import React, { useState } from "react";
+import DatePicker from "react-multi-date-picker";
 import styleForm from "./KycForm.module.css";
 const { Option } = Select;
 
@@ -21,11 +22,14 @@ const KycForm = () => {
     formNavigateBtn: {
       height: "50px",
     },
+    input: {
+      height: "40px",
+    },
   };
 
   return (
-    <>
-      <h2>Kyc Form</h2>
+    <div style={{ padding: "0 60px" }}>
+      <h2 style={{ marginBottom: "10px" }}>Kyc Form</h2>
       <div style={style.formContainer}>
         <div
           style={{
@@ -71,13 +75,16 @@ const KycForm = () => {
                 <div>
                   <label htmlFor="">Full Name</label>
                   <Form.Item name="name">
-                    <Input placeholder="Type full name here" />
+                    <Input
+                      style={style.input}
+                      placeholder="Type full name here"
+                    />
                   </Form.Item>
                 </div>
                 <div>
                   <label
                     htmlFor=""
-                    style={{ display: "block", marginBottom: "10px" }}
+                    style={{ display: "block", marginBottom: "15px" }}
                   >
                     Gender
                   </label>
@@ -105,7 +112,11 @@ const KycForm = () => {
                     <Form.Item name="number">
                       <Input
                         placeholder="Type Phone number here"
-                        style={{ width: "520px", marginLeft: "10px" }}
+                        style={{
+                          width: "465px",
+                          height: "40px",
+                          marginLeft: "10px",
+                        }}
                       />
                     </Form.Item>
                   </div>
@@ -113,13 +124,16 @@ const KycForm = () => {
                 <div>
                   <label htmlFor="">Address</label>
                   <Form.Item name="address">
-                    <Input placeholder="Type address here" />
+                    <Input
+                      style={style.input}
+                      placeholder="Type address here"
+                    />
                   </Form.Item>
                 </div>
                 <div>
                   <label htmlFor="">RFC</label>
                   <Form.Item name="rfc">
-                    <Input placeholder="Type RFC here" />
+                    <Input style={style.input} placeholder="Type RFC here" />
                   </Form.Item>
                 </div>
               </Col>
@@ -128,25 +142,42 @@ const KycForm = () => {
                 <div>
                   <label htmlFor="">Email</label>
                   <Form.Item name="email">
-                    <Input placeholder="Type email here" />
+                    <Input style={style.input} placeholder="Type email here" />
                   </Form.Item>
                 </div>
+
+                <div style={{ margin: "15px 0" }}>
+                  <label htmlFor="">Date of Birth</label>
+                  <div style={{ display: "flex", gap: "15px" }}>
+                    <DatePicker style={{ height: "40px" }} format="DD" />
+                    <DatePicker
+                      style={{ height: "40px" }}
+                      format="MM"
+                      onlyMonthPicker
+                    />
+                    <DatePicker style={{ height: "40px" }} onlyYearPicker />
+                  </div>
+                </div>
+
                 <div>
                   <label htmlFor="">Credit Card Number</label>
                   <Form.Item name="cardNumber">
-                    <Input placeholder="Type card number here" />
+                    <Input
+                      style={style.input}
+                      placeholder="Type card number here"
+                    />
                   </Form.Item>
                 </div>
                 <div>
                   <label htmlFor="">Expire Date</label>
                   <Form.Item name="expireDate">
-                    <Input placeholder="MM-YY" />
+                    <Input style={style.input} placeholder="MM-YY" />
                   </Form.Item>
                 </div>
                 <div>
                   <label htmlFor="">CVV</label>
                   <Form.Item name="cvv">
-                    <Input placeholder="Type CVV here" />
+                    <Input style={style.input} placeholder="Type CVV here" />
                   </Form.Item>
                 </div>
               </Col>
@@ -154,7 +185,7 @@ const KycForm = () => {
           </Form>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
