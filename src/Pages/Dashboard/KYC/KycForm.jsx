@@ -1,11 +1,43 @@
-import { Button, Col, Form, Input, Radio, Row, Select } from "antd";
+import {
+  Button,
+  Col,
+  Form,
+  Input,
+  Radio,
+  Row,
+  Select,
+  Upload,
+  message,
+} from "antd";
 import React, { useState } from "react";
+import { AiOutlineCloudUpload } from "react-icons/ai";
 import DatePicker from "react-multi-date-picker";
 import styleForm from "./KycForm.module.css";
 const { Option } = Select;
+const { Dragger } = Upload;
+
+const props = {
+  name: "file",
+  multiple: true,
+  action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
+  onChange(info) {
+    const { status } = info.file;
+    if (status !== "uploading") {
+      console.log(info.file, info.fileList);
+    }
+    if (status === "done") {
+      message.success(`${info.file.name} file uploaded successfully.`);
+    } else if (status === "error") {
+      message.error(`${info.file.name} file upload failed.`);
+    }
+  },
+  onDrop(e) {
+    console.log("Dropped files", e.dataTransfer.files);
+  },
+};
 
 const KycForm = () => {
-  const [form, setForm] = useState("host");
+  const [formType, setFormType] = useState("host");
 
   const [selectedCountry, setSelectedCountry] = useState("usa");
 
@@ -23,7 +55,7 @@ const KycForm = () => {
       height: "50px",
     },
     input: {
-      height: "40px",
+      height: "45px",
     },
   };
 
@@ -35,14 +67,14 @@ const KycForm = () => {
           style={{
             display: "flex",
             borderBottom: "1px solid #cbcbcb",
-            padding: "10px",
+            paddingBottom: "15px",
             gap: "10px",
           }}
         >
           <Button
             type="text"
-            onClick={() => setForm("host")}
-            className={`${form === "host" ? styleForm.navigateBtn : ""}`}
+            onClick={() => setFormType("host")}
+            className={`${formType === "host" ? styleForm.navigateBtn : ""}`}
             style={style.formNavigateBtn}
             block
           >
@@ -50,8 +82,8 @@ const KycForm = () => {
           </Button>
           <Button
             type="text"
-            onClick={() => setForm("user")}
-            className={`${form === "user" ? styleForm.navigateBtn : ""}`}
+            onClick={() => setFormType("user")}
+            className={`${formType === "user" ? styleForm.navigateBtn : ""}`}
             style={style.formNavigateBtn}
             block
           >
@@ -59,8 +91,8 @@ const KycForm = () => {
           </Button>
           <Button
             type="text"
-            onClick={() => setForm("car")}
-            className={`${form === "car" ? styleForm.navigateBtn : ""}`}
+            onClick={() => setFormType("car")}
+            className={`${formType === "car" ? styleForm.navigateBtn : ""}`}
             style={style.formNavigateBtn}
             block
           >
@@ -114,7 +146,7 @@ const KycForm = () => {
                         placeholder="Type Phone number here"
                         style={{
                           width: "465px",
-                          height: "40px",
+                          height: "45px",
                           marginLeft: "10px",
                         }}
                       />
@@ -182,6 +214,22 @@ const KycForm = () => {
                 </div>
               </Col>
             </Row>
+
+            <Dragger
+              style={{ background: "#B0B3DD", color: "#000b92" }}
+              {...props}
+            >
+              <p className="ant-upload-drag-icon">
+                <AiOutlineCloudUpload style={{ fontSize: "30px" }} />
+              </p>
+              <p className="ant-upload-text">
+                Click or drag file to this area to upload
+              </p>
+              <p className="ant-upload-hint">
+                Support for a single or bulk upload. Strictly prohibited from
+                uploading company data or other banned files.
+              </p>
+            </Dragger>
           </Form>
         </div>
       </div>
