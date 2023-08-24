@@ -6,6 +6,7 @@ import Earning from "./Pages/Dashboard/Earning/Earning";
 import HostInfo from "./Pages/Dashboard/HostInfo/HostInfo";
 import HostRequest from "./Pages/Dashboard/HostInfo/HostRequest";
 import KycForm from "./Pages/Dashboard/Kyc/KycForm";
+import Wallet from "./Pages/Dashboard/Wallet/Wallet";
 import Email from "./Pages/Email/Email";
 import Otp from "./Pages/Otp/Otp";
 import Signin from "./Pages/Signin/Signin";
@@ -23,6 +24,8 @@ function App() {
               <Route path="/host-info" element={<HostInfo />} />
               <Route path="/host-request" element={<HostRequest />} />
               <Route path="/kyc-form" element={<KycForm />} />
+
+              <Route path="/wallet" element={<Wallet />} />
             </Route>
 
             <Route path="/signin" element={<Signin />} />
