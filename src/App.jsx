@@ -12,6 +12,7 @@ import Notification from "./Pages/Dashboard/Notification/Notification";
 import NotFound from "./404";
 import UserInfo from "./Pages/Dashboard/UserInfo/UserInfo";
 import RentInformation from "./Pages/Dashboard/RentInformation/RentInformation";
+import CarInformation from "./Pages/Dashboard/CarInformation/CarInformation";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
               <Route path="/host-info" element={<HostInfo />} />
               <Route path="/user-info" element={<UserInfo />} />
               <Route path="/rent-info" element={<RentInformation />} />
+              <Route path="/car-info" element={<CarInformation />} />
             </Route>
 
             <Route path="/signin" element={<Signin />} />

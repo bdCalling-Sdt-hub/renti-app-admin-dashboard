@@ -1,4 +1,4 @@
-.rent-card{
+.car-card{
     padding: 8px 0;
     color:white;
     text-align:center;
@@ -9,19 +9,19 @@
     transition: .5s;
 }
 
-.rent-card.complete{
+.car-card.total{
     background-color: #000b90;
 }
 
-.rent-card.reserved{
+.car-card.active{
     background-color: #00a99a;
 }
 
-.rent-card.canceled{
+.car-card.reserved{
     background-color: red;
 }
 
-.rent-card:hover{
+.car-card:hover{
     background-color: #fff;
     color:#000
 }
