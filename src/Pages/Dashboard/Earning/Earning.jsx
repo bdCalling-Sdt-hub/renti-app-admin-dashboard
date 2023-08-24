@@ -47,6 +47,7 @@ const Earning = () => (
     <h2 style={{ fontSize: "30px", margin: "30px 0px" }}>
       Transactions History
     </h2>
+    
     <EarnHistoryTable />
   </div>
 );

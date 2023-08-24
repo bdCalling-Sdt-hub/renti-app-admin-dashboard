@@ -266,7 +266,7 @@ const EarnHistoryTable = () => {
         placement="right"
         onClose={closeDrawer}
         open={isDrawerVisible}
-        width={600}
+        width={500}
       >
         {earningData && <DrawerPage earningData={earningData} />}
       </Drawer>

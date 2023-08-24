@@ -14,6 +14,12 @@
   font-family: "Poppins", sans-serif;
 }
 
+.ant-layout-sider-children .ant-menu-item-selected{
+  color:#000b90;
+  font-weight: bold;
+}
+
+
 :where(.css-dev-only-do-not-override-17a39f8).ant-table-wrapper
   .ant-table-thead
   > tr
@@ -26,3 +32,4 @@
   color: white;
   border: 0;
 }
+

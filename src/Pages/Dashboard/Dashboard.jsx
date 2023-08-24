@@ -3,16 +3,33 @@ import {
   CloseOutlined,
   MenuOutlined,
   UserOutlined,
-} from "@ant-design/icons";
-import { Button, Divider, Dropdown, Layout, Menu, Select, theme } from "antd";
-import React, { useState } from "react";
-import { FaUserLock } from "react-icons/fa";
+  
+  VideoCameraOutlined,
+  SettingOutlined
+} from '@ant-design/icons';
+import { Layout, Menu, Button, theme, Dropdown, Select } from 'antd';
+
+
+import { Divider } from 'antd';
+import { RxDashboard } from "react-icons/rx";
 import { GiReceiveMoney } from "react-icons/gi";
 import { MdCarRental, MdPayment, MdPeopleOutline } from "react-icons/md";
-import { RxDashboard } from "react-icons/rx";
+import { GoPeople } from './../../../node_modules/react-icons/go/index.esm';
+
+import { RiUserSearchLine } from "react-icons/ri";
+
+
+
+
+
+
+import React, { useState } from "react";
+import { FaUserLock } from "react-icons/fa";
+
+
 import { Link, Outlet } from "react-router-dom";
 import rentiLogo from "../../Images/renti-logo.png";
-import { GoPeople } from "./../../../node_modules/react-icons/go/index.esm";
+
 import Styles from "./Dashboard.module.css";
 
 const { Header, Sider, Content } = Layout;
@@ -232,18 +249,13 @@ const Dashboard = () => {
         <Menu
           style={{ padding: collapsed ? "0px" : "20px", border: "none" }}
           mode="inline"
-          defaultSelectedKeys={["1"]}
+          defaultSelectedKeys={['1']}
         >
-          <Menu.Item
-            key="1"
-            icon={<RxDashboard style={{ fontSize: "20px" }} />}
-          >
-            <Link to="#" style={{ fontSize: "20px" }}>
-              Dashboard
-            </Link>
+          <Menu.Item key="1" icon={<RxDashboard style={{fontSize:"18px"}}/>}>
+            <Link to="#" style={{fontSize:"18px"}}>Dashboard</Link>
           </Menu.Item>
-
-          <SubMenu key="2" icon={<GiReceiveMoney />} title="Earnings">
+          
+          <SubMenu  style={{fontSize:"18px"}} key="2" icon={<GiReceiveMoney style={{fontSize:"18px"}} />} title="Earnings">
             <Menu.Item key="31">
               <a href="#">Subnav 3-1</a>
             </Menu.Item>
@@ -252,7 +264,7 @@ const Dashboard = () => {
             </Menu.Item>
           </SubMenu>
 
-          <SubMenu key="3" icon={<MdPayment />} title="Payments">
+          <SubMenu  style={{fontSize:"18px"}} key="3" icon={<MdPayment style={{fontSize:"18px"}}/>} title="Payments">
             <Menu.Item key="31">
               <a href="#">Subnav 3-1</a>
             </Menu.Item>
@@ -260,32 +272,9 @@ const Dashboard = () => {
               <a href="#">Subnav 3-2</a>
             </Menu.Item>
           </SubMenu>
-          <Divider />
+          <Divider/>
 
-          <SubMenu key="4" icon={<GoPeople />} title="Host information">
-            <Menu.Item key="31">
-              <a href="#">Subnav 3-1</a>
-            </Menu.Item>
-            <Menu.Item key="32">
-              <a href="#">Subnav 3-2</a>
-            </Menu.Item>
-          </SubMenu>
-
-          <Menu.Item key="5" icon={<MdPeopleOutline />}>
-            <Link to="#">User information</Link>
-          </Menu.Item>
-
-          <Menu.Item key="6" icon={<MdCarRental />}>
-            <Link to="#">Rent information</Link>
-          </Menu.Item>
-
-          <Menu.Item key="7" icon={<CarOutlined />}>
-            <Link to="#">Car information</Link>
-          </Menu.Item>
-
-          <Divider />
-
-          <SubMenu key="8" icon={<FaUserLock />} title="KYC">
+          <SubMenu  style={{fontSize:"18px"}} key="4" icon={<GoPeople style={{fontSize:"18px"}} />} title="Host information">
             <Menu.Item key="31">
               <a href="#">Subnav 3-1</a>
             </Menu.Item>
@@ -294,9 +283,33 @@ const Dashboard = () => {
             </Menu.Item>
           </SubMenu>
 
-          <Menu.Item key="7" icon={<UserOutlined />}>
-            <Link to="#">Settings</Link>
+          <Menu.Item key="5" icon={< MdPeopleOutline style={{fontSize:"18px"}}/>}>
+            <Link to="#"  style={{fontSize:"18px"}}>User information</Link>
           </Menu.Item>
+
+          <Menu.Item key="6" icon={<MdCarRental style={{fontSize:"18px"}} />}>
+            <Link to="#"  style={{fontSize:"18px"}}>Rent information</Link>
+          </Menu.Item>
+
+          <Menu.Item key="7" icon={<CarOutlined style={{fontSize:"18px"}}/>}>
+            <Link to="#"  style={{fontSize:"18px"}}>Car information</Link>
+          </Menu.Item>
+
+          <Divider/>
+
+          <SubMenu  style={{fontSize:"18px"}} key="8" icon={<RiUserSearchLine style={{fontSize:"18px"}}/>} title="KYC">
+            <Menu.Item key="31">
+              <a href="#">Subnav 3-1</a>
+            </Menu.Item>
+            <Menu.Item key="32">
+              <a href="#">Subnav 3-2</a>
+            </Menu.Item>
+          </SubMenu>
+
+          <Menu.Item key="9" icon={<SettingOutlined style={{fontSize:"18px"}}/>}>
+            <Link to="#"  style={{fontSize:"18px"}}>Settings</Link>
+          </Menu.Item>
+
         </Menu>
       </Sider>
       <Layout>
@@ -416,7 +429,7 @@ const Dashboard = () => {
             marginRight: "60px",
             background: "#e6e7f4",
 
-            padding: 24,
+            padding: 50,
             minHeight: 280,
             overflow: "auto",
           }}
