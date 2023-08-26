@@ -1,14 +1,206 @@
 /* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable react/prop-types */
-import { Badge, Button, Input, Typography } from "antd";
+import { Badge, Button, Form, Input, Select, Typography } from "antd";
 import React from "react";
 import { AiFillStar } from "react-icons/ai";
 import cardImg from "../../Images/Cards.png";
+import img from "../../Images/image 1.png";
 const { Title } = Typography;
 
+const { Option } = Select;
+
 const DrawerPage = (props) => {
+  const style = {
+    cardType: {
+      height: "150px",
+      width: "250px",
+      background: props.cardBg,
+      borderRadius: "10px",
+      position: "relative",
+    },
+    icon: {
+      position: "absolute",
+      bottom: "10px",
+      left: "10px",
+      background: "#fff",
+      padding: "0 8px",
+      paddingTop: "8px",
+      borderRadius: "3px",
+    },
+    title: {
+      color: "#8d8d8d",
+      fontWeight: "normal",
+    },
+    editInput: {
+      height: "45px",
+    },
+  };
+
+  const prefixSelector = (
+    <Form.Item name="prefix" noStyle>
+      <Select
+        style={{
+          width: 70,
+        }}
+      >
+        <Option value="86">🏳️‍🌈</Option>
+        <Option value="87">🏳️‍⚧️</Option>
+      </Select>
+    </Form.Item>
+  );
+
+  const onFinish = (values) => {
+    console.log("Received values of form: ", values);
+  };
+
   return (
     <>
+      {props.editedCardData && (
+        <>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "20px",
+              borderBottom: "1px solid #ebe6e6",
+              paddingBottom: "20px",
+            }}
+          >
+            <div style={style.cardType}>
+              <div style={style.icon}>
+                <img src={img} alt="" />
+              </div>
+            </div>
+            <div>
+              <div style={{ marginBottom: "8px" }}>
+                <h4 style={style.title}>Valid Date</h4>
+                <h4
+                  style={{
+                    fontWeight: "normal",
+                  }}
+                >
+                  {props.editedCardData.validDate}
+                </h4>
+              </div>
+              <div style={{ marginBottom: "8px" }}>
+                <h4 style={style.title}>Card Holder</h4>
+                <h4
+                  style={{
+                    fontWeight: "normal",
+                  }}
+                >
+                  {props.editedCardData.cardHolder}
+                </h4>
+              </div>
+              <div style={{ marginBottom: "8px" }}>
+                <h4 style={style.title}>Card Number</h4>
+                <h4
+                  style={{
+                    fontWeight: "normal",
+                  }}
+                >
+                  {props.editedCardData.cardNumber}
+                </h4>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <Form onFinish={onFinish}>
+              <div>
+                <label htmlFor="">Your Name</label>
+                <Form.Item
+                  name="name"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your name!",
+                    },
+                  ]}
+                >
+                  <Input style={style.editInput} />
+                </Form.Item>
+              </div>
+              <div>
+                <label htmlFor="">Email</label>
+                <Form.Item
+                  name="email"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your Email!",
+                    },
+                  ]}
+                >
+                  <Input style={style.editInput} />
+                </Form.Item>
+              </div>
+              <div>
+                <label htmlFor="">Phone Number</label>
+                <Form.Item
+                  name="phone"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your phone number!",
+                    },
+                  ]}
+                >
+                  <Input addonBefore={prefixSelector} style={style.editInput} />
+                </Form.Item>
+              </div>
+              <div>
+                <label htmlFor="">Card Number</label>
+                <Form.Item
+                  name="cardNumber"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your card number!",
+                    },
+                  ]}
+                >
+                  <Input style={style.editInput} />
+                </Form.Item>
+              </div>
+              <div>
+                <label htmlFor="">CVC</label>
+                <Form.Item
+                  name="cvc"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your cvc!",
+                    },
+                  ]}
+                >
+                  <Input style={style.editInput} />
+                </Form.Item>
+              </div>
+              <div>
+                <label htmlFor="">Expire Date</label>
+                <Form.Item
+                  name="name"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your Expire Date!",
+                    },
+                  ]}
+                >
+                  <Input style={style.editInput} />
+                </Form.Item>
+              </div>
+
+              <Form.Item>
+                <Button type="primary" htmlType="submit">
+                  Register
+                </Button>
+              </Form.Item>
+            </Form>
+          </div>
+        </>
+      )}
       {props.earningData && (
         <div>
           <div style={{ display: "flex", gap: "15px" }}>

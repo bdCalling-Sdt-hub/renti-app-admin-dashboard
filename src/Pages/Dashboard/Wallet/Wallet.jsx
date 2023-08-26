@@ -6,6 +6,33 @@ import WalletCard from "./WalletCard";
 const { Title } = Typography;
 
 const Wallet = () => {
+  const cardData = [
+    {
+      id: "1",
+      validDate: "12/23",
+      cardHolder: "Sanchez Haro Manuel",
+      cardNumber: "**********4584",
+    },
+    {
+      id: "2",
+      validDate: "14/28",
+      cardHolder: "Captain Jack Sparrow",
+      cardNumber: "**********4670",
+    },
+    {
+      id: "3",
+      validDate: "12/24",
+      cardHolder: "Pirates of Caribbean",
+      cardNumber: "**********3658",
+    },
+    {
+      id: "4",
+      validDate: "15/25",
+      cardHolder: "Kate Winslate",
+      cardNumber: "**********8989",
+    },
+  ];
+
   const style = {
     progContainer: {
       backgroundColor: "#fff",
@@ -143,9 +170,8 @@ const Wallet = () => {
             <AiOutlinePlus style={{ fontSize: "15px" }} /> Add Card
           </Button>
         </div>
-
-        {[...Array(4).keys()].map((item, index) => (
-          <WalletCard key={item} cardBg={colors[index]} />
+        {cardData.map((data, index) => (
+          <WalletCard key={data.id} cardBg={colors[index]} data={data} />
         ))}
       </div>
     </div>
