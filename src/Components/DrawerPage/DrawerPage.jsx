@@ -40,7 +40,8 @@ const DrawerPage = (props) => {
     <Form.Item name="prefix" noStyle>
       <Select
         style={{
-          width: 70,
+          width: 100,
+          height: "45px",
         }}
       >
         <Option value="86">🏳️‍🌈</Option>
@@ -118,7 +119,10 @@ const DrawerPage = (props) => {
                     },
                   ]}
                 >
-                  <Input style={style.editInput} />
+                  <Input
+                    style={style.editInput}
+                    defaultValue={props.editedCardData.cardHolder}
+                  />
                 </Form.Item>
               </div>
               <div>
@@ -132,7 +136,10 @@ const DrawerPage = (props) => {
                     },
                   ]}
                 >
-                  <Input style={style.editInput} />
+                  <Input
+                    style={style.editInput}
+                    defaultValue={"siffahim25@gmail.com"}
+                  />
                 </Form.Item>
               </div>
               <div>
@@ -146,7 +153,11 @@ const DrawerPage = (props) => {
                     },
                   ]}
                 >
-                  <Input addonBefore={prefixSelector} style={style.editInput} />
+                  <Input
+                    addonBefore={prefixSelector}
+                    style={{ height: "45px" }}
+                    defaultValue={"01646524028"}
+                  />
                 </Form.Item>
               </div>
               <div>
@@ -160,7 +171,10 @@ const DrawerPage = (props) => {
                     },
                   ]}
                 >
-                  <Input style={style.editInput} />
+                  <Input
+                    style={style.editInput}
+                    defaultValue={props.editedCardData.cardNumber}
+                  />
                 </Form.Item>
               </div>
               <div>
@@ -174,7 +188,7 @@ const DrawerPage = (props) => {
                     },
                   ]}
                 >
-                  <Input style={style.editInput} />
+                  <Input style={style.editInput} defaultValue={548} />
                 </Form.Item>
               </div>
               <div>
@@ -188,13 +202,25 @@ const DrawerPage = (props) => {
                     },
                   ]}
                 >
-                  <Input style={style.editInput} />
+                  <Input
+                    style={style.editInput}
+                    defaultValue={props.editedCardData.validDate}
+                  />
                 </Form.Item>
               </div>
 
               <Form.Item>
-                <Button type="primary" htmlType="submit">
-                  Register
+                <Button
+                  style={{
+                    background: "#000890",
+                    color: "white",
+                    width: "100%",
+                    height: "45px",
+                    marginTop: "130px",
+                  }}
+                  htmlType="submit"
+                >
+                  Save
                 </Button>
               </Form.Item>
             </Form>

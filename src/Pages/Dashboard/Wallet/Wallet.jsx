@@ -1,11 +1,34 @@
 import { Pie } from "@ant-design/plots";
-import { Button, Col, Progress, Row, Typography } from "antd";
-import React from "react";
+import { Button, Col, Drawer, Modal, Progress, Row, Typography } from "antd";
+import React, { useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
+import { IoMdClose } from "react-icons/io";
 import WalletCard from "./WalletCard";
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 const Wallet = () => {
+  const [isDrawerVisible, setIsDrawerVisible] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [cardTitle, setCardTitle] = useState(null);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  const showDrawer = (value) => {
+    setIsDrawerVisible(true);
+    setCardTitle(value);
+  };
+
+  const closeDrawer = () => {
+    setIsDrawerVisible(false);
+    setCardTitle(null);
+  };
+
   const cardData = [
     {
       id: "1",
@@ -166,7 +189,7 @@ const Wallet = () => {
           <Title level={3} style={{ color: "#000B90" }}>
             Card List
           </Title>
-          <Button style={style.addCardBtn}>
+          <Button style={style.addCardBtn} onClick={() => showModal()}>
             <AiOutlinePlus style={{ fontSize: "15px" }} /> Add Card
           </Button>
         </div>
@@ -174,6 +197,58 @@ const Wallet = () => {
           <WalletCard key={data.id} cardBg={colors[index]} data={data} />
         ))}
       </div>
+      <Modal
+        title="Payment Method"
+        open={isModalOpen}
+        onCancel={handleCancel}
+        footer={[]}
+      >
+        <Button
+          type="text"
+          style={{ width: "100%" }}
+          onClick={() => {
+            showDrawer("Credit Card");
+            handleCancel();
+          }}
+        >
+          Credit Card
+        </Button>
+        <Button
+          type="text"
+          style={{ width: "100%" }}
+          onClick={() => {
+            showDrawer("Debit Card");
+            handleCancel();
+          }}
+        >
+          Debit Card
+        </Button>
+      </Modal>
+      <Drawer
+        title={
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Typography>
+              <Text>{cardTitle}</Text>
+            </Typography>
+            <Button type="text" onClick={closeDrawer}>
+              <IoMdClose fontSize={25} />
+            </Button>
+          </div>
+        }
+        closable={false}
+        placement="right"
+        onClose={closeDrawer}
+        open={isDrawerVisible}
+        width={600}
+      >
+        add
+      </Drawer>
     </div>
   );
 };
