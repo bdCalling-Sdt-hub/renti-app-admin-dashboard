@@ -13,6 +13,10 @@ import NotFound from "./404";
 import UserInfo from "./Pages/Dashboard/UserInfo/UserInfo";
 import RentInformation from "./Pages/Dashboard/RentInformation/RentInformation";
 import CarInformation from "./Pages/Dashboard/CarInformation/CarInformation";
+import UserPayment from "./Pages/Dashboard/UserPayment/UserPayment";
+import RentisIncome from "./Pages/Dashboard/RentisIncome/RentisIncome";
+import HostPayment from "./Pages/Dashboard/HostPayment/HostPayment";
+import StripeBills from "./Pages/Dashboard/StripeBills/StripeBills";
 
 function App() {
   return (
@@ -28,6 +32,10 @@ function App() {
               <Route path="/user-info" element={<UserInfo />} />
               <Route path="/rent-info" element={<RentInformation />} />
               <Route path="/car-info" element={<CarInformation />} />
+              <Route path="/user-payment" element={<UserPayment />} />
+              <Route path="/renti-income" element={<RentisIncome />} />
+              <Route path="/host-payment" element={<HostPayment />} />
+              <Route path="/stripe-bills" element={<StripeBills />} />
             </Route>
 
             <Route path="/signin" element={<Signin />} />
