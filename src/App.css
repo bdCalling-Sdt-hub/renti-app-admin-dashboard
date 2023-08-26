@@ -11,14 +11,13 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif !important;
 }
 
-.ant-layout-sider-children .ant-menu-item-selected{
-  color:#000b90;
+.ant-layout-sider-children .ant-menu-item-selected {
+  color: #000b90;
   font-weight: bold;
 }
-
 
 :where(.css-dev-only-do-not-override-17a39f8).ant-table-wrapper
   .ant-table-thead
@@ -32,4 +31,3 @@
   color: white;
   border: 0;
 }
-

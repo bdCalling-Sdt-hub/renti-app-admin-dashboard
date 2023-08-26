@@ -8,7 +8,6 @@ const { Title, Text } = Typography;
 
 const data = [
   {
-    key: "1",
     tripNo: "1373700510",
 
     time: "18 Jul, 2023  4:30pm",

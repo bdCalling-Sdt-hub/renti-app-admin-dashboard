@@ -1,6 +1,6 @@
 import { Button, Input } from "antd";
 import React from "react";
-import EarnHistoryTable from "../Earning/EarnHistoryTable";
+import HostInfoTable from "./HostInfoTable";
 
 const HostInfo = () => (
   <div style={{ padding: "0px 50px" }}>
@@ -22,7 +22,7 @@ const HostInfo = () => (
     <h2 style={{ fontSize: "25px", marginTop: "50px", marginBottom: "20px" }}>
       All Host List With Their Information
     </h2>
-    <EarnHistoryTable />
+    <HostInfoTable />
   </div>
 );
 

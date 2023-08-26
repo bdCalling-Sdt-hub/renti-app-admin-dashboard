@@ -2,30 +2,19 @@ import {
   CarOutlined,
   CloseOutlined,
   MenuOutlined,
-  UserOutlined,
-  
-  VideoCameraOutlined,
-  SettingOutlined
-} from '@ant-design/icons';
-import { Layout, Menu, Button, theme, Dropdown, Select } from 'antd';
+  SettingOutlined,
+} from "@ant-design/icons";
+import { Button, Dropdown, Layout, Menu, Select, theme } from "antd";
 
-
-import { Divider } from 'antd';
-import { RxDashboard } from "react-icons/rx";
+import { Divider } from "antd";
 import { GiReceiveMoney } from "react-icons/gi";
 import { MdCarRental, MdPayment, MdPeopleOutline } from "react-icons/md";
-import { GoPeople } from './../../../node_modules/react-icons/go/index.esm';
+import { RxDashboard } from "react-icons/rx";
+import { GoPeople } from "./../../../node_modules/react-icons/go/index.esm";
 
 import { RiUserSearchLine } from "react-icons/ri";
 
-
-
-
-
-
 import React, { useState } from "react";
-import { FaUserLock } from "react-icons/fa";
-
 
 import { Link, Outlet } from "react-router-dom";
 import rentiLogo from "../../Images/renti-logo.png";
@@ -74,89 +63,8 @@ const items = [...Array(5).keys()].map((item, index) => {
   };
 });
 
-// const items =
-//  [
-//   {
-//     key: '1',
-//     label: (
-//       <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-//         <div className='' style={{display:"flex",alignItems:"center"}}>
-//              <img style={{backgroundColor:"#d9cffb",borderRadius:"100%",padding:"5px",marginRight:"15px"}} width="30" height="30" src="https://img.icons8.com/3d-fluency/94/person-male--v2.png" alt="person-male--v2"/>
-//              <div className='' style={{padding:0,margin:0}}>
-//                 <p style={{}}><span>Sanchej haro manual </span>started a new trip from mexico.</p>
-//                 <span style={{color:"#d2d2d2"}}>1 hr ago</span>
-//              </div>
-//         </div>
 
-//       </a>
-//     ),
 
-//   },
-//   {
-//     key: '2',
-//     label: (
-//       <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-//         <div className='' style={{display:"flex",alignItems:"center"}}>
-//              <img style={{backgroundColor:"#d9cffb",borderRadius:"100%",padding:"5px",marginRight:"15px"}} width="30" height="30" src="https://img.icons8.com/3d-fluency/94/person-male--v2.png" alt="person-male--v2"/>
-//              <div className='' style={{padding:0,margin:0}}>
-//                 <p style={{}}><span>Sanchej haro manual </span>started a new trip from mexico.</p>
-//                 <span style={{color:"#d2d2d2"}}>1 hr ago</span>
-//              </div>
-//         </div>
-
-//       </a>
-//     ),
-
-//   },
-//   {
-//     key: '3',
-//     label: (
-//       <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-//         <div className='' style={{display:"flex",alignItems:"center"}}>
-//              <img style={{backgroundColor:"#d9cffb",borderRadius:"100%",padding:"5px",marginRight:"15px"}} width="30" height="30" src="https://img.icons8.com/3d-fluency/94/person-male--v2.png" alt="person-male--v2"/>
-//              <div className='' style={{padding:0,margin:0}}>
-//                 <p style={{}}><span>Sanchej haro manual </span>started a new trip from mexico.</p>
-//                 <span style={{color:"#d2d2d2"}}>1 hr ago</span>
-//              </div>
-//         </div>
-
-//       </a>
-//     ),
-
-//   },
-//   {
-//     key: '4',
-//     label: (
-//       <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-//         <div className='' style={{display:"flex",alignItems:"center"}}>
-//              <img style={{backgroundColor:"#d9cffb",borderRadius:"100%",padding:"5px",marginRight:"15px"}} width="30" height="30" src="https://img.icons8.com/3d-fluency/94/person-male--v2.png" alt="person-male--v2"/>
-//              <div className='' style={{padding:0,margin:0}}>
-//                 <p style={{}}><span>Sanchej haro manual </span>started a new trip from mexico.</p>
-//                 <span style={{color:"#d2d2d2"}}>1 hr ago</span>
-//              </div>
-//         </div>
-
-//       </a>
-//     ),
-
-//   },
-//   {
-//     key: '5',
-//     label: (
-//       <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-//         <div className='' style={{display:"flex",alignItems:"center"}}>
-//              <img style={{backgroundColor:"#d9cffb",borderRadius:"100%",padding:"5px",marginRight:"15px"}} width="30" height="30" src="https://img.icons8.com/3d-fluency/94/person-male--v2.png" alt="person-male--v2"/>
-//              <div className='' style={{display:"flex",flexDirection:"column",alignItems:"flex-start",justifyContent:"flex-start"}}>
-//                 <p style={{}}><span>Sanchej haro manual </span>started a new trip from mexico.</p>
-//                 <span style={{color:"#d2d2d2"}}>1 hr ago</span>
-//              </div>
-//         </div>
-
-//       </a>
-//     ),
-
-//   },
-// ];
 
 const Dashboard = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -249,13 +157,18 @@ const Dashboard = () => {
         <Menu
           style={{ padding: collapsed ? "0px" : "20px", border: "none" }}
           mode="inline"
-          defaultSelectedKeys={['1']}
+          defaultSelectedKeys={["1"]}
         >
           <Menu.Item key="1" icon={<RxDashboard style={{fontSize:"18px"}}/>}>
             <Link to="/" style={{fontSize:"18px"}}>Dashboard</Link>
           </Menu.Item>
-          
-          <SubMenu  style={{fontSize:"18px"}} key="2" icon={<GiReceiveMoney style={{fontSize:"18px"}} />} title="Earnings">
+
+          <SubMenu
+            style={{ fontSize: "18px" }}
+            key="2"
+            icon={<GiReceiveMoney style={{ fontSize: "18px" }} />}
+            title="Earnings"
+          >
             <Menu.Item key="31">
               <Link to="/earning/today-income">Today's income</Link>
             </Menu.Item>
@@ -267,52 +180,101 @@ const Dashboard = () => {
             </Menu.Item>
           </SubMenu>
 
-          <SubMenu  style={{fontSize:"18px"}} key="3" icon={<MdPayment style={{fontSize:"18px"}}/>} title="Payments">
-            <Menu.Item key="31">
-              <a href="#">Subnav 3-1</a>
+          <SubMenu
+            style={{ fontSize: "18px" }}
+            key="3"
+            icon={<MdPayment style={{ fontSize: "18px" }} />}
+            title="Payments"
+          >
+            <Menu.Item key="34">
+              <Link to="/user-payment">User Payments</Link>
             </Menu.Item>
-            <Menu.Item key="32">
-              <a href="#">Subnav 3-2</a>
+            <Menu.Item key="35">
+              <Link to="/host-payment">Host Payments</Link>
+            </Menu.Item>
+            <Menu.Item key="36">
+              <Link to="/stripe-bills">Stripe Bills</Link>
+            </Menu.Item>
+            <Menu.Item key="37">
+              <Link to="/renti-income">Renti's Income</Link>
+            </Menu.Item>
+            <Menu.Item key="38">
+              <Link to="/wallet">Wallet</Link>
             </Menu.Item>
           </SubMenu>
-          <Divider/>
+          <Divider />
 
-          <SubMenu  style={{fontSize:"18px"}} key="4" icon={<GoPeople style={{fontSize:"18px"}} />} title="Host information">
-            <Menu.Item key="31">
-              <a href="#">Subnav 3-1</a>
+          <SubMenu
+            style={{ fontSize: "18px" }}
+            key="4"
+            icon={<GoPeople style={{ fontSize: "18px" }} />}
+            title="Host information"
+          >
+            <Menu.Item key="39">
+              <Link to="/host-info">All Host</Link>
             </Menu.Item>
-            <Menu.Item key="32">
-              <a href="#">Subnav 3-2</a>
-            </Menu.Item>
-          </SubMenu>
-
-          <Menu.Item key="5" icon={< MdPeopleOutline style={{fontSize:"18px"}}/>}>
-            <Link to="#"  style={{fontSize:"18px"}}>User information</Link>
-          </Menu.Item>
-
-          <Menu.Item key="6" icon={<MdCarRental style={{fontSize:"18px"}} />}>
-            <Link to="#"  style={{fontSize:"18px"}}>Rent information</Link>
-          </Menu.Item>
-
-          <Menu.Item key="7" icon={<CarOutlined style={{fontSize:"18px"}}/>}>
-            <Link to="#"  style={{fontSize:"18px"}}>Car information</Link>
-          </Menu.Item>
-
-          <Divider/>
-
-          <SubMenu  style={{fontSize:"18px"}} key="8" icon={<RiUserSearchLine style={{fontSize:"18px"}}/>} title="KYC">
-            <Menu.Item key="31">
-              <a href="#">Subnav 3-1</a>
-            </Menu.Item>
-            <Menu.Item key="32">
-              <a href="#">Subnav 3-2</a>
+            <Menu.Item key="40">
+              <Link to="/host-request">Host Request</Link>
             </Menu.Item>
           </SubMenu>
 
-          <Menu.Item key="9" icon={<SettingOutlined style={{fontSize:"18px"}}/>}>
-            <Link to="#"  style={{fontSize:"18px"}}>Settings</Link>
+          <Menu.Item
+            key="5"
+            icon={<MdPeopleOutline style={{ fontSize: "18px" }} />}
+          >
+            <Link to="/user-info" style={{ fontSize: "18px" }}>
+              User information
+            </Link>
           </Menu.Item>
 
+          <Menu.Item
+            key="6"
+            icon={<MdCarRental style={{ fontSize: "18px" }} />}
+          >
+            <Link to="/rent-info" style={{ fontSize: "18px" }}>
+              Rent information
+            </Link>
+          </Menu.Item>
+
+          <Menu.Item
+            key="7"
+            icon={<CarOutlined style={{ fontSize: "18px" }} />}
+          >
+            <Link to="/car-info" style={{ fontSize: "18px" }}>
+              Car information
+            </Link>
+          </Menu.Item>
+
+          <Divider />
+
+          <SubMenu
+            style={{ fontSize: "18px" }}
+            key="8"
+            icon={<RiUserSearchLine style={{ fontSize: "18px" }} />}
+            title="KYC"
+          >
+            <Menu.Item key="41">
+              <Link href="#">Host KYC</Link>
+            </Menu.Item>
+            <Menu.Item key="42">
+              <Link href="#">User KYC</Link>
+            </Menu.Item>
+            <Menu.Item key="43">
+              <Link href="#">Car KYC</Link>
+            </Menu.Item>
+            <Menu.Item key="44">
+              <Link to="/kyc-form">KYC form</Link>
+            </Menu.Item>
+          </SubMenu>
+
+          <Menu.Item
+            key="9"
+            icon={<SettingOutlined style={{ fontSize: "18px" }} />}
+          >
+            <Link to="#" style={{ fontSize: "18px" }}>
+              Settings
+            </Link>
+          </Menu.Item>
         </Menu>
       </Sider>
       <Layout>
@@ -430,10 +392,10 @@ const Dashboard = () => {
             marginBottom: "50px",
             marginLeft: collapsed ? "130px" : "360px",
             marginRight: "60px",
+            background: "#e6e7f4",
 
             padding: 50,
             minHeight: 280,
-            background: "#e6e7f4",
             overflow: "auto",
           }}
         >
