@@ -27,7 +27,7 @@ function App() {
             <Route exact path="/" element={<Dashboard />}>
               <Route path="/" element={<DashboardHome />} />
               <Route path="/notification" element={<Notification/>} />
-              <Route path="/earning" element={<Earning />} />
+              <Route path="/earning/:income" element={<Earning />} />
               <Route path="/host-info" element={<HostInfo />} />
               <Route path="/user-info" element={<UserInfo />} />
               <Route path="/rent-info" element={<RentInformation />} />

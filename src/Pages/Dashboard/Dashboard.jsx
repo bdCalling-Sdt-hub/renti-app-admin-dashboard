@@ -252,15 +252,18 @@ const Dashboard = () => {
           defaultSelectedKeys={['1']}
         >
           <Menu.Item key="1" icon={<RxDashboard style={{fontSize:"18px"}}/>}>
-            <Link to="#" style={{fontSize:"18px"}}>Dashboard</Link>
+            <Link to="/" style={{fontSize:"18px"}}>Dashboard</Link>
           </Menu.Item>
           
           <SubMenu  style={{fontSize:"18px"}} key="2" icon={<GiReceiveMoney style={{fontSize:"18px"}} />} title="Earnings">
             <Menu.Item key="31">
-              <a href="#">Subnav 3-1</a>
+              <Link to="/earning/today-income">Today's income</Link>
             </Menu.Item>
             <Menu.Item key="32">
-              <a href="#">Subnav 3-2</a>
+              <Link to="/earning/weekly-income">Weekly income</Link>
+            </Menu.Item>
+            <Menu.Item key="33">
+              <Link to="/earning/monthly-income">Monthly income</Link>
             </Menu.Item>
           </SubMenu>
 
