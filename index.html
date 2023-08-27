@@ -16,21 +16,21 @@
     <script>
         function googleTranslateElementInit(){
           new google.translate.TranslateElement(
-              {pageLanguage:'en', includedLanguages: 'es,bn,en,ja,de,fr',layout:google.translate.TranslateElement.InlineLayout.SIMPLE},
+              {
+                defaultLanguage:"en",
+                pageLanguage:'en',
+                includedLanguages: 'en,es,fr',
+                //layout:google.translate.TranslateElement.InlineLayout.SIMPLE,
+                showIcon:true,
+                gtl: 'en',
+                multilanguagePage: true,
+              },
               'google_translate_element'
           );
         }
     </script>
 
-    <!-- <div id="google_translate_element"">><<//divdiv>><<script script typetype==""texttext//javascriptjavascript""> >
-      function google TranslateElementInit()
-      new google.translate. TranslateElement({pageLanguage: 'en', layout:
-      google.translate. TranslateElement. InlineLayout.SIMPLE},
-      'google_translate_element');
-      }
-      </script><script type="text/javascript"
-      src="//translate.google.com/translate_a/element.js?cb=google TranslateElementInit">
-      </script> -->
+   
     
   </body>
 </html>
