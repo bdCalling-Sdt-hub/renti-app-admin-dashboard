@@ -21,6 +21,9 @@ import UserPayment from "./Pages/Dashboard/UserPayment/UserPayment";
 import RentisIncome from "./Pages/Dashboard/RentisIncome/RentisIncome";
 import HostPayment from "./Pages/Dashboard/HostPayment/HostPayment";
 import StripeBills from "./Pages/Dashboard/StripeBills/StripeBills";
+import HostKyc from "./Pages/Dashboard/HostKyc/HostKyc";
+import UserKyc from "./Pages/Dashboard/UserKyc/UserKyc";
+import CarKyc from "./Pages/Dashboard/CarKyc/CarKyc";
 
 function App() {
   return (
@@ -44,6 +47,9 @@ function App() {
               <Route path="/renti-income" element={<RentisIncome />} />
               <Route path="/host-payment" element={<HostPayment />} />
               <Route path="/stripe-bills" element={<StripeBills />} />
+              <Route path="/host-kyc" element={<HostKyc />} />
+              <Route path="/user-kyc" element={<UserKyc />} />
+              <Route path="/car-kyc" element={<CarKyc />} />
             </Route>
 
             <Route path="/signin" element={<Signin />} />

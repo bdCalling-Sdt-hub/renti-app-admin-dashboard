@@ -254,13 +254,13 @@ const Dashboard = () => {
             title="KYC"
           >
             <Menu.Item key="41">
-              <Link href="#">Host KYC</Link>
+              <Link to="/host-kyc">Host KYC</Link>
             </Menu.Item>
             <Menu.Item key="42">
-              <Link href="#">User KYC</Link>
+              <Link to="/user-kyc">User KYC</Link>
             </Menu.Item>
             <Menu.Item key="43">
-              <Link href="#">Car KYC</Link>
+              <Link to="/car-kyc">Car KYC</Link>
             </Menu.Item>
             <Menu.Item key="44">
               <Link to="/kyc-form">KYC form</Link>
@@ -294,7 +294,7 @@ const Dashboard = () => {
           <div className="" style={{ display: "flex", alignItems: "center" }}>
             <Button
               type="text"
-              icon={collapsed ? <CloseOutlined /> : <MenuOutlined />}
+              icon={collapsed ? <MenuOutlined /> : <MenuOutlined />}
               onClick={() => setCollapsed(!collapsed)}
               style={{
                 marginLeft: collapsed ? "125px" : "360px",
