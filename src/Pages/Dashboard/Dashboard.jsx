@@ -25,13 +25,51 @@ const { Header, Sider, Content } = Layout;
 const { SubMenu } = Menu;
 const { Option } = Select;
 
+
+const myitems=[
+  {
+    key:profile,
+    label:(
+      <Link to="#">
+          <div
+          className={Styles.everyNotify}
+          style={{ display: "flex", alignItems: "center" }}
+        >
+          <img
+            style={{
+              backgroundColor: "#d9cffb",
+              borderRadius: "100%",
+              padding: "5px",
+              marginRight: "15px",
+            }}
+            width="30"
+            height="30"
+            src="https://img.icons8.com/3d-fluency/94/person-male--v2.png"
+            alt="person-male--v2"
+          />
+          <div className="" style={{ marginTop: "" }}>
+            <p>
+              <span>Sanchej haro manual </span>started a new trip from mexico.
+            </p>
+            <span style={{ color: "#d2d2d2" }}>1 hr ago</span>
+          </div>
+        </div>
+      </Link>
+    )
+  }
+]
+
+
+
+
+
 const items = [...Array(5).keys()].map((item, index) => {
   return {
     key: index,
     label: (
-      <a
-        target="_blank"
-        href="https://www.antgroup.com"
+      <Link
+        
+        to="/notification"
         style={{}}
         rel="noreferrer"
       >
@@ -58,7 +96,7 @@ const items = [...Array(5).keys()].map((item, index) => {
             <span style={{ color: "#d2d2d2" }}>1 hr ago</span>
           </div>
         </div>
-      </a>
+      </Link>
     ),
   };
 });
@@ -115,7 +153,7 @@ const Dashboard = () => {
             fontWeight: "bold",
           }}
         >
-          See All
+          <Link to="/notification">See All</Link>
         </Button>
       </div>
     </Menu>
@@ -337,15 +375,7 @@ const Dashboard = () => {
                     Spanish
                   </div>
                 </Option>
-                <Option value="bangla">
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <img
-                      src="https://www.babseacle.org/wp-content/uploads/2020/09/Bangla-flag.jpg"
-                      style={{ marginRight: 8, width: 16, height: 16 }}
-                    />
-                    Bangla
-                  </div>
-                </Option>
+                
               </Select>
             </div>
             <div className={Styles.notificaton}>
