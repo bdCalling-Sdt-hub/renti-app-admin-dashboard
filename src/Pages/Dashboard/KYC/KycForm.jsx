@@ -59,6 +59,20 @@ const KycForm = () => {
     },
   };
 
+  const prefixSelector = (
+    <Form.Item name="prefix" noStyle>
+      <Select
+        style={{
+          width: 70,
+          height:"45px"
+        }}
+      >
+        <Option value="86">+86</Option>
+        <Option value="87">+87</Option>
+      </Select>
+    </Form.Item>
+  );
+
   return (
     <div style={{ padding: "0 60px" }}>
       <h2 style={{ marginBottom: "10px" }}>Kyc Form</h2>
@@ -126,31 +140,27 @@ const KycForm = () => {
                     <Radio value={3}>Others</Radio>
                   </Radio.Group>
                 </div>
-                <div style={{ marginTop: "20px" }}>
+                <div style={{ marginTop: "20px"}}>
                   <label htmlFor="">Phone Number</label>
-                  <div style={{ display: "flex" }}>
-                    <Form.Item name="country">
-                      <Select
-                        placeholder="Select a country"
-                        value={selectedCountry}
-                        onChange={handleCountryChange}
-                      >
-                        <Option value="usa" selected>
-                          🏳️‍⚧️
-                        </Option>
-                        <Option value="canada">🏳️‍🌈</Option>
-                      </Select>
-                    </Form.Item>
-                    <Form.Item name="number">
+                  <div >
+                    <Form.Item
+                      name="phone"
+                     
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Please input your phone number!',
+                        },
+                      ]}
+                    >
                       <Input
-                        placeholder="Type Phone number here"
-                        style={{
-                          width: "465px",
-                          height: "45px",
-                          marginLeft: "10px",
-                        }}
+                        placeholder="please enter your phone number"
+                        style={{height:"45px"}}
+                        
                       />
                     </Form.Item>
+
+               
                   </div>
                 </div>
                 <div>
