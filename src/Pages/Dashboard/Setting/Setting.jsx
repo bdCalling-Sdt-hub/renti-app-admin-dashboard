@@ -94,7 +94,7 @@ const Setting = () => {
 
   return (
     <div style={{ padding: "0 60px" }}>
-      <h2 style={{ marginBottom: "10px", fontWeight: "normal" }}>Settings</h2>
+      <h2 style={{ marginBottom: "20px", fontWeight: "normal" }}>Settings</h2>
       <div style={style.formContainer}>
         {menuItems.map((item) => (
           <Button

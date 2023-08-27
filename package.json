@@ -12,7 +12,9 @@
   "dependencies": {
     "@ant-design/charts": "^1.4.2",
     "antd": "^5.8.4",
+    "antd-img-crop": "^4.12.2",
     "axios": "^1.4.0",
+    "google-translate-api": "^2.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",

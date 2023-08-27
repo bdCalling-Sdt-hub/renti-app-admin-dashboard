@@ -23,7 +23,7 @@ const SettingPage = () => {
       display: "flex",
       alignItems: "center",
       color: "black",
-      marginBottom: "10px",
+      marginBottom: "20px",
       fontSize: "20px",
       fontWeight: "normal",
       textTransform: "capitalize",
