@@ -1,24 +1,14 @@
-.notification{
- 
-  
-   background-color: green;
-   
+.notification {
+  background-color: green;
 }
 
-
-
-.profile{
+.profile {
   width: 100px;
-  
+
   text-align: center;
 }
-.profile img{
-    background-color: #d9cffb;
-    padding: 2px;
-    border-radius: 100%;
- 
-    
+.profile img {
+  background-color: #d9cffb;
+  padding: 2px;
+  border-radius: 100%;
 }
-
-
-

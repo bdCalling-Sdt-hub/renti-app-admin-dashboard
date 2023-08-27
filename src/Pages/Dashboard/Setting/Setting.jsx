@@ -1,7 +1,7 @@
-import { Button } from "antd";
+import { Button, Switch } from "antd";
 import React from "react";
 import { LiaAngleRightSolid } from "react-icons/lia";
-import { Outlet, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Setting = () => {
   const navigate = useNavigate();
@@ -18,6 +18,18 @@ const Setting = () => {
       height: "45px",
       marginBottom: "10px",
     },
+    notification: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      height: "45px",
+      marginTop: "10px",
+      backgroundColor: "#ffffff",
+      border: "1px solid #d9d9d9",
+      boxShadow: "0 2px 0 rgba(0, 0, 0, 0.02)",
+      borderRadius: "6px",
+      padding: "4px 15px",
+    },
   };
   const menuItems = [
     {
@@ -27,51 +39,46 @@ const Setting = () => {
     },
     {
       key: "2",
-      title: "Notification",
-      link: "notification",
-    },
-    {
-      key: "3",
       title: "Change Password",
       link: "change-password",
     },
     {
-      key: "4",
+      key: "3",
       title: "Login Activity",
       link: "login-activity",
     },
     {
-      key: "5",
+      key: "4",
       title: "Block List",
       link: "block-list",
     },
     {
-      key: "6",
+      key: "5",
       title: "Renti Percentage",
       link: "renti-percentage",
     },
     {
-      key: "7",
+      key: "6",
       title: "Host Payment Time",
       link: "host-payment-time",
     },
     {
-      key: "8",
+      key: "7",
       title: "Trash",
       link: "trash",
     },
     {
-      key: "9",
+      key: "8",
       title: "Privacy Policy",
       link: "privacy-policy",
     },
     {
-      key: "10",
+      key: "9",
       title: "Terms and Condition",
       link: "terms-condition",
     },
     {
-      key: "11",
+      key: "10",
       title: "About Us",
       link: "about-us",
     },
@@ -79,6 +86,10 @@ const Setting = () => {
 
   const handleNavigate = (value) => {
     navigate(`/setting/${value}`);
+  };
+
+  const handleNotification = (e) => {
+    console.log(e);
   };
 
   return (
@@ -96,7 +107,15 @@ const Setting = () => {
             <LiaAngleRightSolid fontSize={20} />
           </Button>
         ))}
-        <Outlet />
+        <div style={style.notification}>
+          <span>Notification</span>
+          <Switch
+            onChange={(e) => handleNotification(e)}
+            checkedChildren="ON"
+            unCheckedChildren="OFF"
+            defaultChecked
+          />
+        </div>
       </div>
     </div>
   );
