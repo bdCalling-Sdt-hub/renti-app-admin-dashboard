@@ -26,40 +26,83 @@ const { SubMenu } = Menu;
 const { Option } = Select;
 
 
-const myitems=[
+
+
+const profileItems = [
   {
-    key:profile,
-    label:(
-      <Link to="#">
-          <div
+    key: 1,
+    label: (
+      <Link
+        
+        to="/notification"
+        style={{height:"50px"}}
+        rel="noreferrer"
+      >
+        <div
           className={Styles.everyNotify}
           style={{ display: "flex", alignItems: "center" }}
         >
-          <img
-            style={{
-              backgroundColor: "#d9cffb",
-              borderRadius: "100%",
-              padding: "5px",
-              marginRight: "15px",
-            }}
-            width="30"
-            height="30"
-            src="https://img.icons8.com/3d-fluency/94/person-male--v2.png"
-            alt="person-male--v2"
-          />
+          <img style={{marginRight:"20px"}} width="30" height="30" src="https://img.icons8.com/windows/32/gender-neutral-user.png" alt="gender-neutral-user"/>
           <div className="" style={{ marginTop: "" }}>
             <p>
-              <span>Sanchej haro manual </span>started a new trip from mexico.
+              Profile
             </p>
-            <span style={{ color: "#d2d2d2" }}>1 hr ago</span>
+            
           </div>
         </div>
       </Link>
-    )
-  }
-]
-
-
+    ),
+  },
+  {
+    key: 2,
+    label: (
+      <Link
+        
+        to="/notification"
+        style={{}}
+        rel="noreferrer"
+      >
+        <div
+          className={Styles.everyNotify}
+          style={{ display: "flex", alignItems: "center" }}
+        >
+          <img style={{marginRight:"20px"}} width="30" height="30" src="https://img.icons8.com/ios/50/appointment-reminders--v1.png" alt="appointment-reminders--v1"/>
+          <div className="" style={{ marginTop: "" }}>
+            <p>
+              Notification
+            </p>
+            
+          </div>
+        </div>
+      </Link>
+    ),
+  },
+  {
+    key: 3,
+    label: (
+      <div
+        
+        
+        style={{border:"none",backgroundColor:"transparent"}}
+        rel="noreferrer"
+      >
+        <div
+          className={Styles.everyNotify}
+          style={{ display: "flex", alignItems: "center" }}
+        >
+          <img style={{marginRight:"20px"}} width="25" height="25" src="https://img.icons8.com/ios/50/exit--v1.png" alt="exit--v1"/>
+          <div className="" style={{ marginTop: "" }}>
+            <p>
+              Logout
+            </p>
+            
+          </div>
+        </div>
+      </div>
+    ),
+  },
+ 
+];
 
 
 
@@ -397,13 +440,16 @@ const Dashboard = () => {
             </div>
             <div className={Styles.profile}>
               <Dropdown
+             
                 menu={{
-                  items,
+                  items:profileItems,
                 }}
                 placement="bottomRight"
                 arrow={{
                   pointAtCenter: true,
                 }}
+
+           
               >
                 <img
                   style={{ cursor: "pointer" }}
