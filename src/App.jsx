@@ -17,10 +17,11 @@ import UpdatePass from "./Pages/UpdatePass/UpdatePass";
 
 import NotFound from "./404";
 import CarInformation from "./Pages/Dashboard/CarInformation/CarInformation";
-import UserPayment from "./Pages/Dashboard/UserPayment/UserPayment";
-import RentisIncome from "./Pages/Dashboard/RentisIncome/RentisIncome";
 import HostPayment from "./Pages/Dashboard/HostPayment/HostPayment";
+import RentisIncome from "./Pages/Dashboard/RentisIncome/RentisIncome";
+import Setting from "./Pages/Dashboard/Setting/Setting";
 import StripeBills from "./Pages/Dashboard/StripeBills/StripeBills";
+import UserPayment from "./Pages/Dashboard/UserPayment/UserPayment";
 
 function App() {
   return (
@@ -30,7 +31,7 @@ function App() {
           <Routes>
             <Route exact path="/" element={<Dashboard />}>
               <Route path="/" element={<DashboardHome />} />
-              <Route path="/notification" element={<Notification/>} />
+              <Route path="/notification" element={<Notification />} />
               <Route path="/earning/:income" element={<Earning />} />
               <Route path="/host-info" element={<HostInfo />} />
               <Route path="/host-request" element={<HostRequest />} />
@@ -44,6 +45,7 @@ function App() {
               <Route path="/renti-income" element={<RentisIncome />} />
               <Route path="/host-payment" element={<HostPayment />} />
               <Route path="/stripe-bills" element={<StripeBills />} />
+              <Route path="/setting" element={<Setting />} />
             </Route>
 
             <Route path="/signin" element={<Signin />} />

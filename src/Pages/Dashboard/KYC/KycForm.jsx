@@ -64,7 +64,7 @@ const KycForm = () => {
       <Select
         style={{
           width: 70,
-          height:"45px"
+          height: "45px",
         }}
       >
         <Option value="86">+86</Option>
@@ -75,7 +75,7 @@ const KycForm = () => {
 
   return (
     <div style={{ padding: "0 60px" }}>
-      <h2 style={{ marginBottom: "10px" }}>Kyc Form</h2>
+      <h2 style={{ marginBottom: "10px", fontWeight: "normal" }}>Kyc Form</h2>
       <div style={style.formContainer}>
         <div
           style={{
@@ -140,27 +140,23 @@ const KycForm = () => {
                     <Radio value={3}>Others</Radio>
                   </Radio.Group>
                 </div>
-                <div style={{ marginTop: "20px"}}>
+                <div style={{ marginTop: "20px" }}>
                   <label htmlFor="">Phone Number</label>
-                  <div >
+                  <div>
                     <Form.Item
                       name="phone"
-                     
                       rules={[
                         {
                           required: true,
-                          message: 'Please input your phone number!',
+                          message: "Please input your phone number!",
                         },
                       ]}
                     >
                       <Input
                         placeholder="please enter your phone number"
-                        style={{height:"45px"}}
-                        
+                        style={style.input}
                       />
                     </Form.Item>
-
-               
                   </div>
                 </div>
                 <div>

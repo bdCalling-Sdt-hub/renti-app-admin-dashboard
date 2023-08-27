@@ -84,6 +84,11 @@ const Wallet = () => {
       marginBottom: "8px",
       fontWeight: "normal",
     },
+    cardBtn: {
+      width: "100%",
+      border: "1px solid #dfdfdf",
+      height: "35px",
+    },
   };
   const data = [
     {
@@ -127,7 +132,11 @@ const Wallet = () => {
 
   return (
     <div style={{ padding: "0 60px" }}>
-      <h2>Renti's Wallet</h2>
+      <h2
+        style={{ fontSize: "25px", marginBottom: "10px", fontWeight: "normal" }}
+      >
+        Renti's Wallet
+      </h2>
 
       <Row style={{ marginTop: "20px" }} gutter={24}>
         <Col lg={{ span: 12 }}>
@@ -198,16 +207,26 @@ const Wallet = () => {
         ))}
       </div>
       <Modal
-        title="Payment Method"
+        title={
+          <h3
+            style={{
+              textAlign: "center",
+              fontWeight: "normal",
+              marginBottom: "30px",
+            }}
+          >
+            Payment Method
+          </h3>
+        }
         open={isModalOpen}
         onCancel={handleCancel}
         footer={[]}
       >
         <Button
           type="text"
-          style={{ width: "100%" }}
+          style={style.cardBtn}
           onClick={() => {
-            showDrawer("Credit Card");
+            showDrawer("credit");
             handleCancel();
           }}
         >
@@ -215,9 +234,9 @@ const Wallet = () => {
         </Button>
         <Button
           type="text"
-          style={{ width: "100%" }}
+          style={{ ...style.cardBtn, marginTop: "8px" }}
           onClick={() => {
-            showDrawer("Debit Card");
+            showDrawer("debit");
             handleCancel();
           }}
         >
@@ -245,9 +264,10 @@ const Wallet = () => {
         placement="right"
         onClose={closeDrawer}
         open={isDrawerVisible}
-        width={600}
+        width={500}
       >
-        Card Payment
+        {cardTitle === "credit" && <h2>Credit Card</h2>}
+        {cardTitle === "debit" && <h2>Debit Card</h2>}
       </Drawer>
     </div>
   );

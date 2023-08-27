@@ -63,9 +63,6 @@ const items = [...Array(5).keys()].map((item, index) => {
   };
 });
 
-
-
-
 const Dashboard = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState("english");
@@ -159,14 +156,19 @@ const Dashboard = () => {
           mode="inline"
           defaultSelectedKeys={["1"]}
         >
-          <Menu.Item key="1" icon={<RxDashboard style={{fontSize:"18px"}}/>}>
-            <Link to="/" style={{fontSize:"18px"}}>Dashboard</Link>
+          <Menu.Item
+            key="1"
+            icon={<RxDashboard style={{ fontSize: "14px" }} />}
+          >
+            <Link to="/" style={{ fontSize: "16px" }}>
+              Dashboard
+            </Link>
           </Menu.Item>
 
           <SubMenu
-            style={{ fontSize: "18px" }}
+            style={{ fontSize: "16px" }}
             key="2"
-            icon={<GiReceiveMoney style={{ fontSize: "18px" }} />}
+            icon={<GiReceiveMoney style={{ fontSize: "14px" }} />}
             title="Earnings"
           >
             <Menu.Item key="31">
@@ -181,9 +183,9 @@ const Dashboard = () => {
           </SubMenu>
 
           <SubMenu
-            style={{ fontSize: "18px" }}
+            style={{ fontSize: "16px" }}
             key="3"
-            icon={<MdPayment style={{ fontSize: "18px" }} />}
+            icon={<MdPayment style={{ fontSize: "14px" }} />}
             title="Payments"
           >
             <Menu.Item key="34">
@@ -205,9 +207,9 @@ const Dashboard = () => {
           <Divider />
 
           <SubMenu
-            style={{ fontSize: "18px" }}
+            style={{ fontSize: "16px" }}
             key="4"
-            icon={<GoPeople style={{ fontSize: "18px" }} />}
+            icon={<GoPeople style={{ fontSize: "14px" }} />}
             title="Host information"
           >
             <Menu.Item key="39">
@@ -220,27 +222,27 @@ const Dashboard = () => {
 
           <Menu.Item
             key="5"
-            icon={<MdPeopleOutline style={{ fontSize: "18px" }} />}
+            icon={<MdPeopleOutline style={{ fontSize: "14px" }} />}
           >
-            <Link to="/user-info" style={{ fontSize: "18px" }}>
+            <Link to="/user-info" style={{ fontSize: "16px" }}>
               User information
             </Link>
           </Menu.Item>
 
           <Menu.Item
             key="6"
-            icon={<MdCarRental style={{ fontSize: "18px" }} />}
+            icon={<MdCarRental style={{ fontSize: "14px" }} />}
           >
-            <Link to="/rent-info" style={{ fontSize: "18px" }}>
+            <Link to="/rent-info" style={{ fontSize: "16px" }}>
               Rent information
             </Link>
           </Menu.Item>
 
           <Menu.Item
             key="7"
-            icon={<CarOutlined style={{ fontSize: "18px" }} />}
+            icon={<CarOutlined style={{ fontSize: "14px" }} />}
           >
-            <Link to="/car-info" style={{ fontSize: "18px" }}>
+            <Link to="/car-info" style={{ fontSize: "16px" }}>
               Car information
             </Link>
           </Menu.Item>
@@ -248,9 +250,9 @@ const Dashboard = () => {
           <Divider />
 
           <SubMenu
-            style={{ fontSize: "18px" }}
+            style={{ fontSize: "16px" }}
             key="8"
-            icon={<RiUserSearchLine style={{ fontSize: "18px" }} />}
+            icon={<RiUserSearchLine style={{ fontSize: "14px" }} />}
             title="KYC"
           >
             <Menu.Item key="41">
@@ -269,9 +271,9 @@ const Dashboard = () => {
 
           <Menu.Item
             key="9"
-            icon={<SettingOutlined style={{ fontSize: "18px" }} />}
+            icon={<SettingOutlined style={{ fontSize: "14px" }} />}
           >
-            <Link to="#" style={{ fontSize: "18px" }}>
+            <Link to="/setting" style={{ fontSize: "16px" }}>
               Settings
             </Link>
           </Menu.Item>

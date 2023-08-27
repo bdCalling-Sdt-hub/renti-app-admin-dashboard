@@ -103,8 +103,12 @@ const HostRequest = () => {
     ],
   ];
   return (
-    <div style={{ padding: "0px 50px" }}>
-      <h2 style={{ fontSize: "25px", marginBottom: "10px" }}>Host Request</h2>
+    <div style={{ padding: "0px 60px" }}>
+      <h2
+        style={{ fontSize: "25px", marginBottom: "10px", fontWeight: "normal" }}
+      >
+        Host Request
+      </h2>
       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
         <Input style={{ height: "44px" }} />
         <Button
@@ -119,7 +123,14 @@ const HostRequest = () => {
         </Button>
       </div>
 
-      <h2 style={{ fontSize: "25px", marginTop: "50px", marginBottom: "20px" }}>
+      <h2
+        style={{
+          fontSize: "25px",
+          marginTop: "50px",
+          marginBottom: "20px",
+          fontWeight: "normal",
+        }}
+      >
         Show all host request
       </h2>
       <div
