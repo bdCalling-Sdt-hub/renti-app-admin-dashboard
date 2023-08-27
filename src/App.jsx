@@ -20,6 +20,7 @@ import CarInformation from "./Pages/Dashboard/CarInformation/CarInformation";
 import HostPayment from "./Pages/Dashboard/HostPayment/HostPayment";
 import RentisIncome from "./Pages/Dashboard/RentisIncome/RentisIncome";
 import Setting from "./Pages/Dashboard/Setting/Setting";
+import SettingPage from "./Pages/Dashboard/Setting/SettingPage/SettingPage";
 import StripeBills from "./Pages/Dashboard/StripeBills/StripeBills";
 import UserPayment from "./Pages/Dashboard/UserPayment/UserPayment";
 
@@ -45,7 +46,8 @@ function App() {
               <Route path="/renti-income" element={<RentisIncome />} />
               <Route path="/host-payment" element={<HostPayment />} />
               <Route path="/stripe-bills" element={<StripeBills />} />
-              <Route path="/setting" element={<Setting />} />
+              <Route path="/setting" element={<Setting />}></Route>
+              <Route path="/setting/:dynamic" element={<SettingPage />} />
             </Route>
 
             <Route path="/signin" element={<Signin />} />

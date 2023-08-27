@@ -3,10 +3,6 @@ import React from "react";
 import PaymentListTable from "./PaymentListTable";
 import UserPaymentRatioChart from "./UserPaymentRatioChart";
 
-setInterval(() => {
-  console.log("tushar");
-}, 5000);
-
 function UserPayment() {
   return (
     <div style={{ padding: "0 60px" }}>
