@@ -247,7 +247,7 @@ const Wallet = () => {
         open={isDrawerVisible}
         width={600}
       >
-        add
+        Card Payment
       </Drawer>
     </div>
   );
