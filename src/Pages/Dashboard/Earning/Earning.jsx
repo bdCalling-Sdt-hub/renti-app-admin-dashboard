@@ -6,7 +6,7 @@ import style from "./Earning.module.css";
 
 const Earning = () => (
   <div style={{ padding: "0px 50px" }}>
-    <h2 style={{ fontSize: "30px" }}>Earnings</h2>
+    <h2 style={{ fontSize: "25px", fontWeight: "normal" }}>Earnings</h2>
     <Row
       gutter={{
         xs: 8,
@@ -44,10 +44,10 @@ const Earning = () => (
         </div>
       </Col>
     </Row>
-    <h2 style={{ fontSize: "30px", margin: "30px 0px" }}>
+    <h2 style={{ fontSize: "25px", margin: "30px 0px", fontWeight: "normal" }}>
       Transactions History
     </h2>
-    
+
     <EarnHistoryTable />
   </div>
 );

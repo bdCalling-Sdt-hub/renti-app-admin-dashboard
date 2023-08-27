@@ -1,21 +1,20 @@
-import React from 'react'
-import { Col, Divider, Pagination, Row } from 'antd';
-import { LiaHandHoldingUsdSolid} from 'react-icons/lia';
-import "./DashboardHome.css"
+import { Col, Row } from "antd";
+import React from "react";
+import { LiaHandHoldingUsdSolid } from "react-icons/lia";
+import "./DashboardHome.css";
 
-import {GrHistory} from 'react-icons/gr'
-import {SlRefresh} from 'react-icons/sl'
-import { MdCarRental } from 'react-icons/md';
-import {BsFillCheckCircleFill} from 'react-icons/bs'
-import InvoiceTable from './InvoiceTable';
-import DailyRentChart from './dailyRentChart';
-import MostRentCarChart from './MostRentCarChart';
+import { BsFillCheckCircleFill } from "react-icons/bs";
+import { GrHistory } from "react-icons/gr";
+import { MdCarRental } from "react-icons/md";
+import { SlRefresh } from "react-icons/sl";
+import InvoiceTable from "./InvoiceTable";
+import MostRentCarChart from "./MostRentCarChart";
+import DailyRentChart from "./dailyRentChart";
 
 function DashboardHome() {
-
-   const onChange = (pageNumber) => {
-      console.log('Page: ', pageNumber);
-    };
+  const onChange = (pageNumber) => {
+    console.log("Page: ", pageNumber);
+  };
 
   return (
     <div>
@@ -94,29 +93,38 @@ function DashboardHome() {
       </Col>
     </Row>
 
-    <Row style={{marginTop:"20px"}} gutter={24}>
-        <Col lg={{span:12}} md={{span:24}} style={{marginBottom:30}}>
-           <DailyRentChart/>
-        </Col>
-        <Col lg={{span:12}} md={{span:24}}>
-         <div className=''  style={{border:"3px solid #000b90",padding:"30px",borderRadius:"15px",backgroundColor:"#fff"}}>
-            <h1 style={{color:"#000b90"}}>Most using car</h1>
-           <MostRentCarChart/>
-         </div>
-           
-        </Col>
-    </Row>
+    
 
-    <Row>
-    <h2 style={{ fontSize: "30px", margin: "30px 0px" }}>
-      Recent Earnings
-    </h2>
-   
-    </Row>
-    <InvoiceTable/>
-   
+      <Row style={{ marginTop: "20px" }} gutter={24}>
+        <Col lg={{ span: 12 }}>
+          <DailyRentChart />
+        </Col>
+        <Col lg={{ span: 12 }}>
+          <div
+            className=""
+            style={{
+              border: "3px solid #000b90",
+              padding: "30px",
+              borderRadius: "15px",
+              backgroundColor: "#fff",
+            }}
+          >
+            <h1 style={{ color: "#000b90" }}>Most using car</h1>
+            <MostRentCarChart />
+          </div>
+        </Col>
+      </Row>
+
+      <Row>
+        <h2
+          style={{ fontSize: "25px", margin: "30px 0px", fontWeight: "normal" }}
+        >
+          Recent Earnings
+        </h2>
+      </Row>
+      <InvoiceTable />
     </div>
-  )
+  );
 }
 
-export default DashboardHome
+export default DashboardHome;
