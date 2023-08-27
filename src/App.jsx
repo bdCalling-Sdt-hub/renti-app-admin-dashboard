@@ -1,5 +1,4 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import NotFound from "./404";
 import "./App.css";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import DashboardHome from "./Pages/Dashboard/DashboardHome/DashboardHome";
@@ -16,6 +15,13 @@ import Otp from "./Pages/Otp/Otp";
 import Signin from "./Pages/Signin/Signin";
 import UpdatePass from "./Pages/UpdatePass/UpdatePass";
 
+import NotFound from "./404";
+import CarInformation from "./Pages/Dashboard/CarInformation/CarInformation";
+import UserPayment from "./Pages/Dashboard/UserPayment/UserPayment";
+import RentisIncome from "./Pages/Dashboard/RentisIncome/RentisIncome";
+import HostPayment from "./Pages/Dashboard/HostPayment/HostPayment";
+import StripeBills from "./Pages/Dashboard/StripeBills/StripeBills";
+
 function App() {
   return (
     <>
@@ -24,8 +30,8 @@ function App() {
           <Routes>
             <Route exact path="/" element={<Dashboard />}>
               <Route path="/" element={<DashboardHome />} />
-              <Route path="/notification" element={<Notification />} />
-              <Route path="/earning" element={<Earning />} />
+              <Route path="/notification" element={<Notification/>} />
+              <Route path="/earning/:income" element={<Earning />} />
               <Route path="/host-info" element={<HostInfo />} />
               <Route path="/host-request" element={<HostRequest />} />
               <Route path="/kyc-form" element={<KycForm />} />
@@ -33,6 +39,11 @@ function App() {
 
               <Route path="/user-info" element={<UserInfo />} />
               <Route path="/rent-info" element={<RentInformation />} />
+              <Route path="/car-info" element={<CarInformation />} />
+              <Route path="/user-payment" element={<UserPayment />} />
+              <Route path="/renti-income" element={<RentisIncome />} />
+              <Route path="/host-payment" element={<HostPayment />} />
+              <Route path="/stripe-bills" element={<StripeBills />} />
             </Route>
 
             <Route path="/signin" element={<Signin />} />

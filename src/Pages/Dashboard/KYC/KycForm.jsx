@@ -11,7 +11,7 @@ import {
 } from "antd";
 import React, { useState } from "react";
 import { AiOutlineCloudUpload } from "react-icons/ai";
-import DatePicker from "react-multi-date-picker";
+//import DatePicker from "react-multi-date-picker";
 import styleForm from "./KycForm.module.css";
 const { Option } = Select;
 const { Dragger } = Upload;
@@ -181,13 +181,13 @@ const KycForm = () => {
                 <div style={{ margin: "15px 0" }}>
                   <label htmlFor="">Date of Birth</label>
                   <div style={{ display: "flex", gap: "15px" }}>
-                    <DatePicker style={{ height: "40px" }} format="DD" />
-                    <DatePicker
+                    <Input style={{ height: "40px" }} format="DD" />
+                    <Input
                       style={{ height: "40px" }}
                       format="MM"
                       onlyMonthPicker
                     />
-                    <DatePicker style={{ height: "40px" }} onlyYearPicker />
+                    <Input style={{ height: "40px" }} onlyYearPicker />
                   </div>
                 </div>
 
