@@ -18,7 +18,6 @@ import React, { useState } from "react";
 
 import { Link, Outlet } from "react-router-dom";
 import rentiLogo from "../../Images/renti-logo.png";
-
 import Styles from "./Dashboard.module.css";
 
 const { Header, Sider, Content } = Layout;

@@ -1,9 +1,15 @@
+import { Col, Row } from "antd";
 import React from "react";
+import TrashDataTable from "./TrashDataTable";
 
 const Trash = () => {
   return (
     <div>
-      <h2>Trash</h2>
+      <Row>
+          <Col lg={{span:24}}>
+            <TrashDataTable/>
+          </Col>
+      </Row>
     </div>
   );
 };
