@@ -22,6 +22,9 @@ import RentisIncome from "./Pages/Dashboard/RentisIncome/RentisIncome";
 import Setting from "./Pages/Dashboard/Setting/Setting";
 import SettingPage from "./Pages/Dashboard/Setting/SettingPage/SettingPage";
 import StripeBills from "./Pages/Dashboard/StripeBills/StripeBills";
+import HostKyc from "./Pages/Dashboard/HostKyc/HostKyc";
+import UserKyc from "./Pages/Dashboard/UserKyc/UserKyc";
+import CarKyc from "./Pages/Dashboard/CarKyc/CarKyc";
 import UserPayment from "./Pages/Dashboard/UserPayment/UserPayment";
 
 function App() {
@@ -46,6 +49,9 @@ function App() {
               <Route path="/renti-income" element={<RentisIncome />} />
               <Route path="/host-payment" element={<HostPayment />} />
               <Route path="/stripe-bills" element={<StripeBills />} />
+              <Route path="/host-kyc" element={<HostKyc />} />
+              <Route path="/user-kyc" element={<UserKyc />} />
+              <Route path="/car-kyc" element={<CarKyc />} />
               <Route path="/setting" element={<Setting />}></Route>
               <Route path="/setting/:dynamic" element={<SettingPage />} />
             </Route>

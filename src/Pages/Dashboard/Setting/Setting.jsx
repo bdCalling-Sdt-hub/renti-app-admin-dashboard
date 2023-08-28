@@ -1,10 +1,17 @@
-import { Button, Switch } from "antd";
-import React from "react";
+import { Button, Form, Input, Modal, Switch, Typography } from "antd";
+import React, { useState } from "react";
 import { LiaAngleRightSolid } from "react-icons/lia";
 import { useNavigate } from "react-router-dom";
 
+const { Paragraph, Title, Text } = Typography;
+
 const Setting = () => {
   const navigate = useNavigate();
+  const [openModal, setOpenModal] = useState(false);
+  const [openChangePassModel, setOpenChangePassModel] = useState(false);
+  const [verify, setVerify] = useState(false);
+  const [updatePassword, setUpdatePassword] = useState(false);
+
   const style = {
     formContainer: {
       background: "white",
@@ -29,6 +36,13 @@ const Setting = () => {
       boxShadow: "0 2px 0 rgba(0, 0, 0, 0.02)",
       borderRadius: "6px",
       padding: "4px 15px",
+    },
+    input: {
+      height: "45px",
+    },
+    otpInput: {
+      width: "50px",
+      height: "70px",
     },
   };
   const menuItems = [
@@ -84,12 +98,61 @@ const Setting = () => {
     },
   ];
 
+  const [err, setErr] = useState("");
+  const handleUpdated = (values) => {
+    const { password, confirmPassword } = values;
+
+    if (password.length < 8) {
+      setErr("Password must be 8 character");
+      return;
+    }
+    if (password !== confirmPassword) {
+      setErr("Please enter the same password!");
+      return;
+    }
+    if (!password || !confirmPassword) {
+      setErr("Please give your changes password");
+      return;
+    }
+    if (!/(?=.*[!@#$&*])/.test(password)) {
+      setErr("Ensure string has one special case letter.");
+      return;
+    }
+    if (!/(?=.*[A-Z].*[A-Z])/.test(password)) {
+      setErr("Ensure string has two uppercase letters.");
+      return;
+    }
+    if (!/(?=.*[a-z].*[a-z].*[a-z])/.test(password)) {
+      setErr("Ensure string has three lowercase letters.");
+      return;
+    }
+    if (!/(?=.*[0-9].*[0-9])/.test(password)) {
+      setErr("Ensure string has two digits");
+      return;
+    }
+  };
+
   const handleNavigate = (value) => {
-    navigate(`/setting/${value}`);
+    if (value == "renti-percentage") {
+      setOpenModal(true);
+    } else if (value === "change-password") {
+      setOpenChangePassModel(true);
+    } else {
+      navigate(`/setting/${value}`);
+    }
   };
 
   const handleNotification = (e) => {
     console.log(e);
+  };
+
+  const setPercentage = () => {
+    alert("tushar");
+    setOpenModal(false);
+  };
+
+  const handleChangePassword = (values) => {
+    console.log("Received values of form: ", values);
   };
 
   return (
@@ -116,6 +179,297 @@ const Setting = () => {
             defaultChecked
           />
         </div>
+        {/* change password*/}
+        <Modal
+          title={<p style={{ marginBottom: "30px" }}>Change password</p>}
+          centered
+          open={openChangePassModel}
+          onCancel={() => setOpenChangePassModel(false)}
+          width={500}
+          footer={[]}
+        >
+          <Form
+            name="normal_login"
+            className="login-form"
+            initialValues={{
+              remember: true,
+            }}
+            onFinish={handleChangePassword}
+          >
+            <div>
+              <label htmlFor="" className={style.label}>
+                Current Password
+              </label>
+              <Form.Item
+                name="currentPassword"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your current password!",
+                  },
+                ]}
+              >
+                <Input
+                  placeholder="Enter Password"
+                  type="password"
+                  style={style.input}
+                />
+              </Form.Item>
+            </div>
+
+            <div>
+              <label htmlFor="">New Password</label>
+              <Form.Item
+                name="newPassword"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your new Password!",
+                  },
+                ]}
+              >
+                <Input
+                  type="password"
+                  placeholder="Enter password"
+                  style={style.input}
+                />
+              </Form.Item>
+            </div>
+            <div>
+              <label htmlFor="email" className={style.label}>
+                Re-Type Password
+              </label>
+              <Form.Item
+                name="password"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your Re-type Password!",
+                  },
+                ]}
+              >
+                <Input
+                  type="password"
+                  placeholder="Enter password"
+                  style={style.input}
+                />
+              </Form.Item>
+            </div>
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <Button
+                type="text"
+                className="login-form-forgot"
+                style={{ color: "#000B90" }}
+                onClick={() => (setVerify(true), setOpenChangePassModel(false))}
+              >
+                Forgot password
+              </Button>
+            </div>
+
+            <Form.Item>
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="login-form-button"
+                block
+                style={{
+                  height: "45px",
+                  fontWeight: "400px",
+                  fontSize: "18px",
+                  background: "#000B90",
+                  marginTop: "60px",
+                }}
+              >
+                Confirm
+              </Button>
+            </Form.Item>
+          </Form>
+        </Modal>
+        {/* Verify Password */}
+        <Modal
+          title={
+            <Title
+              level={2}
+              style={{
+                color: "#000B90",
+                fontWeight: "normal",
+                marginBottom: "30px",
+                textShadow: "#bfbfbf 2px 2px 4px",
+              }}
+            >
+              Verify OTP
+            </Title>
+          }
+          centered
+          open={verify}
+          onCancel={() => {
+            setVerify(false);
+          }}
+          width={500}
+          footer={[]}
+        >
+          <div>
+            <Paragraph style={{ marginBottom: "30px" }}>
+              We'll send a verification code to your email. Check your inbox and
+              enter the code here.
+            </Paragraph>
+
+            <Input.Group
+              style={{
+                display: "flex",
+                gap: "10px",
+                marginBottom: "10px",
+              }}
+            >
+              <Input style={{ width: "50px", height: "70px" }} />
+              <Input style={style.otpInput} />
+              <Input style={style.otpInput} />
+              <Input style={style.otpInput} />
+              <Input style={style.otpInput} />
+              <Input style={style.otpInput} />
+            </Input.Group>
+
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <Text>Don't received code?</Text>
+
+              <a
+                className="login-form-forgot"
+                style={{ color: "#000B90" }}
+                href=""
+              >
+                Resend
+              </a>
+            </div>
+
+            <Button
+              block
+              onClick={() => (setUpdatePassword(true), setVerify(false))}
+              style={{
+                height: "45px",
+                fontWeight: "400px",
+                fontSize: "18px",
+                background: "#000B90",
+                color: "#fff",
+                alignSelf: "bottom",
+                marginTop: "130px",
+              }}
+            >
+              Continue
+            </Button>
+          </div>
+        </Modal>
+        {/* Update Password */}
+        <Modal
+          title={
+            <Title
+              level={2}
+              style={{
+                color: "#000B90",
+                fontWeight: "normal",
+                marginBottom: "30px",
+                textShadow: "#bfbfbf 2px 2px 4px",
+              }}
+            >
+              Update Password
+            </Title>
+          }
+          centered
+          open={updatePassword}
+          onCancel={() => {
+            setUpdatePassword(false);
+          }}
+          width={500}
+          footer={[]}
+        >
+          <Form
+            name="normal_login"
+            className="login-form"
+            initialValues={{
+              remember: true,
+            }}
+            onFinish={handleUpdated}
+          >
+            <div>
+              <label htmlFor="">New Password</label>
+              <Form.Item
+                name="password"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter new password!",
+                  },
+                ]}
+              >
+                <Input type="text" placeholder="Password" style={style.input} />
+              </Form.Item>
+            </div>
+
+            <div>
+              <label htmlFor="">Re-type Password</label>
+              <Form.Item
+                name="confirmPassword"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter confirm Password!",
+                  },
+                ]}
+              >
+                <Input
+                  type="text"
+                  placeholder="Confirm password"
+                  style={style.input}
+                />
+              </Form.Item>
+            </div>
+
+            {/* showing error */}
+            <label style={{ color: "red" }}>{err}</label>
+
+            <Form.Item>
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="login-form-button"
+                block
+                style={{
+                  height: "45px",
+                  fontWeight: "400px",
+                  fontSize: "18px",
+                  background: "#000B90",
+                  marginTop: "100px",
+                }}
+              >
+                Confirm
+              </Button>
+            </Form.Item>
+          </Form>
+        </Modal>
+
+        {/*Set Percentage*/}
+        <Modal
+          title="Set Ranti's Percentage"
+          centered
+          open={openModal}
+          onOk={() => setPercentage()}
+          okText="Confirm"
+          onCancel={() => setOpenModal(false)}
+          okButtonProps={{
+            style: {
+              width: "100%",
+              backgroundColor: "#000b90",
+              height: "40px",
+              marginLeft: "-20px",
+            },
+          }} // Adjust the width here
+          cancelButtonProps={{ style: { display: "none" } }}
+          width={500}
+        >
+          <Input
+            placeholder="set your percentage"
+            style={{ height: "50px", margin: "20px 0px" }}
+          />
+        </Modal>
       </div>
     </div>
   );

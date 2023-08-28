@@ -1,8 +1,7 @@
 import {
   CarOutlined,
-  CloseOutlined,
   MenuOutlined,
-  SettingOutlined,
+  SettingOutlined
 } from "@ant-design/icons";
 import { Button, Dropdown, Layout, Menu, Select, theme } from "antd";
 
@@ -25,13 +24,94 @@ const { Header, Sider, Content } = Layout;
 const { SubMenu } = Menu;
 const { Option } = Select;
 
+
+
+
+const profileItems = [
+  {
+    key: 1,
+    label: (
+      <Link
+        
+        to="/notification"
+        style={{height:"50px"}}
+        rel="noreferrer"
+      >
+        <div
+          className={Styles.everyNotify}
+          style={{ display: "flex", alignItems: "center" }}
+        >
+          <img style={{marginRight:"20px"}} width="30" height="30" src="https://img.icons8.com/windows/32/gender-neutral-user.png" alt="gender-neutral-user"/>
+          <div className="" style={{ marginTop: "" }}>
+            <p>
+              Profile
+            </p>
+            
+          </div>
+        </div>
+      </Link>
+    ),
+  },
+  {
+    key: 2,
+    label: (
+      <Link
+        
+        to="/notification"
+        style={{}}
+        rel="noreferrer"
+      >
+        <div
+          className={Styles.everyNotify}
+          style={{ display: "flex", alignItems: "center" }}
+        >
+          <img style={{marginRight:"20px"}} width="30" height="30" src="https://img.icons8.com/ios/50/appointment-reminders--v1.png" alt="appointment-reminders--v1"/>
+          <div className="" style={{ marginTop: "" }}>
+            <p>
+              Notification
+            </p>
+            
+          </div>
+        </div>
+      </Link>
+    ),
+  },
+  {
+    key: 3,
+    label: (
+      <div
+        
+        
+        style={{border:"none",backgroundColor:"transparent"}}
+        rel="noreferrer"
+      >
+        <div
+          className={Styles.everyNotify}
+          style={{ display: "flex", alignItems: "center" }}
+        >
+          <img style={{marginRight:"20px"}} width="25" height="25" src="https://img.icons8.com/ios/50/exit--v1.png" alt="exit--v1"/>
+          <div className="" style={{ marginTop: "" }}>
+            <p>
+              Logout
+            </p>
+            
+          </div>
+        </div>
+      </div>
+    ),
+  },
+ 
+];
+
+
+
 const items = [...Array(5).keys()].map((item, index) => {
   return {
     key: index,
     label: (
-      <a
-        target="_blank"
-        href="https://www.antgroup.com"
+      <Link
+        
+        to="/notification"
         style={{}}
         rel="noreferrer"
       >
@@ -58,7 +138,7 @@ const items = [...Array(5).keys()].map((item, index) => {
             <span style={{ color: "#d2d2d2" }}>1 hr ago</span>
           </div>
         </div>
-      </a>
+      </Link>
     ),
   };
 });
@@ -115,7 +195,7 @@ const Dashboard = () => {
             fontWeight: "bold",
           }}
         >
-          See All
+          <Link to="/notification">See All</Link>
         </Button>
       </div>
     </Menu>
@@ -259,13 +339,13 @@ const Dashboard = () => {
             title="KYC"
           >
             <Menu.Item key="41">
-              <Link href="#">Host KYC</Link>
+              <Link to="/host-kyc">Host KYC</Link>
             </Menu.Item>
             <Menu.Item key="42">
-              <Link href="#">User KYC</Link>
+              <Link to="/user-kyc">User KYC</Link>
             </Menu.Item>
             <Menu.Item key="43">
-              <Link href="#">Car KYC</Link>
+              <Link to="/car-kyc">Car KYC</Link>
             </Menu.Item>
             <Menu.Item key="44">
               <Link to="/kyc-form">KYC form</Link>
@@ -299,7 +379,7 @@ const Dashboard = () => {
           <div className="" style={{ display: "flex", alignItems: "center" }}>
             <Button
               type="text"
-              icon={collapsed ? <CloseOutlined /> : <MenuOutlined />}
+              icon={collapsed ? <MenuOutlined /> : <MenuOutlined />}
               onClick={() => setCollapsed(!collapsed)}
               style={{
                 marginLeft: collapsed ? "125px" : "360px",
@@ -321,7 +401,6 @@ const Dashboard = () => {
                 value={selectedLanguage}
                 style={{ width: 150 }}
                 onChange={handleSelectLanguage}
-                // Use the "value" property of options as the label
               >
                 <Option value="en">
                   <div style={{ display: "flex", alignItems: "center" }}>
@@ -363,13 +442,16 @@ const Dashboard = () => {
             </div>
             <div className={Styles.profile}>
               <Dropdown
+             
                 menu={{
-                  items,
+                  items:profileItems,
                 }}
                 placement="bottomRight"
                 arrow={{
                   pointAtCenter: true,
                 }}
+
+           
               >
                 <img
                   style={{ cursor: "pointer" }}
