@@ -16,6 +16,7 @@ import { RiUserSearchLine } from "react-icons/ri";
 
 import React, { useState } from "react";
 
+import { useTranslation } from "react-i18next";
 import { Link, Outlet } from "react-router-dom";
 import rentiLogo from "../../Images/renti-logo.png";
 import Styles from "./Dashboard.module.css";
@@ -64,13 +65,16 @@ const items = [...Array(5).keys()].map((item, index) => {
 
 const Dashboard = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState("english");
+  const [selectedLanguage, setSelectedLanguage] = useState("en");
+
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+  const [t, i18n] = useTranslation("global");
 
   const handleSelectLanguage = (value) => {
     setSelectedLanguage(value);
+    i18n.changeLanguage(value);
   };
 
   const menu = (
@@ -305,7 +309,7 @@ const Dashboard = () => {
                 marginRight: "10px",
               }}
             />
-            <h2>Dashboard</h2>
+            <h2>{t("header.title")}</h2>
           </div>
 
           <div
@@ -319,7 +323,7 @@ const Dashboard = () => {
                 onChange={handleSelectLanguage}
                 // Use the "value" property of options as the label
               >
-                <Option value="english">
+                <Option value="en">
                   <div style={{ display: "flex", alignItems: "center" }}>
                     <img
                       src="https://cdn.britannica.com/29/22529-004-ED1907BE/Union-Flag-Cross-St-Andrew-of-George.jpg"
@@ -329,22 +333,13 @@ const Dashboard = () => {
                     English
                   </div>
                 </Option>
-                <Option value="spanish">
+                <Option value="es">
                   <div style={{ display: "flex", alignItems: "center" }}>
                     <img
                       src="https://e0.pxfuel.com/wallpapers/630/608/desktop-wallpaper-spain-flag-in-collection.jpg"
                       style={{ marginRight: 8, width: 16, height: 16 }}
                     />
                     Spanish
-                  </div>
-                </Option>
-                <Option value="bangla">
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <img
-                      src="https://www.babseacle.org/wp-content/uploads/2020/09/Bangla-flag.jpg"
-                      style={{ marginRight: 8, width: 16, height: 16 }}
-                    />
-                    Bangla
                   </div>
                 </Option>
               </Select>
