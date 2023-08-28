@@ -1,9 +1,15 @@
+import { Col, Row } from "antd";
 import React from "react";
+import LoginActivityTable from "./LoginActivityTable";
 
 const LoginActivity = () => {
   return (
     <div>
-      <h2>Login Activity</h2>
+      <Row>
+        <Col lg={{span:24}}>
+          <LoginActivityTable/>
+        </Col>
+      </Row>
     </div>
   );
 };
