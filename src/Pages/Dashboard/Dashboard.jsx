@@ -1,8 +1,5 @@
-import {
-  CarOutlined,
-  MenuOutlined,
-  SettingOutlined
-} from "@ant-design/icons";
+/* eslint-disable no-unused-vars */
+import { CarOutlined, MenuOutlined, SettingOutlined } from "@ant-design/icons";
 import { Button, Dropdown, Layout, Menu, Select, theme } from "antd";
 
 import { Divider } from "antd";
@@ -13,7 +10,7 @@ import { GoPeople } from "./../../../node_modules/react-icons/go/index.esm";
 
 import { RiUserSearchLine } from "react-icons/ri";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 import { Link, Outlet } from "react-router-dom";
@@ -24,29 +21,24 @@ const { Header, Sider, Content } = Layout;
 const { SubMenu } = Menu;
 const { Option } = Select;
 
-
-
-
 const profileItems = [
   {
     key: 1,
     label: (
-      <Link
-        
-        to="/notification"
-        style={{height:"50px"}}
-        rel="noreferrer"
-      >
+      <Link to="/notification" style={{ height: "50px" }} rel="noreferrer">
         <div
           className={Styles.everyNotify}
           style={{ display: "flex", alignItems: "center" }}
         >
-          <img style={{marginRight:"20px"}} width="30" height="30" src="https://img.icons8.com/windows/32/gender-neutral-user.png" alt="gender-neutral-user"/>
+          <img
+            style={{ marginRight: "20px" }}
+            width="30"
+            height="30"
+            src="https://img.icons8.com/windows/32/gender-neutral-user.png"
+            alt="gender-neutral-user"
+          />
           <div className="" style={{ marginTop: "" }}>
-            <p>
-              Profile
-            </p>
-            
+            <p>Profile</p>
           </div>
         </div>
       </Link>
@@ -55,22 +47,20 @@ const profileItems = [
   {
     key: 2,
     label: (
-      <Link
-        
-        to="/notification"
-        style={{}}
-        rel="noreferrer"
-      >
+      <Link to="/notification" style={{}} rel="noreferrer">
         <div
           className={Styles.everyNotify}
           style={{ display: "flex", alignItems: "center" }}
         >
-          <img style={{marginRight:"20px"}} width="30" height="30" src="https://img.icons8.com/ios/50/appointment-reminders--v1.png" alt="appointment-reminders--v1"/>
+          <img
+            style={{ marginRight: "20px" }}
+            width="30"
+            height="30"
+            src="https://img.icons8.com/ios/50/appointment-reminders--v1.png"
+            alt="appointment-reminders--v1"
+          />
           <div className="" style={{ marginTop: "" }}>
-            <p>
-              Notification
-            </p>
-            
+            <p>Notification</p>
           </div>
         </div>
       </Link>
@@ -80,41 +70,34 @@ const profileItems = [
     key: 3,
     label: (
       <div
-        
-        
-        style={{border:"none",backgroundColor:"transparent"}}
+        style={{ border: "none", backgroundColor: "transparent" }}
         rel="noreferrer"
       >
         <div
           className={Styles.everyNotify}
           style={{ display: "flex", alignItems: "center" }}
         >
-          <img style={{marginRight:"20px"}} width="25" height="25" src="https://img.icons8.com/ios/50/exit--v1.png" alt="exit--v1"/>
+          <img
+            style={{ marginRight: "20px" }}
+            width="25"
+            height="25"
+            src="https://img.icons8.com/ios/50/exit--v1.png"
+            alt="exit--v1"
+          />
           <div className="" style={{ marginTop: "" }}>
-            <p>
-              Logout
-            </p>
-            
+            <p>Logout</p>
           </div>
         </div>
       </div>
     ),
   },
- 
 ];
-
-
 
 const items = [...Array(5).keys()].map((item, index) => {
   return {
     key: index,
     label: (
-      <Link
-        
-        to="/notification"
-        style={{}}
-        rel="noreferrer"
-      >
+      <Link to="/notification" style={{}} rel="noreferrer">
         <div
           className={Styles.everyNotify}
           style={{ display: "flex", alignItems: "center" }}
@@ -145,7 +128,7 @@ const items = [...Array(5).keys()].map((item, index) => {
 
 const Dashboard = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState("en");
+  const [selectedLanguage, setSelectedLanguage] = useState(localStorage.lang);
 
   const {
     token: { colorBgContainer },
@@ -154,8 +137,13 @@ const Dashboard = () => {
 
   const handleSelectLanguage = (value) => {
     setSelectedLanguage(value);
-    i18n.changeLanguage(value);
+    i18n.changeLanguage(selectedLanguage);
+    localStorage.setItem("lang", value);
   };
+
+  useEffect(() => {
+    i18n.changeLanguage(selectedLanguage);
+  }, [selectedLanguage, i18n]);
 
   const menu = (
     <Menu>
@@ -244,7 +232,7 @@ const Dashboard = () => {
             icon={<RxDashboard style={{ fontSize: "14px" }} />}
           >
             <Link to="/" style={{ fontSize: "16px" }}>
-              Dashboard
+              {t("dashboard")}
             </Link>
           </Menu.Item>
 
@@ -252,16 +240,16 @@ const Dashboard = () => {
             style={{ fontSize: "16px" }}
             key="2"
             icon={<GiReceiveMoney style={{ fontSize: "14px" }} />}
-            title="Earnings"
+            title={t("earning.title")}
           >
             <Menu.Item key="31">
-              <Link to="/earning/today-income">Today's income</Link>
+              <Link to="/earning/today-income">{t("earning.subTitle1")}</Link>
             </Menu.Item>
             <Menu.Item key="32">
-              <Link to="/earning/weekly-income">Weekly income</Link>
+              <Link to="/earning/weekly-income">{t("earning.subTitle2")}</Link>
             </Menu.Item>
             <Menu.Item key="33">
-              <Link to="/earning/monthly-income">Monthly income</Link>
+              <Link to="/earning/monthly-income">{t("earning.subTitle3")}</Link>
             </Menu.Item>
           </SubMenu>
 
@@ -269,22 +257,22 @@ const Dashboard = () => {
             style={{ fontSize: "16px" }}
             key="3"
             icon={<MdPayment style={{ fontSize: "14px" }} />}
-            title="Payments"
+            title={t("payment.title")}
           >
             <Menu.Item key="34">
-              <Link to="/user-payment">User Payments</Link>
+              <Link to="/user-payment">{t("payment.subTitle1")}</Link>
             </Menu.Item>
             <Menu.Item key="35">
-              <Link to="/host-payment">Host Payments</Link>
+              <Link to="/host-payment">{t("payment.subTitle2")}</Link>
             </Menu.Item>
             <Menu.Item key="36">
-              <Link to="/stripe-bills">Stripe Bills</Link>
+              <Link to="/stripe-bills">{t("payment.subTitle3")}</Link>
             </Menu.Item>
             <Menu.Item key="37">
-              <Link to="/renti-income">Renti's Income</Link>
+              <Link to="/renti-income">{t("payment.subTitle4")}</Link>
             </Menu.Item>
             <Menu.Item key="38">
-              <Link to="/wallet">Wallet</Link>
+              <Link to="/wallet">{t("payment.subTitle5")}</Link>
             </Menu.Item>
           </SubMenu>
           <Divider />
@@ -293,13 +281,13 @@ const Dashboard = () => {
             style={{ fontSize: "16px" }}
             key="4"
             icon={<GoPeople style={{ fontSize: "14px" }} />}
-            title="Host information"
+            title={t("hostInfo.title")}
           >
             <Menu.Item key="39">
-              <Link to="/host-info">All Host</Link>
+              <Link to="/host-info">{t("hostInfo.subTitle1")}</Link>
             </Menu.Item>
             <Menu.Item key="40">
-              <Link to="/host-request">Host Request</Link>
+              <Link to="/host-request">{t("hostInfo.subTitle2")}</Link>
             </Menu.Item>
           </SubMenu>
 
@@ -308,7 +296,7 @@ const Dashboard = () => {
             icon={<MdPeopleOutline style={{ fontSize: "14px" }} />}
           >
             <Link to="/user-info" style={{ fontSize: "16px" }}>
-              User information
+              {t("userInfo")}
             </Link>
           </Menu.Item>
 
@@ -317,7 +305,7 @@ const Dashboard = () => {
             icon={<MdCarRental style={{ fontSize: "14px" }} />}
           >
             <Link to="/rent-info" style={{ fontSize: "16px" }}>
-              Rent information
+              {t("rentInfo")}
             </Link>
           </Menu.Item>
 
@@ -326,7 +314,7 @@ const Dashboard = () => {
             icon={<CarOutlined style={{ fontSize: "14px" }} />}
           >
             <Link to="/car-info" style={{ fontSize: "16px" }}>
-              Car information
+              {t("carInfo")}
             </Link>
           </Menu.Item>
 
@@ -336,19 +324,19 @@ const Dashboard = () => {
             style={{ fontSize: "16px" }}
             key="8"
             icon={<RiUserSearchLine style={{ fontSize: "14px" }} />}
-            title="KYC"
+            title={t("kyc.title")}
           >
             <Menu.Item key="41">
-              <Link to="/host-kyc">Host KYC</Link>
+              <Link to="/host-kyc">{t("kyc.subTitle1")}</Link>
             </Menu.Item>
             <Menu.Item key="42">
-              <Link to="/user-kyc">User KYC</Link>
+              <Link to="/user-kyc">{t("kyc.subTitle2")}</Link>
             </Menu.Item>
             <Menu.Item key="43">
-              <Link to="/car-kyc">Car KYC</Link>
+              <Link to="/car-kyc">{t("kyc.subTitle3")}</Link>
             </Menu.Item>
             <Menu.Item key="44">
-              <Link to="/kyc-form">KYC form</Link>
+              <Link to="/kyc-form">{t("kyc.subTitle4")}</Link>
             </Menu.Item>
           </SubMenu>
 
@@ -357,7 +345,7 @@ const Dashboard = () => {
             icon={<SettingOutlined style={{ fontSize: "14px" }} />}
           >
             <Link to="/setting" style={{ fontSize: "16px" }}>
-              Settings
+              {t("setting.title")}
             </Link>
           </Menu.Item>
         </Menu>
@@ -442,16 +430,13 @@ const Dashboard = () => {
             </div>
             <div className={Styles.profile}>
               <Dropdown
-             
                 menu={{
-                  items:profileItems,
+                  items: profileItems,
                 }}
                 placement="bottomRight"
                 arrow={{
                   pointAtCenter: true,
                 }}
-
-           
               >
                 <img
                   style={{ cursor: "pointer" }}
