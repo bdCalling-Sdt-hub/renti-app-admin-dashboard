@@ -16,15 +16,16 @@ import Signin from "./Pages/Signin/Signin";
 import UpdatePass from "./Pages/UpdatePass/UpdatePass";
 
 import NotFound from "./404";
+import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import CarInformation from "./Pages/Dashboard/CarInformation/CarInformation";
+import CarKyc from "./Pages/Dashboard/CarKyc/CarKyc";
+import HostKyc from "./Pages/Dashboard/HostKyc/HostKyc";
 import HostPayment from "./Pages/Dashboard/HostPayment/HostPayment";
 import RentisIncome from "./Pages/Dashboard/RentisIncome/RentisIncome";
 import Setting from "./Pages/Dashboard/Setting/Setting";
 import SettingPage from "./Pages/Dashboard/Setting/SettingPage/SettingPage";
 import StripeBills from "./Pages/Dashboard/StripeBills/StripeBills";
-import HostKyc from "./Pages/Dashboard/HostKyc/HostKyc";
 import UserKyc from "./Pages/Dashboard/UserKyc/UserKyc";
-import CarKyc from "./Pages/Dashboard/CarKyc/CarKyc";
 import UserPayment from "./Pages/Dashboard/UserPayment/UserPayment";
 
 function App() {
@@ -33,7 +34,15 @@ function App() {
       <div className="maincontainer">
         <Router>
           <Routes>
-            <Route exact path="/" element={<Dashboard />}>
+            <Route
+              exact
+              path="/"
+              element={
+                <PrivateRoute>
+                  <Dashboard />
+                </PrivateRoute>
+              }
+            >
               <Route path="/" element={<DashboardHome />} />
               <Route path="/notification" element={<Notification />} />
               <Route path="/earning/:income" element={<Earning />} />
