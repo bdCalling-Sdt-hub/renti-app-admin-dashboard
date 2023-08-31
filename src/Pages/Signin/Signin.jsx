@@ -4,10 +4,14 @@ import React from "react";
 import { useNavigate } from "react-router";
 import logo from "../../Images/Logo.png";
 import style from "./Signin.module.css";
+import {useDispatch,useSelector} from 'react-redux'
+import {UserData} from '../../ReduxSlices/SigninSlice'
 
 const Signin = () => {
+  const dispatch=useDispatch();
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
+    dispatch(UserData(values))
   };
 
   const navigate = useNavigate();
@@ -85,9 +89,7 @@ const Signin = () => {
             </Form.Item>
           </div>
           <div className={style.rememberAndPass}>
-            <Form.Item name="remember" valuePropName="checked" noStyle>
-              <Checkbox>Remember me</Checkbox>
-            </Form.Item>
+            <div></div>
 
             <a
               className="login-form-forgot"
