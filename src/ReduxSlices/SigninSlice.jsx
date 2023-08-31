@@ -22,7 +22,7 @@ export const UserData=createAsyncThunk(
           
             let response=await axios.post("api/user/sign-in",value);
 
-           return response.data
+            return response.data
            
 
         } catch (error) {
@@ -44,7 +44,14 @@ export const signinSlice = createSlice({
     name: 'signin',
     initialState,
     reducers: {
-      
+        reset: (state) => {
+            state.isLoading = false
+            state.isSuccess = false
+            state.isError = false
+            state.message = ''
+            state.userData={},
+            state.accessToken=""
+          },
     },
 
     extraReducers:{
@@ -69,7 +76,7 @@ export const signinSlice = createSlice({
   })
   
   // Action creators are generated for each case reducer function
-  export const {  } = signinSlice.actions
+  export const {reset} = signinSlice.actions
   
   export default signinSlice.reducer
 
