@@ -5,7 +5,7 @@ const PrivateRoute = ({ children }) => {
   const location = useLocation();
 
   const user = {
-    email: "siffahim25@gmail.com",
+    email: "tushar@gmail.com",
   };
 
   if (user.email) {

@@ -128,7 +128,9 @@ const items = [...Array(5).keys()].map((item, index) => {
 
 const Dashboard = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState(localStorage.lang);
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.lang || "en"
+  );
 
   const {
     token: { colorBgContainer },
