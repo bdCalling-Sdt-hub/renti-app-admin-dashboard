@@ -35,7 +35,17 @@ export const UserData = createAsyncThunk(
 export const signinSlice = createSlice({
   name: "signin",
   initialState,
-  reducers: {},
+
+  reducers: {
+    reset: (state) => {
+      state.isLoading = false;
+      state.isSuccess = false;
+      state.isError = false;
+      state.message = "";
+      state.userData = {};
+      state.accessToken = "";
+    },
+  },
 
   extraReducers: {
     [UserData.pending]: (state, action) => {
