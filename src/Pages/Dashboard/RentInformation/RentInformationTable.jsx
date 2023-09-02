@@ -3,6 +3,10 @@ import React, { useEffect, useState } from "react";
 import { AiOutlinePrinter } from "react-icons/ai";
 import { LiaSaveSolid } from "react-icons/lia";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
+import { useDispatch,useSelector } from "react-redux";
+import { RentInformationData } from "../../../ReduxSlices/RentInformationSlice";
+
+
 const { Title, Text } = Typography;
 import {
  
@@ -11,188 +15,21 @@ import {
 } from '@ant-design/icons';
 
 
-const data = [
-  {
-    key: "1",
-    invoiceNo: "10",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "2",
-    invoiceNo: "11",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "3",
-    invoiceNo: "12",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "4",
-    invoiceNo: "13",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "5",
-    invoiceNo: "14",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "6",
-    invoiceNo: "15",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "7",
-    invoiceNo: "16",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "8",
-    invoiceNo: "17",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "9",
-    invoiceNo: "15",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "10",
-    invoiceNo: "16",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "11",
-    invoiceNo: "17",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "12",
-    invoiceNo: "15",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "13",
-    invoiceNo: "16",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "14",
-    invoiceNo: "17",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "15",
-    invoiceNo: "15",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "16",
-    invoiceNo: "16",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "17",
-    invoiceNo: "17",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  }
-];
 
-const RentInformationTable = () =>{
+
+const RentInformationTable = ({recentDataGetByPagination}) =>{
     const [rentData, setRentData] = useState([]); // Data fetched from the server
     const [totalItems, setTotalItems] = useState(0); // Total number of items
     const [currentPage, setCurrentPage] = useState(1); // Current page number
-    const pageSize = 12;
+    const pageSize = 5;
 
+
+    const dispatch=useDispatch();
 
     const [isDrawerVisible, setIsDrawerVisible] = useState(false);
     const [invoiceData, setInvoiceData] = useState(null);
+
+    const {rents,pagination} = useSelector((state) => state.RentInformation);
   
     const showDrawer = (record) => {
       setIsDrawerVisible(true);
@@ -202,19 +39,47 @@ const RentInformationTable = () =>{
     const closeDrawer = () => {
       setIsDrawerVisible(false);
       setInvoiceData(null);
+    
     };
+
+    console.log("rentinformation page data",rents,pagination)
+
+    const data=rents?.map((item)=>{
+      console.log("tushar",item)
+        return{
+              key: item._id,
+              carModel:item.carId.carModelName,
+              username: item.userId.fullName,
+              tripno: item._id,
+              startDate: item.startDate,
+              endDate: item.endDate,
+              price: item.totalAmount,
+              status:<div style={{color:"white",backgroundColor:item.requestStatus=="Accepted"?"#000b90":item.requestStatus=="Pending"?"red":"green",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>{item.requestStatus}</div>,
+              printView: "Button",
+        }
+    })
+     
+    const handlePageChange=(page)=>{
+      setCurrentPage(page);
+      console.log("mycurrent",currentPage)
+      recentDataGetByPagination(page)
+  }
+
+
+
+
 
 
     const columns = [
       {
         title: "Trip No",
-        dataIndex: "invoiceNo",
+        dataIndex: "tripno",
         key: "invoiceNo",
       },
       {
         title: "Car Model",
-        dataIndex: "time",
-        key: "time",
+        dataIndex: "carModel",
+        key: "carModel",
         responsive: ["md"],
       },
       {
@@ -225,19 +90,19 @@ const RentInformationTable = () =>{
       },
       {
         title: "Pick-Up",
-        dataIndex: "method",
-        key: "method",
+        dataIndex: "startDate",
+        key: "startDate",
       },
       {
         title: "Drop-Off",
-        dataIndex: "amount",
-        key: "amount",
+        dataIndex: "endDate",
+        key: "endDate",
         responsive: ["md"],
       },
       {
         title: "Price",
-        dataIndex: "status",
-        key: "status",
+        dataIndex: "price",
+        key: "price",
       },
       {
         title: "Status",
@@ -264,35 +129,31 @@ const RentInformationTable = () =>{
 
 
 
-    useEffect(() => {
-        // Fetch data from the server when the current page changes
-        fetchData();
-      }, [currentPage]);
+    // useEffect(() => {
+    //     // Fetch data from the server when the current page changes
+    //     fetchData();
+    //   }, [currentPage]);
     
-      const fetchData = async () => {
-        // Replace this with your actual API request to fetch data based on pagination
-        try {
-          const response = await fetch(`/api/data?page=${currentPage}&pageSize=${pageSize}`);
-          const result = await response.json();
+    //   const fetchData = async () => {
+    //     // Replace this with your actual API request to fetch data based on pagination
+    //     try {
+    //       const response = await fetch(`/api/data?page=${currentPage}&pageSize=${pageSize}`);
+    //       const result = await response.json();
     
-          setData(result.data);
-          setTotalItems(result.totalItems);
-        } catch (error) {
-          console.error("Error fetching data:", error);
-        }
-      };
+    //       setData(result.data);
+    //       setTotalItems(result.totalItems);
+    //     } catch (error) {
+    //       console.error("Error fetching data:", error);
+    //     }
+    //   };
 
-    const handlePageChange=(page)=>{
-        setCurrentPage(page);
-        console.log(currentPage)
-    }
-
+    
     return(
       <>
         <Table columns={columns} dataSource={data} pagination={{
             pageSize,
             showSizeChanger:false,
-            total: 5000,
+            total: pagination?.totalDocuments,
             current: currentPage,
             onChange: handlePageChange,
           }}/>

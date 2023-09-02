@@ -11,7 +11,7 @@ const { Title, Text } = Typography;
 
 const EarnHistoryTable = ({recentDataGetByPagination}) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 1;
+  const pageSize = 3;
   const {todayEarning,weeklyEarning,monthlyEarning,pagination} = useSelector((state) => state.RecentEarnings);
 
   let today_data;
@@ -22,7 +22,7 @@ const EarnHistoryTable = ({recentDataGetByPagination}) => {
       console.log("tushar",item)
         return{
               key: item._id,
-              invoiceNo: item._id,
+              tripNo: item?.rentId?.rentTripNumber,
               time: item.createdAt,
               username: item.userId.fullName,
               method: item.paymentData.payment_method_details.card.brand,
@@ -41,7 +41,7 @@ const EarnHistoryTable = ({recentDataGetByPagination}) => {
    console.log("tushar",item)
      return{
            key: item._id,
-           invoiceNo: item._id,
+           tripNo: item?.rentId?.rentTripNumber,
            time: item.createdAt,
            username: item.userId.fullName,
            method: item.paymentData.payment_method_details.card.brand,
@@ -57,7 +57,7 @@ if(monthlyEarning){
    console.log("tushar",item)
      return{
            key: item._id,
-           invoiceNo: item._id,
+           tripNo: item?.rentId?.rentTripNumber,
            time: item.createdAt,
            username: item.userId.fullName,
            method: item.paymentData.payment_method_details.card.brand,
@@ -73,168 +73,6 @@ if(monthlyEarning){
   console.log("today earning")
 
 
-  // const data = [
-  //   {
-  //     tripNo: "1373700510",
-  
-  //     time: "18 Jul, 2023  4:30pm",
-  //     username: "Fahim",
-  //     method: "Credit Card",
-  //     amount: "$850.00",
-  //     status: "complete",
-  //     printView: "Button",
-  //   },
-  //   {
-  //     key: "2",
-  //     tripNo: "1373700510",
-  //     time: "18 Jul, 2023  4:30pm",
-  //     username: "Fahim",
-  //     method: "Credit Card",
-  //     amount: "$850.00",
-  //     status: "padding",
-  //     printView: "Button",
-  //   },
-  //   {
-  //     key: "3",
-  //     tripNo: "1373700510",
-  //     time: "18 Jul, 2023  4:30pm",
-  //     username: "Fahim",
-  //     method: "Credit Card",
-  //     amount: "$850.00",
-  //     status: "padding",
-  //     printView: "Button",
-  //   },
-  //   {
-  //     key: "1",
-  //     tripNo: "1373700510",
-  //     time: "18 Jul, 2023  4:30pm",
-  //     username: "Fahim",
-  //     method: "Credit Card",
-  //     amount: "$850.00",
-  //     status: "padding",
-  //     printView: "Button",
-  //   },
-  //   {
-  //     key: "1",
-  //     tripNo: "1373700510",
-  //     time: "18 Jul, 2023  4:30pm",
-  //     username: "Fahim",
-  //     method: "Credit Card",
-  //     amount: "$850.00",
-  //     status: "complete",
-  //     printView: "Button",
-  //   },
-  //   {
-  //     key: "1",
-  //     tripNo: "1373700510",
-  //     time: "18 Jul, 2023  4:30pm",
-  //     username: "Fahim",
-  //     method: "Credit Card",
-  //     amount: "$850.00",
-  //     status: "complete",
-  //     printView: "Button",
-  //   },
-  //   {
-  //     key: "1",
-  //     tripNo: "1373700510",
-  //     time: "18 Jul, 2023  4:30pm",
-  //     username: "Fahim",
-  //     method: "Credit Card",
-  //     amount: "$850.00",
-  //     status: "padding",
-  //     printView: "Button",
-  //   },
-  //   {
-  //     key: "1",
-  //     tripNo: "1373700510",
-  //     time: "18 Jul, 2023  4:30pm",
-  //     username: "Fahim",
-  //     method: "Credit Card",
-  //     amount: "$850.00",
-  //     status: "complete",
-  //     printView: "Button",
-  //   },
-  //   {
-  //     key: "1",
-  //     tripNo: "1373700510",
-  //     time: "18 Jul, 2023  4:30pm",
-  //     username: "Fahim",
-  //     method: "Credit Card",
-  //     amount: "$850.00",
-  //     status: "complete",
-  //     printView: "Button",
-  //   },
-  //   {
-  //     key: "1",
-  //     tripNo: "1373700510",
-  //     time: "18 Jul, 2023  4:30pm",
-  //     username: "Fahim",
-  //     method: "Credit Card",
-  //     amount: "$850.00",
-  //     status: "padding",
-  //     printView: "Button",
-  //   },
-  //   {
-  //     key: "1",
-  //     tripNo: "1373700510",
-  //     time: "18 Jul, 2023  4:30pm",
-  //     username: "Fahim",
-  //     method: "Credit Card",
-  //     amount: "$850.00",
-  //     status: "complete",
-  //     printView: "Button",
-  //   },
-  //   {
-  //     key: "1",
-  //     tripNo: "1373700510",
-  //     time: "18 Jul, 2023  4:30pm",
-  //     username: "Fahim",
-  //     method: "Credit Card",
-  //     amount: "$850.00",
-  //     status: "complete",
-  //     printView: "Button",
-  //   },
-  //   {
-  //     key: "1",
-  //     tripNo: "1373700510",
-  //     time: "18 Jul, 2023  4:30pm",
-  //     username: "Fahim",
-  //     method: "Credit Card",
-  //     amount: "$850.00",
-  //     status: "padding",
-  //     printView: "Button",
-  //   },
-  //   {
-  //     key: "1",
-  //     tripNo: "1373700510",
-  //     time: "18 Jul, 2023  4:30pm",
-  //     username: "Fahim",
-  //     method: "Credit Card",
-  //     amount: "$850.00",
-  //     status: "complete",
-  //     printView: "Button",
-  //   },
-  //   {
-  //     key: "1",
-  //     tripNo: "1373700510",
-  //     time: "18 Jul, 2023  4:30pm",
-  //     username: "Fahim",
-  //     method: "Credit Card",
-  //     amount: "$850.00",
-  //     status: "complete",
-  //     printView: "Button",
-  //   },
-  //   {
-  //     key: "1",
-  //     tripNo: "1373700510",
-  //     time: "18 Jul, 2023  4:30pm",
-  //     username: "Fahim",
-  //     method: "Credit Card",
-  //     amount: "$850.00",
-  //     status: "padding",
-  //     printView: "Button",
-  //   },
-  // ];
 
   const columns = [
     {
@@ -318,7 +156,7 @@ if(monthlyEarning){
         pagination={{
           pageSize,
           showSizeChanger:false,
-          total:pagination?.totalPage,
+          total:pagination?.totalDocuments,
           current: currentPage,
           onChange: handlePageChange,
         }} />
@@ -329,7 +167,7 @@ if(monthlyEarning){
         pagination={{
           pageSize,
           showSizeChanger:false,
-          total:pagination?.totalPage,
+          total:pagination?.totalDocuments,
           current: currentPage,
           onChange: handlePageChange,
         }} />
@@ -340,7 +178,7 @@ if(monthlyEarning){
         pagination={{
           pageSize,
           showSizeChanger:false,
-          total:pagination?.totalPage,
+          total:pagination?.totalDocuments,
           current: currentPage,
           onChange: handlePageChange,
         }} />
