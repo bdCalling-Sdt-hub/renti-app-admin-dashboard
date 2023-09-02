@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { AiOutlinePrinter } from "react-icons/ai";
 import { LiaSaveSolid } from "react-icons/lia";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
+import { useDispatch,useSelector } from "react-redux";
+import { RecentEarningsData } from "../../../ReduxSlices/RecentEarningsSlice";
 const { Title, Text } = Typography;
 import {
  
@@ -11,185 +13,15 @@ import {
 } from '@ant-design/icons';
 
 
-const data = [
-  {
-    key: "1",
-    invoiceNo: "10",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "2",
-    invoiceNo: "11",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "3",
-    invoiceNo: "12",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "4",
-    invoiceNo: "13",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "5",
-    invoiceNo: "14",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "6",
-    invoiceNo: "15",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "7",
-    invoiceNo: "16",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "8",
-    invoiceNo: "17",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "9",
-    invoiceNo: "15",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "10",
-    invoiceNo: "16",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "11",
-    invoiceNo: "17",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "12",
-    invoiceNo: "15",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "13",
-    invoiceNo: "16",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "14",
-    invoiceNo: "17",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "15",
-    invoiceNo: "15",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "16",
-    invoiceNo: "16",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "17",
-    invoiceNo: "17",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  }
-];
 
-const InvoiceTable = () =>{
+
+const InvoiceTable = ({recentDataGetByPagination}) =>{
     const [rentData, setRentData] = useState([]); // Data fetched from the server
     const [totalItems, setTotalItems] = useState(0); // Total number of items
     const [currentPage, setCurrentPage] = useState(1); // Current page number
-    const pageSize = 12;
-
+    const pageSize = 1;
+    
+    const dispatch=useDispatch();
 
     const [isDrawerVisible, setIsDrawerVisible] = useState(false);
     const [invoiceData, setInvoiceData] = useState(null);
@@ -203,6 +35,201 @@ const InvoiceTable = () =>{
       setIsDrawerVisible(false);
       setInvoiceData(null);
     };
+    const handlePageChange=(page)=>{
+      console.log(page)
+      setCurrentPage(page);
+      recentDataGetByPagination(page)
+    
+  }
+
+    const {recentEarning,pagination} = useSelector((state) => state.RecentEarnings);
+    const data=recentEarning?.map((item)=>{
+      console.log("tushar",item)
+        return{
+              key: item._id,
+              invoiceNo: item._id,
+              time: item.createdAt,
+              username: item.userId.fullName,
+              method: item.paymentData.payment_method_details.card.brand,
+              amount: item.paymentData.amount,
+              status: item.paymentData.status=="succeeded"?"Complete":"Pending",
+              printView: "Button",
+        }
+    })
+  
+
+    // const data = [
+    //   {
+    //     key: "1",
+    //     invoiceNo: "10",
+    //     time: "18 Jul, 2023  4:30pm",
+    //     username: "Tushar",
+    //     method: "Credit Card",
+    //     amount: "$850.00",
+    //     status: "complete",
+    //     printView: "Button",
+    //   },
+    //   {
+    //     key: "2",
+    //     invoiceNo: "11",
+    //     time: "18 Jul, 2023  4:30pm",
+    //     username: "Tushar",
+    //     method: "Credit Card",
+    //     amount: "$850.00",
+    //     status: "complete",
+    //     printView: "Button",
+    //   },
+    //   {
+    //     key: "3",
+    //     invoiceNo: "12",
+    //     time: "18 Jul, 2023  4:30pm",
+    //     username: "Tushar",
+    //     method: "Credit Card",
+    //     amount: "$850.00",
+    //     status: "complete",
+    //     printView: "Button",
+    //   },
+    //   {
+    //     key: "4",
+    //     invoiceNo: "13",
+    //     time: "18 Jul, 2023  4:30pm",
+    //     username: "Tushar",
+    //     method: "Credit Card",
+    //     amount: "$850.00",
+    //     status: "complete",
+    //     printView: "Button",
+    //   },
+    //   {
+    //     key: "5",
+    //     invoiceNo: "14",
+    //     time: "18 Jul, 2023  4:30pm",
+    //     username: "Tushar",
+    //     method: "Credit Card",
+    //     amount: "$850.00",
+    //     status: "complete",
+    //     printView: "Button",
+    //   },
+    //   {
+    //     key: "6",
+    //     invoiceNo: "15",
+    //     time: "18 Jul, 2023  4:30pm",
+    //     username: "Tushar",
+    //     method: "Credit Card",
+    //     amount: "$850.00",
+    //     status: "complete",
+    //     printView: "Button",
+    //   },
+    //   {
+    //     key: "7",
+    //     invoiceNo: "16",
+    //     time: "18 Jul, 2023  4:30pm",
+    //     username: "Tushar",
+    //     method: "Credit Card",
+    //     amount: "$850.00",
+    //     status: "complete",
+    //     printView: "Button",
+    //   },
+    //   {
+    //     key: "8",
+    //     invoiceNo: "17",
+    //     time: "18 Jul, 2023  4:30pm",
+    //     username: "Tushar",
+    //     method: "Credit Card",
+    //     amount: "$850.00",
+    //     status: "complete",
+    //     printView: "Button",
+    //   },
+    //   {
+    //     key: "9",
+    //     invoiceNo: "15",
+    //     time: "18 Jul, 2023  4:30pm",
+    //     username: "Tushar",
+    //     method: "Credit Card",
+    //     amount: "$850.00",
+    //     status: "complete",
+    //     printView: "Button",
+    //   },
+    //   {
+    //     key: "10",
+    //     invoiceNo: "16",
+    //     time: "18 Jul, 2023  4:30pm",
+    //     username: "Tushar",
+    //     method: "Credit Card",
+    //     amount: "$850.00",
+    //     status: "complete",
+    //     printView: "Button",
+    //   },
+    //   {
+    //     key: "11",
+    //     invoiceNo: "17",
+    //     time: "18 Jul, 2023  4:30pm",
+    //     username: "Tushar",
+    //     method: "Credit Card",
+    //     amount: "$850.00",
+    //     status: "complete",
+    //     printView: "Button",
+    //   },
+    //   {
+    //     key: "12",
+    //     invoiceNo: "15",
+    //     time: "18 Jul, 2023  4:30pm",
+    //     username: "Tushar",
+    //     method: "Credit Card",
+    //     amount: "$850.00",
+    //     status: "complete",
+    //     printView: "Button",
+    //   },
+    //   {
+    //     key: "13",
+    //     invoiceNo: "16",
+    //     time: "18 Jul, 2023  4:30pm",
+    //     username: "Tushar",
+    //     method: "Credit Card",
+    //     amount: "$850.00",
+    //     status: "complete",
+    //     printView: "Button",
+    //   },
+    //   {
+    //     key: "14",
+    //     invoiceNo: "17",
+    //     time: "18 Jul, 2023  4:30pm",
+    //     username: "Tushar",
+    //     method: "Credit Card",
+    //     amount: "$850.00",
+    //     status: "complete",
+    //     printView: "Button",
+    //   },
+    //   {
+    //     key: "15",
+    //     invoiceNo: "15",
+    //     time: "18 Jul, 2023  4:30pm",
+    //     username: "Tushar",
+    //     method: "Credit Card",
+    //     amount: "$850.00",
+    //     status: "complete",
+    //     printView: "Button",
+    //   },
+    //   {
+    //     key: "16",
+    //     invoiceNo: "16",
+    //     time: "18 Jul, 2023  4:30pm",
+    //     username: "Tushar",
+    //     method: "Credit Card",
+    //     amount: "$850.00",
+    //     status: "complete",
+    //     printView: "Button",
+    //   },
+    //   {
+    //     key: "17",
+    //     invoiceNo: "17",
+    //     time: "18 Jul, 2023  4:30pm",
+    //     username: "Tushar",
+    //     method: "Credit Card",
+    //     amount: "$850.00",
+    //     status: "complete",
+    //     printView: "Button",
+    //   }
+    // ];
 
 
     const columns = [
@@ -277,17 +304,14 @@ const InvoiceTable = () =>{
         }
       };
 
-    const handlePageChange=(page)=>{
-        setCurrentPage(page);
-        console.log(currentPage)
-    }
+   
 
     return(
       <>
         <Table columns={columns} dataSource={data} pagination={{
             pageSize,
             showSizeChanger:false,
-            total: 5000,
+            total:pagination.totalPage,
             current: currentPage,
             onChange: handlePageChange,
           }}/>

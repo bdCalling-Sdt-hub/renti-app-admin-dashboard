@@ -1,5 +1,5 @@
 import { Col, Row } from "antd";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { LiaHandHoldingUsdSolid } from "react-icons/lia";
 import "./DashboardHome.css";
 
@@ -14,25 +14,46 @@ import { useDispatch,useSelector } from "react-redux";
 
 import { IncomeData } from '../../../ReduxSlices/IncomeGetSlice';
 import { RentStatusData } from "../../../ReduxSlices/RentStatusSlice";
+import { RecentEarningsData } from "../../../ReduxSlices/RecentEarningsSlice";
 function DashboardHome() {
-
+  
+ 
 
   const dispatch=useDispatch();
 
-  const {isLoading, isError, isSuccess, incomeData } = useSelector(
+  const {incomeData } = useSelector(
     (state) => state.IncomeData
   );
 
-  const {Loading, Error, Success, rentStatus } = useSelector(
+  const {rentStatus } = useSelector(
     (state) => state.RentStatus
   );
+
+  
+  const recentDataGetByPagination=(page)=>{
+    console.log("peyecipage",page)
+    let data={
+      income:"all",
+      page:page
+    }
+    dispatch(RecentEarningsData(data));
+  }
+  //alert(JSON.stringify(earning))
+
+ 
 
   //console.log("off",incomeData)
 
   useEffect(()=>{
-   
+
+     let data={
+       income:"all",
+       page:1
+     }
+      dispatch(RecentEarningsData(data));
       dispatch(IncomeData());
-      dispatch(RentStatusData())
+      dispatch(RentStatusData());
+      
 
 
   },[])
@@ -148,7 +169,7 @@ function DashboardHome() {
           Recent Earnings
         </h2>
       </Row>
-      <InvoiceTable />
+      <InvoiceTable recentDataGetByPagination={recentDataGetByPagination}/>
     </div>
   );
 }
