@@ -6,12 +6,13 @@ import style from "./Earning.module.css";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch,useSelector } from "react-redux";
 import { IncomeData } from '../../../ReduxSlices/IncomeGetSlice';
+import { RecentEarningsData } from "../../../ReduxSlices/RecentEarningsSlice";
 
 const Earning = () =>{
 
   const params=useParams();
   console.log(params.income)
-
+  let incomeTime=params?.income
   const {incomeData } = useSelector(
     (state) => state.IncomeData
   );
@@ -21,11 +22,24 @@ const Earning = () =>{
   const dispatch=useDispatch();
 
   useEffect(()=>{
-
+    let data={
+      income:incomeTime,
+      page:1
+    }
+    dispatch(RecentEarningsData(data));
     dispatch(IncomeData()); 
 
-  },[]);
+  },[incomeTime]);
 
+ 
+  const recentDataGetByPagination=(page)=>{
+    console.log("peyecipage",page)
+    let data={
+      income:incomeTime,
+      page:page
+    }
+    dispatch(RecentEarningsData(data));
+  }
   
 
   return(
@@ -43,7 +57,7 @@ const Earning = () =>{
       <Col className="gutter-row" span={8}>
         <div className={style.card}>
           <div>
-            <Link style={{color:"#fff"}}>
+            <Link  style={{color:"#fff"}}>
             <LiaHandHoldingUsdSolid style={{ fontSize: "50px" }} />
             <h2 className={style.cardTitle}>Today’s Income</h2>
             <h2>$ {incomeData.todayIncome}.00</h2>
@@ -55,7 +69,7 @@ const Earning = () =>{
       <Col className="gutter-row" span={8}>
         <div className={style.card}>
           <div>
-          <Link style={{color:"#fff"}}>
+          <Link  style={{color:"#fff"}}>
           <LiaHandHoldingUsdSolid style={{ fontSize: "50px" }} />
             <h2 className={style.cardTitle}>Weakly Income</h2>
             <h2>$ {incomeData.weeklyIncome}.00</h2>
@@ -67,7 +81,7 @@ const Earning = () =>{
       <Col className="gutter-row" span={8}>
         <div className={style.card}>
           <div>
-            <Link style={{color:"#fff"}}>
+            <Link  style={{color:"#fff"}}>
             <LiaHandHoldingUsdSolid style={{ fontSize: "50px" }} />
             <h2 className={style.cardTitle}>Monthly Income</h2>
             <h2>$ {incomeData.totalMonthlyIncome}.00</h2>
@@ -81,7 +95,7 @@ const Earning = () =>{
       Transactions History
     </h2>
 
-    <EarnHistoryTable />
+    <EarnHistoryTable recentDataGetByPagination={recentDataGetByPagination} />
   </div>
   );
 };
