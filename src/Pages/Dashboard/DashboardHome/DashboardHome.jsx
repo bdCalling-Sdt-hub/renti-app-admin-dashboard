@@ -1,5 +1,5 @@
 import { Col, Row } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { LiaHandHoldingUsdSolid } from "react-icons/lia";
 import "./DashboardHome.css";
 
@@ -10,8 +10,55 @@ import { SlRefresh } from "react-icons/sl";
 import InvoiceTable from "./InvoiceTable";
 import MostRentCarChart from "./MostRentCarChart";
 import DailyRentChart from "./dailyRentChart";
+import { useDispatch,useSelector } from "react-redux";
 
+import { IncomeData } from '../../../ReduxSlices/IncomeGetSlice';
+import { RentStatusData } from "../../../ReduxSlices/RentStatusSlice";
+import { RecentEarningsData } from "../../../ReduxSlices/RecentEarningsSlice";
 function DashboardHome() {
+  
+ 
+
+  const dispatch=useDispatch();
+
+  const {incomeData } = useSelector(
+    (state) => state.IncomeData
+  );
+
+  const {rentStatus } = useSelector(
+    (state) => state.RentStatus
+  );
+
+  
+  const recentDataGetByPagination=(page)=>{
+    console.log("peyecipage",page)
+    let data={
+      income:"all",
+      page:page
+    }
+    dispatch(RecentEarningsData(data));
+  }
+  //alert(JSON.stringify(earning))
+
+ 
+
+  //console.log("off",incomeData)
+
+  useEffect(()=>{
+
+     let data={
+       income:"all",
+       page:1
+     }
+      dispatch(RecentEarningsData(data));
+      dispatch(IncomeData());
+      dispatch(RentStatusData());
+      
+
+
+  },[])
+
+
   const onChange = (pageNumber) => {
     console.log("Page: ", pageNumber);
   };
@@ -24,28 +71,28 @@ function DashboardHome() {
          <div  className='income-card'>
             <LiaHandHoldingUsdSolid style={{fontSize:"50px"}}/>
             <h1 style={{fontSize:"1.5rem",fontWeight:"300",marginTop:"15px",marginBottom:"15px"}}>Today's income</h1>
-            <h3 style={{fontSize:"1.5rem",letterSpacing:".2rem",marginBottom:"15px"}}>$ 250.00</h3>
+            <h3 style={{fontSize:"1.5rem",letterSpacing:".2rem",marginBottom:"15px"}}>$ {incomeData?.todayIncome}.00</h3>
          </div>
       </Col>
       <Col className="gutter-row" style={{marginBottom:"10px"}} xs={{span:24}} sm={{span:24}} md={{span:12}} lg={{span:6}}>
          <div className='income-card'>
             <LiaHandHoldingUsdSolid style={{fontSize:"50px"}}/>
             <h1 style={{fontSize:"1.5rem",fontWeight:"300",marginTop:"15px",marginBottom:"15px"}}>Weekly income</h1>
-            <h3 style={{fontSize:"1.5rem",letterSpacing:"1px",marginBottom:"15px"}}>$ 250.00</h3>
+            <h3 style={{fontSize:"1.5rem",letterSpacing:"1px",marginBottom:"15px"}}>$ {incomeData?.weeklyIncome}.00</h3>
         </div>
       </Col>
       <Col className="gutter-row" style={{marginBottom:"10px"}} xs={{span:24}} sm={{span:24}} md={{span:12}} lg={{span:6}}>
          <div  className='income-card'>
             <LiaHandHoldingUsdSolid style={{fontSize:"50px"}}/>
             <h1 style={{fontSize:"1.5rem",fontWeight:"300",marginTop:"15px",marginBottom:"15px"}}>Monthly income</h1>
-            <h3 style={{fontSize:"1.5rem",letterSpacing:"1px",marginBottom:"15px"}}>$ 250.00</h3>
+            <h3 style={{fontSize:"1.5rem",letterSpacing:"1px",marginBottom:"15px"}}>$ {incomeData?.totalMonthlyIncome}.00</h3>
          </div>
       </Col>
       <Col className="gutter-row" style={{marginBottom:"10px"}} xs={{span:24}} sm={{span:24}} md={{span:12}} lg={{span:6}}>
          <div  className='income-card'>
             <LiaHandHoldingUsdSolid style={{fontSize:"50px"}}/>
             <h1 style={{fontSize:"1.5rem",fontWeight:"300",marginTop:"15px",marginBottom:"15px"}}>All time income</h1>
-            <h3 style={{fontSize:"1.5rem",letterSpacing:"1px",marginBottom:"15px"}}>$ 250.00</h3>
+            <h3 style={{fontSize:"1.5rem",letterSpacing:"1px",marginBottom:"15px"}}>$ {incomeData?.totalIncome}.00</h3>
         </div>
       </Col>
     </Row>
@@ -56,7 +103,7 @@ function DashboardHome() {
             <MdCarRental style={{fontSize:"1.5rem",color:"#000b90"}}/>
             <div className='single-status'>
                 <h2 style={{fontSize:"1.5rem",fontWeight:"600",marginTop:"10px",marginBottom:"10px",color:"#000b90"}}>Today's Rent</h2>
-                <h3 style={{fontSize:"1.5rem",letterSpacing:"1px",color:"gray"}}>32</h3>
+                <h3 style={{fontSize:"1.5rem",letterSpacing:"1px",color:"gray"}}>{rentStatus?.todayRents?.length}</h3>
             </div>
             
          </div>
@@ -66,7 +113,7 @@ function DashboardHome() {
             <GrHistory style={{fontSize:"1.5rem",color:"#000b90"}}/>
             <div className='single-status'>
                 <h2 style={{fontSize:"1.5rem",fontWeight:"600",marginTop:"10px",marginBottom:"10px",color:"#000b90"}}>Pendings</h2>
-                <h3 style={{fontSize:"1.5rem",letterSpacing:"1px",color:"gray"}}>40</h3>
+                <h3 style={{fontSize:"1.5rem",letterSpacing:"1px",color:"gray"}}>{rentStatus?.pendingRents?.length}</h3>
             </div>
             
          </div>
@@ -76,7 +123,7 @@ function DashboardHome() {
             <SlRefresh style={{fontSize:"1.5rem",color:"#000b90"}}/>
             <div className='single-status'>
                 <h2 style={{fontSize:"1.5rem",fontWeight:"600",marginTop:"10px",marginBottom:"10px",color:"#000b90"}}>Ongoing</h2>
-                <h3 style={{fontSize:"1.5rem",letterSpacing:"1px",color:"gray"}}>103</h3>
+                <h3 style={{fontSize:"1.5rem",letterSpacing:"1px",color:"gray"}}>{rentStatus?.totalOnGoing?.length}</h3>
             </div>
             
          </div>
@@ -122,7 +169,7 @@ function DashboardHome() {
           Recent Earnings
         </h2>
       </Row>
-      <InvoiceTable />
+      <InvoiceTable recentDataGetByPagination={recentDataGetByPagination}/>
     </div>
   );
 }

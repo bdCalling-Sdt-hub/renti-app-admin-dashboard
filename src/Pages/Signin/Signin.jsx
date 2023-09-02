@@ -30,7 +30,8 @@ const Signin = () => {
     if(isSuccess==true){
         localStorage.setItem("yourInfo",JSON.stringify(userData));
         localStorage.setItem("token",accessToken);
-        navigate("/")
+        window.location.href="/"
+        
     }
 
   dispatch(reset())

@@ -3,22 +3,22 @@ import axios from '../../Config'
 
 
 const initialState = {
-    isError: false,
-    isSuccess: false,
-    isLoading: false,
-    incomeData:{}
+    Error: false,
+    Success: false,
+    Loading: false,
+    rentStatus:{}
 
 };
 
 let token=localStorage.getItem("token");
 
-export const IncomeData=createAsyncThunk(
+export const RentStatusData=createAsyncThunk(
 
-    "Income",
+    "RentStatus",
     async (value,thunkAPI) => {
         try {
            
-            let response=await axios.get("/api/dashboard/income/",{
+            let response=await axios.get("/api/dashboard/rent-status",{
                 headers:{
                     "Content-Type":"application/json",
                     "authorization":`Bearer ${token}`
@@ -41,43 +41,43 @@ export const IncomeData=createAsyncThunk(
 );
 
 
-export const incomeGetSlice = createSlice({
+export const RentStatusSlice = createSlice({
     name: 'income',
     initialState,
     reducers: {
         reset: (state) => {
-            state.isLoading = false
-            state.isSuccess = false
-            state.isError = false
-            state.incomeData={}
+            state.Loading = false
+            state.Success = false
+            state.Error = false
+            state.rentStatus={}
          
           },
     },
     extraReducers:{
-        [IncomeData.pending]:(state,action)=>{
-            state.isLoading = true
+        [RentStatusData.pending]:(state,action)=>{
+            state.Loading = true
         },
-        [IncomeData.fulfilled]:(state,action)=>{
+        [RentStatusData.fulfilled]:(state,action)=>{
            
-            state.isLoading = false
-            state.isSuccess = true
-            state.isError = false
-            state.incomeData=action.payload
+            state.Loading = false
+            state.Success = true
+            state.Error = false
+            state.rentStatus=action.payload
         },
-        [IncomeData.rejected]:(state,action)=>{
-            console.log("rejected")
-            state.isLoading = false
-            state.isSuccess = false
-            state.isError = true
+        [RentStatusData.rejected]:(state,action)=>{
+           
+            state.Loading = false
+            state.Success = false
+            state.Error = true
             
         },
     }
   })
   
   // Action creators are generated for each case reducer function
-  export const {reset} = incomeGetSlice.actions
+  export const {reset} = RentStatusSlice.actions
   
-  export default incomeGetSlice.reducer
+  export default RentStatusSlice.reducer
 
 
 

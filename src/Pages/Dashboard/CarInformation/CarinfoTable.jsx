@@ -1,5 +1,6 @@
 import { CloseOutlined } from "@ant-design/icons";
 import { Button, Drawer, Space, Table, Typography } from "antd";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { AiOutlinePrinter } from "react-icons/ai";
 import { LiaSaveSolid } from "react-icons/lia";
@@ -16,16 +17,18 @@ const CarInfoTable = ({ carDataByPagination }) => {
   const { cars, pagination } = useSelector((state) => state.carsData.carsData);
 
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
-  const [invoiceData, setInvoiceData] = useState(null);
+  const [carDetailsData, setCarDetailsData] = useState(null);
 
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
-    setInvoiceData(record);
+    setCarDetailsData(record);
   };
+
+  console.log("Data", carDetailsData);
 
   const closeDrawer = () => {
     setIsDrawerVisible(false);
-    setInvoiceData(null);
+    setCarDetailsData(null);
   };
 
   console.log("page", pagination);
@@ -37,13 +40,13 @@ const CarInfoTable = ({ carDataByPagination }) => {
 
   const data = cars?.map((car) => {
     return {
-      key: 1,
+      key: car._id,
       carModel: car.carModelName,
       licenseNo: car.carLicenseNumber,
-      registerDate: "18 Aug 2023",
+      registerDate: moment(car.createAt).format("YYYY-MM-DD"),
       owner: car.carOwner.fullName,
       status: car.tripStatus,
-      printView: "Button",
+      printView: car,
     };
   });
 
@@ -140,9 +143,9 @@ const CarInfoTable = ({ carDataByPagination }) => {
           <div>
             <Typography>
               <Title level={5} strong>
-                Invoice# Trip No.{invoiceData?.invoiceNo}
+                Car Details
               </Title>
-              <Text>See all information about the trip no. 68656</Text>
+              <Text>See all information about selected car</Text>
             </Typography>
           </div>
         }
@@ -169,7 +172,7 @@ const CarInfoTable = ({ carDataByPagination }) => {
           </Space>
         }
       >
-        {invoiceData && <DrawerPage invoiceData={invoiceData} />}
+        {carDetailsData && <DrawerPage carDetails={carDetailsData} />}
       </Drawer>
     </div>
   );

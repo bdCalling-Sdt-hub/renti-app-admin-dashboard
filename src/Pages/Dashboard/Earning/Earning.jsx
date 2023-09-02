@@ -1,11 +1,35 @@
 import { Col, Row } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 import { LiaHandHoldingUsdSolid } from "react-icons/lia";
 import EarnHistoryTable from "./EarnHistoryTable";
 import style from "./Earning.module.css";
+import { Link, useParams } from "react-router-dom";
+import { useDispatch,useSelector } from "react-redux";
+import { IncomeData } from '../../../ReduxSlices/IncomeGetSlice';
 
-const Earning = () => (
-  <div style={{ padding: "0px 50px" }}>
+const Earning = () =>{
+
+  const params=useParams();
+  console.log(params.income)
+
+  const {incomeData } = useSelector(
+    (state) => state.IncomeData
+  );
+
+  console.log("right",incomeData)
+
+  const dispatch=useDispatch();
+
+  useEffect(()=>{
+
+    dispatch(IncomeData()); 
+
+  },[]);
+
+  
+
+  return(
+    <div style={{ padding: "0px 50px" }}>
     <h2 style={{ fontSize: "25px", fontWeight: "normal" }}>Earnings</h2>
     <Row
       gutter={{
@@ -19,27 +43,36 @@ const Earning = () => (
       <Col className="gutter-row" span={8}>
         <div className={style.card}>
           <div>
+            <Link style={{color:"#fff"}}>
             <LiaHandHoldingUsdSolid style={{ fontSize: "50px" }} />
             <h2 className={style.cardTitle}>Today’s Income</h2>
-            <h2>$ 250.00</h2>
+            <h2>$ {incomeData.todayIncome}.00</h2>
+            </Link>
+            
           </div>
         </div>
       </Col>
       <Col className="gutter-row" span={8}>
         <div className={style.card}>
           <div>
-            <LiaHandHoldingUsdSolid style={{ fontSize: "50px" }} />
+          <Link style={{color:"#fff"}}>
+          <LiaHandHoldingUsdSolid style={{ fontSize: "50px" }} />
             <h2 className={style.cardTitle}>Weakly Income</h2>
-            <h2>$ 250.00</h2>
+            <h2>$ {incomeData.weeklyIncome}.00</h2>
+          </Link>
+           
           </div>
         </div>
       </Col>
       <Col className="gutter-row" span={8}>
         <div className={style.card}>
           <div>
+            <Link style={{color:"#fff"}}>
             <LiaHandHoldingUsdSolid style={{ fontSize: "50px" }} />
             <h2 className={style.cardTitle}>Monthly Income</h2>
-            <h2>$ 250.00</h2>
+            <h2>$ {incomeData.totalMonthlyIncome}.00</h2>
+            </Link>
+      
           </div>
         </div>
       </Col>
@@ -50,6 +83,7 @@ const Earning = () => (
 
     <EarnHistoryTable />
   </div>
-);
+  );
+};
 
 export default Earning;
