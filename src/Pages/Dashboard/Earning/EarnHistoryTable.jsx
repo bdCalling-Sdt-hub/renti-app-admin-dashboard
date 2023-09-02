@@ -4,172 +4,238 @@ import { AiOutlinePrinter } from "react-icons/ai";
 import { IoMdClose } from "react-icons/io";
 import { LiaSaveSolid } from "react-icons/lia";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
+import { useDispatch,useSelector } from "react-redux";
 const { Title, Text } = Typography;
 
-const data = [
-  {
-    tripNo: "1373700510",
 
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "2",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "padding",
-    printView: "Button",
-  },
-  {
-    key: "3",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "padding",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "padding",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "padding",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "padding",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "padding",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "padding",
-    printView: "Button",
-  },
-];
 
-const EarnHistoryTable = () => {
+const EarnHistoryTable = ({recentDataGetByPagination}) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 1;
+  const {todayEarning,weeklyEarning,monthlyEarning,pagination} = useSelector((state) => state.RecentEarnings);
+
+  let today_data;
+  let weekly_data;
+  let monthly_data;
+  if(todayEarning){
+    today_data=todayEarning?.map((item)=>{
+      console.log("tushar",item)
+        return{
+              key: item._id,
+              invoiceNo: item._id,
+              time: item.createdAt,
+              username: item.userId.fullName,
+              method: item.paymentData.payment_method_details.card.brand,
+              amount: item.paymentData.amount,
+              status: item.paymentData.status=="succeeded"?"Complete":"Pending",
+              printView: "Button",
+        }
+    });
+  }
+ 
+
+ 
+
+ if(weeklyEarning){
+  weekly_data=weeklyEarning?.map((item)=>{
+   console.log("tushar",item)
+     return{
+           key: item._id,
+           invoiceNo: item._id,
+           time: item.createdAt,
+           username: item.userId.fullName,
+           method: item.paymentData.payment_method_details.card.brand,
+           amount: item.paymentData.amount,
+           status: item.paymentData.status=="succeeded"?"Complete":"Pending",
+           printView: "Button",
+     }
+ });
+}
+
+if(monthlyEarning){
+  monthly_data=monthlyEarning?.map((item)=>{
+   console.log("tushar",item)
+     return{
+           key: item._id,
+           invoiceNo: item._id,
+           time: item.createdAt,
+           username: item.userId.fullName,
+           method: item.paymentData.payment_method_details.card.brand,
+           amount: item.paymentData.amount,
+           status: item.paymentData.status=="succeeded"?"Complete":"Pending",
+           printView: "Button",
+     }
+ });
+}
+
+ 
+
+  console.log("today earning")
+
+
+  // const data = [
+  //   {
+  //     tripNo: "1373700510",
+  
+  //     time: "18 Jul, 2023  4:30pm",
+  //     username: "Fahim",
+  //     method: "Credit Card",
+  //     amount: "$850.00",
+  //     status: "complete",
+  //     printView: "Button",
+  //   },
+  //   {
+  //     key: "2",
+  //     tripNo: "1373700510",
+  //     time: "18 Jul, 2023  4:30pm",
+  //     username: "Fahim",
+  //     method: "Credit Card",
+  //     amount: "$850.00",
+  //     status: "padding",
+  //     printView: "Button",
+  //   },
+  //   {
+  //     key: "3",
+  //     tripNo: "1373700510",
+  //     time: "18 Jul, 2023  4:30pm",
+  //     username: "Fahim",
+  //     method: "Credit Card",
+  //     amount: "$850.00",
+  //     status: "padding",
+  //     printView: "Button",
+  //   },
+  //   {
+  //     key: "1",
+  //     tripNo: "1373700510",
+  //     time: "18 Jul, 2023  4:30pm",
+  //     username: "Fahim",
+  //     method: "Credit Card",
+  //     amount: "$850.00",
+  //     status: "padding",
+  //     printView: "Button",
+  //   },
+  //   {
+  //     key: "1",
+  //     tripNo: "1373700510",
+  //     time: "18 Jul, 2023  4:30pm",
+  //     username: "Fahim",
+  //     method: "Credit Card",
+  //     amount: "$850.00",
+  //     status: "complete",
+  //     printView: "Button",
+  //   },
+  //   {
+  //     key: "1",
+  //     tripNo: "1373700510",
+  //     time: "18 Jul, 2023  4:30pm",
+  //     username: "Fahim",
+  //     method: "Credit Card",
+  //     amount: "$850.00",
+  //     status: "complete",
+  //     printView: "Button",
+  //   },
+  //   {
+  //     key: "1",
+  //     tripNo: "1373700510",
+  //     time: "18 Jul, 2023  4:30pm",
+  //     username: "Fahim",
+  //     method: "Credit Card",
+  //     amount: "$850.00",
+  //     status: "padding",
+  //     printView: "Button",
+  //   },
+  //   {
+  //     key: "1",
+  //     tripNo: "1373700510",
+  //     time: "18 Jul, 2023  4:30pm",
+  //     username: "Fahim",
+  //     method: "Credit Card",
+  //     amount: "$850.00",
+  //     status: "complete",
+  //     printView: "Button",
+  //   },
+  //   {
+  //     key: "1",
+  //     tripNo: "1373700510",
+  //     time: "18 Jul, 2023  4:30pm",
+  //     username: "Fahim",
+  //     method: "Credit Card",
+  //     amount: "$850.00",
+  //     status: "complete",
+  //     printView: "Button",
+  //   },
+  //   {
+  //     key: "1",
+  //     tripNo: "1373700510",
+  //     time: "18 Jul, 2023  4:30pm",
+  //     username: "Fahim",
+  //     method: "Credit Card",
+  //     amount: "$850.00",
+  //     status: "padding",
+  //     printView: "Button",
+  //   },
+  //   {
+  //     key: "1",
+  //     tripNo: "1373700510",
+  //     time: "18 Jul, 2023  4:30pm",
+  //     username: "Fahim",
+  //     method: "Credit Card",
+  //     amount: "$850.00",
+  //     status: "complete",
+  //     printView: "Button",
+  //   },
+  //   {
+  //     key: "1",
+  //     tripNo: "1373700510",
+  //     time: "18 Jul, 2023  4:30pm",
+  //     username: "Fahim",
+  //     method: "Credit Card",
+  //     amount: "$850.00",
+  //     status: "complete",
+  //     printView: "Button",
+  //   },
+  //   {
+  //     key: "1",
+  //     tripNo: "1373700510",
+  //     time: "18 Jul, 2023  4:30pm",
+  //     username: "Fahim",
+  //     method: "Credit Card",
+  //     amount: "$850.00",
+  //     status: "padding",
+  //     printView: "Button",
+  //   },
+  //   {
+  //     key: "1",
+  //     tripNo: "1373700510",
+  //     time: "18 Jul, 2023  4:30pm",
+  //     username: "Fahim",
+  //     method: "Credit Card",
+  //     amount: "$850.00",
+  //     status: "complete",
+  //     printView: "Button",
+  //   },
+  //   {
+  //     key: "1",
+  //     tripNo: "1373700510",
+  //     time: "18 Jul, 2023  4:30pm",
+  //     username: "Fahim",
+  //     method: "Credit Card",
+  //     amount: "$850.00",
+  //     status: "complete",
+  //     printView: "Button",
+  //   },
+  //   {
+  //     key: "1",
+  //     tripNo: "1373700510",
+  //     time: "18 Jul, 2023  4:30pm",
+  //     username: "Fahim",
+  //     method: "Credit Card",
+  //     amount: "$850.00",
+  //     status: "padding",
+  //     printView: "Button",
+  //   },
+  // ];
+
   const columns = [
     {
       title: "TRIP NO.",
@@ -238,9 +304,50 @@ const EarnHistoryTable = () => {
     setEarningData(null);
   };
 
+  const handlePageChange=(page)=>{
+    console.log(page)
+    setCurrentPage(page);
+    recentDataGetByPagination(page)
+  
+  }
+
   return (
     <div>
-      <Table columns={columns} dataSource={data} />
+      {
+        today_data && <Table columns={columns} dataSource={today_data}
+        pagination={{
+          pageSize,
+          showSizeChanger:false,
+          total:pagination?.totalPage,
+          current: currentPage,
+          onChange: handlePageChange,
+        }} />
+      }
+
+     {
+        weekly_data && <Table columns={columns} dataSource={weekly_data}
+        pagination={{
+          pageSize,
+          showSizeChanger:false,
+          total:pagination?.totalPage,
+          current: currentPage,
+          onChange: handlePageChange,
+        }} />
+      }
+
+     {
+        monthly_data && <Table columns={columns} dataSource={monthly_data}
+        pagination={{
+          pageSize,
+          showSizeChanger:false,
+          total:pagination?.totalPage,
+          current: currentPage,
+          onChange: handlePageChange,
+        }} />
+      }
+
+
+      
       <Drawer
         title={
           <div

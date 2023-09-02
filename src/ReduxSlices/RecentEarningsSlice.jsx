@@ -7,6 +7,9 @@ const initialState = {
     Success: false,
     Loading: false,
     recentEarning:[],
+    todayEarning:[],
+    weeklyEarning:[],
+    monthlyEarning:[],
     pagination:{}
 
 };
@@ -20,7 +23,7 @@ export const RecentEarningsData=createAsyncThunk(
         console.log(value)
         try {
            
-            let response=await axios.get(`api/dashboard/earnings/${value.income}?page=${value.page}&limit=1`,{
+            let response=await axios.get(`api/dashboard/earnings/${value.income}?page=${value?.page}&limit=1`,{
                 headers:{
                     "Content-Type":"application/json",
                     "authorization":`Bearer ${token}`
@@ -65,7 +68,10 @@ export const RecentEarningsSlice = createSlice({
             state.Loading = false
             state.Success = true
             state.Error = false
-            state.recentEarning=action.payload.allEarning
+            state.recentEarning=action.payload?.allEarning
+            state.todayEarning=action.payload?.todayIncome
+            state.weeklyEarning=action.payload?.weeklyIncome
+            state.monthlyEarning=action.payload?.monthlyIncome
             state.pagination=action.payload.pagination
          
         },
@@ -75,6 +81,9 @@ export const RecentEarningsSlice = createSlice({
             state.Success = false
             state.Error = true
             state.recentEarning=[]
+            state.todayEarning=[]
+            state.weeklyEarning=[]
+            state.monthlyEarning=[]
             state.pagination={}
          
         },
