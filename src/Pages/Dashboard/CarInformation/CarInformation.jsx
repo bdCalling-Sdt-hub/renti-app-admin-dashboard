@@ -16,8 +16,6 @@ function CarInformation() {
     dispatch(CarsData(page));
   };
 
-  console.log(carData);
-
   useEffect(() => {
     dispatch(CarsData(1));
   }, []);

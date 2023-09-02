@@ -15,7 +15,6 @@ const token = localStorage.token;
 export const CarsData = createAsyncThunk(
   "CarsData",
   async (value, thunkAPI) => {
-    console.log(value);
     try {
       let response = await axios.get(`api/car/all?page=${value}&limit=2`, {
         headers: {
@@ -24,6 +23,7 @@ export const CarsData = createAsyncThunk(
         },
       });
 
+      console.log(response.data);
       return response.data;
     } catch (error) {
       const message =

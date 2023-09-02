@@ -397,16 +397,29 @@ const DrawerPage = (props) => {
             style={{
               display: "flex",
               gap: "15px",
-              borderBottom: "1px solid #B0B3DD",
+              borderBottom: "1px solid gray",
+              paddingBottom: "10px",
             }}
           >
             <div>
-              <img width={120} src="https://i.imgur.com/JFHjdNr.jpg" alt="" />
+              <img
+                width={180}
+                style={{ borderRadius: "6px" }}
+                src="https://media.istockphoto.com/id/529278045/photo/working-on-something-great.jpg?s=170667a&w=0&k=20&c=XT9z1yOr2-bw4lLxb7FneBPzqGkFtiKI1PBbnGyYQSs="
+                alt=""
+              />
             </div>
-            <div style={{ marginTop: "-7px" }}>
-              <p style={{ fontSize: "20px" }}>{props.hostData?.fullName}</p>
-              <p>INE: SNHRM570818MDFPM10</p>
-              <p>Trip Completes: 5</p>
+            <div>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "10px" }}
+              >
+                {" "}
+                <p style={{ fontSize: "20px" }}>
+                  {props?.hostData?.action?.fullName}
+                </p>
+              </div>
+              <p>INC:</p>
+              <p>Rent Completed</p>
               <div
                 style={{ display: "flex", alignItems: "center", gap: "2px" }}
               >
@@ -419,15 +432,27 @@ const DrawerPage = (props) => {
           <div style={{ marginTop: "10px" }}>
             <div style={{ marginBottom: "15px" }}>
               <label htmlFor="">Email</label>
-              <Input readOnly style={{ height: "45px" }} />
+              <Input
+                readOnly
+                style={{ height: "40px" }}
+                defaultValue={props?.hostData?.action?.email}
+              />
             </div>
             <div style={{ marginBottom: "15px" }}>
               <label htmlFor="">Phone</label>
-              <Input readOnly style={{ height: "45px" }} />
+              <Input
+                readOnly
+                style={{ height: "40px" }}
+                defaultValue={props?.hostData?.action?.phoneNumber}
+              />
             </div>
             <div style={{ marginBottom: "15px" }}>
               <label htmlFor="">Address</label>
-              <Input readOnly style={{ height: "45px" }} />
+              <Input
+                readOnly
+                style={{ height: "40px" }}
+                defaultValue={props?.hostData?.action?.address}
+              />
             </div>
           </div>
 
@@ -437,15 +462,19 @@ const DrawerPage = (props) => {
             <div style={{ marginTop: "10px" }}>
               <div style={{ marginBottom: "15px" }}>
                 <label htmlFor="">Credit Card Number</label>
-                <Input readOnly style={{ height: "45px" }} />
+                <Input
+                  readOnly
+                  style={{ height: "40px" }}
+                  defaultValue={props?.hostData?.action?.creaditCardNumber}
+                />
               </div>
               <div style={{ marginBottom: "15px" }}>
                 <label htmlFor="">Account Number</label>
-                <Input readOnly style={{ height: "45px" }} />
+                <Input readOnly style={{ height: "40px" }} />
               </div>
               <div style={{ marginBottom: "15px" }}>
                 <label htmlFor="">Account Holder Name</label>
-                <Input readOnly style={{ height: "45px" }} />
+                <Input readOnly style={{ height: "40px" }} />
               </div>
             </div>
           </div>

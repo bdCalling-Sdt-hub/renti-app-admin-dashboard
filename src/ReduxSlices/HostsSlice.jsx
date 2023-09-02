@@ -22,6 +22,7 @@ export const HostsData = createAsyncThunk(
           authorization: `Bearer ${token}`,
         },
       });
+
       return response.data;
     } catch (error) {
       const message =

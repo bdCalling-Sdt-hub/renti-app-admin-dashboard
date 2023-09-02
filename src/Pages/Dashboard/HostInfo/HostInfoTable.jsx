@@ -1,4 +1,5 @@
 import { Button, Drawer, Table, Typography } from "antd";
+import moment from "moment";
 import React, { useState } from "react";
 import { BsEye } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
@@ -7,28 +8,25 @@ import { useSelector } from "react-redux";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
 
-const data = [
-  {
-    name: "Fahim",
-    email: "fahim25@gmail.com",
-  },
-];
-
 const HostInfoTable = () => {
   const allHost = useSelector((state) => state.hostsData.hostsData);
 
-  console.log(allHost);
+  const data = allHost.map((host) => {
+    return {
+      name: host.host.fullName,
+      email: host.host.email,
+      contact: host.host.phoneNumber,
+      joiningDate: moment(host.host.createAt).format("YYYY-MM-DD"),
+      car: host.carCount,
+      action: host.host,
+    };
+  });
 
   const columns = [
     {
       title: "NAME",
-      dataIndex: "host.fullName",
-      key: "fullName",
-      render: (_, record) => {
-        <div>
-          <p>{record.host.fullName}</p>
-        </div>;
-      },
+      dataIndex: "name",
+      key: "name",
     },
     {
       title: "EMAIL",
@@ -38,19 +36,19 @@ const HostInfoTable = () => {
     },
     {
       title: "CONTACT",
-      dataIndex: "phoneNumber",
-      key: "phoneNumber",
+      dataIndex: "contact",
+      key: "contact",
       responsive: ["lg"],
     },
     {
       title: "JOINING DATE",
-      dataIndex: "createdAt",
-      key: "createdAt",
+      dataIndex: "joiningDate",
+      key: "joiningDate",
     },
     {
       title: "CARS",
-      dataIndex: "carCount",
-      key: "carCount",
+      dataIndex: "car",
+      key: "car",
       responsive: ["md"],
     },
     {
@@ -81,6 +79,8 @@ const HostInfoTable = () => {
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
     setHostData(record);
+
+    console.log(record);
   };
 
   const closeDrawer = () => {
@@ -90,7 +90,7 @@ const HostInfoTable = () => {
 
   return (
     <div>
-      <Table columns={columns} dataSource={allHost} />
+      <Table columns={columns} dataSource={data} />
       <Drawer
         title={
           <div

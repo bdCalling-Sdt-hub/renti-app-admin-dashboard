@@ -9,10 +9,8 @@ import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
 
 const CarInfoTable = ({ carDataByPagination }) => {
-  const [rentData, setRentData] = useState([]); // Data fetched from the server
-  const [totalItems, setTotalItems] = useState(0); // Total number of items
-  const [currentPage, setCurrentPage] = useState(1); // Current page number
-  const pageSize = 3;
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 2;
 
   const { cars, pagination } = useSelector((state) => state.carsData.carsData);
 
@@ -24,14 +22,10 @@ const CarInfoTable = ({ carDataByPagination }) => {
     setCarDetailsData(record);
   };
 
-  console.log("Data", carDetailsData);
-
   const closeDrawer = () => {
     setIsDrawerVisible(false);
     setCarDetailsData(null);
   };
-
-  console.log("page", pagination);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -113,7 +107,7 @@ const CarInfoTable = ({ carDataByPagination }) => {
         pagination={{
           pageSize,
           showSizeChanger: false,
-          total: pagination?.totalPage,
+          total: pagination?.totalDocuments,
           current: currentPage,
           onChange: handlePageChange,
         }}
