@@ -2,8 +2,32 @@ import { Col, Row } from "antd";
 import React from "react";
 import "./RentInformation.css";
 import RentInformationTable from "./RentInformationTable";
-
+import { useDispatch,useSelector } from "react-redux";
+import { useEffect } from "react";
+import { RentInformationData } from "../../../ReduxSlices/RentInformationSlice";
 function RentInformation() {
+
+  const dispatch=useDispatch();
+ 
+  const {rentCompletedTotalAmount,rentReservedTotalAmount,totalRejectedAmount} = useSelector(
+    (state) => state.RentInformation
+  );
+
+  useEffect(()=>{
+      
+     dispatch(RentInformationData(1));
+
+  },[])
+
+
+  const recentDataGetByPagination=(page)=>{
+    console.log("rent info",page)
+    
+    dispatch(RentInformationData(page));
+  }
+
+
+
   return (
     <div style={{ padding: "0 60px" }}>
       <Row>
@@ -45,7 +69,7 @@ function RentInformation() {
                 marginBottom: "15px",
               }}
             >
-              $ 250.00
+              $ {rentCompletedTotalAmount}.00
             </h3>
           </div>
         </Col>
@@ -75,7 +99,7 @@ function RentInformation() {
                 marginBottom: "15px",
               }}
             >
-              $ 250.00
+              $ {rentReservedTotalAmount}.00
             </h3>
           </div>
         </Col>
@@ -105,7 +129,7 @@ function RentInformation() {
                 marginBottom: "15px",
               }}
             >
-              $ 250.00
+              $ {totalRejectedAmount}.00
             </h3>
           </div>
         </Col>
@@ -125,7 +149,7 @@ function RentInformation() {
 
       <Row>
         <Col lg={{ span: 24 }}>
-          <RentInformationTable />
+          <RentInformationTable recentDataGetByPagination={recentDataGetByPagination} />
         </Col>
       </Row>
     </div>

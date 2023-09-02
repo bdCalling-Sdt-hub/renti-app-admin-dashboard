@@ -55,37 +55,37 @@ const Earning = () =>{
       style={{ marginTop: "20px" }}
     >
       <Col className="gutter-row" span={8}>
-        <div className={style.card}>
-          <div>
-            <Link  style={{color:"#fff"}}>
+        <div className={style.card} style={{backgroundColor:incomeTime=="today-income"?"white":"#000b90",color:incomeTime=="today-income"?"black":"#fff"}}>
+          <div >
+            
             <LiaHandHoldingUsdSolid style={{ fontSize: "50px" }} />
             <h2 className={style.cardTitle}>Today’s Income</h2>
             <h2>$ {incomeData.todayIncome}.00</h2>
-            </Link>
+         
             
           </div>
         </div>
       </Col>
       <Col className="gutter-row" span={8}>
-        <div className={style.card}>
+        <div className={style.card} style={{backgroundColor:incomeTime=="weekly-income"?"white":"#000b90",color:incomeTime=="weekly-income"?"black":"#fff"}}>
           <div>
-          <Link  style={{color:"#fff"}}>
+        
           <LiaHandHoldingUsdSolid style={{ fontSize: "50px" }} />
             <h2 className={style.cardTitle}>Weakly Income</h2>
             <h2>$ {incomeData.weeklyIncome}.00</h2>
-          </Link>
+          
            
           </div>
         </div>
       </Col>
       <Col className="gutter-row" span={8}>
-        <div className={style.card}>
+        <div className={style.card} style={{backgroundColor:incomeTime=="monthly-income"?"white":"#000b90",color:incomeTime=="monthly-income"?"black":"#fff"}}>
           <div>
-            <Link  style={{color:"#fff"}}>
+           
             <LiaHandHoldingUsdSolid style={{ fontSize: "50px" }} />
             <h2 className={style.cardTitle}>Monthly Income</h2>
             <h2>$ {incomeData.totalMonthlyIncome}.00</h2>
-            </Link>
+           
       
           </div>
         </div>

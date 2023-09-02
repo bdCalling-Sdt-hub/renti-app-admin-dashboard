@@ -9,13 +9,19 @@ const { Title, Text } = Typography;
 
 const EarnHistoryTable = ({ recentDataGetByPagination }) => {
   const [currentPage, setCurrentPage] = useState(1);
+<<<<<<< HEAD
   const pageSize = 1;
   const { todayEarning, weeklyEarning, monthlyEarning, pagination } =
     useSelector((state) => state.RecentEarnings);
+=======
+  const pageSize = 3;
+  const {todayEarning,weeklyEarning,monthlyEarning,pagination} = useSelector((state) => state.RecentEarnings);
+>>>>>>> 8e683dcc875c5c2577db099590e5790dbd976318
 
   let today_data;
   let weekly_data;
   let monthly_data;
+<<<<<<< HEAD
   if (todayEarning) {
     today_data = todayEarning?.map((item) => {
       console.log("tushar", item);
@@ -29,6 +35,21 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
         status: item.paymentData.status == "succeeded" ? "Complete" : "Pending",
         printView: "Button",
       };
+=======
+  if(todayEarning){
+    today_data=todayEarning?.map((item)=>{
+      console.log("tushar",item)
+        return{
+              key: item._id,
+              tripNo: item?.rentId?.rentTripNumber,
+              time: item.createdAt,
+              username: item.userId.fullName,
+              method: item.paymentData.payment_method_details.card.brand,
+              amount: item.paymentData.amount,
+              status: item.paymentData.status=="succeeded"?"Complete":"Pending",
+              printView: "Button",
+        }
+>>>>>>> 8e683dcc875c5c2577db099590e5790dbd976318
     });
   }
 
@@ -48,6 +69,7 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
     });
   }
 
+<<<<<<< HEAD
   if (monthlyEarning) {
     monthly_data = monthlyEarning?.map((item) => {
       console.log("tushar", item);
@@ -65,6 +87,45 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
   }
 
   console.log("today earning");
+=======
+ if(weeklyEarning){
+  weekly_data=weeklyEarning?.map((item)=>{
+   console.log("tushar",item)
+     return{
+           key: item._id,
+           tripNo: item?.rentId?.rentTripNumber,
+           time: item.createdAt,
+           username: item.userId.fullName,
+           method: item.paymentData.payment_method_details.card.brand,
+           amount: item.paymentData.amount,
+           status: item.paymentData.status=="succeeded"?"Complete":"Pending",
+           printView: "Button",
+     }
+ });
+}
+
+if(monthlyEarning){
+  monthly_data=monthlyEarning?.map((item)=>{
+   console.log("tushar",item)
+     return{
+           key: item._id,
+           tripNo: item?.rentId?.rentTripNumber,
+           time: item.createdAt,
+           username: item.userId.fullName,
+           method: item.paymentData.payment_method_details.card.brand,
+           amount: item.paymentData.amount,
+           status: item.paymentData.status=="succeeded"?"Complete":"Pending",
+           printView: "Button",
+     }
+ });
+}
+
+ 
+
+  console.log("today earning")
+
+
+>>>>>>> 8e683dcc875c5c2577db099590e5790dbd976318
 
   const columns = [
     {
@@ -142,6 +203,7 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
 
   return (
     <div>
+<<<<<<< HEAD
       {today_data && (
         <Table
           columns={columns}
@@ -183,6 +245,40 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
           }}
         />
       )}
+=======
+      {
+        today_data && <Table columns={columns} dataSource={today_data}
+        pagination={{
+          pageSize,
+          showSizeChanger:false,
+          total:pagination?.totalDocuments,
+          current: currentPage,
+          onChange: handlePageChange,
+        }} />
+      }
+
+     {
+        weekly_data && <Table columns={columns} dataSource={weekly_data}
+        pagination={{
+          pageSize,
+          showSizeChanger:false,
+          total:pagination?.totalDocuments,
+          current: currentPage,
+          onChange: handlePageChange,
+        }} />
+      }
+
+     {
+        monthly_data && <Table columns={columns} dataSource={monthly_data}
+        pagination={{
+          pageSize,
+          showSizeChanger:false,
+          total:pagination?.totalDocuments,
+          current: currentPage,
+          onChange: handlePageChange,
+        }} />
+      }
+>>>>>>> 8e683dcc875c5c2577db099590e5790dbd976318
 
       <Drawer
         title={
