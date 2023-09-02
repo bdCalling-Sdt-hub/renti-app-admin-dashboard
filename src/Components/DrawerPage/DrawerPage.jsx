@@ -3,8 +3,8 @@
 import { Badge, Button, Form, Input, Select, Typography } from "antd";
 import React from "react";
 import { AiFillStar } from "react-icons/ai";
+import img from "../../Images/1.png";
 import cardImg from "../../Images/Cards.png";
-import img from "../../Images/image 1.png";
 const { Title } = Typography;
 
 const { Option } = Select;
@@ -56,6 +56,108 @@ const DrawerPage = (props) => {
 
   return (
     <>
+      {props.userInfoData && (
+        <div>
+          <div
+            style={{
+              display: "flex",
+              gap: "15px",
+              borderBottom: "1px solid #dddddd",
+              paddingBottom: "10px",
+            }}
+          >
+            <div>
+              <img
+                width={150}
+                style={{ borderRadius: "5px" }}
+                src="https://media.istockphoto.com/id/529278045/photo/working-on-something-great.jpg?s=170667a&w=0&k=20&c=XT9z1yOr2-bw4lLxb7FneBPzqGkFtiKI1PBbnGyYQSs="
+                alt=""
+              />
+            </div>
+            <div style={{ marginTop: "-6px" }}>
+              <p style={{ fontSize: "20px" }}>Fahim</p>
+              <p>INE: SNHRM570818MDFPM10</p>
+              <p>Trip Completes: 5</p>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "2px" }}
+              >
+                <AiFillStar color="#fba91d" />
+                <span>4.8</span>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <Form.Item
+              label="Email"
+              labelCol={{ span: 24 }}
+              style={{ marginBottom: "0px" }}
+            >
+              <Input style={{ height: "45px" }} readOnly />
+            </Form.Item>
+            <Form.Item
+              label="Phone Number"
+              labelCol={{ span: 24 }}
+              style={{ marginBottom: "0px" }}
+            >
+              <Input style={{ height: "45px" }} readOnly />
+            </Form.Item>
+            <Form.Item
+              label="Driving License No."
+              labelCol={{ span: 24 }}
+              style={{ marginBottom: "0px" }}
+            >
+              <Input style={{ height: "45px" }} readOnly />
+            </Form.Item>
+            <Form.Item
+              label="Joining Date"
+              labelCol={{ span: 24 }}
+              style={{ marginBottom: "0px" }}
+            >
+              <Input style={{ height: "45px" }} readOnly />
+            </Form.Item>
+            <Form.Item
+              label="Address"
+              labelCol={{ span: 24 }}
+              style={{ marginBottom: "0px" }}
+            >
+              <Input style={{ height: "45px" }} readOnly />
+            </Form.Item>
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              gap: 20,
+              position: "absolute",
+              bottom: 10,
+            }}
+          >
+            <Button
+              block
+              style={{
+                border: "1px solid red",
+                color: "red",
+                height: 50,
+                width: "220px",
+              }}
+            >
+              Block
+            </Button>
+            <Button
+              block
+              style={{
+                background: "#000B90",
+                color: "white",
+                height: 50,
+                width: "220px",
+              }}
+            >
+              Delete
+            </Button>
+          </div>
+        </div>
+      )}
       {props.editedCardData && (
         <>
           <div
@@ -301,7 +403,7 @@ const DrawerPage = (props) => {
               <img width={120} src="https://i.imgur.com/JFHjdNr.jpg" alt="" />
             </div>
             <div style={{ marginTop: "-7px" }}>
-              <p style={{ fontSize: "20px" }}>{props.hostData?.name}</p>
+              <p style={{ fontSize: "20px" }}>{props.hostData?.fullName}</p>
               <p>INE: SNHRM570818MDFPM10</p>
               <p>Trip Completes: 5</p>
               <div
@@ -387,9 +489,9 @@ const DrawerPage = (props) => {
               <img width={120} src="https://i.imgur.com/JFHjdNr.jpg" alt="" />
             </div>
             <div style={{ marginTop: "-7px" }}>
-              <p style={{ fontSize: "20px" }}>{props.invoiceData.username}</p>
+              <p style={{ fontSize: "20px" }}>{props?.invoiceData?.username}</p>
               <p>INE: SNHRM570818MDFPM10</p>
-              <p>Trip Completes:{props.invoiceData.status.length}</p>
+              <p>Trip Completes:{props?.invoiceData?.status?.length}</p>
               <div
                 style={{ display: "flex", alignItems: "center", gap: "2px" }}
               >

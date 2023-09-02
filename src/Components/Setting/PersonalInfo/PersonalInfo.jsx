@@ -1,12 +1,31 @@
-import { Button, Col, DatePicker, Image, Input, Row, Upload } from "antd";
+import { Button, Col, DatePicker, Form, Image, Input, Row, Upload } from "antd";
 import ImgCrop from "antd-img-crop";
-import dayjs from "dayjs";
+import moment from "moment";
+
 import React, { useState } from "react";
 import { LiaEditSolid } from "react-icons/lia";
-const dateFormat = "YYYY-MM-DD";
+import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import { AdminData } from "../../../ReduxSlices/ProfileUpdatedSlice";
 
 const PersonalInfo = () => {
   const [profileEdit, setProfileEdit] = useState(false);
+  const userFromLocalStorage = JSON.parse(localStorage.getItem("yourInfo"));
+  const dispatch = useDispatch();
+  const { userData } = useSelector((state) => state.UserData);
+  const { isSuccess, message } = useSelector((state) => state.adminData);
+
+  const { fullName, address, phoneNumber, email, dateOfBirth } =
+    userFromLocalStorage;
+
+  const initialFormValues = {
+    name: fullName,
+    email: email,
+    phoneNumber: phoneNumber,
+    dateOfBirth: dateOfBirth ? moment(dateOfBirth) : null,
+    address: address,
+    inc: "", // Add a default value for inc if necessary
+  };
 
   const handleChange = () => {
     setProfileEdit(true);
@@ -38,6 +57,28 @@ const PersonalInfo = () => {
     imgWindow?.document.write(image.outerHTML);
   };
 
+  const onFinish = (values) => {
+    const userUpdatedValues = {
+      ...userFromLocalStorage,
+      fullName: values.name,
+      address: values.address,
+      phoneNumber: values.phoneNumber,
+      email: values.email,
+      dateOfBirth: moment(values.dateOfBirth).format("YYYY-MM-DD"),
+    };
+
+    dispatch(AdminData(userUpdatedValues));
+    localStorage.setItem("yourInfo", JSON.stringify(userUpdatedValues));
+
+    if (isSuccess) {
+      Swal.fire({
+        icon: "success",
+        title: "Wow!",
+        text: message,
+      });
+    }
+  };
+
   return (
     <>
       {!profileEdit ? (
@@ -58,8 +99,8 @@ const PersonalInfo = () => {
                 src="https://yt3.googleusercontent.com/Qy5Gk9hccQxiZdX8IxdK-mF2ktN17gap3ZkGQZkGz8NB4Yep3urmucp5990H2tjXIISgUoYssJE=s900-c-k-c0x00ffffff-no-rj"
               />
               <div>
-                <h2>Fahim</h2>
-                <p>@fahim</p>
+                <h2>{fullName}</h2>
+                <p>@{fullName}</p>
                 <p>INE: GMVLMR80070501M100</p>
               </div>
             </div>
@@ -79,64 +120,70 @@ const PersonalInfo = () => {
             </div>
           </div>
 
-          <Row style={{ marginBottom: "15px" }}>
-            <Col span={24}>
-              <label htmlFor="">Name</label>
-              <Input
-                style={{ height: "45px" }}
-                defaultValue={"Fahim"}
-                readOnly
-              />
-            </Col>
-          </Row>
-          <Row gutter={15} style={{ marginBottom: "15px" }}>
-            <Col span={12}>
-              <label htmlFor="">Email</label>
-              <Input
-                style={{ height: "45px" }}
-                defaultValue={"siffahim25@gmail.com"}
-                readOnly
-              />
-            </Col>
-            <Col span={12}>
-              <label htmlFor="">Phone Number</label>
-              <Input
-                style={{ height: "45px" }}
-                defaultValue={"01646524028"}
-                readOnly
-              />
-            </Col>
-          </Row>
-          <Row gutter={15} style={{ marginBottom: "15px" }}>
-            <Col span={12}>
-              <label htmlFor="">INE</label>
-              <Input
-                style={{ height: "45px" }}
-                defaultValue={"GMVLMR80070501M100"}
-                readOnly
-              />
-            </Col>
-            <Col span={12}>
-              <label htmlFor="">Date of Birth</label>
-              <DatePicker
-                style={{ height: "45px", width: "100%" }}
-                defaultValue={dayjs("2023-08-27", dateFormat)}
-                disabled
-              />
-            </Col>
-          </Row>
-          <Row style={{ marginBottom: "15px" }}>
-            <Col span={24}>
-              <label htmlFor="">Address</label>
-              <Input
-                style={{ height: "45px" }}
-                defaultValue={"Mogbazer,Dhaka"}
-                readOnly
-              />
-            </Col>
-          </Row>
+          <Form
+            name="normal_login"
+            className="login-form"
+            initialValues={initialFormValues}
+          >
+            <Form.Item
+              name="name"
+              label="Name"
+              labelCol={{ span: 24 }}
+              style={{ marginBottom: "15px" }}
+            >
+              <Input style={{ height: "45px" }} readOnly />
+            </Form.Item>
+
+            <Row gutter={15} style={{ marginBottom: "0px" }}>
+              <Col span={12}>
+                <Form.Item name="email" label="Email" labelCol={{ span: 24 }}>
+                  <Input style={{ height: "45px" }} readOnly />
+                </Form.Item>
+              </Col>
+
+              <Col span={12}>
+                <Form.Item
+                  name="phoneNumber"
+                  label="Phone Number"
+                  labelCol={{ span: 24 }}
+                >
+                  <Input style={{ height: "45px" }} readOnly />
+                </Form.Item>
+              </Col>
+            </Row>
+
+            <Row gutter={15} style={{ marginBottom: "0px" }}>
+              <Col span={12}>
+                <Form.Item name="inc" label="INE" labelCol={{ span: 24 }}>
+                  <Input style={{ height: "45px" }} readOnly />
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item
+                  name="dateOfBirth"
+                  label="Date of Birth"
+                  labelCol={{ span: 24 }}
+                >
+                  <DatePicker
+                    style={{ height: "45px", width: "100%" }}
+                    disabled
+                  />
+                </Form.Item>
+              </Col>
+            </Row>
+
+            <Form.Item
+              name="address"
+              label="Address"
+              labelCol={{ span: 24 }}
+              style={{ marginBottom: "10px" }}
+            >
+              <Input style={{ height: "45px" }} readOnly />
+            </Form.Item>
+          </Form>
         </>
       ) : (
+        //edit profile section here
         <>
           <div>
             <div
@@ -161,68 +208,90 @@ const PersonalInfo = () => {
               </ImgCrop>
 
               <div>
-                <h2>Fahim</h2>
-                <p>@fahim</p>
+                <h2>{fullName}</h2>
+                <p>@{fullName}</p>
                 <p>INE: GMVLMR80070501M100</p>
               </div>
             </div>
           </div>
 
-          <Row style={{ marginBottom: "15px" }}>
-            <Col span={24}>
-              <label htmlFor="">Name</label>
-              <Input style={{ height: "45px" }} defaultValue={"Fahim"} />
-            </Col>
-          </Row>
-          <Row gutter={15} style={{ marginBottom: "15px" }}>
-            <Col span={12}>
-              <label htmlFor="">Email</label>
-              <Input
-                style={{ height: "45px" }}
-                defaultValue={"siffahim25@gmail.com"}
-              />
-            </Col>
-            <Col span={12}>
-              <label htmlFor="">Phone Number</label>
-              <Input style={{ height: "45px" }} defaultValue={"01646524028"} />
-            </Col>
-          </Row>
-          <Row gutter={15} style={{ marginBottom: "15px" }}>
-            <Col span={12}>
-              <label htmlFor="">INE</label>
-              <Input
-                style={{ height: "45px" }}
-                defaultValue={"GMVLMR80070501M100"}
-              />
-            </Col>
-            <Col span={12}>
-              <label htmlFor="">Date of Birth</label>
-              <DatePicker
-                style={{ height: "45px", width: "100%" }}
-                defaultValue={dayjs("2023-08-27", dateFormat)}
-              />
-            </Col>
-          </Row>
-          <Row style={{ marginBottom: "15px" }}>
-            <Col span={24}>
-              <label htmlFor="">Address</label>
-              <Input
-                style={{ height: "45px" }}
-                defaultValue={"Mogbazer,Dhaka"}
-              />
-            </Col>
-          </Row>
-          <Button
-            style={{
-              height: "45px",
-              background: "#000B92",
-              color: "#fff",
-              marginTop: "20px",
-            }}
-            block
+          <Form
+            name="normal_login"
+            className="login-form"
+            onFinish={onFinish}
+            initialValues={initialFormValues}
           >
-            Save
-          </Button>
+            <Form.Item
+              name="name"
+              label="Name"
+              labelCol={{ span: 24 }}
+              style={{ marginBottom: "15px" }}
+            >
+              <Input style={{ height: "45px" }} />
+            </Form.Item>
+
+            <Row gutter={15} style={{ marginBottom: "0px" }}>
+              <Col span={12}>
+                <Form.Item name="email" label="Email" labelCol={{ span: 24 }}>
+                  <Input style={{ height: "45px" }} />
+                </Form.Item>
+              </Col>
+
+              <Col span={12}>
+                <Form.Item
+                  name="phoneNumber"
+                  label="Phone Number"
+                  labelCol={{ span: 24 }}
+                >
+                  <Input style={{ height: "45px" }} />
+                </Form.Item>
+              </Col>
+            </Row>
+
+            <Row gutter={15} style={{ marginBottom: "0px" }}>
+              <Col span={12}>
+                <Form.Item name="inc" label="INE" labelCol={{ span: 24 }}>
+                  <Input style={{ height: "45px" }} />
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item
+                  name="dateOfBirth"
+                  label="Date of Birth"
+                  labelCol={{ span: 24 }}
+                >
+                  <DatePicker style={{ height: "45px", width: "100%" }} />
+                </Form.Item>
+              </Col>
+            </Row>
+
+            <Form.Item
+              name="address"
+              label="Address"
+              labelCol={{ span: 24 }}
+              style={{ marginBottom: "10px" }}
+            >
+              <Input style={{ height: "45px" }} />
+            </Form.Item>
+
+            <Form.Item>
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="login-form-button"
+                block
+                style={{
+                  height: "45px",
+                  fontWeight: "400px",
+                  fontSize: "18px",
+                  background: "#000B90",
+                  marginTop: "60px",
+                }}
+              >
+                Save Changes
+              </Button>
+            </Form.Item>
+          </Form>
         </>
       )}
     </>

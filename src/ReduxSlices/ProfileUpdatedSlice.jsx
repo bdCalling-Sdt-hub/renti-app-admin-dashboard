@@ -6,20 +6,29 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   message: "",
-  userData: {},
-  accessToken: "",
+  adminData: {},
 };
 
-export const UserData = createAsyncThunk(
-  "UserData",
-  async (value, thunkAPI) => {
-    console.log("redux", value);
-    try {
-      let response = await axios.post("api/user/sign-in", value);
+const token = localStorage.token;
 
+export const AdminData = createAsyncThunk(
+  "AdminData",
+  async (value, thunkAPI) => {
+    try {
+      const userFromLocalStorage = JSON.parse(localStorage.getItem("yourInfo"));
+      console.log(userFromLocalStorage._id);
+      let response = await axios.post(
+        `api/user/update/${userFromLocalStorage._id}`,
+        value,
+        {
+          headers: {
+            "Content-type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
       return response.data;
     } catch (error) {
-      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -32,8 +41,8 @@ export const UserData = createAsyncThunk(
   }
 );
 
-export const signinSlice = createSlice({
-  name: "signin",
+export const adminSlice = createSlice({
+  name: "adminData",
   initialState,
 
   reducers: {
@@ -42,25 +51,22 @@ export const signinSlice = createSlice({
       state.isSuccess = false;
       state.isError = false;
       state.message = "";
-      state.userData = {};
-      state.accessToken = "";
+      state.adminData = {};
     },
   },
 
   extraReducers: {
-    [UserData.pending]: (state, action) => {
+    [AdminData.pending]: (state, action) => {
       state.isLoading = true;
     },
-    [UserData.fulfilled]: (state, action) => {
-      console.log(action);
+    [AdminData.fulfilled]: (state, action) => {
       state.isError = false;
       state.isSuccess = true;
       state.isLoading = false;
       state.message = action.payload.message;
-      state.userData = action.payload.user;
-      state.accessToken = action.payload.accessToken;
+      state.adminData = action.payload.user;
     },
-    [UserData.rejected]: (state, action) => {
+    [AdminData.rejected]: (state, action) => {
       state.isError = true;
       state.isSuccess = false;
       state.isLoading = false;
@@ -70,6 +76,6 @@ export const signinSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { reset } = signinSlice.actions;
+export const { reset } = adminSlice.actions;
 
-export default signinSlice.reducer;
+export default adminSlice.reducer;

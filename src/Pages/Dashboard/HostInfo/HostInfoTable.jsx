@@ -3,67 +3,32 @@ import React, { useState } from "react";
 import { BsEye } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
 import { RiDeleteBin5Line } from "react-icons/ri";
+import { useSelector } from "react-redux";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
 
 const data = [
   {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    cars: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    cars: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    cars: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    cars: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    cars: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    cars: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    cars: 20,
+    name: "Fahim",
+    email: "fahim25@gmail.com",
   },
 ];
 
 const HostInfoTable = () => {
+  const allHost = useSelector((state) => state.hostsData.hostsData);
+
+  console.log(allHost);
+
   const columns = [
     {
       title: "NAME",
-      dataIndex: "name",
-      key: "name",
+      dataIndex: "host.fullName",
+      key: "fullName",
+      render: (_, record) => {
+        <div>
+          <p>{record.host.fullName}</p>
+        </div>;
+      },
     },
     {
       title: "EMAIL",
@@ -73,19 +38,19 @@ const HostInfoTable = () => {
     },
     {
       title: "CONTACT",
-      dataIndex: "contact",
-      key: "contact",
+      dataIndex: "phoneNumber",
+      key: "phoneNumber",
       responsive: ["lg"],
     },
     {
       title: "JOINING DATE",
-      dataIndex: "joiningDate",
-      key: "joiningDate",
+      dataIndex: "createdAt",
+      key: "createdAt",
     },
     {
       title: "CARS",
-      dataIndex: "cars",
-      key: "cars",
+      dataIndex: "carCount",
+      key: "carCount",
       responsive: ["md"],
     },
     {
@@ -125,7 +90,7 @@ const HostInfoTable = () => {
 
   return (
     <div>
-      <Table columns={columns} dataSource={data} />
+      <Table columns={columns} dataSource={allHost} />
       <Drawer
         title={
           <div

@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { HostsData } from "../../../ReduxSlices/HostsSlice";
 import HostInfoTable from "./HostInfoTable";
+//import axios from "../../../../Config";
 
 const HostInfo = () => {
   const dispatch = useDispatch();
@@ -10,13 +11,14 @@ const HostInfo = () => {
   useEffect(() => {
     dispatch(HostsData());
   }, []);
+
   return (
     <div style={{ padding: "0px 60px" }}>
-      <h2
+      <h2S
         style={{ fontSize: "25px", marginBottom: "10px", fontWeight: "normal" }}
       >
         All Host Info
-      </h2>
+      </h2S>
       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
         <Input style={{ height: "44px" }} />
         <Button

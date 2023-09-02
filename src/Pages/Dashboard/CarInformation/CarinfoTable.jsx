@@ -3,125 +3,17 @@ import { Button, Drawer, Space, Table, Typography } from "antd";
 import React, { useEffect, useState } from "react";
 import { AiOutlinePrinter } from "react-icons/ai";
 import { LiaSaveSolid } from "react-icons/lia";
+import { useSelector } from "react-redux";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
 
-const data = [
-  {
-    key: "1",
-    carmodel: "toyota 120",
-    lincenseno: "kkk12396",
-    registerdate: "18 Aug 2023",
-    owner: "Tushar",
-    status: "Active",
-    printView: "Button",
-  },
-  {
-    key: "2",
-    carmodel: "toyota 120",
-    lincenseno: "kkk12396",
-    registerdate: "18 Aug 2023",
-    owner: "Tushar",
-    status: "Active",
-    printView: "Button",
-  },
-  {
-    key: "3",
-    carmodel: "toyota 120",
-    lincenseno: "kkk12396",
-    registerdate: "18 Aug 2023",
-    owner: "Tushar",
-    status: "Active",
-    printView: "Button",
-  },
-  {
-    key: "4",
-    carmodel: "toyota 120",
-    lincenseno: "kkk12396",
-    registerdate: "18 Aug 2023",
-    owner: "Tushar",
-    status: "Active",
-    printView: "Button",
-  },
-  {
-    key: "5",
-    carmodel: "toyota 120",
-    lincenseno: "kkk12396",
-    registerdate: "18 Aug 2023",
-    owner: "Tushar",
-    status: "Active",
-    printView: "Button",
-  },
-  {
-    key: "6",
-    carmodel: "toyota 120",
-    lincenseno: "kkk12396",
-    registerdate: "18 Aug 2023",
-    owner: "Tushar",
-    status: "Active",
-    printView: "Button",
-  },
-  {
-    key: "7",
-    carmodel: "toyota 120",
-    lincenseno: "kkk12396",
-    registerdate: "18 Aug 2023",
-    owner: "Tushar",
-    status: "Active",
-    printView: "Button",
-  },
-  {
-    key: "8",
-    carmodel: "toyota 120",
-    lincenseno: "kkk12396",
-    registerdate: "18 Aug 2023",
-    owner: "Tushar",
-    status: "Active",
-    printView: "Button",
-  },
-  {
-    key: "9",
-    carmodel: "toyota 120",
-    lincenseno: "kkk12396",
-    registerdate: "18 Aug 2023",
-    owner: "Tushar",
-    status: "Active",
-    printView: "Button",
-  },
-  {
-    key: "10",
-    carmodel: "toyota 120",
-    lincenseno: "kkk12396",
-    registerdate: "18 Aug 2023",
-    owner: "Tushar",
-    status: "Active",
-    printView: "Button",
-  },
-  {
-    key: "11",
-    carmodel: "toyota 120",
-    lincenseno: "kkk12396",
-    registerdate: "18 Aug 2023",
-    owner: "Tushar",
-    status: "Active",
-    printView: "Button",
-  },
-  {
-    key: "12",
-    carmodel: "toyota 120",
-    lincenseno: "kkk12396",
-    registerdate: "18 Aug 2023",
-    owner: "Tushar",
-    status: "Active",
-    printView: "Button",
-  },
-];
-
-const CarInfoTable = () => {
+const CarInfoTable = ({ carDataByPagination }) => {
   const [rentData, setRentData] = useState([]); // Data fetched from the server
   const [totalItems, setTotalItems] = useState(0); // Total number of items
   const [currentPage, setCurrentPage] = useState(1); // Current page number
-  const pageSize = 5;
+  const pageSize = 3;
+
+  const { cars, pagination } = useSelector((state) => state.carsData.carsData);
 
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [invoiceData, setInvoiceData] = useState(null);
@@ -136,22 +28,41 @@ const CarInfoTable = () => {
     setInvoiceData(null);
   };
 
+  console.log("page", pagination);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    carDataByPagination(page);
+  };
+
+  const data = cars?.map((car) => {
+    return {
+      key: 1,
+      carModel: car.carModelName,
+      licenseNo: car.carLicenseNumber,
+      registerDate: "18 Aug 2023",
+      owner: car.carOwner.fullName,
+      status: car.tripStatus,
+      printView: "Button",
+    };
+  });
+
   const columns = [
     {
       title: "Car Model",
-      dataIndex: "carmodel",
-      key: "invoiceNo",
+      dataIndex: "carModel",
+      key: "carModel",
     },
     {
-      title: "Lincense No",
-      dataIndex: "lincenseno",
-      key: "lincenseno",
+      title: "License No",
+      dataIndex: "licenseNo",
+      key: "licenseNo",
       responsive: ["md"],
     },
     {
       title: "Register Date",
-      dataIndex: "registerdate",
-      key: "registerdate",
+      dataIndex: "registerDate",
+      key: "registerDate",
       responsive: ["lg"],
     },
     {
@@ -211,11 +122,6 @@ const CarInfoTable = () => {
     }
   };
 
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-    console.log(currentPage);
-  };
-
   return (
     <div>
       <Table
@@ -224,7 +130,7 @@ const CarInfoTable = () => {
         pagination={{
           pageSize,
           showSizeChanger: false,
-          total: 300,
+          total: pagination?.totalPage,
           current: currentPage,
           onChange: handlePageChange,
         }}
