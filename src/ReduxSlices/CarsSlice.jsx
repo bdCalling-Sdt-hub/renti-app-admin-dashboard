@@ -15,8 +15,9 @@ const token = localStorage.token;
 export const CarsData = createAsyncThunk(
   "CarsData",
   async (value, thunkAPI) => {
+    console.log(value);
     try {
-      let response = await axios.get(`api/car/all?page=${value}&limit=3`, {
+      let response = await axios.get(`api/car/all?page=${value}&limit=2`, {
         headers: {
           "Content-type": "application/json",
           authorization: `Bearer ${token}`,
