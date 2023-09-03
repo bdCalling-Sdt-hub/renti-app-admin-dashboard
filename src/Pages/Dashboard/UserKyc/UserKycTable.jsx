@@ -4,97 +4,118 @@ import { BsEye } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
+import { useDispatch,useSelector } from "react-redux";
 const { Title, Text } = Typography;
 
-const data = [
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"#000b90",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Approve</div>
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"red",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Cancel</div>
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"#000b90",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Approve</div>
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"red",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Cancel</div>
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"#000b90",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Approve</div>
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"red",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Cancel</div>
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"#000b90",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Approve</div>
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"red",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Cancel</div>
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"#000b90",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Approve</div>
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"red",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Cancel</div>
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"#000b90",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Approve</div>
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"red",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Cancel</div>
-  }
-  
-];
 
-const UserKycTable = () => {
+
+const UserKycTable = ({userDataGetByPagination,userDataGetBySearch}) => {
+  const [currentPage, setCurrentPage] = useState(1); 
+  const pageSize = 2;
+  const {UserData,pagination} = useSelector(
+    (state) => state.UserInfoData
+  );
+
+  const data=UserData?.map((item)=>{
+   
+    return({
+          name: item.user.fullName,
+          email: item.user.email,
+          contact: item.user.phoneNumber,
+          type: "pdf",
+          status:<div style={{color:"white",backgroundColor:item.user.approved==true?"#000b90":"red",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>{item.user.approved==true?"Approve":"Cencel"}</div>,
+    })
+     
+  })
+
+  // const data = [
+  //   {
+  //     name: "Kate Winslate",
+  //     email: "kate@gmail.com",
+  //     contact: " 014845454545",
+  //     type: "pdf",
+  //     status:<div style={{color:"white",backgroundColor:"#000b90",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Approve</div>
+  //   },
+  //   {
+  //     name: "Kate Winslate",
+  //     email: "kate@gmail.com",
+  //     contact: " 014845454545",
+  //     type: "pdf",
+  //     status:<div style={{color:"white",backgroundColor:"red",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Cancel</div>
+  //   },
+  //   {
+  //     name: "Kate Winslate",
+  //     email: "kate@gmail.com",
+  //     contact: " 014845454545",
+  //     type: "pdf",
+  //     status:<div style={{color:"white",backgroundColor:"#000b90",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Approve</div>
+  //   },
+  //   {
+  //     name: "Kate Winslate",
+  //     email: "kate@gmail.com",
+  //     contact: " 014845454545",
+  //     type: "pdf",
+  //     status:<div style={{color:"white",backgroundColor:"red",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Cancel</div>
+  //   },
+  //   {
+  //     name: "Kate Winslate",
+  //     email: "kate@gmail.com",
+  //     contact: " 014845454545",
+  //     type: "pdf",
+  //     status:<div style={{color:"white",backgroundColor:"#000b90",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Approve</div>
+  //   },
+  //   {
+  //     name: "Kate Winslate",
+  //     email: "kate@gmail.com",
+  //     contact: " 014845454545",
+  //     type: "pdf",
+  //     status:<div style={{color:"white",backgroundColor:"red",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Cancel</div>
+  //   },
+  //   {
+  //     name: "Kate Winslate",
+  //     email: "kate@gmail.com",
+  //     contact: " 014845454545",
+  //     type: "pdf",
+  //     status:<div style={{color:"white",backgroundColor:"#000b90",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Approve</div>
+  //   },
+  //   {
+  //     name: "Kate Winslate",
+  //     email: "kate@gmail.com",
+  //     contact: " 014845454545",
+  //     type: "pdf",
+  //     status:<div style={{color:"white",backgroundColor:"red",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Cancel</div>
+  //   },
+  //   {
+  //     name: "Kate Winslate",
+  //     email: "kate@gmail.com",
+  //     contact: " 014845454545",
+  //     type: "pdf",
+  //     status:<div style={{color:"white",backgroundColor:"#000b90",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Approve</div>
+  //   },
+  //   {
+  //     name: "Kate Winslate",
+  //     email: "kate@gmail.com",
+  //     contact: " 014845454545",
+  //     type: "pdf",
+  //     status:<div style={{color:"white",backgroundColor:"red",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Cancel</div>
+  //   },
+  //   {
+  //     name: "Kate Winslate",
+  //     email: "kate@gmail.com",
+  //     contact: " 014845454545",
+  //     type: "pdf",
+  //     status:<div style={{color:"white",backgroundColor:"#000b90",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Approve</div>
+  //   },
+  //   {
+  //     name: "Kate Winslate",
+  //     email: "kate@gmail.com",
+  //     contact: " 014845454545",
+  //     type: "pdf",
+  //     status:<div style={{color:"white",backgroundColor:"red",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Cancel</div>
+  //   }
+    
+  // ];
+
   const columns = [
     {
       title: "NAME",
@@ -159,9 +180,23 @@ const UserKycTable = () => {
     setHostData(null);
   };
 
+  const handlePageChange=(page)=>{
+    setCurrentPage(page);
+    console.log(currentPage)
+    userDataGetByPagination(page),
+    userDataGetBySearch(page)
+    
+}
+
   return (
     <div>
-      <Table columns={columns} dataSource={data} />
+      <Table columns={columns} dataSource={data} pagination={{
+            pageSize,
+            showSizeChanger:false,
+            total: pagination?.totalUsers,
+            current: currentPage,
+            onChange: handlePageChange,
+          }}/>
       <Drawer
         title={
           <div
