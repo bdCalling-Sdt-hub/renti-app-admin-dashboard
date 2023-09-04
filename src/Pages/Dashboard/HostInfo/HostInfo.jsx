@@ -1,5 +1,6 @@
+import { SearchOutlined } from "@ant-design/icons";
 import { Button, Input } from "antd";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { HostsData } from "../../../ReduxSlices/HostsSlice";
 import HostInfoTable from "./HostInfoTable";
@@ -7,21 +8,56 @@ import HostInfoTable from "./HostInfoTable";
 
 const HostInfo = () => {
   const dispatch = useDispatch();
+  const [searchData, setSearchData] = useState("");
+
+  const hostDataGetByPagination = (page) => {
+    const data = {
+      search: searchData,
+      page: page,
+    };
+    if (searchData == "") {
+      dispatch(HostsData(data));
+    }
+  };
+
+  const handleHostSearchData = (page) => {
+    const data = {
+      search: searchData,
+      page: page,
+    };
+    if (searchData != "") {
+      dispatch(HostsData(data));
+      console.log("search");
+    }
+  };
 
   useEffect(() => {
-    dispatch(HostsData());
-  }, []);
+    const data = {
+      search: searchData,
+      page: 1,
+    };
+    if (searchData === "") {
+      dispatch(HostsData(data));
+    }
+  }, [searchData]);
 
   return (
     <div style={{ padding: "0px 60px" }}>
-      <h2S
+      <h2
         style={{ fontSize: "25px", marginBottom: "10px", fontWeight: "normal" }}
       >
         All Host Info
-      </h2S>
+      </h2>
       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-        <Input style={{ height: "44px" }} />
+        <Input
+          onChange={(e) => setSearchData(e.target.value)}
+          style={{ height: "44px" }}
+          size="large"
+          placeholder="Search by name/email/phone"
+          prefix={<SearchOutlined style={{ color: "#cccccc" }} />}
+        />
         <Button
+          onClick={handleHostSearchData}
           style={{
             background: "#000B90",
             color: "white",
@@ -36,14 +72,17 @@ const HostInfo = () => {
       <h2
         style={{
           fontSize: "25px",
-          marginTop: "50px",
+          marginTop: "40px",
           marginBottom: "20px",
           fontWeight: "normal",
         }}
       >
         All Host List With Their Information
       </h2>
-      <HostInfoTable />
+      <HostInfoTable
+        hostDataGetByPagination={hostDataGetByPagination}
+        handleHostSearchData={handleHostSearchData}
+      />
     </div>
   );
 };

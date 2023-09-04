@@ -4,97 +4,33 @@ import { BsEye } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
+import { useDispatch,useSelector } from "react-redux";
 const { Title, Text } = Typography;
 
-const data = [
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"#000b90",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Approve</div>
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"red",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Cancel</div>
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"#000b90",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Approve</div>
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"red",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Cancel</div>
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"#000b90",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Approve</div>
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"red",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Cancel</div>
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"#000b90",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Approve</div>
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"red",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Cancel</div>
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"#000b90",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Approve</div>
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"red",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Cancel</div>
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"#000b90",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Approve</div>
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"red",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Cancel</div>
-  }
-  
-];
 
-const HostKycTable = () => {
+
+const HostKycTable = ({hostDataGetByPagination,hostDataGetBySearch}) => {
+
+  const [currentPage, setCurrentPage] = useState(1); 
+  const pageSize = 2;
+  const {HostData,pagination} = useSelector(
+    (state) => state.HostInfoData
+  );
+
+  const data=HostData?.map((item)=>{
+    console.log("jsjsjsjsjsj",item?.host.KYC)
+    return({
+          name: item.host.fullName,
+          email: item.host.email,
+          contact: item.host.phoneNumber,
+          type: "pdf",
+          status:<div style={{color:"white",backgroundColor:item.host.approved==true?"#000b90":"red",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>{item.host.approved==true?"Approve":"Cencel"}</div>,
+    })
+     
+  })
+
+
+
   const columns = [
     {
       title: "NAME",
@@ -159,9 +95,28 @@ const HostKycTable = () => {
     setHostData(null);
   };
 
+
+  const handlePageChange=(page)=>{
+    setCurrentPage(page);
+    console.log(currentPage)
+    hostDataGetByPagination(page)
+    hostDataGetBySearch(page)
+   
+}
+
   return (
     <div>
-      <Table columns={columns} dataSource={data} />
+      <Table columns={columns} dataSource={data} 
+      
+      pagination={{
+        pageSize,
+        showSizeChanger:false,
+        total: pagination?.totalHosts,
+        current: currentPage,
+        onChange: handlePageChange,
+      }}
+      
+      />
       <Drawer
         title={
           <div

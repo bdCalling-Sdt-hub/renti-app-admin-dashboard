@@ -1,133 +1,55 @@
 import { CloseOutlined } from "@ant-design/icons";
-import { Button, Drawer, Table, Typography } from "antd";
-import React, { useEffect, useState } from "react";
+import { Button, Drawer, Space, Table, Typography } from "antd";
+import React, { useState } from "react";
 import { AiOutlinePrinter } from "react-icons/ai";
 import { LiaSaveSolid } from "react-icons/lia";
+import { useSelector } from "react-redux";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
+
 const { Title, Text } = Typography;
 
-const data = [
-  {
-    key: "1",
-    name: "tushar",
-    email: "18 Jul, 2023  4:30pm",
-    contact: "Tushar",
-    joiningdate: "Credit Card",
-    trips: "$850.00",
-
-    printView: "Button",
-  },
-  {
-    key: "2",
-    name: "tushar",
-    email: "18 Jul, 2023  4:30pm",
-    contact: "Tushar",
-    joiningdate: "Credit Card",
-    trips: "$850.00",
-
-    printView: "Button",
-  },
-  {
-    key: "3",
-    name: "tushar",
-    email: "18 Jul, 2023  4:30pm",
-    contact: "Tushar",
-    joiningdate: "Credit Card",
-    trips: "$850.00",
-
-    printView: "Button",
-  },
-  {
-    key: "4",
-    name: "tushar",
-    email: "18 Jul, 2023  4:30pm",
-    contact: "Tushar",
-    joiningdate: "Credit Card",
-    trips: "$850.00",
-
-    printView: "Button",
-  },
-  {
-    key: "5",
-    name: "tushar",
-    email: "18 Jul, 2023  4:30pm",
-    contact: "Tushar",
-    joiningdate: "Credit Card",
-    trips: "$850.00",
-
-    printView: "Button",
-  },
-  {
-    key: "6",
-    name: "tushar2",
-    email: "18 Jul, 2023  4:30pm",
-    contact: "Tushar",
-    joiningdate: "Credit Card",
-    trips: "$850.00",
-
-    printView: "Button",
-  },
-  {
-    key: "7",
-    name: "tushar",
-    email: "18 Jul, 2023  4:30pm",
-    contact: "Tushar",
-    joiningdate: "Credit Card",
-    trips: "$850.00",
-
-    printView: "Button",
-  },
-  {
-    key: "8",
-    name: "tushar",
-    email: "18 Jul, 2023  4:30pm",
-    contact: "Tushar",
-    joiningdate: "Credit Card",
-    trips: "$850.00",
-
-    printView: "Button",
-  },
-  {
-    key: "9",
-    name: "tushar",
-    email: "18 Jul, 2023  4:30pm",
-    contact: "Tushar",
-    joiningdate: "Credit Card",
-    trips: "$850.00",
-
-    printView: "Button",
-  },
-  {
-    key: "10",
-    name: "tushar",
-    email: "18 Jul, 2023  4:30pm",
-    contact: "Tushar",
-    joiningdate: "Credit Card",
-    trips: "$850.00",
-
-    printView: "Button",
-  },
-];
-
-const UserInfoTable = () => {
+const UserInfoTable = ({ userDataGetByPagination, userDataGetBySearch }) => {
   const [rentData, setRentData] = useState([]); // Data fetched from the server
   const [totalItems, setTotalItems] = useState(0); // Total number of items
   const [currentPage, setCurrentPage] = useState(1); // Current page number
-  const pageSize = 5;
-
+  const pageSize = 2;
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [userInfoData, setUserInfoData] = useState(null);
 
+  const { userInfoWithTripAmount, pagination } = useSelector(
+    (state) => state.UserInformationData
+  );
+
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
-    console.log(record);
     setUserInfoData(record);
   };
 
   const closeDrawer = () => {
     setIsDrawerVisible(false);
-    setInvoiceData(null);
+    setUserInfoData(null);
   };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    console.log(currentPage);
+    userDataGetByPagination(page);
+    userDataGetBySearch(page);
+  };
+
+  const data = userInfoWithTripAmount?.map((item) => {
+    console.log("user info in info page", item);
+    return {
+      key: item?.user._id,
+      name: item?.user.fullName,
+      email: item?.user.email,
+      contact: item?.user.phoneNumber,
+      joiningdate: item?.user.createdAt,
+      trips: "$" + item?.totalTripAmount,
+
+      printView: "Button",
+    };
+  });
 
   const columns = [
     {
@@ -184,31 +106,6 @@ const UserInfoTable = () => {
     },
   ];
 
-  useEffect(() => {
-    // Fetch data from the server when the current page changes
-    fetchData();
-  }, [currentPage]);
-
-  const fetchData = async () => {
-    // Replace this with your actual API request to fetch data based on pagination
-    try {
-      const response = await fetch(
-        `/api/data?page=${currentPage}&pageSize=${pageSize}`
-      );
-      const result = await response.json();
-
-      setData(result.data);
-      setTotalItems(result.totalItems);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-    console.log(currentPage);
-  };
-
   return (
     <>
       <Table
@@ -217,7 +114,7 @@ const UserInfoTable = () => {
         pagination={{
           pageSize,
           showSizeChanger: false,
-          total: 5000,
+          total: pagination?.totalUsers,
           current: currentPage,
           onChange: handlePageChange,
         }}
@@ -229,9 +126,7 @@ const UserInfoTable = () => {
               <Title level={5} strong>
                 User Information
               </Title>
-              <p style={{ color: "#8f8f8f" }}>
-                See all information about the user
-              </p>
+              <Text>See all information about the user</Text>
             </Typography>
           </div>
         }
@@ -241,20 +136,21 @@ const UserInfoTable = () => {
         width={500}
         closable={false}
         extra={
-          <Button
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: "20px",
-              color: "red",
-              height: "40px",
-              width: "40px",
-            }}
-            onClick={closeDrawer}
-          >
-            <CloseOutlined />
-          </Button>
+          <Space>
+            <Button
+              style={{
+                borderRadius: "100%",
+                backgroundColor: "white",
+                color: "red",
+                height: "50px",
+                width: "50px",
+                textAlign: "center",
+              }}
+              onClick={closeDrawer}
+            >
+              <CloseOutlined />
+            </Button>
+          </Space>
         }
       >
         {userInfoData && <DrawerPage userInfoData={userInfoData} />}
@@ -262,4 +158,5 @@ const UserInfoTable = () => {
     </>
   );
 };
+
 export default UserInfoTable;

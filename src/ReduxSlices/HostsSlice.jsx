@@ -7,6 +7,7 @@ const initialState = {
   isLoading: false,
   message: "",
   hostsData: [],
+  pagination: {},
 };
 
 const token = localStorage.token;
@@ -16,12 +17,17 @@ export const HostsData = createAsyncThunk(
   "HostsData",
   async (value, thunkAPI) => {
     try {
-      let response = await axios.get("api/user/all-host?limit=2&page=1", {
-        headers: {
-          "Content-type": "application/json",
-          authorization: `Bearer ${token}`,
-        },
-      });
+      let response = await axios.get(
+        `api/user/all-host?limit=2&page=${value.page}&search=${value.search}`,
+        {
+          headers: {
+            "Content-type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log(response.data);
 
       return response.data;
     } catch (error) {
@@ -43,11 +49,12 @@ export const hostDataSlice = createSlice({
   initialState,
   reducers: {
     reset: (state) => {
-      (state.isError = false),
-        (state.isSuccess = false),
-        (state.isLoading = false),
-        (state.message = ""),
-        (state.hostsData = []);
+      state.isError = false;
+      state.isSuccess = false;
+      state.isLoading = false;
+      state.message = "";
+      state.hostsData = [];
+      state.pagination = {};
     },
   },
 
@@ -61,6 +68,7 @@ export const hostDataSlice = createSlice({
       state.isLoading = false;
       state.message = action.payload.message;
       state.hostsData = action.payload.hostData;
+      state.pagination = action.payload.pagination;
     },
     [HostsData.rejected]: (state, action) => {
       state.isError = true;

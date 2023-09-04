@@ -50,7 +50,7 @@ const RentInformationTable = ({recentDataGetByPagination}) =>{
               key: item._id,
               carModel:item.carId.carModelName,
               username: item.userId.fullName,
-              tripno: item._id,
+              tripno: item.rentTripNumber,
               startDate: item.startDate,
               endDate: item.endDate,
               price: item.totalAmount,

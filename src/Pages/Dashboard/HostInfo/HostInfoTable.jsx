@@ -8,10 +8,14 @@ import { useSelector } from "react-redux";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
 
-const HostInfoTable = () => {
-  const allHost = useSelector((state) => state.hostsData.hostsData);
+const HostInfoTable = ({ hostDataGetByPagination, handleHostSearchData }) => {
+  const { hostsData, pagination } = useSelector((state) => state.hostsData);
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 2;
+  const [isDrawerVisible, setIsDrawerVisible] = useState(false);
+  const [hostData, setHostData] = useState(null);
 
-  const data = allHost.map((host) => {
+  const data = hostsData.map((host) => {
     return {
       name: host.host.fullName,
       email: host.host.email,
@@ -73,9 +77,6 @@ const HostInfoTable = () => {
     },
   ];
 
-  const [isDrawerVisible, setIsDrawerVisible] = useState(false);
-  const [hostData, setHostData] = useState(null);
-
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
     setHostData(record);
@@ -88,9 +89,25 @@ const HostInfoTable = () => {
     setHostData(null);
   };
 
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    hostDataGetByPagination(page);
+    handleHostSearchData(page);
+  };
+
   return (
     <div>
-      <Table columns={columns} dataSource={data} />
+      <Table
+        columns={columns}
+        dataSource={data}
+        pagination={{
+          pageSize,
+          showSizeChanger: false,
+          total: pagination?.totalHosts,
+          current: currentPage,
+          onChange: handlePageChange,
+        }}
+      />
       <Drawer
         title={
           <div

@@ -2,7 +2,8 @@ import { Button, Form, Input, Modal, Switch, Typography } from "antd";
 import React, { useState } from "react";
 import { LiaAngleRightSolid } from "react-icons/lia";
 import { useNavigate } from "react-router-dom";
-
+import axios from "../../../../Config";
+import Swal from "sweetalert2";
 const { Paragraph, Title, Text } = Typography;
 
 const Setting = () => {
@@ -11,7 +12,7 @@ const Setting = () => {
   const [openChangePassModel, setOpenChangePassModel] = useState(false);
   const [verify, setVerify] = useState(false);
   const [updatePassword, setUpdatePassword] = useState(false);
-
+  const [form] = Form.useForm();
   const style = {
     formContainer: {
       background: "white",
@@ -152,7 +153,26 @@ const Setting = () => {
   };
 
   const handleChangePassword = (values) => {
-    console.log("Received values of form: ", values);
+    let userData=JSON.parse(localStorage.getItem("yourInfo"))
+    console.log(userData)
+    let passChangeInfo={...values,email:userData.email}
+    console.log("Received values of form: ", passChangeInfo);
+    axios.post("api/user/change-password",passChangeInfo).then((res)=>{
+      console.log(res.data)
+      form.resetFields();
+      setOpenChangePassModel(false)
+      Swal.fire(
+        'Good job!',
+        'Password updated successfully',
+        'success'
+      )
+    }).catch(err=>{
+      Swal.fire(
+        'Oops!',
+         err.response.data.message,
+        'error'
+      )
+    });
   };
 
   return (
@@ -189,6 +209,7 @@ const Setting = () => {
           footer={[]}
         >
           <Form
+            form={form}
             name="normal_login"
             className="login-form"
             initialValues={{
@@ -240,7 +261,7 @@ const Setting = () => {
                 Re-Type Password
               </label>
               <Form.Item
-                name="password"
+                name="reTypedPassword"
                 rules={[
                   {
                     required: true,
@@ -284,6 +305,8 @@ const Setting = () => {
               </Button>
             </Form.Item>
           </Form>
+
+          ///////////////////////////////////////
         </Modal>
         {/* Verify Password */}
         <Modal

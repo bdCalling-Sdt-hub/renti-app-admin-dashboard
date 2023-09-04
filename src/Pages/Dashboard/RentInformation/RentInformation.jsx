@@ -1,9 +1,11 @@
-import { Col, Row } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
+import { Button, Col, Input, Row } from "antd";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RentInformationData } from "../../../ReduxSlices/RentInformationSlice";
 import "./RentInformation.css";
 import RentInformationTable from "./RentInformationTable";
+
 function RentInformation() {
   const dispatch = useDispatch();
 
@@ -25,7 +27,7 @@ function RentInformation() {
 
   return (
     <div style={{ padding: "0 60px" }}>
-      <Row>
+      <Row style={{ marginBottom: 30 }}>
         <h2
           style={{
             fontSize: "25px",
@@ -35,6 +37,26 @@ function RentInformation() {
         >
           Rent Information
         </h2>
+        <Col lg={{ span: 24 }}>
+          <div className="" style={{ display: "flex", gap: "15px" }}>
+            <Input
+              size="large"
+              placeholder="Search by Trip no."
+              prefix={<SearchOutlined style={{ color: "#cccccc" }} />}
+            />
+            <Button
+              style={{
+                height: "50px",
+                width: "300px",
+                backgroundColor: "#000b90",
+                color: "#fff",
+                fontSize: "20px",
+              }}
+            >
+              Search
+            </Button>
+          </div>
+        </Col>
       </Row>
 
       <Row gutter={16} style={{ marginBottom: "20px" }}>
