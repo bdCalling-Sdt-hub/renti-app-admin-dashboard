@@ -59,7 +59,9 @@ const items = [...Array(5).keys()].map((item, index) => {
 
 const Dashboard = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState(localStorage.lang);
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.lang || "en"
+  );
 
 
 
@@ -109,7 +111,7 @@ const Dashboard = () => {
     {
       key: 1,
       label: (
-        <Link to="/notification" style={{ height: "50px" }} rel="noreferrer">
+        <Link to="/setting/personal-information" style={{ height: "50px" }} rel="noreferrer">
           <div
             className={Styles.everyNotify}
             style={{ display: "flex", alignItems: "center" }}

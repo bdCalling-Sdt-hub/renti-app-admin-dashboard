@@ -3,76 +3,69 @@ import React, { useState } from "react";
 import { AiOutlinePrinter } from "react-icons/ai";
 import { IoMdClose } from "react-icons/io";
 import { LiaSaveSolid } from "react-icons/lia";
+import { useSelector } from "react-redux";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
-import { useDispatch,useSelector } from "react-redux";
 const { Title, Text } = Typography;
 
-
-
-const EarnHistoryTable = ({recentDataGetByPagination}) => {
+const EarnHistoryTable = ({ recentDataGetByPagination }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 3;
-  const {todayEarning,weeklyEarning,monthlyEarning,pagination} = useSelector((state) => state.RecentEarnings);
-//ok all things is done
+  const { todayEarning, weeklyEarning, monthlyEarning, pagination } =
+    useSelector((state) => state.RecentEarnings);
+  const pageSize = 1;
+
+  //ok all things is done
   let today_data;
   let weekly_data;
   let monthly_data;
-  if(todayEarning){
-    today_data=todayEarning?.map((item)=>{
-      console.log("tushar",item)
-        return{
-              key: item._id,
-              tripNo: item?.rentId?.rentTripNumber,
-              time: item.createdAt,
-              username: item.userId.fullName,
-              method: item.paymentData.payment_method_details.card.brand,
-              amount: item.paymentData.amount,
-              status: item.paymentData.status=="succeeded"?"Complete":"Pending",
-              printView: "Button",
-        }
+  if (todayEarning) {
+    today_data = todayEarning?.map((item) => {
+      console.log("tushar", item);
+      return {
+        key: item._id,
+        invoiceNo: item._id,
+        time: item.createdAt,
+        username: item.userId.fullName,
+        method: item.paymentData.payment_method_details.card.brand,
+        amount: item.paymentData.amount,
+        status: item.paymentData.status == "succeeded" ? "Complete" : "Pending",
+        printView: "Button",
+      };
     });
   }
- 
 
- 
+  if (weeklyEarning) {
+    weekly_data = weeklyEarning?.map((item) => {
+      console.log("tushar", item);
+      return {
+        key: item._id,
+        invoiceNo: item._id,
+        time: item.createdAt,
+        username: item.userId.fullName,
+        method: item.paymentData.payment_method_details.card.brand,
+        amount: item.paymentData.amount,
+        status: item.paymentData.status == "succeeded" ? "Complete" : "Pending",
+        printView: "Button",
+      };
+    });
+  }
 
- if(weeklyEarning){
-  weekly_data=weeklyEarning?.map((item)=>{
-   console.log("tushar",item)
-     return{
-           key: item._id,
-           tripNo: item?.rentId?.rentTripNumber,
-           time: item.createdAt,
-           username: item.userId.fullName,
-           method: item.paymentData.payment_method_details.card.brand,
-           amount: item.paymentData.amount,
-           status: item.paymentData.status=="succeeded"?"Complete":"Pending",
-           printView: "Button",
-     }
- });
-}
+  if (monthlyEarning) {
+    monthly_data = monthlyEarning?.map((item) => {
+      console.log("tushar", item);
+      return {
+        key: item._id,
+        invoiceNo: item._id,
+        time: item.createdAt,
+        username: item.userId.fullName,
+        method: item.paymentData.payment_method_details.card.brand,
+        amount: item.paymentData.amount,
+        status: item.paymentData.status == "succeeded" ? "Complete" : "Pending",
+        printView: "Button",
+      };
+    });
+  }
 
-if(monthlyEarning){
-  monthly_data=monthlyEarning?.map((item)=>{
-   console.log("tushar",item)
-     return{
-           key: item._id,
-           tripNo: item?.rentId?.rentTripNumber,
-           time: item.createdAt,
-           username: item.userId.fullName,
-           method: item.paymentData.payment_method_details.card.brand,
-           amount: item.paymentData.amount,
-           status: item.paymentData.status=="succeeded"?"Complete":"Pending",
-           printView: "Button",
-     }
- });
-}
-
- 
-
-  console.log("today earning")
-
-
+  console.log("today earning");
 
   const columns = [
     {
@@ -142,50 +135,56 @@ if(monthlyEarning){
     setEarningData(null);
   };
 
-  const handlePageChange=(page)=>{
-    console.log(page)
+  const handlePageChange = (page) => {
+    console.log(page);
     setCurrentPage(page);
-    recentDataGetByPagination(page)
-  
-  }
+    recentDataGetByPagination(page);
+  };
 
   return (
     <div>
-      {
-        today_data && <Table columns={columns} dataSource={today_data}
-        pagination={{
-          pageSize,
-          showSizeChanger:false,
-          total:pagination?.totalDocuments,
-          current: currentPage,
-          onChange: handlePageChange,
-        }} />
-      }
+      {today_data && (
+        <Table
+          columns={columns}
+          dataSource={today_data}
+          pagination={{
+            pageSize,
+            showSizeChanger: false,
+            total: pagination?.totalPage,
+            current: currentPage,
+            onChange: handlePageChange,
+          }}
+        />
+      )}
 
-     {
-        weekly_data && <Table columns={columns} dataSource={weekly_data}
-        pagination={{
-          pageSize,
-          showSizeChanger:false,
-          total:pagination?.totalDocuments,
-          current: currentPage,
-          onChange: handlePageChange,
-        }} />
-      }
+      {weekly_data && (
+        <Table
+          columns={columns}
+          dataSource={weekly_data}
+          pagination={{
+            pageSize,
+            showSizeChanger: false,
+            total: pagination?.totalPage,
+            current: currentPage,
+            onChange: handlePageChange,
+          }}
+        />
+      )}
 
-     {
-        monthly_data && <Table columns={columns} dataSource={monthly_data}
-        pagination={{
-          pageSize,
-          showSizeChanger:false,
-          total:pagination?.totalDocuments,
-          current: currentPage,
-          onChange: handlePageChange,
-        }} />
-      }
+      {monthly_data && (
+        <Table
+          columns={columns}
+          dataSource={monthly_data}
+          pagination={{
+            pageSize,
+            showSizeChanger: false,
+            total: pagination?.totalPage,
+            current: currentPage,
+            onChange: handlePageChange,
+          }}
+        />
+      )}
 
-
-      
       <Drawer
         title={
           <div

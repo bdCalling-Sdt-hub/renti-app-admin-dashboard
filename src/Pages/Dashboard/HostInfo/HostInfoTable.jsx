@@ -1,64 +1,34 @@
 import { Button, Drawer, Table, Typography } from "antd";
+import moment from "moment";
 import React, { useState } from "react";
 import { BsEye } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
 import { RiDeleteBin5Line } from "react-icons/ri";
+import { useSelector } from "react-redux";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
 
-const data = [
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    cars: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    cars: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    cars: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    cars: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    cars: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    cars: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    cars: 20,
-  },
-];
+const HostInfoTable = ({ hostDataGetByPagination, handleHostSearchData }) => {
+  const { hostsData, pagination } = useSelector((state) => state.hostsData);
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 2;
+  const [isDrawerVisible, setIsDrawerVisible] = useState(false);
+  const [hostData, setHostData] = useState(null);
 
-const HostInfoTable = () => {
+  const data = hostsData.map((host) => {
+    return {
+      name: host.host.fullName,
+      email: host.host.email,
+      contact: host.host.phoneNumber,
+      joiningDate: moment(host.host.createAt).format("YYYY-MM-DD"),
+      car: host.carCount,
+      action: host.host,
+    };
+  });
+
+  const restData = hostsData.filter((host) => host?.isBanned == false);
+  console.log(restData);
+
   const columns = [
     {
       title: "NAME",
@@ -84,8 +54,8 @@ const HostInfoTable = () => {
     },
     {
       title: "CARS",
-      dataIndex: "cars",
-      key: "cars",
+      dataIndex: "car",
+      key: "car",
       responsive: ["md"],
     },
     {
@@ -110,12 +80,11 @@ const HostInfoTable = () => {
     },
   ];
 
-  const [isDrawerVisible, setIsDrawerVisible] = useState(false);
-  const [hostData, setHostData] = useState(null);
-
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
     setHostData(record);
+
+    console.log(record);
   };
 
   const closeDrawer = () => {
@@ -123,9 +92,25 @@ const HostInfoTable = () => {
     setHostData(null);
   };
 
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    hostDataGetByPagination(page);
+    handleHostSearchData(page);
+  };
+
   return (
     <div>
-      <Table columns={columns} dataSource={data} />
+      <Table
+        columns={columns}
+        dataSource={data}
+        pagination={{
+          pageSize,
+          showSizeChanger: false,
+          total: pagination?.totalHosts,
+          current: currentPage,
+          onChange: handlePageChange,
+        }}
+      />
       <Drawer
         title={
           <div

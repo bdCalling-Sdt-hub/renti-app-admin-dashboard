@@ -34,7 +34,6 @@ const SettingPage = () => {
   const textSplit = params.dynamic.split("-");
   const text = textSplit.join(" ");
 
-  console.log(text);
   return (
     <>
       <Link to="/setting" style={style.btn}>

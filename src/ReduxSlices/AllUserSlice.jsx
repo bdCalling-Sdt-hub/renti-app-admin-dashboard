@@ -6,20 +6,24 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   message: "",
-  userData: {},
-  accessToken: "",
+  allUsers: [],
+  pagination: {},
 };
+const token = localStorage.token;
 
-export const UserData = createAsyncThunk(
-  "UserData",
+export const AllUsers = createAsyncThunk(
+  "AllUsers",
   async (value, thunkAPI) => {
-    console.log("redux", value);
     try {
-      let response = await axios.post("api/user/sign-in", value);
+      const response = await axios.get(`api/user/all`, {
+        headers: {
+          "Content-type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      });
 
       return response.data;
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
       const message =
         (error.response &&
           error.response.data &&
@@ -27,40 +31,39 @@ export const UserData = createAsyncThunk(
         error.message ||
         error.toString();
 
-      return thunkAPI.rejectWithValue(message);
+      thunkAPI.rejectWithValue(message);
     }
   }
 );
 
-export const signinSlice = createSlice({
-  name: "signin",
+//create slice for host
+export const allUserSlice = createSlice({
+  name: "allUser",
   initialState,
-
   reducers: {
     reset: (state) => {
-      state.isLoading = false;
-      state.isSuccess = false;
       state.isError = false;
+      state.isSuccess = false;
+      state.isLoading = false;
       state.message = "";
-      state.userData = {};
-      state.accessToken = "";
+      state.hostsData = [];
+      state.pagination = {};
     },
   },
 
   extraReducers: {
-    [UserData.pending]: (state, action) => {
+    [AllUsers.pending]: (state, action) => {
       state.isLoading = true;
     },
-    [UserData.fulfilled]: (state, action) => {
-      console.log(action);
+    [AllUsers.fulfilled]: (state, action) => {
       state.isError = false;
       state.isSuccess = true;
       state.isLoading = false;
       state.message = action.payload.message;
-      state.userData = action.payload.user;
-      state.accessToken = action.payload.accessToken;
+      state.allUsers = action.payload.users;
+      state.pagination = action.payload.pagination;
     },
-    [UserData.rejected]: (state, action) => {
+    [AllUsers.rejected]: (state, action) => {
       state.isError = true;
       state.isSuccess = false;
       state.isLoading = false;
@@ -69,7 +72,6 @@ export const signinSlice = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
-export const { reset } = signinSlice.actions;
+export const {} = allUserSlice.actions;
 
-export default signinSlice.reducer;
+export default allUserSlice.reducer;

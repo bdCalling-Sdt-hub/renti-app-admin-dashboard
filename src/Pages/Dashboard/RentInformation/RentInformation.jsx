@@ -1,12 +1,17 @@
+import { SearchOutlined } from "@ant-design/icons";
 import { Button, Col, Input, Row } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
+
+import { RentInformationData } from "../../../ReduxSlices/RentInformationSlice";
 import "./RentInformation.css";
 import RentInformationTable from "./RentInformationTable";
 import { useDispatch,useSelector } from "react-redux";
-import { useEffect } from "react";
-import { RentInformationData } from "../../../ReduxSlices/RentInformationSlice";
-import { SearchOutlined } from "@ant-design/icons";
+
+
+
 import { useState } from "react";
+
+
 function RentInformation() {
   const [searchData,setSearchData]=useState("");
   const dispatch=useDispatch();
@@ -61,7 +66,7 @@ function RentInformation() {
 
   return (
     <div style={{ padding: "0 60px" }}>
-      <Row style={{marginBottom:30}}>
+      <Row style={{ marginBottom: 30 }}>
         <h2
           style={{
             fontSize: "25px",

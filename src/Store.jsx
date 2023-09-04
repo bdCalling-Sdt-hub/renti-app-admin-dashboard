@@ -8,6 +8,11 @@ import UserInformationReducer from './ReduxSlices/UserInformationSlice'
 import HostInformationWithKycReducer from './ReduxSlices/HostInformationWithKycSlice'
 import UserInformationWithKycReducer from './ReduxSlices/UserInformationWithKycSlice'
 import CarInformationWithKycReducer from './ReduxSlices/CarInformationWithKycSlice'
+import AllUserReducer from "./ReduxSlices/AllUserSlice";
+import CarReducer from "./ReduxSlices/CarsSlice";
+import HostReducer from "./ReduxSlices/HostsSlice";
+import adminReducer from "./ReduxSlices/ProfileUpdatedSlice";
+
 export const Store = configureStore({
   reducer: {
     IncomeData:IncomeReducer,
@@ -18,6 +23,11 @@ export const Store = configureStore({
     UserInformationData:UserInformationReducer,
     HostInfoData:HostInformationWithKycReducer,
     UserInfoData:UserInformationWithKycReducer,
-    CarInfoData:CarInformationWithKycReducer
-  },
-})
+    CarInfoData:CarInformationWithKycReducer,
+    hostsData: HostReducer,
+    carsData: CarReducer,
+    adminData: adminReducer,
+    AllUser: AllUserReducer,
+  }})
+
+

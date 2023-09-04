@@ -1,157 +1,65 @@
 import { CloseOutlined } from "@ant-design/icons";
 import { Button, Drawer, Space, Table, Typography } from "antd";
-import React, { useEffect, useState } from "react";
+import moment from "moment";
+import React, { useState } from "react";
 import { AiOutlinePrinter } from "react-icons/ai";
 import { LiaSaveSolid } from "react-icons/lia";
+import { useSelector } from "react-redux";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
 
-const data = [
-  {
-    key: "1",
-    carmodel: "toyota 120",
-    lincenseno: "kkk12396",
-    registerdate: "18 Aug 2023",
-    owner: "Tushar",
-    status: "Active",
-    printView: "Button",
-  },
-  {
-    key: "2",
-    carmodel: "toyota 120",
-    lincenseno: "kkk12396",
-    registerdate: "18 Aug 2023",
-    owner: "Tushar",
-    status: "Active",
-    printView: "Button",
-  },
-  {
-    key: "3",
-    carmodel: "toyota 120",
-    lincenseno: "kkk12396",
-    registerdate: "18 Aug 2023",
-    owner: "Tushar",
-    status: "Active",
-    printView: "Button",
-  },
-  {
-    key: "4",
-    carmodel: "toyota 120",
-    lincenseno: "kkk12396",
-    registerdate: "18 Aug 2023",
-    owner: "Tushar",
-    status: "Active",
-    printView: "Button",
-  },
-  {
-    key: "5",
-    carmodel: "toyota 120",
-    lincenseno: "kkk12396",
-    registerdate: "18 Aug 2023",
-    owner: "Tushar",
-    status: "Active",
-    printView: "Button",
-  },
-  {
-    key: "6",
-    carmodel: "toyota 120",
-    lincenseno: "kkk12396",
-    registerdate: "18 Aug 2023",
-    owner: "Tushar",
-    status: "Active",
-    printView: "Button",
-  },
-  {
-    key: "7",
-    carmodel: "toyota 120",
-    lincenseno: "kkk12396",
-    registerdate: "18 Aug 2023",
-    owner: "Tushar",
-    status: "Active",
-    printView: "Button",
-  },
-  {
-    key: "8",
-    carmodel: "toyota 120",
-    lincenseno: "kkk12396",
-    registerdate: "18 Aug 2023",
-    owner: "Tushar",
-    status: "Active",
-    printView: "Button",
-  },
-  {
-    key: "9",
-    carmodel: "toyota 120",
-    lincenseno: "kkk12396",
-    registerdate: "18 Aug 2023",
-    owner: "Tushar",
-    status: "Active",
-    printView: "Button",
-  },
-  {
-    key: "10",
-    carmodel: "toyota 120",
-    lincenseno: "kkk12396",
-    registerdate: "18 Aug 2023",
-    owner: "Tushar",
-    status: "Active",
-    printView: "Button",
-  },
-  {
-    key: "11",
-    carmodel: "toyota 120",
-    lincenseno: "kkk12396",
-    registerdate: "18 Aug 2023",
-    owner: "Tushar",
-    status: "Active",
-    printView: "Button",
-  },
-  {
-    key: "12",
-    carmodel: "toyota 120",
-    lincenseno: "kkk12396",
-    registerdate: "18 Aug 2023",
-    owner: "Tushar",
-    status: "Active",
-    printView: "Button",
-  },
-];
+const CarInfoTable = ({ carDataByPagination }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 2;
 
-const CarInfoTable = () => {
-  const [rentData, setRentData] = useState([]); // Data fetched from the server
-  const [totalItems, setTotalItems] = useState(0); // Total number of items
-  const [currentPage, setCurrentPage] = useState(1); // Current page number
-  const pageSize = 5;
+  const { cars, pagination } = useSelector((state) => state.carsData.carsData);
 
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
-  const [invoiceData, setInvoiceData] = useState(null);
+  const [carDetailsData, setCarDetailsData] = useState(null);
 
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
-    setInvoiceData(record);
+    setCarDetailsData(record);
   };
 
   const closeDrawer = () => {
     setIsDrawerVisible(false);
-    setInvoiceData(null);
+    setCarDetailsData(null);
   };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    carDataByPagination(page);
+  };
+
+  const data = cars?.map((car) => {
+    return {
+      key: car._id,
+      carModel: car.carModelName,
+      licenseNo: car.carLicenseNumber,
+      registerDate: moment(car.createAt).format("YYYY-MM-DD"),
+      owner: car.carOwner.fullName,
+      status: car.tripStatus,
+      printView: car,
+    };
+  });
 
   const columns = [
     {
       title: "Car Model",
-      dataIndex: "carmodel",
-      key: "invoiceNo",
+      dataIndex: "carModel",
+      key: "carModel",
     },
     {
-      title: "Lincense No",
-      dataIndex: "lincenseno",
-      key: "lincenseno",
+      title: "License No",
+      dataIndex: "licenseNo",
+      key: "licenseNo",
       responsive: ["md"],
     },
     {
       title: "Register Date",
-      dataIndex: "registerdate",
-      key: "registerdate",
+      dataIndex: "registerDate",
+      key: "registerDate",
       responsive: ["lg"],
     },
     {
@@ -191,31 +99,6 @@ const CarInfoTable = () => {
     },
   ];
 
-  useEffect(() => {
-    // Fetch data from the server when the current page changes
-    fetchData();
-  }, [currentPage]);
-
-  const fetchData = async () => {
-    // Replace this with your actual API request to fetch data based on pagination
-    try {
-      const response = await fetch(
-        `/api/data?page=${currentPage}&pageSize=${pageSize}`
-      );
-      const result = await response.json();
-
-      setData(result.data);
-      setTotalItems(result.totalItems);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-    console.log(currentPage);
-  };
-
   return (
     <div>
       <Table
@@ -224,7 +107,7 @@ const CarInfoTable = () => {
         pagination={{
           pageSize,
           showSizeChanger: false,
-          total: 300,
+          total: pagination?.totalDocuments,
           current: currentPage,
           onChange: handlePageChange,
         }}
@@ -234,9 +117,9 @@ const CarInfoTable = () => {
           <div>
             <Typography>
               <Title level={5} strong>
-                Invoice# Trip No.{invoiceData?.invoiceNo}
+                Car Details
               </Title>
-              <Text>See all information about the trip no. 68656</Text>
+              <Text>See all information about selected car</Text>
             </Typography>
           </div>
         }
@@ -263,7 +146,7 @@ const CarInfoTable = () => {
           </Space>
         }
       >
-        {invoiceData && <DrawerPage invoiceData={invoiceData} />}
+        {carDetailsData && <DrawerPage carDetails={carDetailsData} />}
       </Drawer>
     </div>
   );

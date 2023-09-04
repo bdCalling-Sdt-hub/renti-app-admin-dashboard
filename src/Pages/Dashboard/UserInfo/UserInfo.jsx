@@ -1,52 +1,43 @@
 import { SearchOutlined } from "@ant-design/icons";
 import { Button, Col, Input, Row } from "antd";
-import React,{useState} from "react";
-import UserInfoTable from "./UserInfoTable";
-import { useDispatch,useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { UserInformationData } from "../../../ReduxSlices/UserInformationSlice";
-import { useEffect } from "react";
+import UserInfoTable from "./UserInfoTable";
 function UserInfo() {
+  const [searchData, setSearchData] = useState("");
 
-  const [searchData,setSearchData]=useState("");
- 
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
 
-  useEffect(()=>{
-    let data={
-      search:searchData,
-      page:1
-    }
-    dispatch(UserInformationData(data))
+  useEffect(() => {
+    let data = {
+      search: searchData,
+      page: 1,
+    };
+    dispatch(UserInformationData(data));
+  }, []);
 
-  },[])
-
-
-  const userDataGetByPagination=(page)=>{
-  
-    let data={
-      search:searchData,
-      page:page
-    }
-    if(searchData==""){
+  const userDataGetByPagination = (page) => {
+    let data = {
+      search: searchData,
+      page: page,
+    };
+    if (searchData == "") {
       dispatch(UserInformationData(data));
-      console.log("without search")
+      console.log("without search");
     }
-   
-  }
+  };
 
-  const userDataGetBySearch=(page)=>{
-    let data={
-      search:searchData,
-      page:page
-    }
-    if(searchData!=""){
+  const userDataGetBySearch = (page) => {
+    let data = {
+      search: searchData,
+      page: page,
+    };
+    if (searchData != "") {
       dispatch(UserInformationData(data));
-      console.log("with search")
+      console.log("with search");
     }
-   
-   
-  }
-
+  };
 
   return (
     <div style={{ padding: "0 60px" }}>
@@ -63,14 +54,14 @@ function UserInfo() {
         <Col lg={{ span: 24 }}>
           <div className="" style={{ display: "flex", gap: "15px" }}>
             <Input
-              onChange={(e)=>setSearchData(e.target.value)}
+              onChange={(e) => setSearchData(e.target.value)}
               value={searchData}
               size="large"
               placeholder="Search by name/email/phone"
               prefix={<SearchOutlined style={{ color: "#cccccc" }} />}
             />
             <Button
-             onClick={userDataGetBySearch}
+              onClick={userDataGetBySearch}
               style={{
                 height: "50px",
                 width: "300px",
@@ -95,7 +86,10 @@ function UserInfo() {
 
       <Row>
         <Col lg={{ span: 24 }}>
-          <UserInfoTable userDataGetByPagination={userDataGetByPagination} userDataGetBySearch={userDataGetBySearch} />
+          <UserInfoTable
+            userDataGetByPagination={userDataGetByPagination}
+            userDataGetBySearch={userDataGetBySearch}
+          />
         </Col>
       </Row>
     </div>

@@ -1,10 +1,11 @@
 /* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable react/prop-types */
-import { Badge, Button, Form, Input, Select, Typography } from "antd";
+import { Badge, Button, Col, Form, Input, Row, Select, Typography } from "antd";
+import moment from "moment";
 import React from "react";
 import { AiFillStar } from "react-icons/ai";
+import img from "../../Images/1.png";
 import cardImg from "../../Images/Cards.png";
-import img from "../../Images/image 1.png";
 const { Title } = Typography;
 
 const { Option } = Select;
@@ -56,6 +57,108 @@ const DrawerPage = (props) => {
 
   return (
     <>
+      {props.userInfoData && (
+        <div>
+          <div
+            style={{
+              display: "flex",
+              gap: "15px",
+              borderBottom: "1px solid #dddddd",
+              paddingBottom: "10px",
+            }}
+          >
+            <div>
+              <img
+                width={150}
+                style={{ borderRadius: "5px" }}
+                src="https://media.istockphoto.com/id/529278045/photo/working-on-something-great.jpg?s=170667a&w=0&k=20&c=XT9z1yOr2-bw4lLxb7FneBPzqGkFtiKI1PBbnGyYQSs="
+                alt=""
+              />
+            </div>
+            <div style={{ marginTop: "-6px" }}>
+              <p style={{ fontSize: "20px" }}>Fahim</p>
+              <p>INE: SNHRM570818MDFPM10</p>
+              <p>Trip Completes: 5</p>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "2px" }}
+              >
+                <AiFillStar color="#fba91d" />
+                <span>4.8</span>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <Form.Item
+              label="Email"
+              labelCol={{ span: 24 }}
+              style={{ marginBottom: "0px" }}
+            >
+              <Input style={{ height: "45px" }} readOnly />
+            </Form.Item>
+            <Form.Item
+              label="Phone Number"
+              labelCol={{ span: 24 }}
+              style={{ marginBottom: "0px" }}
+            >
+              <Input style={{ height: "45px" }} readOnly />
+            </Form.Item>
+            <Form.Item
+              label="Driving License No."
+              labelCol={{ span: 24 }}
+              style={{ marginBottom: "0px" }}
+            >
+              <Input style={{ height: "45px" }} readOnly />
+            </Form.Item>
+            <Form.Item
+              label="Joining Date"
+              labelCol={{ span: 24 }}
+              style={{ marginBottom: "0px" }}
+            >
+              <Input style={{ height: "45px" }} readOnly />
+            </Form.Item>
+            <Form.Item
+              label="Address"
+              labelCol={{ span: 24 }}
+              style={{ marginBottom: "0px" }}
+            >
+              <Input style={{ height: "45px" }} readOnly />
+            </Form.Item>
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              gap: 20,
+              position: "absolute",
+              bottom: 10,
+            }}
+          >
+            <Button
+              block
+              style={{
+                border: "1px solid red",
+                color: "red",
+                height: 50,
+                width: "220px",
+              }}
+            >
+              Block
+            </Button>
+            <Button
+              block
+              style={{
+                background: "#000B90",
+                color: "white",
+                height: 50,
+                width: "220px",
+              }}
+            >
+              Delete
+            </Button>
+          </div>
+        </div>
+      )}
       {props.editedCardData && (
         <>
           <div
@@ -294,16 +397,29 @@ const DrawerPage = (props) => {
             style={{
               display: "flex",
               gap: "15px",
-              borderBottom: "1px solid #B0B3DD",
+              borderBottom: "1px solid gray",
+              paddingBottom: "10px",
             }}
           >
             <div>
-              <img width={120} src="https://i.imgur.com/JFHjdNr.jpg" alt="" />
+              <img
+                width={180}
+                style={{ borderRadius: "6px" }}
+                src="https://media.istockphoto.com/id/529278045/photo/working-on-something-great.jpg?s=170667a&w=0&k=20&c=XT9z1yOr2-bw4lLxb7FneBPzqGkFtiKI1PBbnGyYQSs="
+                alt=""
+              />
             </div>
-            <div style={{ marginTop: "-7px" }}>
-              <p style={{ fontSize: "20px" }}>{props.hostData?.name}</p>
-              <p>INE: SNHRM570818MDFPM10</p>
-              <p>Trip Completes: 5</p>
+            <div>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "10px" }}
+              >
+                {" "}
+                <p style={{ fontSize: "20px" }}>
+                  {props?.hostData?.action?.fullName}
+                </p>
+              </div>
+              <p>INC:</p>
+              <p>Rent Completed</p>
               <div
                 style={{ display: "flex", alignItems: "center", gap: "2px" }}
               >
@@ -316,15 +432,27 @@ const DrawerPage = (props) => {
           <div style={{ marginTop: "10px" }}>
             <div style={{ marginBottom: "15px" }}>
               <label htmlFor="">Email</label>
-              <Input readOnly style={{ height: "45px" }} />
+              <Input
+                readOnly
+                style={{ height: "40px" }}
+                defaultValue={props?.hostData?.action?.email}
+              />
             </div>
             <div style={{ marginBottom: "15px" }}>
               <label htmlFor="">Phone</label>
-              <Input readOnly style={{ height: "45px" }} />
+              <Input
+                readOnly
+                style={{ height: "40px" }}
+                defaultValue={props?.hostData?.action?.phoneNumber}
+              />
             </div>
             <div style={{ marginBottom: "15px" }}>
               <label htmlFor="">Address</label>
-              <Input readOnly style={{ height: "45px" }} />
+              <Input
+                readOnly
+                style={{ height: "40px" }}
+                defaultValue={props?.hostData?.action?.address}
+              />
             </div>
           </div>
 
@@ -334,15 +462,19 @@ const DrawerPage = (props) => {
             <div style={{ marginTop: "10px" }}>
               <div style={{ marginBottom: "15px" }}>
                 <label htmlFor="">Credit Card Number</label>
-                <Input readOnly style={{ height: "45px" }} />
+                <Input
+                  readOnly
+                  style={{ height: "40px" }}
+                  defaultValue={props?.hostData?.action?.creaditCardNumber}
+                />
               </div>
               <div style={{ marginBottom: "15px" }}>
                 <label htmlFor="">Account Number</label>
-                <Input readOnly style={{ height: "45px" }} />
+                <Input readOnly style={{ height: "40px" }} />
               </div>
               <div style={{ marginBottom: "15px" }}>
                 <label htmlFor="">Account Holder Name</label>
-                <Input readOnly style={{ height: "45px" }} />
+                <Input readOnly style={{ height: "40px" }} />
               </div>
             </div>
           </div>
@@ -380,16 +512,50 @@ const DrawerPage = (props) => {
         </div>
       )}
 
-      {props.invoiceData && (
+      {props.carDetails && (
         <div>
-          <div style={{ display: "flex", gap: "15px" }}>
+          <div
+            style={{
+              display: "flex",
+              gap: "15px",
+              borderBottom: "1px solid gray",
+              paddingBottom: "10px",
+            }}
+          >
             <div>
-              <img width={120} src="https://i.imgur.com/JFHjdNr.jpg" alt="" />
+              <img
+                width={180}
+                style={{ borderRadius: "6px" }}
+                src={props.carDetails?.printView?.carLicenseImage}
+                alt=""
+              />
             </div>
-            <div style={{ marginTop: "-7px" }}>
-              <p style={{ fontSize: "20px" }}>{props.invoiceData.username}</p>
-              <p>INE: SNHRM570818MDFPM10</p>
-              <p>Trip Completes:{props.invoiceData.status.length}</p>
+            <div>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "10px" }}
+              >
+                {" "}
+                <p style={{ fontSize: "20px" }}>
+                  {props.carDetails?.printView?.carModelName}
+                </p>
+                {props.carDetails?.printView?.activeReserve ? (
+                  <Badge
+                    className="site-badge-count-109"
+                    count={"Reserved"}
+                    style={{ backgroundColor: "#E6F6F4", color: "#eb6363" }}
+                  />
+                ) : (
+                  <Badge
+                    className="site-badge-count-109"
+                    count={"Active"}
+                    style={{ backgroundColor: "#E6F6F4", color: "#00A991" }}
+                  />
+                )}
+              </div>
+              <p>License: {props.carDetails?.printView?.carLicenseNumber}</p>
+              <p>Car Model: {props.carDetails?.printView?.carModelName}</p>
+              <p>Gear Type: {props.carDetails?.printView?.gearType}</p>
+              <p>Color: {props.carDetails?.printView?.carColor}</p>
               <div
                 style={{ display: "flex", alignItems: "center", gap: "2px" }}
               >
@@ -398,46 +564,61 @@ const DrawerPage = (props) => {
               </div>
             </div>
           </div>
-          <div>
-            <Title level={4}>
-              Trip Details{" "}
-              <Badge
-                className="site-badge-count-109"
-                count={"complete"}
-                style={{ backgroundColor: "#E6F6F4", color: "#00A991" }}
-              />
-            </Title>
-          </div>
+
           <div
             style={{
-              display: "flex",
-              gap: 20,
-              position: "absolute",
-              bottom: 10,
+              margin: "15px 0",
+              borderBottom: "1px solid gray",
+              paddingBottom: "15px",
             }}
           >
-            <Button
-              block
-              style={{
-                background: "#000B90",
-                color: "white",
-                height: 50,
-                width: "220px",
-              }}
-            >
-              Download
-            </Button>
-            <Button
-              block
-              style={{
-                background: "#000B90",
-                color: "white",
-                height: 50,
-                width: "220px",
-              }}
-            >
-              Print
-            </Button>
+            <Title level={4}>Car Characteristic</Title>
+            <Row>
+              <Col span={12} style={{ textAlign: "left" }}>
+                <p>Number of Doors</p>
+                <p>Seats</p>
+                <p>Total Run</p>
+                <p>Register Date</p>
+                <p>Fuel Capacity</p>
+                <p>Per Hour Rental Fee</p>
+              </Col>
+              <Col span={12} style={{ textAlign: "right" }}>
+                <p>{props.carDetails?.printView?.carDoors}</p>
+                <p>{props.carDetails?.printView?.carSeats}</p>
+                <p>{props.carDetails?.printView?.totalRun}</p>
+                <p>
+                  {moment(props.carDetails?.printView?.createAt).format(
+                    "YYYY-MM-DD"
+                  )}
+                </p>
+                <p>56L</p>
+                <p>{props.carDetails?.printView?.hourlyRate}</p>
+              </Col>
+            </Row>
+          </div>
+
+          <div
+            style={{
+              margin: "15px 0",
+              borderBottom: "1px solid gray",
+              paddingBottom: "15px",
+            }}
+          >
+            <Title level={4}>Host Information</Title>
+            <Row>
+              <Col span={12} style={{ textAlign: "left" }}>
+                <p>Name</p>
+                <p>Email</p>
+                <p>Phone</p>
+                <p>Address</p>
+              </Col>
+              <Col span={12} style={{ textAlign: "right" }}>
+                <p>{props.carDetails?.printView?.carOwner?.fullName}</p>
+                <p>{props.carDetails?.printView?.carOwner?.email}</p>
+                <p>{props.carDetails?.printView?.carOwner?.phoneNumber}</p>
+                <p>{props.carDetails?.printView?.carOwner?.address}</p>
+              </Col>
+            </Row>
           </div>
         </div>
       )}
