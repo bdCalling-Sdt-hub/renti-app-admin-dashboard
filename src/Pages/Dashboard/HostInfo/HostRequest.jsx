@@ -1,3 +1,4 @@
+import { SearchOutlined } from "@ant-design/icons";
 import { Button, Input, Row } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +9,7 @@ const HostRequest = () => {
   const { hostsData, pagination } = useSelector((state) => state.hostsData);
   const dispatch = useDispatch();
   const [autoReload, setAutoReload] = useState(1);
+  const [searchData, setSearchData] = useState("");
 
   const style = {
     cardStyle: {
@@ -21,15 +23,25 @@ const HostRequest = () => {
     },
   };
 
+  const handleSearch = () => {
+    const data = {
+      page: null,
+      search: searchData,
+      limit: null,
+    };
+    dispatch(HostsData(data));
+  };
+
   useEffect(() => {
     const data = {
       page: null,
       search: "",
       limit: null,
     };
-    dispatch(HostsData(data));
-    console.log("Host request");
-  }, [autoReload]);
+    if (searchData === "") {
+      dispatch(HostsData(data));
+    }
+  }, [autoReload, searchData]);
 
   const items = hostsData.filter(
     (hostRequest) => hostRequest.host.approved == false
@@ -43,8 +55,15 @@ const HostRequest = () => {
         Host Request
       </h2>
       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-        <Input style={{ height: "44px" }} placeholder="Search" />
+        <Input
+          onChange={(e) => setSearchData(e.target.value)}
+          style={{ height: "44px" }}
+          size="large"
+          placeholder="Search by name/email/phone"
+          prefix={<SearchOutlined style={{ color: "#cccccc" }} />}
+        />
         <Button
+          onClick={handleSearch}
           style={{
             background: "#000B90",
             color: "white",
