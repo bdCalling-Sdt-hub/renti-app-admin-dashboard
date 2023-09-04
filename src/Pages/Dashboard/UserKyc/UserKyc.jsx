@@ -20,8 +20,12 @@ function UserKyc() {
       search:searchData,
       page:1
     }
-        dispatch(UserInformationWithKycData(data))
-  },[]);
+
+    if(searchData==""){
+      dispatch(UserInformationWithKycData(data))
+    }
+        
+  },[searchData]);
 
 
 

@@ -6,7 +6,7 @@ const initialState = {
     Error: false,
     Success: false,
     Loading: false,
-    UserData:[],
+    CarData:[],
     pagination:{}
 
 };
@@ -15,20 +15,20 @@ let token=localStorage.getItem("token");
 
 
 // ${value.page}&search=${value.search}
-export const UserInformationWithKycData=createAsyncThunk(
+export const CarInformationWithKycData=createAsyncThunk(
 
-    "UserInfo",
+    "CarInfo",
     async (value,thunkAPI) => {
-        console.log("user info page number",value)
+        console.log("car info page number",value)
         try {
 
-            let response=await axios.get(`/api/user/all-user-info?limit=2&page=${value.page}&search=${value.search}`,{
+            let response=await axios.get(`/api/car/all?page=${value.page}&limit=2&search=${value.search}`,{
                 headers:{
                     "Content-Type":"application/json",
                     "authorization":`Bearer ${token}`
                 }
             });
-            console.log("host info data",response.data);
+            console.log("car info data",response.data);
             return response.data;
         } catch (error) {
             const message =
@@ -45,48 +45,48 @@ export const UserInformationWithKycData=createAsyncThunk(
 );
 
 
-export const UserInformationWithKycSlice = createSlice({
-    name: 'userinfo',
+export const CarInformationWithKycSlice = createSlice({
+    name: 'carinfo',
     initialState,
     reducers: {
         reset: (state) => {
             state.Loading = false
             state.Success = false
             state.Error = false
-            state.UserData=[],
+            state.CarData=[],
             state.pagination={}
 
           },
     },
     extraReducers:{
-        [UserInformationWithKycData.pending]:(state,action)=>{
+        [CarInformationWithKycData.pending]:(state,action)=>{
             state.Loading = true
         },
-        [UserInformationWithKycData.fulfilled]:(state,action)=>{
-
+        [CarInformationWithKycData.fulfilled]:(state,action)=>{
+ 
             state.Loading = false
             state.Success = true
             state.Error = false
-            state.UserData=action.payload.userData,
+            state.CarData=action.payload.cars,
             state.pagination=action.payload.pagination
 
 
         },
-        [UserInformationWithKycData.rejected]:(state,action)=>{
-
+        [CarInformationWithKycData.rejected]:(state,action)=>{
+           //console.log(action.payload)
             state.Loading = false
             state.Success = false
             state.Error = true
-            state.UserData=[],
+            state.CarData=[],
             state.pagination={}
         },
     }
   })
 
   // Action creators are generated for each case reducer function
-  export const {reset} = UserInformationWithKycSlice.actions
+  export const {reset} = CarInformationWithKycSlice.actions
 
-  export default UserInformationWithKycSlice.reducer
+  export default CarInformationWithKycSlice.reducer
 
 
 

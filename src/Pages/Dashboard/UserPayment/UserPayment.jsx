@@ -1,9 +1,17 @@
 import { Col, Row } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { UserPayments } from "../../../ReduxSlices/UserPaymentSlice";
 import PaymentListTable from "./PaymentListTable";
 import UserPaymentRatioChart from "./UserPaymentRatioChart";
 
 function UserPayment() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(UserPayments());
+  }, []);
+
   return (
     <div style={{ padding: "0 60px" }}>
       <Row>

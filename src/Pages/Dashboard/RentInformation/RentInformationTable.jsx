@@ -48,12 +48,12 @@ const RentInformationTable = ({recentDataGetByPagination}) =>{
       console.log("tushar",item)
         return{
               key: item._id,
-              carModel:item.carId.carModelName,
-              username: item.userId.fullName,
-              tripno: item.rentTripNumber,
-              startDate: item.startDate,
-              endDate: item.endDate,
-              price: item.totalAmount,
+              carModel:item?.carId?.carModelName,
+              username: item?.userId?.fullName,
+              tripno: item?.rentTripNumber,
+              startDate: item?.startDate,
+              endDate: item?.endDate,
+              price: item?.totalAmount,
               status:<div style={{color:"white",backgroundColor:item.requestStatus=="Accepted"?"#000b90":item.requestStatus=="Pending"?"red":"green",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>{item.requestStatus}</div>,
               printView: "Button",
         }
