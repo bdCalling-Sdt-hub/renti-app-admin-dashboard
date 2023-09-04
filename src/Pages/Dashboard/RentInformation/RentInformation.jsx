@@ -6,8 +6,9 @@ import { useDispatch,useSelector } from "react-redux";
 import { useEffect } from "react";
 import { RentInformationData } from "../../../ReduxSlices/RentInformationSlice";
 import { SearchOutlined } from "@ant-design/icons";
+import { useState } from "react";
 function RentInformation() {
-
+  const [searchData,setSearchData]=useState("");
   const dispatch=useDispatch();
  
   const {rentCompletedTotalAmount,rentReservedTotalAmount,totalRejectedAmount} = useSelector(
@@ -15,16 +16,45 @@ function RentInformation() {
   );
 
   useEffect(()=>{
-      
-     dispatch(RentInformationData(1));
+    let data={
+      search:searchData,
+      page:1
+    }
 
-  },[])
+    if(searchData==""){
 
-
-  const recentDataGetByPagination=(page)=>{
-    console.log("rent info",page)
+      dispatch(RentInformationData(data));
+    }
     
-    dispatch(RentInformationData(page));
+    
+
+  },[searchData])
+
+
+  const rentDataGetByPagination=(page)=>{
+    console.log("rent info",page)
+    let data={
+      search:searchData,
+      page:page
+    }
+    if(!searchData){
+      dispatch(RentInformationData(data));
+    }
+    
+  }
+
+
+  const rentDataGetBySearch=(page)=>{
+    let data={
+      search:searchData,
+      page:page
+    }
+    if(searchData){
+      dispatch(RentInformationData(data));
+      
+    }
+   
+   
   }
 
 
@@ -44,13 +74,13 @@ function RentInformation() {
         <Col lg={{ span: 24 }}>
           <div className="" style={{ display: "flex", gap: "15px" }}>
             <Input
-             
+              onChange={(e)=>setSearchData(e.target.value)}
               size="large"
               placeholder="Search by Trip no."
               prefix={<SearchOutlined style={{ color: "#cccccc" }} />}
             />
             <Button
-             
+              onClick={rentDataGetBySearch}
               style={{
                 height: "50px",
                 width: "300px",
@@ -172,7 +202,7 @@ function RentInformation() {
 
       <Row>
         <Col lg={{ span: 24 }}>
-          <RentInformationTable recentDataGetByPagination={recentDataGetByPagination} />
+          <RentInformationTable rentDataGetByPagination={rentDataGetByPagination} rentDataGetBySearch={rentDataGetBySearch} />
         </Col>
       </Row>
     </div>

@@ -24,7 +24,7 @@ export const RentInformationData=createAsyncThunk(
         console.log("rent page number",value)
         try {
            
-            let response=await axios.get(`/api/rent/all/?limit=5&page=${value}`,{
+            let response=await axios.get(`/api/rent/all/?limit=5&page=${value.page}&search=${value.search}`,{
                 headers:{
                     "Content-Type":"application/json",
                     "authorization":`Bearer ${token}`

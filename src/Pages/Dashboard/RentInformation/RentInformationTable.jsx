@@ -17,7 +17,7 @@ import {
 
 
 
-const RentInformationTable = ({recentDataGetByPagination}) =>{
+const RentInformationTable = ({rentDataGetByPagination,rentDataGetBySearch}) =>{
     const [rentData, setRentData] = useState([]); // Data fetched from the server
     const [totalItems, setTotalItems] = useState(0); // Total number of items
     const [currentPage, setCurrentPage] = useState(1); // Current page number
@@ -62,7 +62,9 @@ const RentInformationTable = ({recentDataGetByPagination}) =>{
     const handlePageChange=(page)=>{
       setCurrentPage(page);
       console.log("mycurrent",currentPage)
-      recentDataGetByPagination(page)
+      rentDataGetByPagination(page),
+      rentDataGetBySearch(page)
+     
   }
 
 
