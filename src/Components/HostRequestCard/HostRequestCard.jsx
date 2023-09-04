@@ -5,7 +5,8 @@ import axios from "../../../Config";
 import img from "../../Images/Photo.png";
 
 const HostRequestCard = ({ cardData, setAutoReload }) => {
-  const { _id, fullName, email, phoneNumber, approved } = cardData.host;
+  const { _id, fullName, email, phoneNumber, approved, isBanned } =
+    cardData.host;
 
   const style = {
     cardStyle: {
@@ -18,6 +19,8 @@ const HostRequestCard = ({ cardData, setAutoReload }) => {
       color: "white",
     },
   };
+
+  console.log(_id, approved, isBanned);
 
   const token = localStorage.token;
 
@@ -46,7 +49,20 @@ const HostRequestCard = ({ cardData, setAutoReload }) => {
   };
 
   const handleCancel = () => {
-    console.log("cancel");
+    axios
+      .post(
+        `api/user/banned/${_id}`,
+        { isApprove: "cancel" },
+        {
+          headers: {
+            "Content-type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+      });
   };
 
   return (

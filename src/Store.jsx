@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import AllUserReducer from "./ReduxSlices/AllUserSlice";
 import CarReducer from "./ReduxSlices/CarsSlice";
 import HostInformationWithKycReducer from "./ReduxSlices/HostInformationWithKycSlice";
 import HostReducer from "./ReduxSlices/HostsSlice";
@@ -24,5 +25,6 @@ export const Store = configureStore({
     UserInformationData: UserInformationReducer,
     HostInfoData: HostInformationWithKycReducer,
     UserInfoData: UserInformationWithKycReducer,
+    AllUser: AllUserReducer,
   },
 });

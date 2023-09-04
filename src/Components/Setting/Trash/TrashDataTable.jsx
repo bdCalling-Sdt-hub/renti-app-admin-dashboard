@@ -1,117 +1,28 @@
-import { Button, Drawer, Table, Typography } from "antd";
+import { Button, Table, Typography } from "antd";
+import moment from "moment";
 import React, { useState } from "react";
-import { BsEye } from "react-icons/bs";
-import { IoMdClose } from "react-icons/io";
-import { RiDeleteBin5Line} from "react-icons/ri";
-import {
-    UndoOutlined,DeleteOutlined 
-  } from '@ant-design/icons';
-import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
+import { MdRestore } from "react-icons/md";
+import { RiDeleteBin5Line } from "react-icons/ri";
+import { useSelector } from "react-redux";
 const { Title, Text } = Typography;
 
-const data = [
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  }
- 
-];
-
 const TrashDataTable = () => {
+  const { allUsers, pagination } = useSelector((state) => state.AllUser);
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 2;
+
+  const bannedUser = allUsers.filter((user) => user.isBanned === true);
+
+  const data = bannedUser.map((filterUser) => {
+    return {
+      name: filterUser.fullName,
+      email: filterUser.email,
+      contact: filterUser.phoneNumber,
+      joiningDate: moment(filterUser.createdAt).format("YYYY-MM-DD"),
+      ine: 20,
+    };
+  });
+
   const columns = [
     {
       title: "NAME",
@@ -148,65 +59,34 @@ const TrashDataTable = () => {
       responsive: ["lg"],
       render: (_, record) => (
         <div style={{ textAlign: "center" }}>
-          <Button
-           
-            type="text"
-            style={{ marginRight: "10px" }}
-          >
-            <DeleteOutlined style={{ fontSize: "25px", color: "#999999" }} />
+          <Button type="text" style={{ marginRight: "10px" }}>
+            <RiDeleteBin5Line style={{ fontSize: "25px", color: "#fb6a6a" }} />
           </Button>
           <Button type="text">
-            <UndoOutlined style={{ fontSize: "25px", color: "#999999"}} />
+            <MdRestore style={{ fontSize: "25px", color: "#999999" }} />
           </Button>
         </div>
       ),
     },
   ];
 
-  const [isDrawerVisible, setIsDrawerVisible] = useState(false);
-  const [hostData, setHostData] = useState(null);
-
-  const showDrawer = (record) => {
-    setIsDrawerVisible(true);
-    setHostData(record);
-  };
-
-  const closeDrawer = () => {
-    setIsDrawerVisible(false);
-    setHostData(null);
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
   };
 
   return (
     <div>
-      <Table columns={columns} dataSource={data} />
-      <Drawer
-        title={
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <Typography>
-              <Title level={5} strong>
-                Invoice# Trip No.{hostData?.tripNo}
-              </Title>
-              <Text>See all information about the trip no. 68656</Text>
-            </Typography>
-            <Button type="text" onClick={closeDrawer}>
-              <IoMdClose fontSize={25} />
-            </Button>
-          </div>
-        }
-        closable={false}
-        placement="right"
-        onClose={closeDrawer}
-        open={isDrawerVisible}
-        width={600}
-      >
-        {hostData && <DrawerPage hostData={hostData} />}
-      </Drawer>
+      <Table
+        columns={columns}
+        dataSource={data}
+        pagination={{
+          pageSize,
+          showSizeChanger: false,
+          total: bannedUser?.length,
+          current: currentPage,
+          onChange: handlePageChange,
+        }}
+      />
     </div>
   );
 };

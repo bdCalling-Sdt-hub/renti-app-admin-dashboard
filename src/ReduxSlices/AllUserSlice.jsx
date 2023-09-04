@@ -6,29 +6,24 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   message: "",
-  hostsData: [],
+  allUsers: [],
   pagination: {},
 };
-
 const token = localStorage.token;
 
-//async request handle here
-export const HostsData = createAsyncThunk(
-  "HostsData",
+export const AllUsers = createAsyncThunk(
+  "AllUsers",
   async (value, thunkAPI) => {
     try {
-      let response = await axios.get(
-        `api/user/all-host?limit=${value?.limit}&page=${value?.page}&search=${value?.search}`,
-        {
-          headers: {
-            "Content-type": "application/json",
-            authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get(`api/user/all`, {
+        headers: {
+          "Content-type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      });
 
       return response.data;
-    } catch (error) {
+    } catch (err) {
       const message =
         (error.response &&
           error.response.data &&
@@ -42,8 +37,8 @@ export const HostsData = createAsyncThunk(
 );
 
 //create slice for host
-export const hostDataSlice = createSlice({
-  name: "hostsData",
+export const allUserSlice = createSlice({
+  name: "allUser",
   initialState,
   reducers: {
     reset: (state) => {
@@ -57,18 +52,18 @@ export const hostDataSlice = createSlice({
   },
 
   extraReducers: {
-    [HostsData.pending]: (state, action) => {
+    [AllUsers.pending]: (state, action) => {
       state.isLoading = true;
     },
-    [HostsData.fulfilled]: (state, action) => {
+    [AllUsers.fulfilled]: (state, action) => {
       state.isError = false;
       state.isSuccess = true;
       state.isLoading = false;
       state.message = action.payload.message;
-      state.hostsData = action.payload.hostData;
+      state.allUsers = action.payload.users;
       state.pagination = action.payload.pagination;
     },
-    [HostsData.rejected]: (state, action) => {
+    [AllUsers.rejected]: (state, action) => {
       state.isError = true;
       state.isSuccess = false;
       state.isLoading = false;
@@ -77,6 +72,6 @@ export const hostDataSlice = createSlice({
   },
 });
 
-export const {} = hostDataSlice.actions;
+export const {} = allUserSlice.actions;
 
-export default hostDataSlice.reducer;
+export default allUserSlice.reducer;
