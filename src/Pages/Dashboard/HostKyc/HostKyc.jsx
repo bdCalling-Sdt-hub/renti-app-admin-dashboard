@@ -19,8 +19,11 @@ function HostKyc() {
       search:searchData,
       page:1
     }
-        dispatch(HostInformationWithKycData(data))
-  },[]);
+    if(searchData==""){
+      dispatch(HostInformationWithKycData(data))
+    }
+        
+  },[searchData]);
 
 
 

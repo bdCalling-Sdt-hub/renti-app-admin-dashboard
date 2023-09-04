@@ -12,7 +12,40 @@ const Setting = () => {
   const [openChangePassModel, setOpenChangePassModel] = useState(false);
   const [verify, setVerify] = useState(false);
   const [updatePassword, setUpdatePassword] = useState(false);
-  const [form] = Form.useForm();
+  const [form,form1,form2] = Form.useForm();
+
+  const [firstInput,setFirstInput]=useState("");
+  const [secondInput,setSecondInput]=useState("");
+  const [thirdInput,setThirdInput]=useState("");
+  const [fourthInput,setFourthInput]=useState("");
+
+  
+ 
+
+
+  const sendVerifyOtp=()=>{
+    //setUpdatePassword(true), setVerify(false)
+    const otp = `${firstInput}${secondInput}${thirdInput}${fourthInput}`;
+    let verifycode={
+      oneTimeCode:otp
+    }
+
+    let info=JSON.parse(localStorage.getItem("yourInfo"));
+   
+
+    axios.post("/api/user/verify-code",verifycode,{
+      headers:{
+        "email":info.email
+      }
+    }).then(res=>{
+      console.log(res.data)
+      setUpdatePassword(true), setVerify(false)
+    }).catch(err=>{
+     console.log(err)
+    })
+
+  }
+
   const style = {
     formContainer: {
       background: "white",
@@ -40,6 +73,7 @@ const Setting = () => {
     },
     input: {
       height: "45px",
+     
     },
     otpInput: {
       width: "50px",
@@ -131,6 +165,36 @@ const Setting = () => {
       setErr("Ensure string has two digits");
       return;
     }
+
+    let info=JSON.parse(localStorage.getItem("yourInfo"));
+
+    let data={
+      password:password
+    }
+
+     axios.post("/api/user/update-password",data,{
+      headers:{
+        "email":info.email
+      }
+    }).then(res=>{
+      if(res.data){
+        Swal.fire(
+          'Good job!',
+           res.data.message,
+          'success'
+        )
+
+        setUpdatePassword(false)
+        form2.resetFields();
+        
+      }
+      
+          
+     }).catch(err=>{
+      console.log(err)
+     });
+
+
   };
 
   const handleNavigate = (value) => {
@@ -174,6 +238,17 @@ const Setting = () => {
       )
     });
   };
+
+  const sendEmailForChangePassword=()=>{
+    let info=JSON.parse(localStorage.getItem("yourInfo"));
+    let myEmail={
+        email:info.email
+    }
+    setOpenChangePassModel(false);
+    axios.post("/api/user/forget-password",myEmail).then((res)=>{
+       setVerify(true);
+    }).catch(err=>console.log(err))
+  }
 
   return (
     <div style={{ padding: "0 60px" }}>
@@ -281,7 +356,7 @@ const Setting = () => {
                 type="text"
                 className="login-form-forgot"
                 style={{ color: "#000B90" }}
-                onClick={() => (setVerify(true), setOpenChangePassModel(false))}
+                onClick={() =>{sendEmailForChangePassword()}}
               >
                 Forgot password
               </Button>
@@ -306,7 +381,7 @@ const Setting = () => {
             </Form.Item>
           </Form>
 
-          ///////////////////////////////////////
+          
         </Modal>
         {/* Verify Password */}
         <Modal
@@ -344,12 +419,11 @@ const Setting = () => {
                 marginBottom: "10px",
               }}
             >
-              <Input style={{ width: "50px", height: "70px" }} />
-              <Input style={style.otpInput} />
-              <Input style={style.otpInput} />
-              <Input style={style.otpInput} />
-              <Input style={style.otpInput} />
-              <Input style={style.otpInput} />
+              <Input onChange={(e)=>{setFirstInput(e.target.value)}}  style={{ width: "80px", height: "70px" }} />
+              <Input onChange={(e)=>{setSecondInput(e.target.value)}} style={{...style.otpInput,width:"80px"}} />
+              <Input onChange={(e)=>{setThirdInput(e.target.value)}}  style={{...style.otpInput,width:"80px"}} />
+              <Input onChange={(e)=>{setFourthInput(e.target.value)}} style={{...style.otpInput,width:"80px"}} />
+              
             </Input.Group>
 
             <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -366,7 +440,7 @@ const Setting = () => {
 
             <Button
               block
-              onClick={() => (setUpdatePassword(true), setVerify(false))}
+              onClick={() =>{sendVerifyOtp()}}
               style={{
                 height: "45px",
                 fontWeight: "400px",
@@ -405,6 +479,7 @@ const Setting = () => {
           footer={[]}
         >
           <Form
+            form={form2}
             name="normal_login"
             className="login-form"
             initialValues={{

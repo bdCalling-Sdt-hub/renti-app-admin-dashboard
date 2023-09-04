@@ -19,8 +19,11 @@ function CarKyc() {
       search:searchData,
       page:1
     }
-        dispatch(CarInformationWithKycData(data))
-  },[]);
+    if(searchData==""){
+      dispatch(CarInformationWithKycData(data))
+    }
+       
+  },[searchData]);
 
 
 
