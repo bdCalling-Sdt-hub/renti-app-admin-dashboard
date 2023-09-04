@@ -12,16 +12,6 @@ function HostKyc() {
 
   const [imagePath, setImagePath] = useState('');
 
-  // useEffect(() => {
-  //   // Make an HTTP GET request to your server to get the image path
-  //   axios.get('/upload') // Replace with your actual API endpoint
-  //     .then((response) => {
-  //       setImagePath(response.data.imagePath);
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error fetching image path:', error);
-  //     });
-  // }, []);
   const dispatch=useDispatch();
 
   useEffect(()=>{

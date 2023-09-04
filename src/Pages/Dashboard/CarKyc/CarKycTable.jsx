@@ -1,100 +1,130 @@
-import { Button, Drawer, Table, Typography,Badge } from "antd";
+import { Button, Drawer, Table, Typography, Badge } from "antd";
 import React, { useState } from "react";
 import { BsEye } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
+import { useSelector } from "react-redux";
 const { Title, Text } = Typography;
 
-const data = [
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"#000b90",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Approve</div>
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"red",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Cancel</div>
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"#000b90",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Approve</div>
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"red",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Cancel</div>
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"#000b90",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Approve</div>
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"red",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Cancel</div>
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"#000b90",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Approve</div>
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"red",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Cancel</div>
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"#000b90",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Approve</div>
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"red",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Cancel</div>
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"#000b90",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Approve</div>
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    type: "pdf",
-    status:<div style={{color:"white",backgroundColor:"red",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Cancel</div>
-  }
-  
-];
 
-const CarKycTable = () => {
+
+const CarKycTable = ({ carDataGetByPagination, carDataGetBySearch }) => {
+
+  const [currentPage, setCurrentPage] = useState(1); 
+  const pageSize = 2;
+  const {CarData,pagination} = useSelector(
+    (state) => state.CarInfoData
+  );
+
+  const data=CarData?.map((item)=>{
+   
+    return({
+          name: item?.carModelName,
+          email: item?.carOwner.email,
+          contact: item?.carOwner.phoneNumber,
+          type: "pdf",
+          status:<div style={{color:"white",backgroundColor:item.tripStatus=="Pending"?"#000b90":item.tripStatus=="Start"?"red":"green",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>{item.tripStatus}</div>,
+    })
+     
+  })
+
+  const handlePageChange=(page)=>{
+    setCurrentPage(page);
+    console.log(currentPage)
+    carDataGetByPagination(page)
+    carDataGetBySearch(page)
+   
+}
+
+  // const data = [
+  //   {
+  //     name: "Kate Winslate",
+  //     email: "kate@gmail.com",
+  //     contact: " 014845454545",
+  //     type: "pdf",
+  //     status: <div style={{ color: "white", backgroundColor: "#000b90", textAlign: "center", padding: "10px", borderRadius: "5px", fontWeight: "bold" }}>Approve</div>
+  //   },
+  //   {
+  //     name: "Kate Winslate",
+  //     email: "kate@gmail.com",
+  //     contact: " 014845454545",
+  //     type: "pdf",
+  //     status: <div style={{ color: "white", backgroundColor: "red", textAlign: "center", padding: "10px", borderRadius: "5px", fontWeight: "bold" }}>Cancel</div>
+  //   },
+  //   {
+  //     name: "Kate Winslate",
+  //     email: "kate@gmail.com",
+  //     contact: " 014845454545",
+  //     type: "pdf",
+  //     status: <div style={{ color: "white", backgroundColor: "#000b90", textAlign: "center", padding: "10px", borderRadius: "5px", fontWeight: "bold" }}>Approve</div>
+  //   },
+  //   {
+  //     name: "Kate Winslate",
+  //     email: "kate@gmail.com",
+  //     contact: " 014845454545",
+  //     type: "pdf",
+  //     status: <div style={{ color: "white", backgroundColor: "red", textAlign: "center", padding: "10px", borderRadius: "5px", fontWeight: "bold" }}>Cancel</div>
+  //   },
+  //   {
+  //     name: "Kate Winslate",
+  //     email: "kate@gmail.com",
+  //     contact: " 014845454545",
+  //     type: "pdf",
+  //     status: <div style={{ color: "white", backgroundColor: "#000b90", textAlign: "center", padding: "10px", borderRadius: "5px", fontWeight: "bold" }}>Approve</div>
+  //   },
+  //   {
+  //     name: "Kate Winslate",
+  //     email: "kate@gmail.com",
+  //     contact: " 014845454545",
+  //     type: "pdf",
+  //     status: <div style={{ color: "white", backgroundColor: "red", textAlign: "center", padding: "10px", borderRadius: "5px", fontWeight: "bold" }}>Cancel</div>
+  //   },
+  //   {
+  //     name: "Kate Winslate",
+  //     email: "kate@gmail.com",
+  //     contact: " 014845454545",
+  //     type: "pdf",
+  //     status: <div style={{ color: "white", backgroundColor: "#000b90", textAlign: "center", padding: "10px", borderRadius: "5px", fontWeight: "bold" }}>Approve</div>
+  //   },
+  //   {
+  //     name: "Kate Winslate",
+  //     email: "kate@gmail.com",
+  //     contact: " 014845454545",
+  //     type: "pdf",
+  //     status: <div style={{ color: "white", backgroundColor: "red", textAlign: "center", padding: "10px", borderRadius: "5px", fontWeight: "bold" }}>Cancel</div>
+  //   },
+  //   {
+  //     name: "Kate Winslate",
+  //     email: "kate@gmail.com",
+  //     contact: " 014845454545",
+  //     type: "pdf",
+  //     status: <div style={{ color: "white", backgroundColor: "#000b90", textAlign: "center", padding: "10px", borderRadius: "5px", fontWeight: "bold" }}>Approve</div>
+  //   },
+  //   {
+  //     name: "Kate Winslate",
+  //     email: "kate@gmail.com",
+  //     contact: " 014845454545",
+  //     type: "pdf",
+  //     status: <div style={{ color: "white", backgroundColor: "red", textAlign: "center", padding: "10px", borderRadius: "5px", fontWeight: "bold" }}>Cancel</div>
+  //   },
+  //   {
+  //     name: "Kate Winslate",
+  //     email: "kate@gmail.com",
+  //     contact: " 014845454545",
+  //     type: "pdf",
+  //     status: <div style={{ color: "white", backgroundColor: "#000b90", textAlign: "center", padding: "10px", borderRadius: "5px", fontWeight: "bold" }}>Approve</div>
+  //   },
+  //   {
+  //     name: "Kate Winslate",
+  //     email: "kate@gmail.com",
+  //     contact: " 014845454545",
+  //     type: "pdf",
+  //     status: <div style={{ color: "white", backgroundColor: "red", textAlign: "center", padding: "10px", borderRadius: "5px", fontWeight: "bold" }}>Cancel</div>
+  //   }
+
+  // ];
+
   const columns = [
     {
       title: "NAME",
@@ -161,7 +191,16 @@ const CarKycTable = () => {
 
   return (
     <div>
-      <Table columns={columns} dataSource={data} />
+      <Table columns={columns} dataSource={data}
+
+        pagination={{
+          pageSize,
+          showSizeChanger: false,
+          total: pagination?.totalDocuments,
+          current: currentPage,
+          onChange: handlePageChange,
+        }}
+      />
       <Drawer
         title={
           <div
