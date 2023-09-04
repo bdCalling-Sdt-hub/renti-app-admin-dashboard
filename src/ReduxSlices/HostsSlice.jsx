@@ -18,7 +18,7 @@ export const HostsData = createAsyncThunk(
   async (value, thunkAPI) => {
     try {
       let response = await axios.get(
-        `api/user/all-host?limit=2&page=${value.page}&search=${value.search}`,
+        `api/user/all-host?limit=${value?.limit}&page=${value?.page}&search=${value?.search}`,
         {
           headers: {
             "Content-type": "application/json",
@@ -27,7 +27,7 @@ export const HostsData = createAsyncThunk(
         }
       );
 
-      console.log(response.data);
+      console.log("response DB", response.data);
 
       return response.data;
     } catch (error) {

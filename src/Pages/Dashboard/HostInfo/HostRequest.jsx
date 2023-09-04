@@ -1,12 +1,14 @@
 import { Button, Input, Row } from "antd";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import HostRequestCard from "../../../Components/HostRequestCard/HostRequestCard";
 import { HostsData } from "../../../ReduxSlices/HostsSlice";
 
 const HostRequest = () => {
-  const allHost = useSelector((state) => state.hostsData.hostsData);
+  const { hostsData, pagination } = useSelector((state) => state.hostsData);
   const dispatch = useDispatch();
+  const [autoReload, setAutoReload] = useState(1);
+
   const style = {
     cardStyle: {
       background: "#E6E7F4",
@@ -20,11 +22,17 @@ const HostRequest = () => {
   };
 
   useEffect(() => {
-    dispatch(HostsData());
-  }, []);
+    const data = {
+      page: null,
+      search: "",
+      limit: null,
+    };
+    dispatch(HostsData(data));
+    console.log("Host request");
+  }, [autoReload]);
 
-  const items = allHost.filter(
-    (requestHost) => requestHost.host.approved == false
+  const items = hostsData.filter(
+    (hostRequest) => hostRequest.host.approved == false
   );
 
   return (
@@ -35,7 +43,7 @@ const HostRequest = () => {
         Host Request
       </h2>
       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-        <Input style={{ height: "44px" }} />
+        <Input style={{ height: "44px" }} placeholder="Search" />
         <Button
           style={{
             background: "#000B90",
@@ -63,7 +71,11 @@ const HostRequest = () => {
       >
         <Row gutter={[16, 16]}>
           {items.map((item) => (
-            <HostRequestCard key={item._id} cardData={item} />
+            <HostRequestCard
+              key={item._id}
+              cardData={item}
+              setAutoReload={setAutoReload}
+            />
           ))}
         </Row>
       </div>

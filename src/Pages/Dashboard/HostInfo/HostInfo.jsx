@@ -14,6 +14,7 @@ const HostInfo = () => {
     const data = {
       search: searchData,
       page: page,
+      limit: 2,
     };
     if (searchData == "") {
       dispatch(HostsData(data));
@@ -24,6 +25,7 @@ const HostInfo = () => {
     const data = {
       search: searchData,
       page: page,
+      limit: 2,
     };
     if (searchData != "") {
       dispatch(HostsData(data));
@@ -35,6 +37,7 @@ const HostInfo = () => {
     const data = {
       search: searchData,
       page: 1,
+      limit: 2,
     };
     if (searchData === "") {
       dispatch(HostsData(data));
