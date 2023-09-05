@@ -12,6 +12,7 @@ import AllUserReducer from "./ReduxSlices/AllUserSlice";
 import CarReducer from "./ReduxSlices/CarsSlice";
 import HostReducer from "./ReduxSlices/HostsSlice";
 import adminReducer from "./ReduxSlices/ProfileUpdatedSlice";
+import HostPaymentReducer from './ReduxSlices/HostPaymentSlice'
 
 export const Store = configureStore({
   reducer: {
@@ -28,6 +29,7 @@ export const Store = configureStore({
     carsData: CarReducer,
     adminData: adminReducer,
     AllUser: AllUserReducer,
+    HostPaymentData:HostPaymentReducer
   }})
 
 

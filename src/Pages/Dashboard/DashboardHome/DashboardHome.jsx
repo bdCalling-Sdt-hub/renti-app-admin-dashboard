@@ -63,6 +63,50 @@ function DashboardHome() {
     console.log("Page: ", pageNumber);
   };
 
+  let cars = [
+    {"carModelName": "BMW"},
+    {"carModelName": "toyota"},
+    {"carModelName": "nissan"},
+    {"carModelName": "marcedees"},
+    {"carModelName": "BMW"},
+    {"carModelName": "nissan"},
+    {"carModelName": "nissan"},
+    {"carModelName": "toyota"},
+    {"carModelName": "BMW"},
+    {"carModelName": "marcedees"},
+    {"carModelName": "BMW"},
+    {"carModelName": "nissan"}
+  ];
+  
+  // Create an object to store car model frequencies
+  let carModelFrequencies = {};
+  
+  // Count the occurrences of each car model
+  for (let car of cars) {
+    let modelName = car.carModelName;
+    if (carModelFrequencies[modelName]) {
+      carModelFrequencies[modelName]++;
+    } else {
+      carModelFrequencies[modelName] = 1;
+    }
+  }
+  
+  // Sort the car model frequencies in descending order
+  let sortedCarModelFrequencies = Object.entries(carModelFrequencies).sort((a, b) => b[1] - a[1]);
+  
+  // Get the top three most used car models
+  let topThreeCarModels = sortedCarModelFrequencies.slice(0, 3);
+  
+  // Calculate and display the percentage for the top three car models
+  console.log("Top Three Most Used Car Models as Percentages:");
+  for (let [carModel, frequency] of topThreeCarModels) {
+    let percentage = (frequency / cars.length) * 100;
+    console.log(`${carModel}: ${percentage.toFixed(2)}%`);
+  }
+  
+
+
+  
   return (
     <div>
     <h1 style={{fontSize:"30px",marginBottom:"20px"}}>Dashboard overview</h1>

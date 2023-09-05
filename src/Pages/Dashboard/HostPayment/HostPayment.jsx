@@ -1,9 +1,74 @@
 import { SearchOutlined } from "@ant-design/icons";
 import { Button, Col, Input, Progress, Row } from "antd";
-import React from "react";
+import React, { useEffect,useState } from "react";
 import "./HostPayment.css";
 import HostPaymentTable from "./HostPaymentTable";
+import axios from "../../../../Config";
+import { useDispatch,useSelector } from "react-redux";
+import { HostPaymentData } from "../../../ReduxSlices/HostPaymentSlice";
 function HostPayment() {
+  const [searchData,setSearchData]=useState("");
+
+const [hostPayments,setHostPayments]=useState({});
+
+const dispatch=useDispatch();
+
+  useEffect(()=>{
+    let token=localStorage.getItem("token")
+
+    axios.get("/api/income/host-payment",{
+      headers:{
+        "authorization":`Bearer ${token}`
+      }
+    }).then(res=>{
+      setHostPayments(res.data)
+    }).catch(err=>console.log(err))
+
+
+    let data={
+      page:1,
+      limit:3,
+      search:searchData
+    }
+
+    if(searchData==""){
+      dispatch(HostPaymentData(data))
+    }
+
+    
+  },[])
+
+
+  const hostPaymentDataGetByPagination=(page)=>{
+  
+    let data={
+      limit:3,
+      page:page,
+      search:searchData
+    }
+    if(!searchData){
+      dispatch(HostPaymentData(data));
+    }
+    
+  }
+
+
+
+  const hostPaymentDataGetBySearch=(page)=>{
+    let data={
+      search:searchData,
+      page:page,
+      limit:3
+    }
+    if(searchData){
+      dispatch(HostPaymentData(data));
+      
+    }
+   
+   
+  }
+
+ 
   return (
     <div style={{ padding: "0 60px" }}>
       <Row>
@@ -19,11 +84,13 @@ function HostPayment() {
         <Col lg={{ span: 24 }}>
           <div className="" style={{ display: "flex", gap: "15px" }}>
             <Input
+              onChange={(e)=>setSearchData(e.target.value)}
               size="large"
               placeholder="Search by name/email/phone"
               prefix={<SearchOutlined style={{ color: "#cccccc" }} />}
             />
             <Button
+              onClick={hostPaymentDataGetBySearch}
               style={{
                 height: "50px",
                 width: "300px",
@@ -52,7 +119,7 @@ function HostPayment() {
             style={{ border: "1px solid #00a991" }}
           >
             <div className="progressbar">
-              <Progress type="circle" percent={75} strokeColor="#00a991" />
+              <Progress type="circle" percent={hostPayments?.income?.hostTotalPercentage} strokeColor="#00a991" />
             </div>
             <div className="total-payment">
               <h1
@@ -73,7 +140,7 @@ function HostPayment() {
                   color: "#00a991",
                 }}
               >
-                $ 25,50,20.00
+                $ {hostPayments?.income?.hostTotalPayment}.00
               </h3>
             </div>
           </div>
@@ -91,7 +158,7 @@ function HostPayment() {
             style={{ border: "1px solid red" }}
           >
             <div className="progressbar">
-              <Progress type="circle" percent={22} strokeColor="red" />
+              <Progress type="circle" percent={hostPayments?.income?.hostPendingPercentage} strokeColor="red" />
             </div>
             <div className="total-payment">
               <h1
@@ -112,7 +179,7 @@ function HostPayment() {
                   color: "red",
                 }}
               >
-                $ 505,202.00
+                $ {hostPayments?.income?.hostTotalPending}.00
               </h3>
             </div>
           </div>
@@ -121,7 +188,7 @@ function HostPayment() {
 
       <Row>
         <Col lg={{ span: 24 }}>
-          <HostPaymentTable />
+          <HostPaymentTable hostPaymentDataGetByPagination={hostPaymentDataGetByPagination}  hostPaymentDataGetBySearch={hostPaymentDataGetBySearch}/>
         </Col>
       </Row>
     </div>

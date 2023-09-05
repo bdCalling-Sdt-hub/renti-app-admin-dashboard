@@ -4,191 +4,20 @@ import { AiOutlinePrinter } from "react-icons/ai";
 import { LiaSaveSolid } from "react-icons/lia";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
-import {
- 
-  CloseOutlined,
-  
-} from '@ant-design/icons';
+import {CloseOutlined} from '@ant-design/icons';
+import { useDispatch,useSelector } from "react-redux";
 
 
-const data = [
-  {
-    key: "1",
-    tripno: "10",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "2",
-    tripno: "11",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "3",
-    tripno: "12",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "4",
-    tripno: "13",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "5",
-    tripno: "14",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "6",
-    tripno: "15",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "7",
-    tripno: "16",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "8",
-    tripno: "17",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "9",
-    tripno: "15",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "10",
-    tripno: "16",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "11",
-    tripno: "17",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "12",
-    tripno: "15",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "13",
-    tripno: "16",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "14",
-    tripno: "17",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "15",
-    tripno: "15",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "16",
-    tripno: "16",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "17",
-    tripno: "17",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  }
-];
-const HostPaymentTable = () =>{
+
+const HostPaymentTable = ({hostPaymentDataGetByPagination,hostPaymentDataGetBySearch}) =>{
     const [rentData, setRentData] = useState([]); // Data fetched from the server
     const [totalItems, setTotalItems] = useState(0); // Total number of items
     const [currentPage, setCurrentPage] = useState(1); // Current page number
-    const pageSize = 10;
+    const pageSize = 3;
 
+    const {hostPaymentList,pagination} = useSelector(
+      (state) => state.HostPaymentData
+    );
 
     const [isDrawerVisible, setIsDrawerVisible] = useState(false);
     const [userInfoData, setUserInfoData] = useState(null);
@@ -203,6 +32,201 @@ const HostPaymentTable = () =>{
       setIsDrawerVisible(false);
       setInvoiceData(null);
     };
+
+    const handlePageChange=(page)=>{
+      setCurrentPage(page);
+      console.log(currentPage)
+      hostPaymentDataGetByPagination(page);
+      hostPaymentDataGetBySearch(page)
+  }
+
+
+    const data=hostPaymentList?.map((item)=>{
+        return({
+              key: "1",
+              tripno: "10",
+              time: "18 Jul, 2023  4:30pm",
+              username: "Tushar",
+              method: "Credit Card",
+              amount: "$850.00",
+              status: "complete",
+              printView: "Button",
+        })
+    });
+
+
+    // const data = [
+    //   {
+    //     key: "1",
+    //     tripno: "10",
+    //     time: "18 Jul, 2023  4:30pm",
+    //     username: "Tushar",
+    //     method: "Credit Card",
+    //     amount: "$850.00",
+    //     status: "complete",
+    //     printView: "Button",
+    //   },
+    //   {
+    //     key: "2",
+    //     tripno: "11",
+    //     time: "18 Jul, 2023  4:30pm",
+    //     username: "Tushar",
+    //     method: "Credit Card",
+    //     amount: "$850.00",
+    //     status: "complete",
+    //     printView: "Button",
+    //   },
+    //   {
+    //     key: "3",
+    //     tripno: "12",
+    //     time: "18 Jul, 2023  4:30pm",
+    //     username: "Tushar",
+    //     method: "Credit Card",
+    //     amount: "$850.00",
+    //     status: "complete",
+    //     printView: "Button",
+    //   },
+    //   {
+    //     key: "4",
+    //     tripno: "13",
+    //     time: "18 Jul, 2023  4:30pm",
+    //     username: "Tushar",
+    //     method: "Credit Card",
+    //     amount: "$850.00",
+    //     status: "complete",
+    //     printView: "Button",
+    //   },
+    //   {
+    //     key: "5",
+    //     tripno: "14",
+    //     time: "18 Jul, 2023  4:30pm",
+    //     username: "Tushar",
+    //     method: "Credit Card",
+    //     amount: "$850.00",
+    //     status: "complete",
+    //     printView: "Button",
+    //   },
+    //   {
+    //     key: "6",
+    //     tripno: "15",
+    //     time: "18 Jul, 2023  4:30pm",
+    //     username: "Tushar",
+    //     method: "Credit Card",
+    //     amount: "$850.00",
+    //     status: "complete",
+    //     printView: "Button",
+    //   },
+    //   {
+    //     key: "7",
+    //     tripno: "16",
+    //     time: "18 Jul, 2023  4:30pm",
+    //     username: "Tushar",
+    //     method: "Credit Card",
+    //     amount: "$850.00",
+    //     status: "complete",
+    //     printView: "Button",
+    //   },
+    //   {
+    //     key: "8",
+    //     tripno: "17",
+    //     time: "18 Jul, 2023  4:30pm",
+    //     username: "Tushar",
+    //     method: "Credit Card",
+    //     amount: "$850.00",
+    //     status: "complete",
+    //     printView: "Button",
+    //   },
+    //   {
+    //     key: "9",
+    //     tripno: "15",
+    //     time: "18 Jul, 2023  4:30pm",
+    //     username: "Tushar",
+    //     method: "Credit Card",
+    //     amount: "$850.00",
+    //     status: "complete",
+    //     printView: "Button",
+    //   },
+    //   {
+    //     key: "10",
+    //     tripno: "16",
+    //     time: "18 Jul, 2023  4:30pm",
+    //     username: "Tushar",
+    //     method: "Credit Card",
+    //     amount: "$850.00",
+    //     status: "complete",
+    //     printView: "Button",
+    //   },
+    //   {
+    //     key: "11",
+    //     tripno: "17",
+    //     time: "18 Jul, 2023  4:30pm",
+    //     username: "Tushar",
+    //     method: "Credit Card",
+    //     amount: "$850.00",
+    //     status: "complete",
+    //     printView: "Button",
+    //   },
+    //   {
+    //     key: "12",
+    //     tripno: "15",
+    //     time: "18 Jul, 2023  4:30pm",
+    //     username: "Tushar",
+    //     method: "Credit Card",
+    //     amount: "$850.00",
+    //     status: "complete",
+    //     printView: "Button",
+    //   },
+    //   {
+    //     key: "13",
+    //     tripno: "16",
+    //     time: "18 Jul, 2023  4:30pm",
+    //     username: "Tushar",
+    //     method: "Credit Card",
+    //     amount: "$850.00",
+    //     status: "complete",
+    //     printView: "Button",
+    //   },
+    //   {
+    //     key: "14",
+    //     tripno: "17",
+    //     time: "18 Jul, 2023  4:30pm",
+    //     username: "Tushar",
+    //     method: "Credit Card",
+    //     amount: "$850.00",
+    //     status: "complete",
+    //     printView: "Button",
+    //   },
+    //   {
+    //     key: "15",
+    //     tripno: "15",
+    //     time: "18 Jul, 2023  4:30pm",
+    //     username: "Tushar",
+    //     method: "Credit Card",
+    //     amount: "$850.00",
+    //     status: "complete",
+    //     printView: "Button",
+    //   },
+    //   {
+    //     key: "16",
+    //     tripno: "16",
+    //     time: "18 Jul, 2023  4:30pm",
+    //     username: "Tushar",
+    //     method: "Credit Card",
+    //     amount: "$850.00",
+    //     status: "complete",
+    //     printView: "Button",
+    //   },
+    //   {
+    //     key: "17",
+    //     tripno: "17",
+    //     time: "18 Jul, 2023  4:30pm",
+    //     username: "Tushar",
+    //     method: "Credit Card",
+    //     amount: "$850.00",
+    //     status: "complete",
+    //     printView: "Button",
+    //   }
+    // ];
 
 
     const columns = [
@@ -278,17 +302,13 @@ const HostPaymentTable = () =>{
         }
       };
 
-    const handlePageChange=(page)=>{
-        setCurrentPage(page);
-        console.log(currentPage)
-    }
-
+    
     return(
       <>
         <Table columns={columns} dataSource={data} pagination={{
             pageSize,
             showSizeChanger:false,
-            total: 5000,
+            total: pagination?.totalDocuments,
             current: currentPage,
             onChange: handlePageChange,
           }}/>
