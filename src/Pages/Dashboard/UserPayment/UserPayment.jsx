@@ -9,8 +9,20 @@ function UserPayment() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(UserPayments());
+    const data = {
+      limit: 4,
+      page: 1,
+    };
+    dispatch(UserPayments(data));
   }, []);
+
+  const handleUserPaymentsPagination = (page) => {
+    const data = {
+      limit: 4,
+      page: page,
+    };
+    dispatch(UserPayments(data));
+  };
 
   return (
     <div style={{ padding: "0 60px" }}>
@@ -36,7 +48,9 @@ function UserPayment() {
       </Row>
       <Row>
         <Col lg={{ span: 24 }}>
-          <PaymentListTable />
+          <PaymentListTable
+            handleUserPaymentsPagination={handleUserPaymentsPagination}
+          />
         </Col>
       </Row>
     </div>

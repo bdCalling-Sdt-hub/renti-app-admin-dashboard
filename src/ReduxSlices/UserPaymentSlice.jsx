@@ -16,12 +16,15 @@ export const UserPayments = createAsyncThunk(
   "UserPayments",
   async (value, thunkAPI) => {
     try {
-      const response = await axios.get(`api/income/user-payment-list`, {
-        headers: {
-          "Content-type": "application/json",
-          authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(
+        `api/income/user-payment-list?page=${value?.page}&limit=${value?.limit}`,
+        {
+          headers: {
+            "Content-type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       return response.data;
     } catch (err) {
@@ -62,6 +65,7 @@ export const userPaymentSlice = createSlice({
       state.isLoading = false;
       state.message = action.payload.message;
       state.userPayments = action.payload.userPaymentList;
+      state.pagination = action.payload.pagination;
     },
     [UserPayments.rejected]: (state, action) => {
       state.isError = true;

@@ -1,23 +1,24 @@
 import { CloseOutlined } from "@ant-design/icons";
 import { Button, Drawer, Space, Table, Typography } from "antd";
 import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { AiOutlinePrinter } from "react-icons/ai";
 import { LiaSaveSolid } from "react-icons/lia";
 import { useSelector } from "react-redux";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
 
-const PaymentListTable = () => {
-  const [rentData, setRentData] = useState([]); // Data fetched from the server
-  const [totalItems, setTotalItems] = useState(0); // Total number of items
+const PaymentListTable = ({ handleUserPaymentsPagination }) => {
   const [currentPage, setCurrentPage] = useState(1); // Current page number
-  const pageSize = 12;
-
-  const { userPayments } = useSelector((state) => state.UserPayments);
-
+  const pageSize = 4;
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [invoiceData, setInvoiceData] = useState(null);
+
+  const { userPayments, pagination } = useSelector(
+    (state) => state.UserPayments
+  );
+
+  console.log(pagination);
 
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
@@ -39,7 +40,33 @@ const PaymentListTable = () => {
       username: userPayment.carOwner,
       method: userPayment.method,
       amount: userPayment.amount,
-      status: "complete",
+      status: userPayment.status ? (
+        <div
+          style={{
+            background: "#E6F6F4",
+            color: "#00A991",
+            padding: "5px",
+            fontSize: "11px",
+            borderRadius: "4px",
+            textAlign: "center",
+          }}
+        >
+          Completed
+        </div>
+      ) : (
+        <div
+          style={{
+            background: "#FBE9EC",
+            color: "#D7263D",
+            padding: "5px",
+            fontSize: "11px",
+            borderRadius: "4px",
+            textAlign: "center",
+          }}
+        >
+          Pending
+        </div>
+      ),
       printView: "Button",
     };
   });
@@ -104,29 +131,9 @@ const PaymentListTable = () => {
     },
   ];
 
-  useEffect(() => {
-    // Fetch data from the server when the current page changes
-    fetchData();
-  }, [currentPage]);
-
-  const fetchData = async () => {
-    // Replace this with your actual API request to fetch data based on pagination
-    try {
-      const response = await fetch(
-        `/api/data?page=${currentPage}&pageSize=${pageSize}`
-      );
-      const result = await response.json();
-
-      setData(result.data);
-      setTotalItems(result.totalItems);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    console.log(currentPage);
+    handleUserPaymentsPagination(page);
   };
 
   return (
@@ -137,7 +144,7 @@ const PaymentListTable = () => {
         pagination={{
           pageSize,
           showSizeChanger: false,
-          total: 5000,
+          total: pagination?.totalDocuments,
           current: currentPage,
           onChange: handlePageChange,
         }}
