@@ -1,10 +1,17 @@
 import { SearchOutlined } from "@ant-design/icons";
 import { Button, Col, Input, Row } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { RentiIncomes } from "../../../ReduxSlices/RentiIncomeSlice";
 import IncomeRatioChart from "./IncomeRatioChart";
 import RentiIncomeTable from "./RentIncomeTable";
 import "./RentisIncome.css";
 function RentisIncome() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(RentiIncomes());
+  }, []);
   return (
     <div style={{ padding: "0 60px" }}>
       <Row>

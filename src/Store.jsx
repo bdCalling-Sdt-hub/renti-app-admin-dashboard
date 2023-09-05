@@ -11,6 +11,7 @@ import adminReducer from "./ReduxSlices/ProfileUpdatedSlice";
 import RecentEarningsReducer from "./ReduxSlices/RecentEarningsSlice";
 import RentInformationReducer from "./ReduxSlices/RentInformationSlice";
 import RentStatusReducer from "./ReduxSlices/RentStatusSlice";
+import RentiIncomeReducer from "./ReduxSlices/RentiIncomeSlice";
 import SigninReducer from "./ReduxSlices/SigninSlice";
 import UserInformationReducer from "./ReduxSlices/UserInformationSlice";
 import UserInformationWithKycReducer from "./ReduxSlices/UserInformationWithKycSlice";
@@ -36,5 +37,6 @@ export const Store = configureStore({
     BlockUser: BlockUserReducer,
     UserPayments: UserPaymentReducer,
     LoginActivity: LoginActivityReducer,
+    RentiIncomes: RentiIncomeReducer,
   },
 });
