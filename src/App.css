@@ -32,6 +32,8 @@
   border: 0;
 }
 
-
-
-
+.ant-table-tbody > tr:hover > td {
+  background: none !important;
+  color: inherit !important;
+  user-select: none;
+}

@@ -6,6 +6,7 @@ import CarReducer from "./ReduxSlices/CarsSlice";
 import HostInformationWithKycReducer from "./ReduxSlices/HostInformationWithKycSlice";
 import HostReducer from "./ReduxSlices/HostsSlice";
 import IncomeReducer from "./ReduxSlices/IncomeGetSlice";
+import LoginActivityReducer from "./ReduxSlices/LoginActivitySlice";
 import adminReducer from "./ReduxSlices/ProfileUpdatedSlice";
 import RecentEarningsReducer from "./ReduxSlices/RecentEarningsSlice";
 import RentInformationReducer from "./ReduxSlices/RentInformationSlice";
@@ -13,7 +14,7 @@ import RentStatusReducer from "./ReduxSlices/RentStatusSlice";
 import SigninReducer from "./ReduxSlices/SigninSlice";
 import UserInformationReducer from "./ReduxSlices/UserInformationSlice";
 import UserInformationWithKycReducer from "./ReduxSlices/UserInformationWithKycSlice";
-import userPaymentReducer from "./ReduxSlices/UserPaymentSlice";
+import UserPaymentReducer from "./ReduxSlices/UserPaymentSlice";
 
 export const Store = configureStore({
   reducer: {
@@ -33,6 +34,7 @@ export const Store = configureStore({
     UserData: SigninReducer,
     CarInfoData: CarInformationWithKycReducer,
     BlockUser: BlockUserReducer,
-    UserPayments: userPaymentReducer,
+    UserPayments: UserPaymentReducer,
+    LoginActivity: LoginActivityReducer,
   },
 });
