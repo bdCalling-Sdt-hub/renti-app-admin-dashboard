@@ -15,7 +15,7 @@ function RentisIncome() {
   useEffect(() => {
     const data = {
       page: 1,
-      limit: 2,
+      limit: 1,
     };
     dispatch(RentiIncomes(data));
   }, []);
@@ -23,7 +23,7 @@ function RentisIncome() {
   const handlePagination = (page) => {
     const data = {
       page: page,
-      limit: 2,
+      limit: 1,
     };
     dispatch(RentiIncomes(data));
   };

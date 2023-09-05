@@ -1,5 +1,6 @@
 import { CloseOutlined } from "@ant-design/icons";
 import { Button, Drawer, Space, Table, Typography } from "antd";
+import moment from "moment";
 import React, { useState } from "react";
 import { AiOutlinePrinter } from "react-icons/ai";
 import { LiaSaveSolid } from "react-icons/lia";
@@ -9,7 +10,7 @@ const { Title, Text } = Typography;
 
 const RentiIncomeTable = ({ handlePagination }) => {
   const [currentPage, setCurrentPage] = useState(1); // Current page number
-  const pageSize = 2;
+  const pageSize = 1;
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [invoiceData, setInvoiceData] = useState(null);
   const { rentiIncomeList, pagination } = useSelector(
@@ -30,7 +31,7 @@ const RentiIncomeTable = ({ handlePagination }) => {
     return {
       key: rtIncome._id,
       tripNo: rtIncome.rentTripNumbers,
-      time: rtIncome.time,
+      time: moment(rtIncome.time).format("llll"),
       totalAmount: rtIncome.totalAmount,
       stripeFee: rtIncome.stripeFee,
       hostPayment: rtIncome.hostPayment,
