@@ -17,18 +17,18 @@ const RentInformationTable = ({ recentDataGetByPagination }) => {
   const dispatch = useDispatch();
 
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
-  const [invoiceData, setInvoiceData] = useState(null);
+  const [rentInfoData, setRentInfoData] = useState(null);
 
   const { rents, pagination } = useSelector((state) => state.RentInformation);
 
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
-    setInvoiceData(record);
+    setRentInfoData(record);
   };
 
   const closeDrawer = () => {
     setIsDrawerVisible(false);
-    setInvoiceData(null);
+    setRentInfoData(null);
   };
 
   console.log("rentinformation page data", rents, pagination);
@@ -73,7 +73,6 @@ const RentInformationTable = ({ recentDataGetByPagination }) => {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    console.log("mycurrent", currentPage);
     recentDataGetByPagination(page);
   };
 
@@ -141,24 +140,6 @@ const RentInformationTable = ({ recentDataGetByPagination }) => {
     },
   ];
 
-  // useEffect(() => {
-  //     // Fetch data from the server when the current page changes
-  //     fetchData();
-  //   }, [currentPage]);
-
-  //   const fetchData = async () => {
-  //     // Replace this with your actual API request to fetch data based on pagination
-  //     try {
-  //       const response = await fetch(`/api/data?page=${currentPage}&pageSize=${pageSize}`);
-  //       const result = await response.json();
-
-  //       setData(result.data);
-  //       setTotalItems(result.totalItems);
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   };
-
   return (
     <>
       <Table
@@ -177,7 +158,7 @@ const RentInformationTable = ({ recentDataGetByPagination }) => {
           <div>
             <Typography>
               <Title level={5} strong>
-                Invoice# Trip No.{invoiceData?.invoiceNo}
+                Invoice# Trip No
               </Title>
               <Text>See all information about the trip no. 68656</Text>
             </Typography>
@@ -186,7 +167,7 @@ const RentInformationTable = ({ recentDataGetByPagination }) => {
         placement="right"
         onClose={closeDrawer}
         open={isDrawerVisible}
-        width={500}
+        width={600}
         closable={false}
         extra={
           <Space>
@@ -206,7 +187,7 @@ const RentInformationTable = ({ recentDataGetByPagination }) => {
           </Space>
         }
       >
-        {invoiceData && <DrawerPage invoiceData={invoiceData} />}
+        {rentInfoData && <DrawerPage rentInfoData={rentInfoData} />}
       </Drawer>
     </>
   );

@@ -12,6 +12,7 @@ function RentisIncome() {
   useEffect(() => {
     dispatch(RentiIncomes());
   }, []);
+
   return (
     <div style={{ padding: "0 60px" }}>
       <Row>

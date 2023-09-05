@@ -511,7 +511,6 @@ const DrawerPage = (props) => {
           </div>
         </div>
       )}
-
       {props.carDetails && (
         <div>
           <div
@@ -619,6 +618,164 @@ const DrawerPage = (props) => {
                 <p>{props.carDetails?.printView?.carOwner?.address}</p>
               </Col>
             </Row>
+          </div>
+        </div>
+      )}
+      {props.rentInfoData && (
+        <div>
+          <div
+            style={{
+              display: "flex",
+              gap: "15px",
+              borderBottom: "1px solid gray",
+              paddingBottom: "10px",
+            }}
+          >
+            <div>
+              <img
+                width={180}
+                style={{ borderRadius: "6px" }}
+                src="https://cdn.pixabay.com/photo/2012/05/29/00/43/car-49278_640.jpg"
+                alt=""
+              />
+            </div>
+            <div>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "10px" }}
+              >
+                {" "}
+                <p style={{ fontSize: "20px" }}>Lamborghini G9</p>
+                <Badge
+                  className="site-badge-count-109"
+                  count={"Reserved"}
+                  style={{ backgroundColor: "#E6F6F4", color: "#eb6363" }}
+                />
+                <Badge
+                  className="site-badge-count-109"
+                  count={"Active"}
+                  style={{ backgroundColor: "#E6F6F4", color: "#00A991" }}
+                />
+                )
+              </div>
+              <p>License: Avi96556554f</p>
+              <p>Car Model: G9 xyz</p>
+              <p>Gear Type: Automatic</p>
+              <p>Color: Red Coffie</p>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "2px" }}
+              >
+                <AiFillStar color="#fba91d" />
+                <span>4.8</span>
+              </div>
+            </div>
+          </div>
+
+          <div
+            style={{
+              margin: "15px 0",
+              borderBottom: "1px solid gray",
+              paddingBottom: "15px",
+            }}
+          >
+            <Title level={4}>Car Characteristic</Title>
+            <Row>
+              <Col span={12} style={{ textAlign: "left" }}>
+                <p>Number of Doors</p>
+                <p>Seats</p>
+                <p>Total Run</p>
+                <p>Register Date</p>
+                <p>Fuel Capacity</p>
+                <p>Per Hour Rental Fee</p>
+              </Col>
+              <Col span={12} style={{ textAlign: "right" }}>
+                <p>2</p>
+                <p>2</p>
+                <p>2000</p>
+                <p>10/45/23</p>
+                <p>56L</p>
+                <p>45rt</p>
+              </Col>
+            </Row>
+          </div>
+
+          <div
+            style={{
+              margin: "15px 0",
+              borderBottom: "1px solid gray",
+              paddingBottom: "15px",
+            }}
+          >
+            <Title level={4}>User Information</Title>
+            <Row>
+              <Col span={12} style={{ textAlign: "left" }}>
+                <p>Name</p>
+                <p>Email</p>
+                <p>Phone</p>
+                <p>Address</p>
+              </Col>
+              <Col span={12} style={{ textAlign: "right" }}>
+                <p>Fahim</p>
+                <p>fahim25@gmail.com</p>
+                <p>01465464598</p>
+                <p>Moghbazer</p>
+              </Col>
+            </Row>
+          </div>
+
+          <div
+            style={{
+              margin: "15px 0",
+              borderBottom: "1px solid gray",
+              paddingBottom: "15px",
+            }}
+          >
+            <Title level={4}>Host Information</Title>
+            <Row>
+              <Col span={12} style={{ textAlign: "left" }}>
+                <p>Name</p>
+                <p>Email</p>
+                <p>Phone</p>
+                <p>Address</p>
+              </Col>
+              <Col span={12} style={{ textAlign: "right" }}>
+                <p>Fahim</p>
+                <p>fahim25@gmail.com</p>
+                <p>01465464598</p>
+                <p>Moghbazer</p>
+              </Col>
+            </Row>
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              gap: 20,
+              position: "absolute",
+              bottom: 10,
+            }}
+          >
+            <Button
+              block
+              style={{
+                background: "#000B90",
+                color: "white",
+                height: 50,
+                width: "265px",
+              }}
+            >
+              Download
+            </Button>
+            <Button
+              block
+              style={{
+                background: "#000B90",
+                color: "white",
+                height: 50,
+                width: "265px",
+              }}
+            >
+              Print
+            </Button>
           </div>
         </div>
       )}
