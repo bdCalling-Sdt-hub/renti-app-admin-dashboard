@@ -6,8 +6,10 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   message: "",
-  rentiIncome: [],
+  rentiIncomeList: [],
   pagination: {},
+  rentiTotalIncome: null,
+  rentiTotalPaid: null,
 };
 
 const token = localStorage.token;
@@ -16,12 +18,15 @@ export const RentiIncomes = createAsyncThunk(
   "RentiIncomes",
   async (value, thunkApi) => {
     try {
-      const response = await axios.get("api/income/renti-payment-list", {
-        headers: {
-          "Content-type": "application/json",
-          authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(
+        `api/income/renti-payment-list?page=${value?.page}&limit=${value?.limit}`,
+        {
+          headers: {
+            "Content-type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       return response.data;
     } catch (err) {
@@ -54,11 +59,14 @@ export const rentiIncomeSlice = createSlice({
       isLoading: true;
     },
     [RentiIncomes.fulfilled]: (state, action) => {
-      console.log("res", action.payload);
       state.isError = false;
       state.isSuccess = true;
       state.isLoading = false;
-      state.message = action.payload;
+      state.message = action.payload.message;
+      state.rentiTotalIncome = action.payload.rentiTotalIncome;
+      state.rentiTotalPaid = action.payload.totalPaid;
+      state.pagination = action.payload.pagination;
+      state.rentiIncomeList = action.payload.userPaymentList;
     },
     [RentiIncomes.rejected]: (state, action) => {
       state.isError = true;

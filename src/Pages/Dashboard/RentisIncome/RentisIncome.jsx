@@ -1,17 +1,32 @@
 import { SearchOutlined } from "@ant-design/icons";
 import { Button, Col, Input, Row } from "antd";
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RentiIncomes } from "../../../ReduxSlices/RentiIncomeSlice";
 import IncomeRatioChart from "./IncomeRatioChart";
 import RentiIncomeTable from "./RentIncomeTable";
 import "./RentisIncome.css";
 function RentisIncome() {
   const dispatch = useDispatch();
+  const { rentiTotalIncome, rentiTotalPaid } = useSelector(
+    (state) => state.RentiIncomes
+  );
 
   useEffect(() => {
-    dispatch(RentiIncomes());
+    const data = {
+      page: 1,
+      limit: 2,
+    };
+    dispatch(RentiIncomes(data));
   }, []);
+
+  const handlePagination = (page) => {
+    const data = {
+      page: page,
+      limit: 2,
+    };
+    dispatch(RentiIncomes(data));
+  };
 
   return (
     <div style={{ padding: "0 60px" }}>
@@ -74,7 +89,7 @@ function RentisIncome() {
                 color: "#00a991",
               }}
             >
-              $ 250,505,202.00
+              ${rentiTotalIncome}
             </h3>
           </div>
         </Col>
@@ -105,7 +120,7 @@ function RentisIncome() {
                 color: "#d7263d",
               }}
             >
-              $ 505,202.00
+              ${rentiTotalPaid}
             </h3>
           </div>
         </Col>
@@ -119,7 +134,7 @@ function RentisIncome() {
 
       <Row>
         <Col lg={{ span: 24 }}>
-          <RentiIncomeTable />
+          <RentiIncomeTable handlePagination={handlePagination} />
         </Col>
       </Row>
     </div>
