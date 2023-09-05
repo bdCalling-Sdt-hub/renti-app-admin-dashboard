@@ -46,13 +46,18 @@ const RentInformationTable = ({ recentDataGetByPagination }) => {
       status: (
         <div
           style={{
-            color: "white",
-            backgroundColor:
+            color:
               item.requestStatus == "Accepted"
                 ? "#000b90"
                 : item.requestStatus == "Pending"
                 ? "#D7263D"
                 : "#00A991",
+            backgroundColor:
+              item.requestStatus == "Accepted"
+                ? "#e2e4ff"
+                : item.requestStatus == "Pending"
+                ? "#FBE9EC"
+                : "#E6F6F4",
             padding: "5px",
             fontSize: "11px",
             borderRadius: "4px",

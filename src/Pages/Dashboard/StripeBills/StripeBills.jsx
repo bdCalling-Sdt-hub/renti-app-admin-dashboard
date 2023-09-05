@@ -89,10 +89,10 @@ function StripeBills() {
         >
           <div
             className="host-payment-card pending"
-            style={{ border: "1px solid red" }}
+            style={{ border: "1px solid #d7263d" }}
           >
             <div className="progressbar">
-              <Progress type="circle" percent={22} strokeColor="red" />
+              <Progress type="circle" percent={22} strokeColor="#d7263d" />
             </div>
             <div className="total-payment">
               <h1
@@ -110,7 +110,7 @@ function StripeBills() {
                   fontSize: "1.5rem",
                   letterSpacing: "1px",
                   marginBottom: "15px",
-                  color: "red",
+                  color: "#d7263d",
                 }}
               >
                 $ 505,202.00

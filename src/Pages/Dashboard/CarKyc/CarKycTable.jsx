@@ -1,41 +1,56 @@
-import { Button, Drawer, Table, Typography, Badge } from "antd";
+import { Button, Drawer, Table, Typography } from "antd";
 import React, { useState } from "react";
 import { BsEye } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
 import { RiDeleteBin5Line } from "react-icons/ri";
-import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 import { useSelector } from "react-redux";
+import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
 
-
-
 const CarKycTable = ({ carDataGetByPagination, carDataGetBySearch }) => {
-
-  const [currentPage, setCurrentPage] = useState(1); 
+  const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 2;
-  const {CarData,pagination} = useSelector(
-    (state) => state.CarInfoData
-  );
+  const { CarData, pagination } = useSelector((state) => state.CarInfoData);
 
-  const data=CarData?.map((item)=>{
-   
-    return({
-          name: item?.carModelName,
-          email: item?.carOwner.email,
-          contact: item?.carOwner.phoneNumber,
-          type: "pdf",
-          status:<div style={{color:"white",backgroundColor:item.tripStatus=="Pending"?"#000b90":item.tripStatus=="Start"?"red":"green",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>{item.tripStatus}</div>,
-    })
-     
-  })
+  const data = CarData?.map((item) => {
+    return {
+      name: item?.carModelName,
+      email: item?.carOwner.email,
+      contact: item?.carOwner.phoneNumber,
+      type: "pdf",
+      status: (
+        <div
+          style={{
+            color:
+              item.tripStatus == "Pending"
+                ? "#000b90"
+                : item.tripStatus == "Start"
+                ? "#D7263D"
+                : "#00A991",
+            backgroundColor:
+              item.tripStatus == "Pending"
+                ? "#e2e4ff"
+                : item.tripStatus == "Start"
+                ? "#FBE9EC"
+                : "#E6F6F4",
+            padding: "5px",
+            fontSize: "11px",
+            borderRadius: "4px",
+            textAlign: "center",
+          }}
+        >
+          {item.tripStatus}
+        </div>
+      ),
+    };
+  });
 
-  const handlePageChange=(page)=>{
+  const handlePageChange = (page) => {
     setCurrentPage(page);
-    console.log(currentPage)
-    carDataGetByPagination(page)
-    carDataGetBySearch(page)
-   
-}
+    console.log(currentPage);
+    carDataGetByPagination(page);
+    carDataGetBySearch(page);
+  };
 
   // const data = [
   //   {
@@ -191,8 +206,9 @@ const CarKycTable = ({ carDataGetByPagination, carDataGetBySearch }) => {
 
   return (
     <div>
-      <Table columns={columns} dataSource={data}
-
+      <Table
+        columns={columns}
+        dataSource={data}
         pagination={{
           pageSize,
           showSizeChanger: false,

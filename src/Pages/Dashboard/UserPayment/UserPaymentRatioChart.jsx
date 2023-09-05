@@ -113,7 +113,7 @@ export default function UserPaymentRatioChart() {
     <div
       style={{
         width: "100%",
-        border: "2px solid #000b90",
+        border: "1px solid #000b90",
         borderRadius: "15px",
         padding: "20px",
         backgroundColor: "#fff",

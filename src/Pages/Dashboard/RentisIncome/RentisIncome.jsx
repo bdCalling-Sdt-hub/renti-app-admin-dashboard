@@ -94,7 +94,7 @@ function RentisIncome() {
                 fontSize: "1.5rem",
                 letterSpacing: "1px",
                 marginBottom: "15px",
-                color: "red",
+                color: "#d7263d",
               }}
             >
               $ 505,202.00

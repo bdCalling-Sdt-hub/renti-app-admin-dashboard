@@ -1,32 +1,39 @@
-import { Button, Drawer, Table, Typography,Badge } from "antd";
+import { Button, Drawer, Table, Typography } from "antd";
 import React, { useState } from "react";
 import { BsEye } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
 import { RiDeleteBin5Line } from "react-icons/ri";
+import { useSelector } from "react-redux";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
-import { useDispatch,useSelector } from "react-redux";
 const { Title, Text } = Typography;
 
-
-
-const UserKycTable = ({userDataGetByPagination,userDataGetBySearch}) => {
-  const [currentPage, setCurrentPage] = useState(1); 
+const UserKycTable = ({ userDataGetByPagination, userDataGetBySearch }) => {
+  const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 2;
-  const {UserData,pagination} = useSelector(
-    (state) => state.UserInfoData
-  );
+  const { UserData, pagination } = useSelector((state) => state.UserInfoData);
 
-  const data=UserData?.map((item)=>{
-   
-    return({
-          name: item.user.fullName,
-          email: item.user.email,
-          contact: item.user.phoneNumber,
-          type: "pdf",
-          status:<div style={{color:"white",backgroundColor:item.user.approved==true?"#000b90":"red",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>{item.user.approved==true?"Approve":"Cencel"}</div>,
-    })
-     
-  })
+  const data = UserData?.map((item) => {
+    return {
+      name: item.user.fullName,
+      email: item.user.email,
+      contact: item.user.phoneNumber,
+      type: "pdf",
+      status: (
+        <div
+          style={{
+            color: item.user.approved == true ? "#00A991" : "#D7263D",
+            backgroundColor: item.user.approved == true ? "#E6F6F4" : "#FBE9EC",
+            padding: "5px",
+            fontSize: "11px",
+            borderRadius: "4px",
+            textAlign: "center",
+          }}
+        >
+          {item.user.approved == true ? "Approve" : "Cencel"}
+        </div>
+      ),
+    };
+  });
 
   // const data = [
   //   {
@@ -113,7 +120,7 @@ const UserKycTable = ({userDataGetByPagination,userDataGetBySearch}) => {
   //     type: "pdf",
   //     status:<div style={{color:"white",backgroundColor:"red",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>Cancel</div>
   //   }
-    
+
   // ];
 
   const columns = [
@@ -180,23 +187,25 @@ const UserKycTable = ({userDataGetByPagination,userDataGetBySearch}) => {
     setHostData(null);
   };
 
-  const handlePageChange=(page)=>{
+  const handlePageChange = (page) => {
     setCurrentPage(page);
-    console.log(currentPage)
-    userDataGetByPagination(page),
-    userDataGetBySearch(page)
-    
-}
+    console.log(currentPage);
+    userDataGetByPagination(page), userDataGetBySearch(page);
+  };
 
   return (
     <div>
-      <Table columns={columns} dataSource={data} pagination={{
-            pageSize,
-            showSizeChanger:false,
-            total: pagination?.totalUsers,
-            current: currentPage,
-            onChange: handlePageChange,
-          }}/>
+      <Table
+        columns={columns}
+        dataSource={data}
+        pagination={{
+          pageSize,
+          showSizeChanger: false,
+          total: pagination?.totalUsers,
+          current: currentPage,
+          onChange: handlePageChange,
+        }}
+      />
       <Drawer
         title={
           <div

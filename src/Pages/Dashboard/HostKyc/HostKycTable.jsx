@@ -1,35 +1,40 @@
-import { Button, Drawer, Table, Typography,Badge } from "antd";
+import { Button, Drawer, Table, Typography } from "antd";
 import React, { useState } from "react";
 import { BsEye } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
 import { RiDeleteBin5Line } from "react-icons/ri";
+import { useSelector } from "react-redux";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
-import { useDispatch,useSelector } from "react-redux";
 const { Title, Text } = Typography;
 
-
-
-const HostKycTable = ({hostDataGetByPagination,hostDataGetBySearch}) => {
-
-  const [currentPage, setCurrentPage] = useState(1); 
+const HostKycTable = ({ hostDataGetByPagination, hostDataGetBySearch }) => {
+  const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 2;
-  const {HostData,pagination} = useSelector(
-    (state) => state.HostInfoData
-  );
+  const { HostData, pagination } = useSelector((state) => state.HostInfoData);
 
-  const data=HostData?.map((item)=>{
-    console.log("jsjsjsjsjsj",item?.host.KYC)
-    return({
-          name: item.host.fullName,
-          email: item.host.email,
-          contact: item.host.phoneNumber,
-          type: "pdf",
-          status:<div style={{color:"white",backgroundColor:item.host.approved==true?"#000b90":"red",textAlign:"center",padding:"10px",borderRadius:"5px",fontWeight:"bold"}}>{item.host.approved==true?"Approve":"Cencel"}</div>,
-    })
-     
-  })
-
-
+  const data = HostData?.map((item) => {
+    console.log("jsjsjsjsjsj", item?.host.KYC);
+    return {
+      name: item.host.fullName,
+      email: item.host.email,
+      contact: item.host.phoneNumber,
+      type: "pdf",
+      status: (
+        <div
+          style={{
+            color: item.host.approved == true ? "#00A991" : "#D7263D",
+            backgroundColor: item.host.approved == true ? "#E6F6F4" : "#FBE9EC",
+            padding: "5px",
+            fontSize: "11px",
+            borderRadius: "4px",
+            textAlign: "center",
+          }}
+        >
+          {item.host.approved == true ? "Approve" : "Cencel"}
+        </div>
+      ),
+    };
+  });
 
   const columns = [
     {
@@ -95,27 +100,25 @@ const HostKycTable = ({hostDataGetByPagination,hostDataGetBySearch}) => {
     setHostData(null);
   };
 
-
-  const handlePageChange=(page)=>{
+  const handlePageChange = (page) => {
     setCurrentPage(page);
-    console.log(currentPage)
-    hostDataGetByPagination(page)
-    hostDataGetBySearch(page)
-   
-}
+    console.log(currentPage);
+    hostDataGetByPagination(page);
+    hostDataGetBySearch(page);
+  };
 
   return (
     <div>
-      <Table columns={columns} dataSource={data} 
-      
-      pagination={{
-        pageSize,
-        showSizeChanger:false,
-        total: pagination?.totalHosts,
-        current: currentPage,
-        onChange: handlePageChange,
-      }}
-      
+      <Table
+        columns={columns}
+        dataSource={data}
+        pagination={{
+          pageSize,
+          showSizeChanger: false,
+          total: pagination?.totalHosts,
+          current: currentPage,
+          onChange: handlePageChange,
+        }}
       />
       <Drawer
         title={
