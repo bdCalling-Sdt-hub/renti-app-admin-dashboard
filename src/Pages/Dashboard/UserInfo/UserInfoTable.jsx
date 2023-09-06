@@ -1,10 +1,10 @@
 import { CloseOutlined } from "@ant-design/icons";
 import { Button, Drawer, Space, Table, Typography } from "antd";
 import React, { useState } from "react";
-import { AiOutlinePrinter } from "react-icons/ai";
-import { LiaSaveSolid } from "react-icons/lia";
 import { useSelector } from "react-redux";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
+import Eye from "../../../icons/Eye";
+import Print from "../../../icons/Print";
 
 const { Title, Text } = Typography;
 
@@ -38,16 +38,14 @@ const UserInfoTable = ({ userDataGetByPagination, userDataGetBySearch }) => {
   };
 
   const data = userInfoWithTripAmount?.map((item) => {
-    console.log("user info in info page", item);
     return {
       key: item?.user._id,
       name: item?.user.fullName,
       email: item?.user.email,
       contact: item?.user.phoneNumber,
-      joiningdate: item?.user.createdAt,
+      joiningDate: item?.user.createdAt,
       trips: "$" + item?.totalTripAmount,
-
-      printView: "Button",
+      userInfo: item.user,
     };
   });
 
@@ -71,8 +69,8 @@ const UserInfoTable = ({ userDataGetByPagination, userDataGetBySearch }) => {
     },
     {
       title: "JOINING DATE",
-      dataIndex: "joiningdate",
-      key: "joiningdate",
+      dataIndex: "joiningDate",
+      key: "joiningDate",
     },
     {
       title: "TRIPS",
@@ -83,23 +81,16 @@ const UserInfoTable = ({ userDataGetByPagination, userDataGetBySearch }) => {
 
     {
       title: "ACTIONS",
-      dataIndex: "actions",
-      key: "actions",
+      dataIndex: "userInfo",
+      key: "userInfo",
       responsive: ["lg"],
       render: (_, record) => (
-        <div style={{}}>
-          <Button
-            type="text"
-            style={{ marginRight: "10px", paddingBottom: "35px" }}
-          >
-            <AiOutlinePrinter style={{ fontSize: "30px", color: "#999999" }} />
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <Button onClick={() => showDrawer(record)} type="text">
+            <Eye />
           </Button>
-          <Button
-            onClick={() => showDrawer(record)}
-            type="text"
-            style={{ paddingBottom: "35px" }}
-          >
-            <LiaSaveSolid style={{ fontSize: "30px", color: "#999999" }} />
+          <Button type="text">
+            <Print />
           </Button>
         </div>
       ),
@@ -126,14 +117,16 @@ const UserInfoTable = ({ userDataGetByPagination, userDataGetBySearch }) => {
               <Title level={5} strong>
                 User Information
               </Title>
-              <Text>See all information about the user</Text>
+              <p style={{ fontWeight: "normal" }}>
+                See all information about the user
+              </p>
             </Typography>
           </div>
         }
         placement="right"
         onClose={closeDrawer}
         open={isDrawerVisible}
-        width={500}
+        width={600}
         closable={false}
         extra={
           <Space>

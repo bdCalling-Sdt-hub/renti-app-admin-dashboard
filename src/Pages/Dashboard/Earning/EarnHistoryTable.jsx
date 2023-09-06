@@ -1,10 +1,10 @@
 import { Button, Drawer, Table, Typography } from "antd";
 import React, { useState } from "react";
-import { AiOutlinePrinter } from "react-icons/ai";
 import { IoMdClose } from "react-icons/io";
-import { LiaSaveSolid } from "react-icons/lia";
 import { useSelector } from "react-redux";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
+import Print from "../../../icons/Print";
+import Save from "../../../icons/Save";
 const { Title, Text } = Typography;
 
 const EarnHistoryTable = ({ recentDataGetByPagination }) => {
@@ -110,12 +110,12 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
         _,
         record // Use the second parameter 'record'
       ) => (
-        <div style={{ textAlign: "center" }}>
-          <Button type="text" style={{ marginRight: "10px" }}>
-            <AiOutlinePrinter style={{ fontSize: "30px", color: "#999999" }} />
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <Button type="text">
+            <Print />
           </Button>
           <Button onClick={() => showDrawer(record)} type="text">
-            <LiaSaveSolid style={{ fontSize: "30px", color: "#999999" }} />
+            <Save />
           </Button>
         </div>
       ),

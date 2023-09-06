@@ -2,10 +2,10 @@ import { CloseOutlined } from "@ant-design/icons";
 import { Button, Drawer, Space, Table, Typography } from "antd";
 import moment from "moment";
 import React, { useState } from "react";
-import { AiOutlinePrinter } from "react-icons/ai";
-import { LiaSaveSolid } from "react-icons/lia";
 import { useSelector } from "react-redux";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
+import Print from "../../../icons/Print";
+import Save from "../../../icons/Save";
 const { Title, Text } = Typography;
 
 const PaymentListTable = ({ handleUserPaymentsPagination }) => {
@@ -112,19 +112,12 @@ const PaymentListTable = ({ handleUserPaymentsPagination }) => {
       key: "printView",
       responsive: ["lg"],
       render: (_, record) => (
-        <div style={{}}>
-          <Button
-            type="text"
-            style={{ marginRight: "10px", paddingBottom: "35px" }}
-          >
-            <AiOutlinePrinter style={{ fontSize: "30px", color: "#999999" }} />
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <Button type="text">
+            <Print />
           </Button>
-          <Button
-            onClick={() => showDrawer(record)}
-            type="text"
-            style={{ paddingBottom: "35px" }}
-          >
-            <LiaSaveSolid style={{ fontSize: "30px", color: "#999999" }} />
+          <Button onClick={() => showDrawer(record)} type="text">
+            <Save />
           </Button>
         </div>
       ),

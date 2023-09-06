@@ -1,11 +1,11 @@
 import { Button, Drawer, Table, Typography } from "antd";
 import moment from "moment";
 import React, { useState } from "react";
-import { BsEye } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
-import { RiDeleteBin5Line } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
+import Delete from "../../../icons/Delete";
+import Eye from "../../../icons/Eye";
 const { Title, Text } = Typography;
 
 const HostInfoTable = ({ hostDataGetByPagination, handleHostSearchData }) => {
@@ -64,16 +64,12 @@ const HostInfoTable = ({ hostDataGetByPagination, handleHostSearchData }) => {
       key: "actions",
       responsive: ["lg"],
       render: (_, record) => (
-        <div style={{ textAlign: "center" }}>
-          <Button
-            onClick={() => showDrawer(record)}
-            type="text"
-            style={{ marginRight: "10px" }}
-          >
-            <BsEye style={{ fontSize: "25px", color: "#999999" }} />
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <Button onClick={() => showDrawer(record)} type="text">
+            <Eye />
           </Button>
           <Button type="text">
-            <RiDeleteBin5Line style={{ fontSize: "25px", color: "#999999" }} />
+            <Delete />
           </Button>
         </div>
       ),

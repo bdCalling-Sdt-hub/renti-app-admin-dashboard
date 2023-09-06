@@ -37,6 +37,8 @@ const DrawerPage = (props) => {
     },
   };
 
+  console.log(props.userInfoData);
+
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
       <Select
@@ -64,20 +66,21 @@ const DrawerPage = (props) => {
               display: "flex",
               gap: "15px",
               borderBottom: "1px solid #dddddd",
-              paddingBottom: "10px",
+              paddingBottom: "20px",
+              marginBottom: "10px",
             }}
           >
             <div>
               <img
                 width={150}
                 style={{ borderRadius: "5px" }}
-                src="https://media.istockphoto.com/id/529278045/photo/working-on-something-great.jpg?s=170667a&w=0&k=20&c=XT9z1yOr2-bw4lLxb7FneBPzqGkFtiKI1PBbnGyYQSs="
+                src={props.userInfoData?.userInfo?.image}
                 alt=""
               />
             </div>
             <div style={{ marginTop: "-6px" }}>
-              <p style={{ fontSize: "20px" }}>Fahim</p>
-              <p>INE: SNHRM570818MDFPM10</p>
+              <p style={{ fontSize: "20px" }}>{props.userInfoData?.name}</p>
+              <p>INE: {props.userInfoData?.userInfo?.ine}</p>
               <p>Trip Completes: 5</p>
               <div
                 style={{ display: "flex", alignItems: "center", gap: "2px" }}
@@ -94,35 +97,55 @@ const DrawerPage = (props) => {
               labelCol={{ span: 24 }}
               style={{ marginBottom: "0px" }}
             >
-              <Input style={{ height: "45px" }} readOnly />
+              <Input
+                style={{ height: "45px" }}
+                defaultValue={props.userInfoData?.email}
+                readOnly
+              />
             </Form.Item>
             <Form.Item
               label="Phone Number"
               labelCol={{ span: 24 }}
               style={{ marginBottom: "0px" }}
             >
-              <Input style={{ height: "45px" }} readOnly />
+              <Input
+                style={{ height: "45px" }}
+                defaultValue={props.userInfoData?.contact}
+                readOnly
+              />
             </Form.Item>
             <Form.Item
               label="Driving License No."
               labelCol={{ span: 24 }}
               style={{ marginBottom: "0px" }}
             >
-              <Input style={{ height: "45px" }} readOnly />
+              <Input
+                style={{ height: "45px" }}
+                defaultValue={"License"}
+                readOnly
+              />
             </Form.Item>
             <Form.Item
               label="Joining Date"
               labelCol={{ span: 24 }}
               style={{ marginBottom: "0px" }}
             >
-              <Input style={{ height: "45px" }} readOnly />
+              <Input
+                style={{ height: "45px" }}
+                defaultValue={props.userInfoData?.joiningDate}
+                readOnly
+              />
             </Form.Item>
             <Form.Item
               label="Address"
               labelCol={{ span: 24 }}
               style={{ marginBottom: "0px" }}
             >
-              <Input style={{ height: "45px" }} readOnly />
+              <Input
+                style={{ height: "45px" }}
+                defaultValue={props.userInfoData?.userInfo.address}
+                readOnly
+              />
             </Form.Item>
           </div>
 
@@ -140,7 +163,7 @@ const DrawerPage = (props) => {
                 border: "1px solid red",
                 color: "red",
                 height: 50,
-                width: "220px",
+                width: "265px",
               }}
             >
               Block
@@ -151,7 +174,7 @@ const DrawerPage = (props) => {
                 background: "#000B90",
                 color: "white",
                 height: 50,
-                width: "220px",
+                width: "265px",
               }}
             >
               Delete
