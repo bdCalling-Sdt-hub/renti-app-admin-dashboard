@@ -2,7 +2,7 @@ import { CloseOutlined } from "@ant-design/icons";
 import { Button, Drawer, Space, Table, Typography } from "antd";
 import moment from "moment";
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 import Print from "../../../icons/Print";
 import Save from "../../../icons/Save";
@@ -10,12 +10,8 @@ import Save from "../../../icons/Save";
 const { Title, Text } = Typography;
 
 const RentInformationTable = ({ recentDataGetByPagination }) => {
-  const [rentData, setRentData] = useState([]); // Data fetched from the server
-  const [totalItems, setTotalItems] = useState(0); // Total number of items
-  const [currentPage, setCurrentPage] = useState(1); // Current page number
+  const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 5;
-
-  const dispatch = useDispatch();
 
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [rentInfoData, setRentInfoData] = useState(null);
@@ -32,31 +28,28 @@ const RentInformationTable = ({ recentDataGetByPagination }) => {
     setRentInfoData(null);
   };
 
-  console.log("rentinformation page data", rents, pagination);
-
-  const data = rents?.map((item) => {
-    console.log("tushar", item);
+  const data = rents?.map((rent) => {
     return {
-      key: item._id,
-      carModel: item?.carId?.carModelName,
-      username: item?.userId?.fullName,
-      tripno: item?.rentTripNumber,
-      startDate: moment(item?.startDate).format("llll"),
-      endDate: moment(item?.endDate).format("llll"),
-      price: item?.totalAmount,
+      key: rent._id,
+      carModel: rent?.carId?.carModelName,
+      username: rent?.userId?.fullName,
+      tripNo: rent?.rentTripNumber,
+      startDate: moment(rent?.startDate).format("llll"),
+      endDate: moment(rent?.endDate).format("llll"),
+      price: rent?.totalAmount,
       status: (
         <div
           style={{
             color:
-              item.requestStatus == "Accepted"
+              rent.requestStatus == "Accepted"
                 ? "#000b90"
-                : item.requestStatus == "Pending"
+                : rent.requestStatus == "Pending"
                 ? "#D7263D"
                 : "#00A991",
             backgroundColor:
-              item.requestStatus == "Accepted"
+              rent.requestStatus == "Accepted"
                 ? "#e2e4ff"
-                : item.requestStatus == "Pending"
+                : rent.requestStatus == "Pending"
                 ? "#FBE9EC"
                 : "#E6F6F4",
             padding: "5px",
@@ -65,10 +58,10 @@ const RentInformationTable = ({ recentDataGetByPagination }) => {
             textAlign: "center",
           }}
         >
-          {item.requestStatus}
+          {rent.requestStatus}
         </div>
       ),
-      printView: "Button",
+      actionData: rent,
     };
   });
 
@@ -80,8 +73,8 @@ const RentInformationTable = ({ recentDataGetByPagination }) => {
   const columns = [
     {
       title: "Trip No",
-      dataIndex: "tripno",
-      key: "invoiceNo",
+      dataIndex: "tripNo",
+      key: "tripNo",
     },
     {
       title: "Car Model",
@@ -118,8 +111,8 @@ const RentInformationTable = ({ recentDataGetByPagination }) => {
     },
     {
       title: "PRINT/VIEW",
-      dataIndex: "printView",
-      key: "printView",
+      dataIndex: "actionData",
+      key: "actionData",
       responsive: ["lg"],
       render: (_, record) => (
         <div style={{ display: "flex", alignItems: "center" }}>
@@ -152,9 +145,11 @@ const RentInformationTable = ({ recentDataGetByPagination }) => {
           <div>
             <Typography>
               <Title level={5} strong>
-                Invoice# Trip No
+                Trip No {rentInfoData?.tripNo}
               </Title>
-              <Text>See all information about the trip no. 68656</Text>
+              <p style={{ fontWeight: "normal" }}>
+                See all information about the trip no. {rentInfoData?.tripNo}
+              </p>
             </Typography>
           </div>
         }

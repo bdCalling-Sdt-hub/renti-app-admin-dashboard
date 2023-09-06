@@ -10,7 +10,7 @@ function UserPayment() {
 
   useEffect(() => {
     const data = {
-      limit: 4,
+      limit: null,
       page: 1,
     };
     dispatch(UserPayments(data));
@@ -18,7 +18,7 @@ function UserPayment() {
 
   const handleUserPaymentsPagination = (page) => {
     const data = {
-      limit: 4,
+      limit: 2,
       page: page,
     };
     dispatch(UserPayments(data));

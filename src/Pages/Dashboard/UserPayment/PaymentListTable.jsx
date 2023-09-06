@@ -10,32 +10,28 @@ const { Title, Text } = Typography;
 
 const PaymentListTable = ({ handleUserPaymentsPagination }) => {
   const [currentPage, setCurrentPage] = useState(1); // Current page number
-  const pageSize = 4;
+  const pageSize = 2;
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
-  const [invoiceData, setInvoiceData] = useState(null);
+  const [userPaymentData, setUserPaymentData] = useState(null);
 
   const { userPayments, pagination } = useSelector(
     (state) => state.UserPayments
   );
 
-  console.log(pagination);
-
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
-    setInvoiceData(record);
+    setUserPaymentData(record);
   };
 
   const closeDrawer = () => {
     setIsDrawerVisible(false);
-    setInvoiceData(null);
+    setUserPaymentData(null);
   };
-
-  console.log(userPayments);
 
   const data = userPayments.map((userPayment) => {
     return {
       key: userPayment._id,
-      tripno: "10",
+      tripNo: userPayment.rentTripNumbers,
       time: moment(userPayment.time).format("YYYY-MM-DD"),
       username: userPayment.carOwner,
       method: userPayment.method,
@@ -67,15 +63,15 @@ const PaymentListTable = ({ handleUserPaymentsPagination }) => {
           Pending
         </div>
       ),
-      printView: "Button",
+      actions: userPayment,
     };
   });
 
   const columns = [
     {
       title: "Trip No",
-      dataIndex: "tripno",
-      key: "tripno",
+      dataIndex: "tripNo",
+      key: "tripNo",
     },
     {
       title: "Time",
@@ -108,8 +104,8 @@ const PaymentListTable = ({ handleUserPaymentsPagination }) => {
 
     {
       title: "PRINT/VIEW",
-      dataIndex: "printView",
-      key: "printView",
+      dataIndex: "actions",
+      key: "actions",
       responsive: ["lg"],
       render: (_, record) => (
         <div style={{ display: "flex", alignItems: "center" }}>
@@ -137,7 +133,7 @@ const PaymentListTable = ({ handleUserPaymentsPagination }) => {
         pagination={{
           pageSize,
           showSizeChanger: false,
-          total: pagination?.totalDocuments,
+          total: pagination?.totalDocuments / 2,
           current: currentPage,
           onChange: handlePageChange,
         }}
@@ -147,16 +143,19 @@ const PaymentListTable = ({ handleUserPaymentsPagination }) => {
           <div>
             <Typography>
               <Title level={5} strong>
-                Invoice# Trip No.{invoiceData?.invoiceNo}
+                Invoice# Trip No. -{userPaymentData?.rentTripNumbers}
               </Title>
-              <Text>See all information about the trip no. 68656</Text>
+              <p style={{ fontWeight: "normal" }}>
+                See all information about the trip no.{" "}
+                {userPaymentData?.rentTripNumbers}
+              </p>
             </Typography>
           </div>
         }
         placement="right"
         onClose={closeDrawer}
         open={isDrawerVisible}
-        width={500}
+        width={600}
         closable={false}
         extra={
           <Space>
@@ -176,7 +175,7 @@ const PaymentListTable = ({ handleUserPaymentsPagination }) => {
           </Space>
         }
       >
-        {invoiceData && <DrawerPage invoiceData={invoiceData} />}
+        {userPaymentData && <DrawerPage userPaymentData={userPaymentData} />}
       </Drawer>
     </>
   );

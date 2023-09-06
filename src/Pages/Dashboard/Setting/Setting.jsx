@@ -1,50 +1,62 @@
-import { Button, Form, Input, Modal, Switch, Typography } from "antd";
+import {
+  Button,
+  Form,
+  Input,
+  Modal,
+  Radio,
+  Space,
+  Switch,
+  Typography,
+} from "antd";
 import React, { useState } from "react";
 import { LiaAngleRightSolid } from "react-icons/lia";
 import { useNavigate } from "react-router-dom";
-import axios from "../../../../Config";
 import Swal from "sweetalert2";
+import axios from "../../../../Config";
 const { Paragraph, Title, Text } = Typography;
 
 const Setting = () => {
   const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);
   const [openChangePassModel, setOpenChangePassModel] = useState(false);
+  const [openHostPaymentTime, setOpenHostPaymentTime] = useState(false);
   const [verify, setVerify] = useState(false);
   const [updatePassword, setUpdatePassword] = useState(false);
-  const [form,form1,form2] = Form.useForm();
+  const [form, form1, form2] = Form.useForm();
 
-  const [firstInput,setFirstInput]=useState("");
-  const [secondInput,setSecondInput]=useState("");
-  const [thirdInput,setThirdInput]=useState("");
-  const [fourthInput,setFourthInput]=useState("");
+  const [firstInput, setFirstInput] = useState("");
+  const [secondInput, setSecondInput] = useState("");
+  const [thirdInput, setThirdInput] = useState("");
+  const [fourthInput, setFourthInput] = useState("");
+  const [value, setValue] = useState(1);
+  const handleSetPaymentTime = (e) => {
+    console.log("radio checked", e.target.value);
+    setValue(e.target.value);
+  };
 
-  
- 
-
-
-  const sendVerifyOtp=()=>{
+  const sendVerifyOtp = () => {
     //setUpdatePassword(true), setVerify(false)
     const otp = `${firstInput}${secondInput}${thirdInput}${fourthInput}`;
-    let verifycode={
-      oneTimeCode:otp
-    }
+    let verifycode = {
+      oneTimeCode: otp,
+    };
 
-    let info=JSON.parse(localStorage.getItem("yourInfo"));
-   
+    let info = JSON.parse(localStorage.getItem("yourInfo"));
 
-    axios.post("/api/user/verify-code",verifycode,{
-      headers:{
-        "email":info.email
-      }
-    }).then(res=>{
-      console.log(res.data)
-      setUpdatePassword(true), setVerify(false)
-    }).catch(err=>{
-     console.log(err)
-    })
-
-  }
+    axios
+      .post("/api/user/verify-code", verifycode, {
+        headers: {
+          email: info.email,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setUpdatePassword(true), setVerify(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const style = {
     formContainer: {
@@ -73,7 +85,6 @@ const Setting = () => {
     },
     input: {
       height: "45px",
-     
     },
     otpInput: {
       width: "50px",
@@ -166,35 +177,29 @@ const Setting = () => {
       return;
     }
 
-    let info=JSON.parse(localStorage.getItem("yourInfo"));
+    let info = JSON.parse(localStorage.getItem("yourInfo"));
 
-    let data={
-      password:password
-    }
+    let data = {
+      password: password,
+    };
 
-     axios.post("/api/user/update-password",data,{
-      headers:{
-        "email":info.email
-      }
-    }).then(res=>{
-      if(res.data){
-        Swal.fire(
-          'Good job!',
-           res.data.message,
-          'success'
-        )
+    axios
+      .post("/api/user/update-password", data, {
+        headers: {
+          email: info.email,
+        },
+      })
+      .then((res) => {
+        if (res.data) {
+          Swal.fire("Good job!", res.data.message, "success");
 
-        setUpdatePassword(false)
-        form2.resetFields();
-        
-      }
-      
-          
-     }).catch(err=>{
-      console.log(err)
-     });
-
-
+          setUpdatePassword(false);
+          form2.resetFields();
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleNavigate = (value) => {
@@ -202,6 +207,8 @@ const Setting = () => {
       setOpenModal(true);
     } else if (value === "change-password") {
       setOpenChangePassModel(true);
+    } else if (value === "host-payment-time") {
+      setOpenHostPaymentTime(true);
     } else {
       navigate(`/setting/${value}`);
     }
@@ -217,38 +224,36 @@ const Setting = () => {
   };
 
   const handleChangePassword = (values) => {
-    let userData=JSON.parse(localStorage.getItem("yourInfo"))
-    console.log(userData)
-    let passChangeInfo={...values,email:userData.email}
+    let userData = JSON.parse(localStorage.getItem("yourInfo"));
+    console.log(userData);
+    let passChangeInfo = { ...values, email: userData.email };
     console.log("Received values of form: ", passChangeInfo);
-    axios.post("api/user/change-password",passChangeInfo).then((res)=>{
-      console.log(res.data)
-      form.resetFields();
-      setOpenChangePassModel(false)
-      Swal.fire(
-        'Good job!',
-        'Password updated successfully',
-        'success'
-      )
-    }).catch(err=>{
-      Swal.fire(
-        'Oops!',
-         err.response.data.message,
-        'error'
-      )
-    });
+    axios
+      .post("api/user/change-password", passChangeInfo)
+      .then((res) => {
+        console.log(res.data);
+        form.resetFields();
+        setOpenChangePassModel(false);
+        Swal.fire("Good job!", "Password updated successfully", "success");
+      })
+      .catch((err) => {
+        Swal.fire("Oops!", err.response.data.message, "error");
+      });
   };
 
-  const sendEmailForChangePassword=()=>{
-    let info=JSON.parse(localStorage.getItem("yourInfo"));
-    let myEmail={
-        email:info.email
-    }
+  const sendEmailForChangePassword = () => {
+    let info = JSON.parse(localStorage.getItem("yourInfo"));
+    let myEmail = {
+      email: info.email,
+    };
     setOpenChangePassModel(false);
-    axios.post("/api/user/forget-password",myEmail).then((res)=>{
-       setVerify(true);
-    }).catch(err=>console.log(err))
-  }
+    axios
+      .post("/api/user/forget-password", myEmail)
+      .then((res) => {
+        setVerify(true);
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div style={{ padding: "0 60px" }}>
@@ -356,7 +361,9 @@ const Setting = () => {
                 type="text"
                 className="login-form-forgot"
                 style={{ color: "#000B90" }}
-                onClick={() =>{sendEmailForChangePassword()}}
+                onClick={() => {
+                  sendEmailForChangePassword();
+                }}
               >
                 Forgot password
               </Button>
@@ -380,8 +387,6 @@ const Setting = () => {
               </Button>
             </Form.Item>
           </Form>
-
-          
         </Modal>
         {/* Verify Password */}
         <Modal
@@ -419,11 +424,30 @@ const Setting = () => {
                 marginBottom: "10px",
               }}
             >
-              <Input onChange={(e)=>{setFirstInput(e.target.value)}}  style={{ width: "80px", height: "70px" }} />
-              <Input onChange={(e)=>{setSecondInput(e.target.value)}} style={{...style.otpInput,width:"80px"}} />
-              <Input onChange={(e)=>{setThirdInput(e.target.value)}}  style={{...style.otpInput,width:"80px"}} />
-              <Input onChange={(e)=>{setFourthInput(e.target.value)}} style={{...style.otpInput,width:"80px"}} />
-              
+              <Input
+                onChange={(e) => {
+                  setFirstInput(e.target.value);
+                }}
+                style={{ width: "80px", height: "70px" }}
+              />
+              <Input
+                onChange={(e) => {
+                  setSecondInput(e.target.value);
+                }}
+                style={{ ...style.otpInput, width: "80px" }}
+              />
+              <Input
+                onChange={(e) => {
+                  setThirdInput(e.target.value);
+                }}
+                style={{ ...style.otpInput, width: "80px" }}
+              />
+              <Input
+                onChange={(e) => {
+                  setFourthInput(e.target.value);
+                }}
+                style={{ ...style.otpInput, width: "80px" }}
+              />
             </Input.Group>
 
             <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -440,7 +464,9 @@ const Setting = () => {
 
             <Button
               block
-              onClick={() =>{sendVerifyOtp()}}
+              onClick={() => {
+                sendVerifyOtp();
+              }}
               style={{
                 height: "45px",
                 fontWeight: "400px",
@@ -543,10 +569,81 @@ const Setting = () => {
             </Form.Item>
           </Form>
         </Modal>
-
+        {/*Set host time*/}
+        <Modal
+          title={
+            <p
+              style={{
+                textAlign: "center",
+                fontWeight: "normal",
+                fontSize: "18px",
+              }}
+            >
+              Set Host Payment time
+            </p>
+          }
+          centered
+          open={openHostPaymentTime}
+          onCancel={() => setOpenHostPaymentTime(false)}
+          cancelButtonProps={{ style: { display: "none" } }}
+          width={500}
+          footer={false}
+        >
+          <div
+            style={{
+              textAlign: "center",
+              background: "#f9f9ff",
+              borderRadius: "6px",
+              padding: "8px",
+              paddingTop: "50px",
+              paddingBottom: "10px",
+            }}
+          >
+            <Radio.Group onChange={handleSetPaymentTime} value={value}>
+              <Space direction="vertical">
+                <Radio value={1}>1 Week</Radio>
+                <Radio value={2}>2 Week</Radio>
+                <Radio value={3}>3 Week</Radio>
+                <Radio value={4}>
+                  More...
+                  {value === 4 ? (
+                    <Input
+                      style={{
+                        width: 100,
+                        marginLeft: 10,
+                      }}
+                    />
+                  ) : null}
+                </Radio>
+              </Space>
+            </Radio.Group>
+            <Button
+              style={{
+                background: "#000b92",
+                color: "#fff",
+                marginTop: "80px",
+                height: "45px",
+                fontWeight: "300",
+              }}
+              block
+            >
+              SET
+            </Button>
+          </div>
+        </Modal>
         {/*Set Percentage*/}
         <Modal
-          title="Set Ranti's Percentage"
+          title={
+            <p
+              style={{
+                textAlign: "center",
+                fontWeight: "normal",
+                fontSize: "18px",
+              }}
+            >
+              Set Renti Percentage
+            </p>
+          }
           centered
           open={openModal}
           onOk={() => setPercentage()}

@@ -37,7 +37,7 @@ const DrawerPage = (props) => {
     },
   };
 
-  console.log(props.userInfoData);
+  console.log("drawer", props.userPaymentData);
 
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
@@ -560,17 +560,29 @@ const DrawerPage = (props) => {
                 <p style={{ fontSize: "20px" }}>
                   {props.carDetails?.printView?.carModelName}
                 </p>
-                {props.carDetails?.printView?.activeReserve ? (
+                {props.carDetails?.printView?.tripStatus === "Start" ? (
                   <Badge
                     className="site-badge-count-109"
                     count={"Reserved"}
-                    style={{ backgroundColor: "#E6F6F4", color: "#eb6363" }}
+                    style={{
+                      background: "#FBE9EC",
+                      color: "#D7263D",
+                      fontSize: "11px",
+                      borderRadius: "4px",
+                      textAlign: "center",
+                    }}
                   />
                 ) : (
                   <Badge
                     className="site-badge-count-109"
                     count={"Active"}
-                    style={{ backgroundColor: "#E6F6F4", color: "#00A991" }}
+                    style={{
+                      background: "#E6F6F4",
+                      color: "#00A991",
+                      fontSize: "11px",
+                      borderRadius: "4px",
+                      textAlign: "center",
+                    }}
                   />
                 )}
               </div>
@@ -667,23 +679,47 @@ const DrawerPage = (props) => {
                 style={{ display: "flex", alignItems: "center", gap: "10px" }}
               >
                 {" "}
-                <p style={{ fontSize: "20px" }}>Lamborghini G9</p>
-                <Badge
-                  className="site-badge-count-109"
-                  count={"Reserved"}
-                  style={{ backgroundColor: "#E6F6F4", color: "#eb6363" }}
-                />
-                <Badge
-                  className="site-badge-count-109"
-                  count={"Active"}
-                  style={{ backgroundColor: "#E6F6F4", color: "#00A991" }}
-                />
-                )
+                <p style={{ fontSize: "20px" }}>
+                  {props.rentInfoData?.carModel}
+                </p>
+                {props.rentInfoData?.actionData?.carId?.tripStatus ===
+                "Start" ? (
+                  <Badge
+                    className="site-badge-count-109"
+                    count={"Reserved"}
+                    style={{
+                      background: "#FBE9EC",
+                      color: "#D7263D",
+                      fontSize: "11px",
+                      borderRadius: "4px",
+                      textAlign: "center",
+                    }}
+                  />
+                ) : (
+                  <Badge
+                    className="site-badge-count-109"
+                    count={"Active"}
+                    style={{
+                      background: "#E6F6F4",
+                      color: "#00A991",
+                      fontSize: "11px",
+                      borderRadius: "4px",
+                      textAlign: "center",
+                    }}
+                  />
+                )}
               </div>
-              <p>License: Avi96556554f</p>
-              <p>Car Model: G9 xyz</p>
-              <p>Gear Type: Automatic</p>
-              <p>Color: Red Coffie</p>
+              <p>
+                License:{" "}
+                {props.rentInfoData?.actionData?.carId?.carLicenseNumber}
+              </p>
+              <p>
+                Car Model: {props.rentInfoData?.actionData?.carId?.carModelName}
+              </p>
+              <p>
+                Gear Type: {props.rentInfoData?.actionData?.carId?.gearType}
+              </p>
+              <p>Color: {props.rentInfoData?.actionData?.carId?.carColor}</p>
               <div
                 style={{ display: "flex", alignItems: "center", gap: "2px" }}
               >
@@ -711,12 +747,16 @@ const DrawerPage = (props) => {
                 <p>Per Hour Rental Fee</p>
               </Col>
               <Col span={12} style={{ textAlign: "right" }}>
-                <p>2</p>
-                <p>2</p>
-                <p>2000</p>
-                <p>10/45/23</p>
-                <p>56L</p>
-                <p>45rt</p>
+                <p> {props.rentInfoData?.actionData?.carId?.carDoors}</p>
+                <p>{props.rentInfoData?.actionData?.carId?.carSeats}</p>
+                <p>{props.rentInfoData?.actionData?.carId?.totalRun}</p>
+                <p>
+                  {moment(
+                    props.rentInfoData?.actionData?.carId?.carDoors
+                  ).format("YYYY-MM-DD")}
+                </p>
+                <p>{"56L"}</p>
+                <p>{props.rentInfoData?.actionData?.carId?.hourlyRate}</p>
               </Col>
             </Row>
           </div>
@@ -737,10 +777,10 @@ const DrawerPage = (props) => {
                 <p>Address</p>
               </Col>
               <Col span={12} style={{ textAlign: "right" }}>
-                <p>Fahim</p>
-                <p>fahim25@gmail.com</p>
-                <p>01465464598</p>
-                <p>Moghbazer</p>
+                <p>{props.rentInfoData?.actionData?.userId?.fullName}</p>
+                <p>{props.rentInfoData?.actionData?.userId?.email}</p>
+                <p>{props.rentInfoData?.actionData?.userId?.phoneNumber}</p>
+                <p>{props.rentInfoData?.actionData?.userId?.address}</p>
               </Col>
             </Row>
           </div>
@@ -769,6 +809,130 @@ const DrawerPage = (props) => {
             </Row>
           </div>
 
+          <div
+            style={{
+              display: "flex",
+              gap: 20,
+              position: "absolute",
+              bottom: 10,
+            }}
+          >
+            <Button
+              block
+              style={{
+                background: "#000B90",
+                color: "white",
+                height: 50,
+                width: "265px",
+              }}
+            >
+              Download
+            </Button>
+            <Button
+              block
+              style={{
+                background: "#000B90",
+                color: "white",
+                height: 50,
+                width: "265px",
+              }}
+            >
+              Print
+            </Button>
+          </div>
+        </div>
+      )}
+      {props.userPaymentData && (
+        <div>
+          <div
+            style={{
+              display: "flex",
+              gap: "15px",
+              borderBottom: "1px solid gray",
+              paddingBottom: "10px",
+              marginBottom: "15px",
+            }}
+          >
+            <div>
+              <img width={120} src="https://i.imgur.com/JFHjdNr.jpg" alt="" />
+            </div>
+            <div style={{ marginTop: "-7px" }}>
+              <p style={{ fontSize: "20px" }}>
+                {props.userPaymentData?.username}
+              </p>
+              <p>INE: SNHRM570818MDFPM10</p>
+              <p>Trip Completes: 45</p>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "2px" }}
+              >
+                <AiFillStar color="#fba91d" />
+                <span>4.8</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <Title level={4}>
+              Trip Details{" "}
+              <Badge
+                className="site-badge-count-109"
+                count={"complete"}
+                style={{ backgroundColor: "#E6F6F4", color: "#00A991" }}
+              />
+            </Title>
+          </div>
+          <div
+            style={{
+              margin: "15px 0",
+              borderBottom: "1px solid gray",
+              paddingBottom: "15px",
+            }}
+          >
+            <Row>
+              <Col span={12} style={{ textAlign: "left" }}>
+                <p>Car Model</p>
+                <p>Car Color</p>
+                <p>Car License</p>
+                <p>Host Name</p>
+                <p>Host INE</p>
+                <p>Pickup Location</p>
+                <p>Drop-Off Location</p>
+                <p>Total Rental Time</p>
+              </Col>
+              <Col span={12} style={{ textAlign: "right" }}>
+                <p>Bmw</p>
+                <p>Black</p>
+                <p>AB455152</p>
+                <p>Fahim</p>
+                <p>BDAC287856B</p>
+                <p>Moghbazer</p>
+                <p>Rampura</p>
+                <p>17 hours</p>
+              </Col>
+            </Row>
+          </div>
+          <div
+            style={{
+              margin: "15px 0",
+              borderBottom: "1px solid gray",
+              paddingBottom: "15px",
+            }}
+          >
+            <Title level={4}>Payment Information</Title>
+            <Row>
+              <Col span={12} style={{ textAlign: "left" }}>
+                <p>Payment By</p>
+                <p>Payment Method</p>
+                <p>Payment Date</p>
+                <p>Total Amount</p>
+              </Col>
+              <Col span={12} style={{ textAlign: "right" }}>
+                <p>{props.userPaymentData?.username}</p>
+                <p>{props.userPaymentData?.method}</p>
+                <p>{props.userPaymentData?.time}</p>
+                <p>{props.userPaymentData?.amount}</p>
+              </Col>
+            </Row>
+          </div>
           <div
             style={{
               display: "flex",
