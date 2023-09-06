@@ -8,7 +8,7 @@ import {
   Switch,
   Typography,
 } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LiaAngleRightSolid } from "react-icons/lia";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -29,10 +29,50 @@ const Setting = () => {
   const [thirdInput, setThirdInput] = useState("");
   const [fourthInput, setFourthInput] = useState("");
   const [value, setValue] = useState(1);
-  const handleSetPaymentTime = (e) => {
-    console.log("radio checked", e.target.value);
+
+  //set host payment time
+
+  //manual writing get value
+  const handleManualRadioValue = (e) => {
     setValue(e.target.value);
   };
+
+  //select get value
+  const handleSelectRadioValue = (e) => {
+    setValue(e.target.value);
+  };
+
+  const token = localStorage.token;
+
+  const handleSetPaymentTime = async () => {
+    const time = parseInt(value);
+
+    const response = await axios.post(
+      `api/host-payment-time/create`,
+      { label: time },
+      {
+        headers: {
+          "Content-type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    Swal.fire("Good job!", response.data.message, "success");
+    setReload((prev) => prev + 1);
+    setOpenHostPaymentTime(false);
+  };
+
+  useEffect(() => {
+    axios
+      .get(`api/host-payment-time/all`, {
+        headers: {
+          "Content-type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => setValue(parseInt(res.data?.labelData?.label)));
+  }, []);
 
   const sendVerifyOtp = () => {
     //setUpdatePassword(true), setVerify(false)
@@ -599,25 +639,24 @@ const Setting = () => {
               paddingBottom: "10px",
             }}
           >
-            <Radio.Group onChange={handleSetPaymentTime} value={value}>
+            <Radio.Group onChange={handleSelectRadioValue} value={value}>
               <Space direction="vertical">
                 <Radio value={1}>1 Week</Radio>
                 <Radio value={2}>2 Week</Radio>
                 <Radio value={3}>3 Week</Radio>
-                <Radio value={4}>
-                  More...
-                  {value === 4 ? (
-                    <Input
-                      style={{
-                        width: 100,
-                        marginLeft: 10,
-                      }}
-                    />
-                  ) : null}
-                </Radio>
+
+                <Input
+                  onBlur={handleManualRadioValue}
+                  style={{
+                    width: 100,
+                    marginLeft: 10,
+                  }}
+                  defaultValue={value >= 4 ? value : null}
+                />
               </Space>
             </Radio.Group>
             <Button
+              onClick={handleSetPaymentTime}
               style={{
                 background: "#000b92",
                 color: "#fff",
