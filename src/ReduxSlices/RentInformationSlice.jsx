@@ -18,13 +18,17 @@ let token = localStorage.getItem("token");
 export const RentInformationData = createAsyncThunk(
   "RentInfo",
   async (value, thunkAPI) => {
+    console.log("rent page number", value);
     try {
-      let response = await axios.get(`/api/rent/all/?limit=5&page=${value}`, {
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${token}`,
-        },
-      });
+      let response = await axios.get(
+        `/api/rent/all/?limit=5&page=${value.page}&search=${value.search}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
       //console.log("mydataksdjfklsdjkfljsdklfjklsdjf55555555",response.data);
       return response.data;
     } catch (error) {

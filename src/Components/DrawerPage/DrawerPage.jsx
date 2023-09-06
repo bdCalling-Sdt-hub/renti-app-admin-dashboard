@@ -143,7 +143,7 @@ const DrawerPage = (props) => {
             >
               <Input
                 style={{ height: "45px" }}
-                defaultValue={props.userInfoData?.userInfo.address}
+                defaultValue={props.userInfoData?.userInfo?.address}
                 readOnly
               />
             </Form.Item>

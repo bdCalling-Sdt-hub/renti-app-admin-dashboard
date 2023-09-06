@@ -1,189 +1,25 @@
 import { CloseOutlined } from "@ant-design/icons";
 import { Button, Drawer, Space, Table, Typography } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { AiOutlinePrinter } from "react-icons/ai";
 import { LiaSaveSolid } from "react-icons/lia";
+import { useSelector } from "react-redux";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
 
-const data = [
-  {
-    key: "1",
-    tripno: "10",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "2",
-    tripno: "11",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "3",
-    tripno: "12",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "4",
-    tripno: "13",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "5",
-    tripno: "14",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "6",
-    tripno: "15",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "7",
-    tripno: "16",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "8",
-    tripno: "17",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "9",
-    tripno: "15",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "10",
-    tripno: "16",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "11",
-    tripno: "17",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "12",
-    tripno: "15",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "13",
-    tripno: "16",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "14",
-    tripno: "17",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "15",
-    tripno: "15",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "16",
-    tripno: "16",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "17",
-    tripno: "17",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-];
-const HostPaymentTable = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 10;
-
+const HostPaymentTable = ({
+  hostPaymentDataGetByPagination,
+  hostPaymentDataGetBySearch,
+}) => {
+  const [userInfoData, setUserInfoData] = useState([]); // Data fetched from the server
+  const [totalItems, setTotalItems] = useState(0); // Total number of items
+  const [currentPage, setCurrentPage] = useState(1); // Current page number
+  const pageSize = 3;
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
-  const [userInfoData, setUserInfoData] = useState(null);
+
+  const { hostPaymentList, pagination } = useSelector(
+    (state) => state.HostPaymentData
+  );
 
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
@@ -193,8 +29,28 @@ const HostPaymentTable = () => {
 
   const closeDrawer = () => {
     setIsDrawerVisible(false);
-    setInvoiceData(null);
+    setUserInfoData(null);
   };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    console.log(currentPage);
+    hostPaymentDataGetByPagination(page);
+    hostPaymentDataGetBySearch(page);
+  };
+
+  const data = hostPaymentList?.map((item) => {
+    return {
+      key: "1",
+      tripno: "10",
+      time: "18 Jul, 2023  4:30pm",
+      username: "Tushar",
+      method: "Credit Card",
+      amount: "$850.00",
+      status: "complete",
+      printView: "Button",
+    };
+  });
 
   const columns = [
     {
@@ -256,31 +112,6 @@ const HostPaymentTable = () => {
     },
   ];
 
-  useEffect(() => {
-    // Fetch data from the server when the current page changes
-    fetchData();
-  }, [currentPage]);
-
-  const fetchData = async () => {
-    // Replace this with your actual API request to fetch data based on pagination
-    try {
-      const response = await fetch(
-        `/api/data?page=${currentPage}&pageSize=${pageSize}`
-      );
-      const result = await response.json();
-
-      setData(result.data);
-      setTotalItems(result.totalItems);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-    console.log(currentPage);
-  };
-
   return (
     <>
       <Table
@@ -289,7 +120,7 @@ const HostPaymentTable = () => {
         pagination={{
           pageSize,
           showSizeChanger: false,
-          total: 5000,
+          total: pagination?.totalDocuments,
           current: currentPage,
           onChange: handlePageChange,
         }}
@@ -336,4 +167,5 @@ const HostPaymentTable = () => {
     </>
   );
 };
+
 export default HostPaymentTable;

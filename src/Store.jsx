@@ -4,6 +4,7 @@ import BlockUserReducer from "./ReduxSlices/BlockSlice";
 import CarInformationWithKycReducer from "./ReduxSlices/CarInformationWithKycSlice";
 import CarReducer from "./ReduxSlices/CarsSlice";
 import HostInformationWithKycReducer from "./ReduxSlices/HostInformationWithKycSlice";
+import HostPaymentReducer from "./ReduxSlices/HostPaymentSlice";
 import HostReducer from "./ReduxSlices/HostsSlice";
 import IncomeReducer from "./ReduxSlices/IncomeGetSlice";
 import LoginActivityReducer from "./ReduxSlices/LoginActivitySlice";
@@ -19,24 +20,23 @@ import UserPaymentReducer from "./ReduxSlices/UserPaymentSlice";
 
 export const Store = configureStore({
   reducer: {
-    IncomeData: IncomeReducer,
     UserData: SigninReducer,
     RentStatus: RentStatusReducer,
-    hostsData: HostReducer,
-    carsData: CarReducer,
-    adminData: adminReducer,
+    IncomeData: IncomeReducer,
     RecentEarnings: RecentEarningsReducer,
     RentInformation: RentInformationReducer,
     UserInformationData: UserInformationReducer,
     HostInfoData: HostInformationWithKycReducer,
     UserInfoData: UserInformationWithKycReducer,
+    hostsData: HostReducer,
+    carsData: CarReducer,
+    adminData: adminReducer,
     AllUser: AllUserReducer,
-    IncomeData: IncomeReducer,
-    UserData: SigninReducer,
     CarInfoData: CarInformationWithKycReducer,
     BlockUser: BlockUserReducer,
     UserPayments: UserPaymentReducer,
     LoginActivity: LoginActivityReducer,
     RentiIncomes: RentiIncomeReducer,
+    HostPaymentData: HostPaymentReducer,
   },
 });

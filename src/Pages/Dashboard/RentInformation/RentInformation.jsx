@@ -1,29 +1,68 @@
 import { SearchOutlined } from "@ant-design/icons";
 import { Button, Col, Input, Row } from "antd";
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+
 import { RentInformationData } from "../../../ReduxSlices/RentInformationSlice";
 import "./RentInformation.css";
 import RentInformationTable from "./RentInformationTable";
+import { useDispatch,useSelector } from "react-redux";
+
+
+
+import { useState } from "react";
+
 
 function RentInformation() {
-  const dispatch = useDispatch();
+  const [searchData,setSearchData]=useState("");
+  const dispatch=useDispatch();
+ 
+  const {rentCompletedTotalAmount,rentReservedTotalAmount,totalRejectedAmount} = useSelector(
+    (state) => state.RentInformation
+  );
 
-  const {
-    rentCompletedTotalAmount,
-    rentReservedTotalAmount,
-    totalRejectedAmount,
-  } = useSelector((state) => state.RentInformation);
+  useEffect(()=>{
+    let data={
+      search:searchData,
+      page:1
+    }
 
-  useEffect(() => {
-    dispatch(RentInformationData(1));
-  }, []);
+    if(searchData==""){
 
-  const recentDataGetByPagination = (page) => {
-    console.log("rent info", page);
+      dispatch(RentInformationData(data));
+    }
+    
+    
 
-    dispatch(RentInformationData(page));
-  };
+  },[searchData])
+
+
+  const rentDataGetByPagination=(page)=>{
+    console.log("rent info",page)
+    let data={
+      search:searchData,
+      page:page
+    }
+    if(!searchData){
+      dispatch(RentInformationData(data));
+    }
+    
+  }
+
+
+  const rentDataGetBySearch=(page)=>{
+    let data={
+      search:searchData,
+      page:page
+    }
+    if(searchData){
+      dispatch(RentInformationData(data));
+      
+    }
+   
+   
+  }
+
+
 
   return (
     <div style={{ padding: "0 60px" }}>
@@ -40,11 +79,13 @@ function RentInformation() {
         <Col lg={{ span: 24 }}>
           <div className="" style={{ display: "flex", gap: "15px" }}>
             <Input
+              onChange={(e)=>setSearchData(e.target.value)}
               size="large"
               placeholder="Search by Trip no."
               prefix={<SearchOutlined style={{ color: "#cccccc" }} />}
             />
             <Button
+              onClick={rentDataGetBySearch}
               style={{
                 height: "50px",
                 width: "300px",
@@ -166,9 +207,7 @@ function RentInformation() {
 
       <Row>
         <Col lg={{ span: 24 }}>
-          <RentInformationTable
-            recentDataGetByPagination={recentDataGetByPagination}
-          />
+          <RentInformationTable rentDataGetByPagination={rentDataGetByPagination} rentDataGetBySearch={rentDataGetBySearch} />
         </Col>
       </Row>
     </div>
