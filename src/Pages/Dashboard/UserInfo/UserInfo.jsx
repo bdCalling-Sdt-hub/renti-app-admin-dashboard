@@ -14,8 +14,10 @@ function UserInfo() {
       search: searchData,
       page: 1,
     };
-    dispatch(UserInformationData(data));
-  }, []);
+    if (searchData === "") {
+      dispatch(UserInformationData(data));
+    }
+  }, [searchData]);
 
   const userDataGetByPagination = (page) => {
     let data = {
