@@ -21,8 +21,6 @@ export const BLockUser = createAsyncThunk(
         },
       });
 
-      console.log(response.data);
-
       return response.data;
     } catch (err) {
       const message =

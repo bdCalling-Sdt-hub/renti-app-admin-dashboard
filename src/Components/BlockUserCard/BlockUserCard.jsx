@@ -5,7 +5,9 @@ import axios from "../../../Config";
 import img from "../../Images/Photo.png";
 
 const BlockUserCard = ({ data, setReload }) => {
-  const { fullName, email, phoneNumber, approved } = data;
+  const { _id, fullName, email, phoneNumber, approved } = data;
+
+  console.log(_id);
 
   const style = {
     cardStyle: {
@@ -22,9 +24,9 @@ const BlockUserCard = ({ data, setReload }) => {
   const token = localStorage.token;
 
   const handleUnblock = async () => {
-    const response = await axios.get(
-      "api/user/blocked/all",
-      { isApprove: "cancel" },
+    const response = await axios.post(
+      `api/user/banned/${_id}`,
+      { isApprove: "approve" },
       {
         headers: {
           "Content-type": "application/json",
@@ -32,6 +34,8 @@ const BlockUserCard = ({ data, setReload }) => {
         },
       }
     );
+
+    console.log(response.data);
 
     if (response.status === 200) {
       Swal.fire({

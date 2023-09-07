@@ -59,6 +59,7 @@ export const rentiIncomeSlice = createSlice({
       isLoading: true;
     },
     [RentiIncomes.fulfilled]: (state, action) => {
+      console.log(action.payload);
       state.isError = false;
       state.isSuccess = true;
       state.isLoading = false;

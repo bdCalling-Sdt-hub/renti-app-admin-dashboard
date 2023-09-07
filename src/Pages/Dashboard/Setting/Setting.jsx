@@ -29,6 +29,7 @@ const Setting = () => {
   const [thirdInput, setThirdInput] = useState("");
   const [fourthInput, setFourthInput] = useState("");
   const [value, setValue] = useState(1);
+  const [percentageValue, setPercentageValue] = useState();
 
   //set host payment time
 
@@ -59,7 +60,6 @@ const Setting = () => {
     );
 
     Swal.fire("Good job!", response.data.message, "success");
-    setReload((prev) => prev + 1);
     setOpenHostPaymentTime(false);
   };
 
@@ -258,11 +258,37 @@ const Setting = () => {
     console.log(e);
   };
 
-  const setPercentage = () => {
-    alert("tushar");
+  //set percentage
+  const setPercentage = async () => {
+    const response = await axios.post(
+      "api/percentage/create",
+      { content: percentageValue },
+      {
+        headers: {
+          "Content-type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (response.data.message) {
+      Swal.fire("Good job!", response.data.message, "success");
+    }
     setOpenModal(false);
   };
 
+  useEffect(() => {
+    axios
+      .get(`api/percentage/all`, {
+        headers: {
+          "Content-type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => setPercentageValue(res.data?.percentage?.content));
+  }, []);
+
+  //handle change password--------------->
   const handleChangePassword = (values) => {
     let userData = JSON.parse(localStorage.getItem("yourInfo"));
     console.log(userData);
@@ -646,12 +672,12 @@ const Setting = () => {
                 <Radio value={3}>3 Week</Radio>
 
                 <Input
-                  onBlur={handleManualRadioValue}
+                  onChange={handleManualRadioValue}
                   style={{
                     width: 100,
                     marginLeft: 10,
                   }}
-                  defaultValue={value >= 4 ? value : null}
+                  value={value >= 4 ? value : null}
                 />
               </Space>
             </Radio.Group>
@@ -702,6 +728,8 @@ const Setting = () => {
           <Input
             placeholder="set your percentage"
             style={{ height: "50px", margin: "20px 0px" }}
+            onBlur={(e) => setPercentageValue(e.target.value)}
+            defaultValue={percentageValue}
           />
         </Modal>
       </div>

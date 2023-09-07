@@ -9,7 +9,7 @@ const PrivateRoute = ({ children }) => {
 
   if (
     UserData?.approved != false &&
-    UserData?.isBanned == false &&
+    UserData?.isBanned == "false" &&
     UserData?.emailVerified != false &&
     UserData?.role == "admin"
   ) {

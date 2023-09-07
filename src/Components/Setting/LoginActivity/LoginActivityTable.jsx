@@ -113,7 +113,12 @@ const LoginActivityTable = () => {
 
   return (
     <div>
-      <Table columns={columns} dataSource={data} pagination={false} />
+      <Table
+        style={{ userSelect: "none", hover: "none" }}
+        columns={columns}
+        dataSource={data}
+        pagination={false}
+      />
     </div>
   );
 };
