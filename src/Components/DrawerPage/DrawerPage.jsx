@@ -41,7 +41,7 @@ const DrawerPage = (props) => {
     },
   };
 
-  console.log("drawer", props?.userInfoData);
+  console.log("drawer", props?.carKycData);
 
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
@@ -100,9 +100,9 @@ const DrawerPage = (props) => {
           >
             <div>
               <img
-                width={150}
+                width={120}
                 style={{ borderRadius: "5px" }}
-                src={props.userInfoData?.userInfo?.image}
+                src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
                 alt=""
               />
             </div>
@@ -386,7 +386,12 @@ const DrawerPage = (props) => {
         <div>
           <div style={{ display: "flex", gap: "15px" }}>
             <div>
-              <img width={120} src="https://i.imgur.com/JFHjdNr.jpg" alt="" />
+              <img
+                width={120}
+                style={{ borderRadius: "5px" }}
+                src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
+                alt=""
+              />
             </div>
             <div style={{ marginTop: "-7px" }}>
               <p style={{ fontSize: "20px" }}>{props.earningData.username}</p>
@@ -509,9 +514,9 @@ const DrawerPage = (props) => {
           >
             <div>
               <img
-                width={180}
-                style={{ borderRadius: "6px" }}
-                src="https://media.istockphoto.com/id/529278045/photo/working-on-something-great.jpg?s=170667a&w=0&k=20&c=XT9z1yOr2-bw4lLxb7FneBPzqGkFtiKI1PBbnGyYQSs="
+                width={120}
+                style={{ borderRadius: "5px" }}
+                src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
                 alt=""
               />
             </div>
@@ -751,9 +756,9 @@ const DrawerPage = (props) => {
           >
             <div>
               <img
-                width={180}
-                style={{ borderRadius: "6px" }}
-                src="https://cdn.pixabay.com/photo/2012/05/29/00/43/car-49278_640.jpg"
+                width={120}
+                style={{ borderRadius: "5px" }}
+                src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
                 alt=""
               />
             </div>
@@ -937,7 +942,12 @@ const DrawerPage = (props) => {
             }}
           >
             <div>
-              <img width={120} src="https://i.imgur.com/JFHjdNr.jpg" alt="" />
+              <img
+                width={120}
+                style={{ borderRadius: "5px" }}
+                src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
+                alt=""
+              />
             </div>
             <div style={{ marginTop: "-7px" }}>
               <p style={{ fontSize: "20px" }}>
@@ -1061,7 +1071,12 @@ const DrawerPage = (props) => {
             }}
           >
             <div>
-              <img width={120} src="https://i.imgur.com/JFHjdNr.jpg" alt="" />
+              <img
+                width={120}
+                style={{ borderRadius: "5px" }}
+                src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
+                alt=""
+              />
             </div>
             <div style={{ marginTop: "-7px" }}>
               <p style={{ fontSize: "20px" }}>
@@ -1198,6 +1213,157 @@ const DrawerPage = (props) => {
             >
               Print
             </Button>
+          </div>
+        </div>
+      )}
+      {props.hostKycData && (
+        <div>
+          <div
+            style={{
+              display: "flex",
+              gap: "15px",
+              borderBottom: "1px solid gray",
+              paddingBottom: "10px",
+              marginBottom: "15px",
+            }}
+          >
+            <div>
+              <img
+                width={120}
+                style={{ borderRadius: "5px" }}
+                src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
+                alt=""
+              />
+            </div>
+            <div style={{ marginTop: "-7px" }}>
+              <p style={{ fontSize: "20px" }}>{props.hostKycData?.name}</p>
+              <p>INE: SNHRM570818MDFPM10</p>
+              <p>Trip Completes: 45</p>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "2px" }}
+              >
+                <AiFillStar color="#fba91d" />
+                <span>4.8</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <Title level={4}>Host Information</Title>
+          </div>
+          <div
+            style={{
+              margin: "15px 0",
+              borderBottom: "1px solid gray",
+              paddingBottom: "15px",
+            }}
+          >
+            <Row>
+              <Col span={12} style={{ textAlign: "left" }}>
+                <p>Name</p>
+                <p>Email</p>
+                <p>Phone</p>
+                <p>Gender</p>
+                <p>Date of Birth</p>
+                <p>Address</p>
+              </Col>
+              <Col span={12} style={{ textAlign: "right" }}>
+                <p>{props.hostKycData?.name}</p>
+                <p>{props.hostKycData?.email}</p>
+                <p>{props.hostKycData?.contact}</p>
+                <p>{props.hostKycData?.actions?.gender}</p>
+                <p>{props.hostKycData?.actions?.dateOfBirth}</p>
+                <p>{props.hostKycData?.actions?.address}</p>
+              </Col>
+            </Row>
+          </div>
+          <div
+            style={{
+              margin: "15px 0",
+              borderBottom: "1px solid gray",
+              paddingBottom: "15px",
+            }}
+          >
+            <Title level={4}>More Information</Title>
+            <Row>
+              <Col span={12} style={{ textAlign: "left" }}>
+                <p>Joining Date</p>
+                <p>Register Method</p>
+                <p>Last Log In</p>
+              </Col>
+              <Col span={12} style={{ textAlign: "right" }}>
+                <p>
+                  {moment(props.hostKycData?.actions?.createdAt).format(
+                    "YYYY-MM-DD"
+                  )}
+                </p>
+                <p>Email</p>
+                <p>Last Login Date</p>
+              </Col>
+            </Row>
+          </div>
+        </div>
+      )}
+      {props.carKycData && (
+        <div>
+          <div
+            style={{
+              display: "flex",
+              gap: "15px",
+              borderBottom: "1px solid gray",
+              paddingBottom: "10px",
+              marginBottom: "15px",
+            }}
+          >
+            <div>
+              <img
+                width={120}
+                style={{ borderRadius: "5px" }}
+                src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
+                alt=""
+              />
+            </div>
+            <div style={{ marginTop: "-7px" }}>
+              <p style={{ fontSize: "20px" }}>{props.carKycData?.name}</p>
+              <p>License: {props.carKycData?.actions?.carLicenseNumber}</p>
+              <p>Car Model: {props.carKycData?.actions?.carModelName}</p>
+              <p>Gear Type: {props.carKycData?.actions?.gearType}</p>
+              <p>Color: {props.carKycData?.actions?.carColor}</p>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "2px" }}
+              >
+                <AiFillStar color="#fba91d" />
+                <span>4.8</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <Title level={4}>Car Characteristics</Title>
+          </div>
+          <div
+            style={{
+              margin: "15px 0",
+              borderBottom: "1px solid gray",
+              paddingBottom: "15px",
+            }}
+          >
+            <Row>
+              <Col span={12} style={{ textAlign: "left" }}>
+                <p>Number of Doors</p>
+                <p>Seats</p>
+                <p>Total Run</p>
+                <p>Register Date</p>
+                <p>Fuel Capacity</p>
+                <p>Per Hour Rental Fee</p>
+              </Col>
+              <Col span={12} style={{ textAlign: "right" }}>
+                <p> {props.carKycData?.actions?.carDoors}</p>
+                <p> {props.carKycData?.actions?.carSeats}</p>
+                <p> {props.carKycData?.actions?.totalRun}</p>
+                <p> {props.carKycData?.actions?.createdAt}</p>
+                <p> 56L</p>
+                <p> {props.carKycData?.actions?.hourlyRate}</p>
+              </Col>
+            </Row>
           </div>
         </div>
       )}
