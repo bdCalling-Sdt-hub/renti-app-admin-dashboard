@@ -899,9 +899,9 @@ const DrawerPage = (props) => {
                 <p>Total Rental Time</p>
               </Col>
               <Col span={12} style={{ textAlign: "right" }}>
-                <p>Bmw</p>
-                <p>Black</p>
-                <p>AB455152</p>
+                <p>{props.userPaymentData?.actions?.car?.carModelName}</p>
+                <p>{props.userPaymentData?.actions?.car?.carColor}</p>
+                <p>{props.userPaymentData?.actions?.car?.carLicenseNumber}</p>
                 <p>Fahim</p>
                 <p>BDAC287856B</p>
                 <p>Moghbazer</p>
@@ -930,6 +930,158 @@ const DrawerPage = (props) => {
                 <p>{props.userPaymentData?.method}</p>
                 <p>{props.userPaymentData?.time}</p>
                 <p>{props.userPaymentData?.amount}</p>
+              </Col>
+            </Row>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              gap: 20,
+              position: "absolute",
+              bottom: 10,
+            }}
+          >
+            <Button
+              block
+              style={{
+                background: "#000B90",
+                color: "white",
+                height: 50,
+                width: "265px",
+              }}
+            >
+              Download
+            </Button>
+            <Button
+              block
+              style={{
+                background: "#000B90",
+                color: "white",
+                height: 50,
+                width: "265px",
+              }}
+            >
+              Print
+            </Button>
+          </div>
+        </div>
+      )}
+      {props.dashboardEarningData && (
+        <div>
+          <div
+            style={{
+              display: "flex",
+              gap: "15px",
+              borderBottom: "1px solid gray",
+              paddingBottom: "10px",
+              marginBottom: "15px",
+            }}
+          >
+            <div>
+              <img width={120} src="https://i.imgur.com/JFHjdNr.jpg" alt="" />
+            </div>
+            <div style={{ marginTop: "-7px" }}>
+              <p style={{ fontSize: "20px" }}>
+                {props.dashboardEarningData?.username}
+              </p>
+              <p>INE: SNHRM570818MDFPM10</p>
+              <p>Trip Completes: 45</p>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "2px" }}
+              >
+                <AiFillStar color="#fba91d" />
+                <span>4.8</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <Title level={4}>
+              Trip Details{" "}
+              <Badge
+                className="site-badge-count-109"
+                count={"complete"}
+                style={{ backgroundColor: "#E6F6F4", color: "#00A991" }}
+              />
+            </Title>
+          </div>
+          <div
+            style={{
+              margin: "15px 0",
+              borderBottom: "1px solid gray",
+              paddingBottom: "15px",
+            }}
+          >
+            <Row>
+              <Col span={12} style={{ textAlign: "left" }}>
+                <p>Car Model</p>
+                <p>Car Color</p>
+                <p>Car License</p>
+                <p>Host Name</p>
+                <p>Host INE</p>
+                <p>Pickup Location</p>
+                <p>Drop-Off Location</p>
+                <p>Total Rental Time</p>
+              </Col>
+              <Col span={12} style={{ textAlign: "right" }}>
+                <p>
+                  {" "}
+                  {props.dashboardEarningData?.printView?.carId?.carModelName}
+                </p>
+                <p> {props.dashboardEarningData?.printView?.carId?.carColor}</p>
+                <p>
+                  {" "}
+                  {
+                    props.dashboardEarningData?.printView?.carId
+                      ?.carLicenseNumber
+                  }
+                </p>
+                <p>
+                  {" "}
+                  {props.dashboardEarningData?.printView?.carId?.carModelName}
+                </p>
+                <p>
+                  {" "}
+                  {props.dashboardEarningData?.printView?.carId?.carModelName}
+                </p>
+                <p>
+                  {" "}
+                  {props.dashboardEarningData?.printView?.carId?.carModelName}
+                </p>
+                <p>
+                  {" "}
+                  {props.dashboardEarningData?.printView?.carId?.carModelName}
+                </p>
+                <p>
+                  17{" "}
+                  {props.dashboardEarningData?.printView?.carId?.carModelName}
+                </p>
+              </Col>
+            </Row>
+          </div>
+          <div
+            style={{
+              margin: "15px 0",
+              borderBottom: "1px solid gray",
+              paddingBottom: "15px",
+            }}
+          >
+            <Title level={4}>Payment Information</Title>
+            <Row>
+              <Col span={12} style={{ textAlign: "left" }}>
+                <p>Payment By</p>
+                <p>Payment Method</p>
+                <p>Payment Date</p>
+                <p>Total Amount</p>
+              </Col>
+              <Col span={12} style={{ textAlign: "right" }}>
+                <p>{props.dashboardEarningData?.username}</p>
+                <p>{props.dashboardEarningData?.method}</p>
+                <p>
+                  {moment(props.dashboardEarningData?.time).format(
+                    "YYYY-DD-MM"
+                  )}
+                </p>
+                <p>{props.dashboardEarningData?.amount}</p>
               </Col>
             </Row>
           </div>

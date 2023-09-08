@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   CartesianGrid,
   Line,
@@ -8,107 +8,30 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import axios from "../../../../Config";
 
-const data = [
-  {
-    time: "1",
-    CountOfPeople: 50,
-  },
-  {
-    time: "2",
-    CountOfPeople: 20,
-  },
-  {
-    time: "3",
-    CountOfPeople: 40,
-  },
-  {
-    time: "4",
-    CountOfPeople: 30,
-  },
-  {
-    time: "5",
-    CountOfPeople: 60,
-  },
-  {
-    time: "6",
-    CountOfPeople: 100,
-  },
-  {
-    time: "7",
-    CountOfPeople: 25,
-  },
-  {
-    time: "8",
-    CountOfPeople: 50,
-  },
-  {
-    time: "9",
-    CountOfPeople: 60,
-  },
-  {
-    time: "10",
-    CountOfPeople: 20,
-  },
-  {
-    time: "11",
-    CountOfPeople: 50,
-  },
-  {
-    time: "12",
-    CountOfPeople: 60,
-  },
-  {
-    time: "13",
-    CountOfPeople: 5,
-  },
-  {
-    time: "14",
-    CountOfPeople: 30,
-  },
-  {
-    time: "15",
-    CountOfPeople: 50,
-  },
-  {
-    time: "16",
-    CountOfPeople: 20,
-  },
-  {
-    time: "17",
-    CountOfPeople: 75,
-  },
-  {
-    time: "18",
-    CountOfPeople: 45,
-  },
-  {
-    time: "19",
-    CountOfPeople: 65,
-  },
-  {
-    time: "20",
-    CountOfPeople: 78,
-  },
-  {
-    time: "21",
-    CountOfPeople: 99,
-  },
-  {
-    time: "22",
-    CountOfPeople: 26,
-  },
-  {
-    time: "23",
-    CountOfPeople: 52,
-  },
-  {
-    time: "24",
-    CountOfPeople: 66,
-  },
-];
+const token = localStorage.token;
 
 export default function UserPaymentRatioChart() {
+  const [chartData, setChartData] = useState([]);
+  useEffect(() => {
+    axios
+      .get("api/income/user-hourly-payment-list", {
+        headers: {
+          "Content-type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => setChartData(res.data.hourlyPaymentRatios));
+  }, []);
+
+  const data = chartData.map((data) => {
+    return {
+      time: data.hour + 1,
+      totalHourlyPayment: data.totalHourlyPayment,
+    };
+  });
+
   return (
     <div
       style={{
@@ -142,7 +65,7 @@ export default function UserPaymentRatioChart() {
           <Tooltip />
           <Line
             type="linear"
-            dataKey="CountOfPeople"
+            dataKey="totalHourlyPayment"
             stroke="#000b90"
             fill="#8884d8"
           />
