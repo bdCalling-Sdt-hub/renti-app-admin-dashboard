@@ -37,7 +37,7 @@ const DrawerPage = (props) => {
     },
   };
 
-  console.log("drawer", props.rentInfoData);
+  console.log("drawer", props.earningData);
 
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
@@ -361,7 +361,7 @@ const DrawerPage = (props) => {
             </div>
             <div style={{ marginTop: "-7px" }}>
               <p style={{ fontSize: "20px" }}>{props.earningData.username}</p>
-              <p>INE: SNHRM570818MDFPM10</p>
+              <p>INE: siffahim</p>
               <p>Trip Completes:{props.earningData.status.length}</p>
               <div
                 style={{ display: "flex", alignItems: "center", gap: "2px" }}
@@ -383,6 +383,60 @@ const DrawerPage = (props) => {
           </div>
           <div
             style={{
+              margin: "15px 0",
+              borderBottom: "1px solid gray",
+              paddingBottom: "15px",
+            }}
+          >
+            <Row>
+              <Col span={12} style={{ textAlign: "left" }}>
+                <p>Car Model</p>
+                <p>Car Color</p>
+                <p>Car License</p>
+                <p>Host Name</p>
+                <p>Host INE</p>
+                <p>Pickup Location</p>
+                <p>Drop-Off Location</p>
+                <p>Total Rental Time</p>
+              </Col>
+              <Col span={12} style={{ textAlign: "right" }}>
+                <p> {props.earningData?.printView?.carId?.carModelName}</p>
+                <p> {props.earningData?.printView?.carId?.carColor}</p>
+                <p> {props.earningData?.printView?.carId?.carLicenseNumber}</p>
+                <p> {props.earningData?.printView?.carId?.carModelName}</p>
+                <p> {props.earningData?.printView?.carId?.carModelName}</p>
+                <p> {props.earningData?.printView?.carId?.carModelName}</p>
+                <p> {props.earningData?.printView?.carId?.carModelName}</p>
+                <p>{props.earningData?.printView?.carId?.carModelName}</p>
+              </Col>
+            </Row>
+          </div>
+          <div
+            style={{
+              margin: "15px 0",
+              borderBottom: "1px solid gray",
+              paddingBottom: "15px",
+            }}
+          >
+            <Title level={4}>Payment Information</Title>
+            <Row>
+              <Col span={12} style={{ textAlign: "left" }}>
+                <p>Payment By</p>
+                <p>Payment Method</p>
+                <p>Payment Date</p>
+                <p>Total Amount</p>
+              </Col>
+              <Col span={12} style={{ textAlign: "right" }}>
+                <p>{props.earningData?.username}</p>
+                <p>{props.earningData?.method}</p>
+                <p>{moment(props.earningData?.time).format("YYYY-DD-MM")}</p>
+                <p>{props.earningData?.amount}</p>
+              </Col>
+            </Row>
+          </div>
+
+          <div
+            style={{
               display: "flex",
               gap: 20,
               position: "absolute",
@@ -395,7 +449,7 @@ const DrawerPage = (props) => {
                 background: "#000B90",
                 color: "white",
                 height: 50,
-                width: "220px",
+                width: "265px",
               }}
             >
               Download
@@ -406,7 +460,7 @@ const DrawerPage = (props) => {
                 background: "#000B90",
                 color: "white",
                 height: 50,
-                width: "220px",
+                width: "265px",
               }}
             >
               Print

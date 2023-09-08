@@ -19,7 +19,6 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
   let monthly_data;
   if (todayEarning) {
     today_data = todayEarning?.map((item) => {
-      console.log("tushar", item);
       return {
         key: item._id,
         invoiceNo: item._id,
@@ -28,14 +27,13 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
         method: item.paymentData.payment_method_details.card.brand,
         amount: item.paymentData.amount,
         status: item.paymentData.status == "succeeded" ? "Complete" : "Pending",
-        printView: "Button",
+        printView: item,
       };
     });
   }
 
   if (weeklyEarning) {
     weekly_data = weeklyEarning?.map((item) => {
-      console.log("tushar", item);
       return {
         key: item._id,
         invoiceNo: item._id,
@@ -44,14 +42,13 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
         method: item.paymentData.payment_method_details.card.brand,
         amount: item.paymentData.amount,
         status: item.paymentData.status == "succeeded" ? "Complete" : "Pending",
-        printView: "Button",
+        printView: item,
       };
     });
   }
 
   if (monthlyEarning) {
     monthly_data = monthlyEarning?.map((item) => {
-      console.log("tushar", item);
       return {
         key: item._id,
         invoiceNo: item._id,
@@ -60,7 +57,7 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
         method: item.paymentData.payment_method_details.card.brand,
         amount: item.paymentData.amount,
         status: item.paymentData.status == "succeeded" ? "Complete" : "Pending",
-        printView: "Button",
+        printView: item,
       };
     });
   }
@@ -209,7 +206,7 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
         placement="right"
         onClose={closeDrawer}
         open={isDrawerVisible}
-        width={500}
+        width={600}
       >
         {earningData && <DrawerPage earningData={earningData} />}
       </Drawer>
