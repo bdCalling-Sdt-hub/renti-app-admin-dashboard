@@ -1,6 +1,6 @@
 import { SearchOutlined } from "@ant-design/icons";
 import { Button, Col, Input, Row } from "antd";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RentiIncomes } from "../../../ReduxSlices/RentiIncomeSlice";
 import IncomeRatioChart from "./IncomeRatioChart";
@@ -8,24 +8,42 @@ import RentiIncomeTable from "./RentIncomeTable";
 import "./RentisIncome.css";
 function RentisIncome() {
   const dispatch = useDispatch();
+  const [searchData, setSearchData] = useState("");
   const { rentiTotalIncome, rentiTotalPaid } = useSelector(
     (state) => state.RentiIncomes
   );
 
   useEffect(() => {
     const data = {
+      search: searchData,
       page: 1,
-      limit: 1,
+      limit: 2,
     };
-    dispatch(RentiIncomes(data));
-  }, []);
+    if (searchData === "") {
+      dispatch(RentiIncomes(data));
+    }
+  }, [searchData]);
 
   const handlePagination = (page) => {
     const data = {
+      search: searchData,
       page: page,
-      limit: 1,
+      limit: 2,
     };
-    dispatch(RentiIncomes(data));
+    if (!searchData) {
+      dispatch(RentiIncomes(data));
+    }
+  };
+
+  const handleRentiIncomeSearch = (page) => {
+    const data = {
+      search: searchData,
+      page: page,
+      limit: 2,
+    };
+    if (searchData) {
+      dispatch(RentiIncomes(data));
+    }
   };
 
   return (
@@ -44,10 +62,12 @@ function RentisIncome() {
           <div className="" style={{ display: "flex", gap: "15px" }}>
             <Input
               size="large"
-              placeholder="Search by name/email/phone"
+              placeholder="Search by Trip No"
+              onChange={(e) => setSearchData(e.target.value)}
               prefix={<SearchOutlined style={{ color: "#cccccc" }} />}
             />
             <Button
+              onClick={handleRentiIncomeSearch}
               style={{
                 height: "50px",
                 width: "300px",
@@ -134,7 +154,10 @@ function RentisIncome() {
 
       <Row>
         <Col lg={{ span: 24 }}>
-          <RentiIncomeTable handlePagination={handlePagination} />
+          <RentiIncomeTable
+            handlePagination={handlePagination}
+            handleRentiIncomeSearch={handleRentiIncomeSearch}
+          />
         </Col>
       </Row>
     </div>

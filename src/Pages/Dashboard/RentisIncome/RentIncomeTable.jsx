@@ -8,9 +8,9 @@ import Print from "../../../icons/Print";
 import Save from "../../../icons/Save";
 const { Title, Text } = Typography;
 
-const RentiIncomeTable = ({ handlePagination }) => {
+const RentiIncomeTable = ({ handlePagination, handleRentiIncomeSearch }) => {
   const [currentPage, setCurrentPage] = useState(1); // Current page number
-  const pageSize = 1;
+  const pageSize = 2;
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [invoiceData, setInvoiceData] = useState(null);
   const { rentiIncomeList, pagination } = useSelector(
@@ -96,6 +96,7 @@ const RentiIncomeTable = ({ handlePagination }) => {
   const handlePageChange = (page) => {
     setCurrentPage(page);
     handlePagination(page);
+    handleRentiIncomeSearch(page);
   };
 
   return (

@@ -22,13 +22,13 @@ export default function UserPaymentRatioChart() {
           authorization: `Bearer ${token}`,
         },
       })
-      .then((res) => setChartData(res.data.hourlyPaymentRatios));
+      .then((res) => setChartData(res.data.hourlyPaymentCounts));
   }, []);
 
   const data = chartData.map((data) => {
     return {
-      time: data.hour + 1,
-      totalHourlyPayment: data.totalHourlyPayment,
+      time: data.hour,
+      totalHourlyPayment: data.userPaymentCounts?.length,
     };
   });
 
