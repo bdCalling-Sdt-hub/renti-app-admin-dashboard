@@ -37,7 +37,7 @@ const DrawerPage = (props) => {
     },
   };
 
-  console.log("drawer", props.userPaymentData);
+  console.log("drawer", props.rentInfoData);
 
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
@@ -801,10 +801,10 @@ const DrawerPage = (props) => {
                 <p>Address</p>
               </Col>
               <Col span={12} style={{ textAlign: "right" }}>
-                <p>Fahim</p>
-                <p>fahim25@gmail.com</p>
-                <p>01465464598</p>
-                <p>Moghbazer</p>
+                <p>{props.rentInfoData?.actionData?.hostId?.fullName}</p>
+                <p>{props.rentInfoData?.actionData?.hostId?.email}</p>
+                <p>{props.rentInfoData?.actionData?.hostId?.phoneNumber}</p>
+                <p>{props.rentInfoData?.actionData?.hostId?.address}</p>
               </Col>
             </Row>
           </div>
