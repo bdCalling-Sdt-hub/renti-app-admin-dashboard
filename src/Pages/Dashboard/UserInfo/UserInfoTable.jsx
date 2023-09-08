@@ -8,7 +8,11 @@ import Print from "../../../icons/Print";
 
 const { Title, Text } = Typography;
 
-const UserInfoTable = ({ userDataGetByPagination, userDataGetBySearch }) => {
+const UserInfoTable = ({
+  userDataGetByPagination,
+  userDataGetBySearch,
+  setReload,
+}) => {
   const [rentData, setRentData] = useState([]); // Data fetched from the server
   const [totalItems, setTotalItems] = useState(0); // Total number of items
   const [currentPage, setCurrentPage] = useState(1); // Current page number
@@ -32,12 +36,15 @@ const UserInfoTable = ({ userDataGetByPagination, userDataGetBySearch }) => {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    console.log(currentPage);
     userDataGetByPagination(page);
     userDataGetBySearch(page);
   };
 
-  const data = userInfoWithTripAmount?.map((item) => {
+  const withoutBlockUser = userInfoWithTripAmount.filter(
+    (data) => data.user.isBanned != "true"
+  );
+
+  const data = withoutBlockUser.map((item) => {
     return {
       key: item?.user._id,
       name: item?.user.fullName,
@@ -146,7 +153,12 @@ const UserInfoTable = ({ userDataGetByPagination, userDataGetBySearch }) => {
           </Space>
         }
       >
-        {userInfoData && <DrawerPage userInfoData={userInfoData} />}
+        {userInfoData && (
+          <DrawerPage
+            userInfoData={userInfoData}
+            setUserInfoReload={setReload}
+          />
+        )}
       </Drawer>
     </>
   );

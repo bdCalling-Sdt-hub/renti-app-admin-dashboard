@@ -1,9 +1,11 @@
 import { SearchOutlined } from "@ant-design/icons";
-import { Button, Input, Row } from "antd";
+import { Button, Input, Row, Typography } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import HostRequestCard from "../../../Components/HostRequestCard/HostRequestCard";
 import { HostsData } from "../../../ReduxSlices/HostsSlice";
+
+const { Text } = Typography;
 
 const HostRequest = () => {
   const { hostsData, pagination } = useSelector((state) => state.hostsData);
@@ -43,17 +45,21 @@ const HostRequest = () => {
     }
   }, [autoReload, searchData]);
 
+  console.log(hostsData);
+
   const items = hostsData.filter(
-    (hostRequest) => hostRequest.host.approved == false
+    (hostRequest) =>
+      hostRequest.host.approved === false &&
+      hostRequest.host.isBanned !== "trash"
   );
 
   return (
     <div style={{ padding: "0px 60px" }}>
-      <h2
+      <Text
         style={{ fontSize: "25px", marginBottom: "10px", fontWeight: "normal" }}
       >
         Host Request
-      </h2>
+      </Text>
       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
         <Input
           onChange={(e) => setSearchData(e.target.value)}

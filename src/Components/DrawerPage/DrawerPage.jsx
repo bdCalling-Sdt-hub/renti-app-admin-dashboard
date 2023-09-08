@@ -4,11 +4,15 @@ import { Badge, Button, Col, Form, Input, Row, Select, Typography } from "antd";
 import moment from "moment";
 import React from "react";
 import { AiFillStar } from "react-icons/ai";
+import Swal from "sweetalert2";
+import axios from "../../../Config";
 import img from "../../Images/1.png";
 import cardImg from "../../Images/Cards.png";
 const { Title } = Typography;
 
 const { Option } = Select;
+
+const token = localStorage.token;
 
 const DrawerPage = (props) => {
   const style = {
@@ -37,7 +41,7 @@ const DrawerPage = (props) => {
     },
   };
 
-  console.log("drawer", props.earningData);
+  console.log("drawer", props?.userInfoData);
 
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
@@ -55,6 +59,30 @@ const DrawerPage = (props) => {
 
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
+  };
+
+  const handleBlockUser = () => {
+    axios
+      .post(
+        `api/user/banned/${props.userInfoData?.key}`,
+        { isApprove: "cancel" },
+        {
+          headers: {
+            "Content-type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        if (res.status === 200) {
+          Swal.fire({
+            icon: "success",
+            title: "Wow!",
+            text: "User Block successfully",
+          });
+        }
+        props?.setUserInfoReload((prev) => prev + 1);
+      });
   };
 
   return (
@@ -159,6 +187,7 @@ const DrawerPage = (props) => {
           >
             <Button
               block
+              onClick={handleBlockUser}
               style={{
                 border: "1px solid red",
                 color: "red",

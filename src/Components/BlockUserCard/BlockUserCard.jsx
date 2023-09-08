@@ -47,6 +47,30 @@ const BlockUserCard = ({ data, setReload }) => {
     }
   };
 
+  const handleBlockCancel = () => {
+    axios
+      .post(
+        `api/user/banned/${_id}`,
+        { isApprove: "trash" },
+        {
+          headers: {
+            "Content-type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        if (res.status === 200) {
+          Swal.fire({
+            icon: "success",
+            title: "Wow!",
+            text: "User cancel successfully",
+          });
+          setReload((prev) => prev + 1);
+        }
+      });
+  };
+
   return (
     <Col span={8}>
       <div style={style.cardStyle}>
@@ -56,6 +80,7 @@ const BlockUserCard = ({ data, setReload }) => {
         <p style={{ margin: "8px 0" }}>{phoneNumber}</p>
         <div>
           <Button
+            onClick={handleBlockCancel}
             className={style.cardBtn}
             style={{
               background: "#D7263D",
