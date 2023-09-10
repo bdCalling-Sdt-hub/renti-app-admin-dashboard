@@ -27,9 +27,10 @@ export const RentiIncomes = createAsyncThunk(
           },
         }
       );
+      console.log(response.data)
 
       return response.data;
-    } catch (err) {
+    } catch (error) {
       const message =
         (error.response &&
           error.response.data &&
