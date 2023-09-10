@@ -12,6 +12,25 @@ const UserKycTable = ({ userDataGetByPagination, userDataGetBySearch }) => {
   const pageSize = 2;
   const { UserData, pagination } = useSelector((state) => state.UserInfoData);
 
+  const [isDrawerVisible, setIsDrawerVisible] = useState(false);
+  const [carKycData, setCarKycData] = useState();
+
+  const showDrawer = (record) => {
+    setIsDrawerVisible(true);
+    setCarKycData(record);
+  };
+
+  const closeDrawer = () => {
+    setIsDrawerVisible(false);
+    setCarKycData(null);
+  };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    console.log(currentPage);
+    userDataGetByPagination(page), userDataGetBySearch(page);
+  };
+
   const data = UserData?.map((item) => {
     return {
       name: item.user.fullName,
@@ -32,6 +51,7 @@ const UserKycTable = ({ userDataGetByPagination, userDataGetBySearch }) => {
           {item.user.approved == true ? "Approve" : "Cencel"}
         </div>
       ),
+      actions: item.user,
     };
   });
 
@@ -86,25 +106,6 @@ const UserKycTable = ({ userDataGetByPagination, userDataGetBySearch }) => {
     },
   ];
 
-  const [isDrawerVisible, setIsDrawerVisible] = useState(false);
-  const [hostData, setHostData] = useState(null);
-
-  const showDrawer = (record) => {
-    setIsDrawerVisible(true);
-    setHostData(record);
-  };
-
-  const closeDrawer = () => {
-    setIsDrawerVisible(false);
-    setHostData(null);
-  };
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-    console.log(currentPage);
-    userDataGetByPagination(page), userDataGetBySearch(page);
-  };
-
   return (
     <div>
       <Table
@@ -129,7 +130,7 @@ const UserKycTable = ({ userDataGetByPagination, userDataGetBySearch }) => {
           >
             <Typography>
               <Title level={5} strong>
-                Invoice# Trip No.{hostData?.tripNo}
+                Invoice# Trip No.{carKycData?.tripNo}
               </Title>
               <Text>See all information about the trip no. 68656</Text>
             </Typography>
@@ -144,7 +145,7 @@ const UserKycTable = ({ userDataGetByPagination, userDataGetBySearch }) => {
         open={isDrawerVisible}
         width={600}
       >
-        {hostData && <DrawerPage hostData={hostData} />}
+        {carKycData && <DrawerPage carKycData={carKycData} />}
       </Drawer>
     </div>
   );

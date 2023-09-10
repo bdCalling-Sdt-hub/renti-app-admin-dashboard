@@ -8,7 +8,7 @@ import {
   Switch,
   Typography,
 } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LiaAngleRightSolid } from "react-icons/lia";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -29,10 +29,50 @@ const Setting = () => {
   const [thirdInput, setThirdInput] = useState("");
   const [fourthInput, setFourthInput] = useState("");
   const [value, setValue] = useState(1);
-  const handleSetPaymentTime = (e) => {
-    console.log("radio checked", e.target.value);
+  const [percentageValue, setPercentageValue] = useState();
+
+  //set host payment time
+
+  //manual writing get value
+  const handleManualRadioValue = (e) => {
     setValue(e.target.value);
   };
+
+  //select get value
+  const handleSelectRadioValue = (e) => {
+    setValue(e.target.value);
+  };
+
+  const token = localStorage.token;
+
+  const handleSetPaymentTime = async () => {
+    const time = parseInt(value);
+
+    const response = await axios.post(
+      `api/host-payment-time/create`,
+      { label: time },
+      {
+        headers: {
+          "Content-type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    Swal.fire("Good job!", response.data.message, "success");
+    setOpenHostPaymentTime(false);
+  };
+
+  useEffect(() => {
+    axios
+      .get(`api/host-payment-time/all`, {
+        headers: {
+          "Content-type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => setValue(parseInt(res.data?.labelData?.label)));
+  }, []);
 
   const sendVerifyOtp = () => {
     //setUpdatePassword(true), setVerify(false)
@@ -218,11 +258,37 @@ const Setting = () => {
     console.log(e);
   };
 
-  const setPercentage = () => {
-    alert("tushar");
+  //set percentage
+  const setPercentage = async () => {
+    const response = await axios.post(
+      "api/percentage/create",
+      { content: percentageValue },
+      {
+        headers: {
+          "Content-type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (response.data.message) {
+      Swal.fire("Good job!", response.data.message, "success");
+    }
     setOpenModal(false);
   };
 
+  useEffect(() => {
+    axios
+      .get(`api/percentage/all`, {
+        headers: {
+          "Content-type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => setPercentageValue(res.data?.percentage?.content));
+  }, []);
+
+  //handle change password--------------->
   const handleChangePassword = (values) => {
     let userData = JSON.parse(localStorage.getItem("yourInfo"));
     console.log(userData);
@@ -599,25 +665,24 @@ const Setting = () => {
               paddingBottom: "10px",
             }}
           >
-            <Radio.Group onChange={handleSetPaymentTime} value={value}>
+            <Radio.Group onChange={handleSelectRadioValue} value={value}>
               <Space direction="vertical">
                 <Radio value={1}>1 Week</Radio>
                 <Radio value={2}>2 Week</Radio>
                 <Radio value={3}>3 Week</Radio>
-                <Radio value={4}>
-                  More...
-                  {value === 4 ? (
-                    <Input
-                      style={{
-                        width: 100,
-                        marginLeft: 10,
-                      }}
-                    />
-                  ) : null}
-                </Radio>
+
+                <Input
+                  onChange={handleManualRadioValue}
+                  style={{
+                    width: 100,
+                    marginLeft: 10,
+                  }}
+                  value={value >= 4 ? value : null}
+                />
               </Space>
             </Radio.Group>
             <Button
+              onClick={handleSetPaymentTime}
               style={{
                 background: "#000b92",
                 color: "#fff",
@@ -663,6 +728,8 @@ const Setting = () => {
           <Input
             placeholder="set your percentage"
             style={{ height: "50px", margin: "20px 0px" }}
+            onBlur={(e) => setPercentageValue(e.target.value)}
+            defaultValue={percentageValue}
           />
         </Modal>
       </div>

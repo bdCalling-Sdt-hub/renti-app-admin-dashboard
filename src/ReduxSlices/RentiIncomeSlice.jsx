@@ -17,9 +17,10 @@ const token = localStorage.token;
 export const RentiIncomes = createAsyncThunk(
   "RentiIncomes",
   async (value, thunkApi) => {
+    console.log(value.search);
     try {
       const response = await axios.get(
-        `api/income/renti-payment-list?page=${value?.page}&limit=${value?.limit}`,
+        `api/income/renti-payment-list?page=${value?.page}&limit=${value?.limit}&rentTripNumber=${value.search}`,
         {
           headers: {
             "Content-type": "application/json",
@@ -60,6 +61,7 @@ export const rentiIncomeSlice = createSlice({
       isLoading: true;
     },
     [RentiIncomes.fulfilled]: (state, action) => {
+      console.log(action.payload);
       state.isError = false;
       state.isSuccess = true;
       state.isLoading = false;

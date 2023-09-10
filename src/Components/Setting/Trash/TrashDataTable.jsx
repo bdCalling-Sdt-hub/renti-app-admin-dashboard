@@ -11,7 +11,7 @@ const TrashDataTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 2;
 
-  const bannedUser = allUsers.filter((user) => user.isBanned === true);
+  const bannedUser = allUsers.filter((user) => user.isBanned === "trash");
 
   const data = bannedUser.map((filterUser) => {
     return {
@@ -20,8 +20,17 @@ const TrashDataTable = () => {
       contact: filterUser.phoneNumber,
       joiningDate: moment(filterUser.createdAt).format("YYYY-MM-DD"),
       ine: 20,
+      actions: filterUser,
     };
   });
+
+  const trashDataDelete = (id) => {
+    console.log("DeleteTrash", id);
+  };
+
+  const trashDataRestore = (id) => {
+    console.log("RestoreTrash", id);
+  };
 
   const columns = [
     {
@@ -59,10 +68,17 @@ const TrashDataTable = () => {
       responsive: ["lg"],
       render: (_, record) => (
         <div style={{ textAlign: "center" }}>
-          <Button type="text" style={{ marginRight: "10px" }}>
+          <Button
+            onClick={() => trashDataDelete(record.actions._id)}
+            type="text"
+            style={{ marginRight: "10px" }}
+          >
             <RiDeleteBin5Line style={{ fontSize: "25px", color: "#fb6a6a" }} />
           </Button>
-          <Button type="text">
+          <Button
+            onClick={() => trashDataRestore(record.actions._id)}
+            type="text"
+          >
             <MdRestore style={{ fontSize: "25px", color: "#999999" }} />
           </Button>
         </div>

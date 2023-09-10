@@ -14,7 +14,6 @@ let token = localStorage.getItem("token");
 export const UserInformationData = createAsyncThunk(
   "UserInfo",
   async (value, thunkAPI) => {
-    console.log("user info page number", value);
     try {
       let response = await axios.get(
         `/api/user/all-user?limit=2&page=${value.page}&search=${value.search}`,
@@ -25,7 +24,6 @@ export const UserInformationData = createAsyncThunk(
           },
         }
       );
-      console.log("user info data", response.data);
       return response.data;
     } catch (error) {
       const message =
@@ -59,8 +57,8 @@ export const UserInformationSlice = createSlice({
       state.Loading = false;
       state.Success = true;
       state.Error = false;
-      (state.userInfoWithTripAmount = action.payload.usersWithTripAmount),
-        (state.pagination = action.payload.pagination);
+      state.userInfoWithTripAmount = action.payload.usersWithTripAmount;
+      state.pagination = action.payload.pagination;
     },
     [UserInformationData.rejected]: (state, action) => {
       state.Loading = false;

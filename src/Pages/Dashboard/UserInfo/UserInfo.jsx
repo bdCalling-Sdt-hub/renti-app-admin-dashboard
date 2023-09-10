@@ -6,6 +6,7 @@ import { UserInformationData } from "../../../ReduxSlices/UserInformationSlice";
 import UserInfoTable from "./UserInfoTable";
 function UserInfo() {
   const [searchData, setSearchData] = useState("");
+  const [reload, setReload] = useState(1);
 
   const dispatch = useDispatch();
 
@@ -17,7 +18,7 @@ function UserInfo() {
     if (searchData === "") {
       dispatch(UserInformationData(data));
     }
-  }, [searchData]);
+  }, [searchData, reload]);
 
   const userDataGetByPagination = (page) => {
     let data = {
@@ -91,6 +92,7 @@ function UserInfo() {
           <UserInfoTable
             userDataGetByPagination={userDataGetByPagination}
             userDataGetBySearch={userDataGetBySearch}
+            setReload={setReload}
           />
         </Col>
       </Row>

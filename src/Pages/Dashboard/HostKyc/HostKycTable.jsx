@@ -11,9 +11,26 @@ const HostKycTable = ({ hostDataGetByPagination, hostDataGetBySearch }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 2;
   const { HostData, pagination } = useSelector((state) => state.HostInfoData);
+  const [hostKycData, setHostKycData] = useState();
+  const [isDrawerVisible, setIsDrawerVisible] = useState(false);
+
+  const showDrawer = (record) => {
+    setIsDrawerVisible(true);
+    setHostKycData(record);
+  };
+
+  const closeDrawer = () => {
+    setIsDrawerVisible(false);
+    setHostKycData(null);
+  };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    hostDataGetByPagination(page);
+    hostDataGetBySearch(page);
+  };
 
   const data = HostData?.map((item) => {
-    console.log("jsjsjsjsjsj", item?.host.KYC);
     return {
       name: item.host.fullName,
       email: item.host.email,
@@ -33,6 +50,7 @@ const HostKycTable = ({ hostDataGetByPagination, hostDataGetBySearch }) => {
           {item.host.approved == true ? "Approve" : "Cencel"}
         </div>
       ),
+      actions: item.host,
     };
   });
 
@@ -87,26 +105,6 @@ const HostKycTable = ({ hostDataGetByPagination, hostDataGetBySearch }) => {
     },
   ];
 
-  const [isDrawerVisible, setIsDrawerVisible] = useState(false);
-  const [hostData, setHostData] = useState(null);
-
-  const showDrawer = (record) => {
-    setIsDrawerVisible(true);
-    setHostData(record);
-  };
-
-  const closeDrawer = () => {
-    setIsDrawerVisible(false);
-    setHostData(null);
-  };
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-    console.log(currentPage);
-    hostDataGetByPagination(page);
-    hostDataGetBySearch(page);
-  };
-
   return (
     <div>
       <Table
@@ -131,7 +129,7 @@ const HostKycTable = ({ hostDataGetByPagination, hostDataGetBySearch }) => {
           >
             <Typography>
               <Title level={5} strong>
-                Invoice# Trip No.{hostData?.tripNo}
+                Invoice# Trip No
               </Title>
               <Text>See all information about the trip no. 68656</Text>
             </Typography>
@@ -146,7 +144,7 @@ const HostKycTable = ({ hostDataGetByPagination, hostDataGetBySearch }) => {
         open={isDrawerVisible}
         width={600}
       >
-        {hostData && <DrawerPage hostData={hostData} />}
+        {hostKycData && <DrawerPage hostKycData={hostKycData} />}
       </Drawer>
     </div>
   );

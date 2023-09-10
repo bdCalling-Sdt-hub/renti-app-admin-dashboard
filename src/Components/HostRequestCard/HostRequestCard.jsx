@@ -52,7 +52,7 @@ const HostRequestCard = ({ cardData, setAutoReload }) => {
     axios
       .post(
         `api/user/banned/${_id}`,
-        { isApprove: "cancel" },
+        { isApprove: "trash" },
         {
           headers: {
             "Content-type": "application/json",
@@ -61,7 +61,14 @@ const HostRequestCard = ({ cardData, setAutoReload }) => {
         }
       )
       .then((res) => {
-        console.log(res);
+        if (res.status === 200) {
+          Swal.fire({
+            icon: "success",
+            title: "Wow!",
+            text: "User cancel successfully",
+          });
+          setAutoReload((prev) => prev + 1);
+        }
       });
   };
 

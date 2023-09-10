@@ -5,7 +5,9 @@ import axios from "../../../Config";
 import img from "../../Images/Photo.png";
 
 const BlockUserCard = ({ data, setReload }) => {
-  const { fullName, email, phoneNumber, approved } = data;
+  const { _id, fullName, email, phoneNumber, approved } = data;
+
+  console.log(_id);
 
   const style = {
     cardStyle: {
@@ -22,9 +24,9 @@ const BlockUserCard = ({ data, setReload }) => {
   const token = localStorage.token;
 
   const handleUnblock = async () => {
-    const response = await axios.get(
-      "api/user/blocked/all",
-      { isApprove: "cancel" },
+    const response = await axios.post(
+      `api/user/banned/${_id}`,
+      { isApprove: "approve" },
       {
         headers: {
           "Content-type": "application/json",
@@ -32,6 +34,8 @@ const BlockUserCard = ({ data, setReload }) => {
         },
       }
     );
+
+    console.log(response.data);
 
     if (response.status === 200) {
       Swal.fire({
@@ -43,6 +47,30 @@ const BlockUserCard = ({ data, setReload }) => {
     }
   };
 
+  const handleBlockCancel = () => {
+    axios
+      .post(
+        `api/user/banned/${_id}`,
+        { isApprove: "trash" },
+        {
+          headers: {
+            "Content-type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        if (res.status === 200) {
+          Swal.fire({
+            icon: "success",
+            title: "Wow!",
+            text: "User cancel successfully",
+          });
+          setReload((prev) => prev + 1);
+        }
+      });
+  };
+
   return (
     <Col span={8}>
       <div style={style.cardStyle}>
@@ -52,6 +80,7 @@ const BlockUserCard = ({ data, setReload }) => {
         <p style={{ margin: "8px 0" }}>{phoneNumber}</p>
         <div>
           <Button
+            onClick={handleBlockCancel}
             className={style.cardBtn}
             style={{
               background: "#D7263D",

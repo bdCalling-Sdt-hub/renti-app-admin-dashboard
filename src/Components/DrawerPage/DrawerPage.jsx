@@ -4,11 +4,15 @@ import { Badge, Button, Col, Form, Input, Row, Select, Typography } from "antd";
 import moment from "moment";
 import React from "react";
 import { AiFillStar } from "react-icons/ai";
+import Swal from "sweetalert2";
+import axios from "../../../Config";
 import img from "../../Images/1.png";
 import cardImg from "../../Images/Cards.png";
 const { Title } = Typography;
 
 const { Option } = Select;
+
+const token = localStorage.token;
 
 const DrawerPage = (props) => {
   const style = {
@@ -37,7 +41,7 @@ const DrawerPage = (props) => {
     },
   };
 
-  console.log("drawer", props.userPaymentData);
+  console.log("drawer", props?.carKycData);
 
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
@@ -57,6 +61,30 @@ const DrawerPage = (props) => {
     console.log("Received values of form: ", values);
   };
 
+  const handleBlockUser = () => {
+    axios
+      .post(
+        `api/user/banned/${props.userInfoData?.key}`,
+        { isApprove: "cancel" },
+        {
+          headers: {
+            "Content-type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        if (res.status === 200) {
+          Swal.fire({
+            icon: "success",
+            title: "Wow!",
+            text: "User Block successfully",
+          });
+        }
+        props?.setUserInfoReload((prev) => prev + 1);
+      });
+  };
+
   return (
     <>
       {props.userInfoData && (
@@ -72,9 +100,9 @@ const DrawerPage = (props) => {
           >
             <div>
               <img
-                width={150}
+                width={120}
                 style={{ borderRadius: "5px" }}
-                src={props.userInfoData?.userInfo?.image}
+                src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
                 alt=""
               />
             </div>
@@ -159,6 +187,7 @@ const DrawerPage = (props) => {
           >
             <Button
               block
+              onClick={handleBlockUser}
               style={{
                 border: "1px solid red",
                 color: "red",
@@ -357,11 +386,16 @@ const DrawerPage = (props) => {
         <div>
           <div style={{ display: "flex", gap: "15px" }}>
             <div>
-              <img width={120} src="https://i.imgur.com/JFHjdNr.jpg" alt="" />
+              <img
+                width={120}
+                style={{ borderRadius: "5px" }}
+                src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
+                alt=""
+              />
             </div>
             <div style={{ marginTop: "-7px" }}>
               <p style={{ fontSize: "20px" }}>{props.earningData.username}</p>
-              <p>INE: SNHRM570818MDFPM10</p>
+              <p>INE: siffahim</p>
               <p>Trip Completes:{props.earningData.status.length}</p>
               <div
                 style={{ display: "flex", alignItems: "center", gap: "2px" }}
@@ -383,6 +417,60 @@ const DrawerPage = (props) => {
           </div>
           <div
             style={{
+              margin: "15px 0",
+              borderBottom: "1px solid gray",
+              paddingBottom: "15px",
+            }}
+          >
+            <Row>
+              <Col span={12} style={{ textAlign: "left" }}>
+                <p>Car Model</p>
+                <p>Car Color</p>
+                <p>Car License</p>
+                <p>Host Name</p>
+                <p>Host INE</p>
+                <p>Pickup Location</p>
+                <p>Drop-Off Location</p>
+                <p>Total Rental Time</p>
+              </Col>
+              <Col span={12} style={{ textAlign: "right" }}>
+                <p> {props.earningData?.printView?.carId?.carModelName}</p>
+                <p> {props.earningData?.printView?.carId?.carColor}</p>
+                <p> {props.earningData?.printView?.carId?.carLicenseNumber}</p>
+                <p> {props.earningData?.printView?.carId?.carModelName}</p>
+                <p> {props.earningData?.printView?.carId?.carModelName}</p>
+                <p> {props.earningData?.printView?.carId?.carModelName}</p>
+                <p> {props.earningData?.printView?.carId?.carModelName}</p>
+                <p>{props.earningData?.printView?.carId?.carModelName}</p>
+              </Col>
+            </Row>
+          </div>
+          <div
+            style={{
+              margin: "15px 0",
+              borderBottom: "1px solid gray",
+              paddingBottom: "15px",
+            }}
+          >
+            <Title level={4}>Payment Information</Title>
+            <Row>
+              <Col span={12} style={{ textAlign: "left" }}>
+                <p>Payment By</p>
+                <p>Payment Method</p>
+                <p>Payment Date</p>
+                <p>Total Amount</p>
+              </Col>
+              <Col span={12} style={{ textAlign: "right" }}>
+                <p>{props.earningData?.username}</p>
+                <p>{props.earningData?.method}</p>
+                <p>{moment(props.earningData?.time).format("YYYY-DD-MM")}</p>
+                <p>{props.earningData?.amount}</p>
+              </Col>
+            </Row>
+          </div>
+
+          <div
+            style={{
               display: "flex",
               gap: 20,
               position: "absolute",
@@ -395,7 +483,7 @@ const DrawerPage = (props) => {
                 background: "#000B90",
                 color: "white",
                 height: 50,
-                width: "220px",
+                width: "265px",
               }}
             >
               Download
@@ -406,7 +494,7 @@ const DrawerPage = (props) => {
                 background: "#000B90",
                 color: "white",
                 height: 50,
-                width: "220px",
+                width: "265px",
               }}
             >
               Print
@@ -426,9 +514,9 @@ const DrawerPage = (props) => {
           >
             <div>
               <img
-                width={180}
-                style={{ borderRadius: "6px" }}
-                src="https://media.istockphoto.com/id/529278045/photo/working-on-something-great.jpg?s=170667a&w=0&k=20&c=XT9z1yOr2-bw4lLxb7FneBPzqGkFtiKI1PBbnGyYQSs="
+                width={120}
+                style={{ borderRadius: "5px" }}
+                src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
                 alt=""
               />
             </div>
@@ -668,9 +756,9 @@ const DrawerPage = (props) => {
           >
             <div>
               <img
-                width={180}
-                style={{ borderRadius: "6px" }}
-                src="https://cdn.pixabay.com/photo/2012/05/29/00/43/car-49278_640.jpg"
+                width={120}
+                style={{ borderRadius: "5px" }}
+                src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
                 alt=""
               />
             </div>
@@ -801,10 +889,10 @@ const DrawerPage = (props) => {
                 <p>Address</p>
               </Col>
               <Col span={12} style={{ textAlign: "right" }}>
-                <p>Fahim</p>
-                <p>fahim25@gmail.com</p>
-                <p>01465464598</p>
-                <p>Moghbazer</p>
+                <p>{props.rentInfoData?.actionData?.hostId?.fullName}</p>
+                <p>{props.rentInfoData?.actionData?.hostId?.email}</p>
+                <p>{props.rentInfoData?.actionData?.hostId?.phoneNumber}</p>
+                <p>{props.rentInfoData?.actionData?.hostId?.address}</p>
               </Col>
             </Row>
           </div>
@@ -854,7 +942,12 @@ const DrawerPage = (props) => {
             }}
           >
             <div>
-              <img width={120} src="https://i.imgur.com/JFHjdNr.jpg" alt="" />
+              <img
+                width={120}
+                style={{ borderRadius: "5px" }}
+                src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
+                alt=""
+              />
             </div>
             <div style={{ marginTop: "-7px" }}>
               <p style={{ fontSize: "20px" }}>
@@ -899,9 +992,9 @@ const DrawerPage = (props) => {
                 <p>Total Rental Time</p>
               </Col>
               <Col span={12} style={{ textAlign: "right" }}>
-                <p>Bmw</p>
-                <p>Black</p>
-                <p>AB455152</p>
+                <p>{props.userPaymentData?.actions?.car?.carModelName}</p>
+                <p>{props.userPaymentData?.actions?.car?.carColor}</p>
+                <p>{props.userPaymentData?.actions?.car?.carLicenseNumber}</p>
                 <p>Fahim</p>
                 <p>BDAC287856B</p>
                 <p>Moghbazer</p>
@@ -963,6 +1056,314 @@ const DrawerPage = (props) => {
             >
               Print
             </Button>
+          </div>
+        </div>
+      )}
+      {props.dashboardEarningData && (
+        <div>
+          <div
+            style={{
+              display: "flex",
+              gap: "15px",
+              borderBottom: "1px solid gray",
+              paddingBottom: "10px",
+              marginBottom: "15px",
+            }}
+          >
+            <div>
+              <img
+                width={120}
+                style={{ borderRadius: "5px" }}
+                src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
+                alt=""
+              />
+            </div>
+            <div style={{ marginTop: "-7px" }}>
+              <p style={{ fontSize: "20px" }}>
+                {props.dashboardEarningData?.username}
+              </p>
+              <p>INE: SNHRM570818MDFPM10</p>
+              <p>Trip Completes: 45</p>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "2px" }}
+              >
+                <AiFillStar color="#fba91d" />
+                <span>4.8</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <Title level={4}>
+              Trip Details{" "}
+              <Badge
+                className="site-badge-count-109"
+                count={"complete"}
+                style={{ backgroundColor: "#E6F6F4", color: "#00A991" }}
+              />
+            </Title>
+          </div>
+          <div
+            style={{
+              margin: "15px 0",
+              borderBottom: "1px solid gray",
+              paddingBottom: "15px",
+            }}
+          >
+            <Row>
+              <Col span={12} style={{ textAlign: "left" }}>
+                <p>Car Model</p>
+                <p>Car Color</p>
+                <p>Car License</p>
+                <p>Host Name</p>
+                <p>Host INE</p>
+                <p>Pickup Location</p>
+                <p>Drop-Off Location</p>
+                <p>Total Rental Time</p>
+              </Col>
+              <Col span={12} style={{ textAlign: "right" }}>
+                <p>
+                  {" "}
+                  {props.dashboardEarningData?.printView?.carId?.carModelName}
+                </p>
+                <p> {props.dashboardEarningData?.printView?.carId?.carColor}</p>
+                <p>
+                  {" "}
+                  {
+                    props.dashboardEarningData?.printView?.carId
+                      ?.carLicenseNumber
+                  }
+                </p>
+                <p>
+                  {" "}
+                  {props.dashboardEarningData?.printView?.carId?.carModelName}
+                </p>
+                <p>
+                  {" "}
+                  {props.dashboardEarningData?.printView?.carId?.carModelName}
+                </p>
+                <p>
+                  {" "}
+                  {props.dashboardEarningData?.printView?.carId?.carModelName}
+                </p>
+                <p>
+                  {" "}
+                  {props.dashboardEarningData?.printView?.carId?.carModelName}
+                </p>
+                <p>
+                  17{" "}
+                  {props.dashboardEarningData?.printView?.carId?.carModelName}
+                </p>
+              </Col>
+            </Row>
+          </div>
+          <div
+            style={{
+              margin: "15px 0",
+              borderBottom: "1px solid gray",
+              paddingBottom: "15px",
+            }}
+          >
+            <Title level={4}>Payment Information</Title>
+            <Row>
+              <Col span={12} style={{ textAlign: "left" }}>
+                <p>Payment By</p>
+                <p>Payment Method</p>
+                <p>Payment Date</p>
+                <p>Total Amount</p>
+              </Col>
+              <Col span={12} style={{ textAlign: "right" }}>
+                <p>{props.dashboardEarningData?.username}</p>
+                <p>{props.dashboardEarningData?.method}</p>
+                <p>
+                  {moment(props.dashboardEarningData?.time).format(
+                    "YYYY-DD-MM"
+                  )}
+                </p>
+                <p>{props.dashboardEarningData?.amount}</p>
+              </Col>
+            </Row>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              gap: 20,
+              position: "absolute",
+              bottom: 10,
+            }}
+          >
+            <Button
+              block
+              style={{
+                background: "#000B90",
+                color: "white",
+                height: 50,
+                width: "265px",
+              }}
+            >
+              Download
+            </Button>
+            <Button
+              block
+              style={{
+                background: "#000B90",
+                color: "white",
+                height: 50,
+                width: "265px",
+              }}
+            >
+              Print
+            </Button>
+          </div>
+        </div>
+      )}
+      {props.hostKycData && (
+        <div>
+          <div
+            style={{
+              display: "flex",
+              gap: "15px",
+              borderBottom: "1px solid gray",
+              paddingBottom: "10px",
+              marginBottom: "15px",
+            }}
+          >
+            <div>
+              <img
+                width={120}
+                style={{ borderRadius: "5px" }}
+                src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
+                alt=""
+              />
+            </div>
+            <div style={{ marginTop: "-7px" }}>
+              <p style={{ fontSize: "20px" }}>{props.hostKycData?.name}</p>
+              <p>INE: SNHRM570818MDFPM10</p>
+              <p>Trip Completes: 45</p>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "2px" }}
+              >
+                <AiFillStar color="#fba91d" />
+                <span>4.8</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <Title level={4}>Host Information</Title>
+          </div>
+          <div
+            style={{
+              margin: "15px 0",
+              borderBottom: "1px solid gray",
+              paddingBottom: "15px",
+            }}
+          >
+            <Row>
+              <Col span={12} style={{ textAlign: "left" }}>
+                <p>Name</p>
+                <p>Email</p>
+                <p>Phone</p>
+                <p>Gender</p>
+                <p>Date of Birth</p>
+                <p>Address</p>
+              </Col>
+              <Col span={12} style={{ textAlign: "right" }}>
+                <p>{props.hostKycData?.name}</p>
+                <p>{props.hostKycData?.email}</p>
+                <p>{props.hostKycData?.contact}</p>
+                <p>{props.hostKycData?.actions?.gender}</p>
+                <p>{props.hostKycData?.actions?.dateOfBirth}</p>
+                <p>{props.hostKycData?.actions?.address}</p>
+              </Col>
+            </Row>
+          </div>
+          <div
+            style={{
+              margin: "15px 0",
+              borderBottom: "1px solid gray",
+              paddingBottom: "15px",
+            }}
+          >
+            <Title level={4}>More Information</Title>
+            <Row>
+              <Col span={12} style={{ textAlign: "left" }}>
+                <p>Joining Date</p>
+                <p>Register Method</p>
+                <p>Last Log In</p>
+              </Col>
+              <Col span={12} style={{ textAlign: "right" }}>
+                <p>
+                  {moment(props.hostKycData?.actions?.createdAt).format(
+                    "YYYY-MM-DD"
+                  )}
+                </p>
+                <p>Email</p>
+                <p>Last Login Date</p>
+              </Col>
+            </Row>
+          </div>
+        </div>
+      )}
+      {props.carKycData && (
+        <div>
+          <div
+            style={{
+              display: "flex",
+              gap: "15px",
+              borderBottom: "1px solid gray",
+              paddingBottom: "10px",
+              marginBottom: "15px",
+            }}
+          >
+            <div>
+              <img
+                width={120}
+                style={{ borderRadius: "5px" }}
+                src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
+                alt=""
+              />
+            </div>
+            <div style={{ marginTop: "-7px" }}>
+              <p style={{ fontSize: "20px" }}>{props.carKycData?.name}</p>
+              <p>License: {props.carKycData?.actions?.carLicenseNumber}</p>
+              <p>Car Model: {props.carKycData?.actions?.carModelName}</p>
+              <p>Gear Type: {props.carKycData?.actions?.gearType}</p>
+              <p>Color: {props.carKycData?.actions?.carColor}</p>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "2px" }}
+              >
+                <AiFillStar color="#fba91d" />
+                <span>4.8</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <Title level={4}>Car Characteristics</Title>
+          </div>
+          <div
+            style={{
+              margin: "15px 0",
+              borderBottom: "1px solid gray",
+              paddingBottom: "15px",
+            }}
+          >
+            <Row>
+              <Col span={12} style={{ textAlign: "left" }}>
+                <p>Number of Doors</p>
+                <p>Seats</p>
+                <p>Total Run</p>
+                <p>Register Date</p>
+                <p>Fuel Capacity</p>
+                <p>Per Hour Rental Fee</p>
+              </Col>
+              <Col span={12} style={{ textAlign: "right" }}>
+                <p> {props.carKycData?.actions?.carDoors}</p>
+                <p> {props.carKycData?.actions?.carSeats}</p>
+                <p> {props.carKycData?.actions?.totalRun}</p>
+                <p> {props.carKycData?.actions?.createdAt}</p>
+                <p> 56L</p>
+                <p> {props.carKycData?.actions?.hourlyRate}</p>
+              </Col>
+            </Row>
           </div>
         </div>
       )}

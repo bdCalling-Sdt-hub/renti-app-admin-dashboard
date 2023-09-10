@@ -33,7 +33,7 @@ const PaymentListTable = ({ handleUserPaymentsPagination }) => {
       key: userPayment._id,
       tripNo: userPayment.rentTripNumbers,
       time: moment(userPayment.time).format("YYYY-MM-DD"),
-      username: userPayment.carOwner,
+      username: userPayment.carOwner?.fullName,
       method: userPayment.method,
       amount: userPayment.amount,
       status: userPayment.status ? (

@@ -8,24 +8,22 @@ import Save from "../../../icons/Save";
 const { Title, Text } = Typography;
 
 const InvoiceTable = ({ recentDataGetByPagination }) => {
-  const [rentData, setRentData] = useState([]); // Data fetched from the server
-  const [totalItems, setTotalItems] = useState(0); // Total number of items
-  const [currentPage, setCurrentPage] = useState(1); // Current page number
+  const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 3;
 
   const dispatch = useDispatch();
 
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
-  const [invoiceData, setInvoiceData] = useState(null);
+  const [dashboardEarningData, setDashboardEarningData] = useState(null);
 
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
-    setInvoiceData(record);
+    setDashboardEarningData(record);
   };
 
   const closeDrawer = () => {
     setIsDrawerVisible(false);
-    setInvoiceData(null);
+    setDashboardEarningData(null);
   };
   const handlePageChange = (page) => {
     console.log(page);
@@ -37,7 +35,6 @@ const InvoiceTable = ({ recentDataGetByPagination }) => {
     (state) => state.RecentEarnings
   );
   const data = recentEarning?.map((item) => {
-    console.log("tushar", item);
     return {
       key: item._id,
       invoiceNo: item._id,
@@ -46,7 +43,7 @@ const InvoiceTable = ({ recentDataGetByPagination }) => {
       method: item.paymentData.payment_method_details.card.brand,
       amount: item.paymentData.amount,
       status: item.paymentData.status == "succeeded" ? "Complete" : "Pending",
-      printView: "Button",
+      printView: item,
     };
   });
 
@@ -140,7 +137,7 @@ const InvoiceTable = ({ recentDataGetByPagination }) => {
           <div>
             <Typography>
               <Title level={5} strong>
-                Invoice# Trip No.{invoiceData?.invoiceNo}
+                Invoice# Trip No
               </Title>
               <Text>See all information about the trip no. 68656</Text>
             </Typography>
@@ -149,7 +146,7 @@ const InvoiceTable = ({ recentDataGetByPagination }) => {
         placement="right"
         onClose={closeDrawer}
         open={isDrawerVisible}
-        width={500}
+        width={600}
         closable={false}
         extra={
           <Space>
@@ -169,7 +166,9 @@ const InvoiceTable = ({ recentDataGetByPagination }) => {
           </Space>
         }
       >
-        {invoiceData && <DrawerPage invoiceData={invoiceData} />}
+        {dashboardEarningData && (
+          <DrawerPage dashboardEarningData={dashboardEarningData} />
+        )}
       </Drawer>
     </>
   );
