@@ -2,8 +2,9 @@
 /* eslint-disable react/prop-types */
 import { Badge, Button, Col, Form, Input, Row, Select, Typography } from "antd";
 import moment from "moment";
-import React from "react";
+import { useRef } from "react";
 import { AiFillStar } from "react-icons/ai";
+import { useReactToPrint } from "react-to-print";
 import Swal from "sweetalert2";
 import axios from "../../../Config";
 import img from "../../Images/1.png";
@@ -15,6 +16,12 @@ const { Option } = Select;
 const token = localStorage.token;
 
 const DrawerPage = (props) => {
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    pageStyle: "",
+  });
+
   const style = {
     cardType: {
       height: "150px",
@@ -41,7 +48,7 @@ const DrawerPage = (props) => {
     },
   };
 
-  console.log("drawer", props?.carKycData);
+  console.log("drawer", props?.dashboardEarningData);
 
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
@@ -83,29 +90,6 @@ const DrawerPage = (props) => {
         }
         props?.setUserInfoReload((prev) => prev + 1);
       });
-  };
-
-  const handleGenerateDownload = () => {
-    // Prepare the data you want to download as a string or other suitable format
-    const data = JSON.stringify(props.dashboardEarningData);
-
-    // Create a Blob with the data
-    const blob = new Blob([data], { type: "application/pdf" });
-
-    // Create a URL for the Blob
-    const url = window.URL.createObjectURL(blob);
-
-    // Create an anchor element to trigger the download
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "Earning Details"; // You can specify the filename here
-
-    // Trigger the click event on the anchor element to start the download
-    a.click();
-
-    // Release the URL and remove the anchor element
-    window.URL.revokeObjectURL(url);
-    a.remove();
   };
 
   return (
@@ -407,97 +391,101 @@ const DrawerPage = (props) => {
       )}
       {props.earningData && (
         <div>
-          <div style={{ display: "flex", gap: "15px" }}>
-            <div>
-              <img
-                width={120}
-                style={{ borderRadius: "5px" }}
-                src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
-                alt=""
-              />
-            </div>
-            <div style={{ marginTop: "-7px" }}>
-              <p style={{ fontSize: "20px" }}>{props.earningData.username}</p>
-              <p>INE: siffahim</p>
-              <p>Trip Completes:{props.earningData.status.length}</p>
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "2px" }}
-              >
-                <AiFillStar color="#fba91d" />
-                <span>4.8</span>
+          <div ref={componentRef}>
+            <div style={{ display: "flex", gap: "15px" }}>
+              <div>
+                <img
+                  width={120}
+                  style={{ borderRadius: "5px" }}
+                  src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
+                  alt=""
+                />
+              </div>
+              <div style={{ marginTop: "-7px" }}>
+                <p style={{ fontSize: "20px" }}>{props.earningData.username}</p>
+                <p>INE: siffahim</p>
+                <p>Trip Completes:{props.earningData.status.length}</p>
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "2px" }}
+                >
+                  <AiFillStar color="#fba91d" />
+                  <span>4.8</span>
+                </div>
               </div>
             </div>
-          </div>
-          <div>
-            <Title level={4}>
-              Trip Details{" "}
-              <Badge
-                className="site-badge-count-109"
-                count={"complete"}
-                style={{ backgroundColor: "#E6F6F4", color: "#00A991" }}
-              />
-            </Title>
-          </div>
-          <div
-            style={{
-              margin: "15px 0",
-              borderBottom: "1px solid gray",
-              paddingBottom: "15px",
-            }}
-          >
-            <Row>
-              <Col span={12} style={{ textAlign: "left" }}>
-                <p>Car Model</p>
-                <p>Car Color</p>
-                <p>Car License</p>
-                <p>Host Name</p>
-                <p>Host INE</p>
-                <p>Pickup Location</p>
-                <p>Drop-Off Location</p>
-                <p>Total Rental Time</p>
-              </Col>
-              <Col span={12} style={{ textAlign: "right" }}>
-                <p> {props.earningData?.printView?.carId?.carModelName}</p>
-                <p> {props.earningData?.printView?.carId?.carColor}</p>
-                <p> {props.earningData?.printView?.carId?.carLicenseNumber}</p>
-                <p> {props.earningData?.printView?.carId?.carModelName}</p>
-                <p> {props.earningData?.printView?.carId?.carModelName}</p>
-                <p> {props.earningData?.printView?.carId?.carModelName}</p>
-                <p> {props.earningData?.printView?.carId?.carModelName}</p>
-                <p>{props.earningData?.printView?.carId?.carModelName}</p>
-              </Col>
-            </Row>
-          </div>
-          <div
-            style={{
-              margin: "15px 0",
-              borderBottom: "1px solid gray",
-              paddingBottom: "15px",
-            }}
-          >
-            <Title level={4}>Payment Information</Title>
-            <Row>
-              <Col span={12} style={{ textAlign: "left" }}>
-                <p>Payment By</p>
-                <p>Payment Method</p>
-                <p>Payment Date</p>
-                <p>Total Amount</p>
-              </Col>
-              <Col span={12} style={{ textAlign: "right" }}>
-                <p>{props.earningData?.username}</p>
-                <p>{props.earningData?.method}</p>
-                <p>{moment(props.earningData?.time).format("YYYY-DD-MM")}</p>
-                <p>{props.earningData?.amount}</p>
-              </Col>
-            </Row>
+            <div>
+              <Title level={4}>
+                Trip Details{" "}
+                <Badge
+                  className="site-badge-count-109"
+                  count={"complete"}
+                  style={{ backgroundColor: "#E6F6F4", color: "#00A991" }}
+                />
+              </Title>
+            </div>
+            <div
+              style={{
+                margin: "15px 0",
+                borderBottom: "1px solid gray",
+                paddingBottom: "15px",
+              }}
+            >
+              <Row>
+                <Col span={12} style={{ textAlign: "left" }}>
+                  <p>Car Model</p>
+                  <p>Car Color</p>
+                  <p>Car License</p>
+                  <p>Host Name</p>
+                  <p>Host INE</p>
+                  <p>Pickup Location</p>
+                  <p>Drop-Off Location</p>
+                  <p>Total Rental Time</p>
+                </Col>
+                <Col span={12} style={{ textAlign: "right" }}>
+                  <p> {props.earningData?.printView?.carId?.carModelName}</p>
+                  <p> {props.earningData?.printView?.carId?.carColor}</p>
+                  <p>
+                    {" "}
+                    {props.earningData?.printView?.carId?.carLicenseNumber}
+                  </p>
+                  <p> {props.earningData?.printView?.carId?.carModelName}</p>
+                  <p> {props.earningData?.printView?.carId?.carModelName}</p>
+                  <p> {props.earningData?.printView?.carId?.carModelName}</p>
+                  <p> {props.earningData?.printView?.carId?.carModelName}</p>
+                  <p>{props.earningData?.printView?.carId?.carModelName}</p>
+                </Col>
+              </Row>
+            </div>
+            <div
+              style={{
+                margin: "15px 0",
+                borderBottom: "1px solid gray",
+                paddingBottom: "15px",
+              }}
+            >
+              <Title level={4}>Payment Information</Title>
+              <Row>
+                <Col span={12} style={{ textAlign: "left" }}>
+                  <p>Payment By</p>
+                  <p>Payment Method</p>
+                  <p>Payment Date</p>
+                  <p>Total Amount</p>
+                </Col>
+                <Col span={12} style={{ textAlign: "right" }}>
+                  <p>{props.earningData?.username}</p>
+                  <p>{props.earningData?.method}</p>
+                  <p>{moment(props.earningData?.time).format("YYYY-DD-MM")}</p>
+                  <p>{props.earningData?.amount}</p>
+                </Col>
+              </Row>
+            </div>
           </div>
 
           <div
             style={{
-              display: "flex",
-              gap: 20,
               position: "absolute",
               bottom: 10,
+              width: "92%",
             }}
           >
             <Button
@@ -506,21 +494,10 @@ const DrawerPage = (props) => {
                 background: "#000B90",
                 color: "white",
                 height: 50,
-                width: "265px",
               }}
+              onClick={handlePrint}
             >
-              Download
-            </Button>
-            <Button
-              block
-              style={{
-                background: "#000B90",
-                color: "white",
-                height: 50,
-                width: "265px",
-              }}
-            >
-              Print
+              Print/Download
             </Button>
           </div>
         </div>
@@ -769,163 +746,165 @@ const DrawerPage = (props) => {
       )}
       {props.rentInfoData && (
         <div>
-          <div
-            style={{
-              display: "flex",
-              gap: "15px",
-              borderBottom: "1px solid gray",
-              paddingBottom: "10px",
-            }}
-          >
-            <div>
-              <img
-                width={120}
-                style={{ borderRadius: "5px" }}
-                src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
-                alt=""
-              />
-            </div>
-            <div>
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "10px" }}
-              >
-                {" "}
-                <p style={{ fontSize: "20px" }}>
-                  {props.rentInfoData?.carModel}
-                </p>
-                {props.rentInfoData?.actionData?.carId?.tripStatus ===
-                "Start" ? (
-                  <Badge
-                    className="site-badge-count-109"
-                    count={"Reserved"}
-                    style={{
-                      background: "#FBE9EC",
-                      color: "#D7263D",
-                      fontSize: "11px",
-                      borderRadius: "4px",
-                      textAlign: "center",
-                    }}
-                  />
-                ) : (
-                  <Badge
-                    className="site-badge-count-109"
-                    count={"Active"}
-                    style={{
-                      background: "#E6F6F4",
-                      color: "#00A991",
-                      fontSize: "11px",
-                      borderRadius: "4px",
-                      textAlign: "center",
-                    }}
-                  />
-                )}
+          <div ref={componentRef}>
+            <div
+              style={{
+                display: "flex",
+                gap: "15px",
+                borderBottom: "1px solid gray",
+                paddingBottom: "10px",
+              }}
+            >
+              <div>
+                <img
+                  width={120}
+                  style={{ borderRadius: "5px" }}
+                  src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
+                  alt=""
+                />
               </div>
-              <p>
-                License:{" "}
-                {props.rentInfoData?.actionData?.carId?.carLicenseNumber}
-              </p>
-              <p>
-                Car Model: {props.rentInfoData?.actionData?.carId?.carModelName}
-              </p>
-              <p>
-                Gear Type: {props.rentInfoData?.actionData?.carId?.gearType}
-              </p>
-              <p>Color: {props.rentInfoData?.actionData?.carId?.carColor}</p>
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "2px" }}
-              >
-                <AiFillStar color="#fba91d" />
-                <span>4.8</span>
-              </div>
-            </div>
-          </div>
-
-          <div
-            style={{
-              margin: "15px 0",
-              borderBottom: "1px solid gray",
-              paddingBottom: "15px",
-            }}
-          >
-            <Title level={4}>Car Characteristic</Title>
-            <Row>
-              <Col span={12} style={{ textAlign: "left" }}>
-                <p>Number of Doors</p>
-                <p>Seats</p>
-                <p>Total Run</p>
-                <p>Register Date</p>
-                <p>Fuel Capacity</p>
-                <p>Per Hour Rental Fee</p>
-              </Col>
-              <Col span={12} style={{ textAlign: "right" }}>
-                <p> {props.rentInfoData?.actionData?.carId?.carDoors}</p>
-                <p>{props.rentInfoData?.actionData?.carId?.carSeats}</p>
-                <p>{props.rentInfoData?.actionData?.carId?.totalRun}</p>
+              <div>
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "10px" }}
+                >
+                  {" "}
+                  <p style={{ fontSize: "20px" }}>
+                    {props.rentInfoData?.carModel}
+                  </p>
+                  {props.rentInfoData?.actionData?.carId?.tripStatus ===
+                  "Start" ? (
+                    <Badge
+                      className="site-badge-count-109"
+                      count={"Reserved"}
+                      style={{
+                        background: "#FBE9EC",
+                        color: "#D7263D",
+                        fontSize: "11px",
+                        borderRadius: "4px",
+                        textAlign: "center",
+                      }}
+                    />
+                  ) : (
+                    <Badge
+                      className="site-badge-count-109"
+                      count={"Active"}
+                      style={{
+                        background: "#E6F6F4",
+                        color: "#00A991",
+                        fontSize: "11px",
+                        borderRadius: "4px",
+                        textAlign: "center",
+                      }}
+                    />
+                  )}
+                </div>
                 <p>
-                  {moment(
-                    props.rentInfoData?.actionData?.carId?.carDoors
-                  ).format("YYYY-MM-DD")}
+                  License:{" "}
+                  {props.rentInfoData?.actionData?.carId?.carLicenseNumber}
                 </p>
-                <p>{"56L"}</p>
-                <p>{props.rentInfoData?.actionData?.carId?.hourlyRate}</p>
-              </Col>
-            </Row>
+                <p>
+                  Car Model:{" "}
+                  {props.rentInfoData?.actionData?.carId?.carModelName}
+                </p>
+                <p>
+                  Gear Type: {props.rentInfoData?.actionData?.carId?.gearType}
+                </p>
+                <p>Color: {props.rentInfoData?.actionData?.carId?.carColor}</p>
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "2px" }}
+                >
+                  <AiFillStar color="#fba91d" />
+                  <span>4.8</span>
+                </div>
+              </div>
+            </div>
+
+            <div
+              style={{
+                margin: "15px 0",
+                borderBottom: "1px solid gray",
+                paddingBottom: "15px",
+              }}
+            >
+              <Title level={4}>Car Characteristic</Title>
+              <Row>
+                <Col span={12} style={{ textAlign: "left" }}>
+                  <p>Number of Doors</p>
+                  <p>Seats</p>
+                  <p>Total Run</p>
+                  <p>Register Date</p>
+                  <p>Fuel Capacity</p>
+                  <p>Per Hour Rental Fee</p>
+                </Col>
+                <Col span={12} style={{ textAlign: "right" }}>
+                  <p> {props.rentInfoData?.actionData?.carId?.carDoors}</p>
+                  <p>{props.rentInfoData?.actionData?.carId?.carSeats}</p>
+                  <p>{props.rentInfoData?.actionData?.carId?.totalRun}</p>
+                  <p>
+                    {moment(
+                      props.rentInfoData?.actionData?.carId?.carDoors
+                    ).format("YYYY-MM-DD")}
+                  </p>
+                  <p>{"56L"}</p>
+                  <p>{props.rentInfoData?.actionData?.carId?.hourlyRate}</p>
+                </Col>
+              </Row>
+            </div>
+
+            <div
+              style={{
+                margin: "15px 0",
+                borderBottom: "1px solid gray",
+                paddingBottom: "15px",
+              }}
+            >
+              <Title level={4}>User Information</Title>
+              <Row>
+                <Col span={12} style={{ textAlign: "left" }}>
+                  <p>Name</p>
+                  <p>Email</p>
+                  <p>Phone</p>
+                  <p>Address</p>
+                </Col>
+                <Col span={12} style={{ textAlign: "right" }}>
+                  <p>{props.rentInfoData?.actionData?.userId?.fullName}</p>
+                  <p>{props.rentInfoData?.actionData?.userId?.email}</p>
+                  <p>{props.rentInfoData?.actionData?.userId?.phoneNumber}</p>
+                  <p>{props.rentInfoData?.actionData?.userId?.address}</p>
+                </Col>
+              </Row>
+            </div>
+
+            <div
+              style={{
+                margin: "15px 0",
+                borderBottom: "1px solid gray",
+                paddingBottom: "15px",
+              }}
+            >
+              <Title level={4}>Host Information</Title>
+              <Row>
+                <Col span={12} style={{ textAlign: "left" }}>
+                  <p>Name</p>
+                  <p>Email</p>
+                  <p>Phone</p>
+                  <p>Address</p>
+                </Col>
+                <Col span={12} style={{ textAlign: "right" }}>
+                  <p>{props.rentInfoData?.actionData?.hostId?.fullName}</p>
+                  <p>{props.rentInfoData?.actionData?.hostId?.email}</p>
+                  <p>{props.rentInfoData?.actionData?.hostId?.phoneNumber}</p>
+                  <p>{props.rentInfoData?.actionData?.hostId?.address}</p>
+                </Col>
+              </Row>
+            </div>
           </div>
 
           <div
             style={{
-              margin: "15px 0",
-              borderBottom: "1px solid gray",
-              paddingBottom: "15px",
-            }}
-          >
-            <Title level={4}>User Information</Title>
-            <Row>
-              <Col span={12} style={{ textAlign: "left" }}>
-                <p>Name</p>
-                <p>Email</p>
-                <p>Phone</p>
-                <p>Address</p>
-              </Col>
-              <Col span={12} style={{ textAlign: "right" }}>
-                <p>{props.rentInfoData?.actionData?.userId?.fullName}</p>
-                <p>{props.rentInfoData?.actionData?.userId?.email}</p>
-                <p>{props.rentInfoData?.actionData?.userId?.phoneNumber}</p>
-                <p>{props.rentInfoData?.actionData?.userId?.address}</p>
-              </Col>
-            </Row>
-          </div>
-
-          <div
-            style={{
-              margin: "15px 0",
-              borderBottom: "1px solid gray",
-              paddingBottom: "15px",
-            }}
-          >
-            <Title level={4}>Host Information</Title>
-            <Row>
-              <Col span={12} style={{ textAlign: "left" }}>
-                <p>Name</p>
-                <p>Email</p>
-                <p>Phone</p>
-                <p>Address</p>
-              </Col>
-              <Col span={12} style={{ textAlign: "right" }}>
-                <p>{props.rentInfoData?.actionData?.hostId?.fullName}</p>
-                <p>{props.rentInfoData?.actionData?.hostId?.email}</p>
-                <p>{props.rentInfoData?.actionData?.hostId?.phoneNumber}</p>
-                <p>{props.rentInfoData?.actionData?.hostId?.address}</p>
-              </Col>
-            </Row>
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-              gap: 20,
               position: "absolute",
               bottom: 10,
+              width: "92%",
             }}
           >
             <Button
@@ -934,127 +913,118 @@ const DrawerPage = (props) => {
                 background: "#000B90",
                 color: "white",
                 height: 50,
-                width: "265px",
               }}
+              onClick={handlePrint}
             >
-              Download
-            </Button>
-            <Button
-              block
-              style={{
-                background: "#000B90",
-                color: "white",
-                height: 50,
-                width: "265px",
-              }}
-            >
-              Print
+              Print/Download
             </Button>
           </div>
         </div>
       )}
       {props.userPaymentData && (
         <div>
-          <div
-            style={{
-              display: "flex",
-              gap: "15px",
-              borderBottom: "1px solid gray",
-              paddingBottom: "10px",
-              marginBottom: "15px",
-            }}
-          >
-            <div>
-              <img
-                width={120}
-                style={{ borderRadius: "5px" }}
-                src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
-                alt=""
-              />
-            </div>
-            <div style={{ marginTop: "-7px" }}>
-              <p style={{ fontSize: "20px" }}>
-                {props.userPaymentData?.username}
-              </p>
-              <p>INE: SNHRM570818MDFPM10</p>
-              <p>Trip Completes: 45</p>
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "2px" }}
-              >
-                <AiFillStar color="#fba91d" />
-                <span>4.8</span>
+          <div ref={componentRef}>
+            <div
+              style={{
+                display: "flex",
+                gap: "15px",
+                borderBottom: "1px solid gray",
+                paddingBottom: "10px",
+                marginBottom: "15px",
+              }}
+            >
+              <div>
+                <img
+                  width={120}
+                  style={{ borderRadius: "5px" }}
+                  src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
+                  alt=""
+                />
+              </div>
+              <div style={{ marginTop: "-7px" }}>
+                <p style={{ fontSize: "20px" }}>
+                  {props.userPaymentData?.username}
+                </p>
+                <p>INE: SNHRM570818MDFPM10</p>
+                <p>Trip Completes: 45</p>
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "2px" }}
+                >
+                  <AiFillStar color="#fba91d" />
+                  <span>4.8</span>
+                </div>
               </div>
             </div>
+            <div>
+              <Title level={4}>
+                Trip Details{" "}
+                <Badge
+                  className="site-badge-count-109"
+                  count={"complete"}
+                  style={{ backgroundColor: "#E6F6F4", color: "#00A991" }}
+                />
+              </Title>
+            </div>
+            <div
+              style={{
+                margin: "15px 0",
+                borderBottom: "1px solid gray",
+                paddingBottom: "15px",
+              }}
+            >
+              <Row>
+                <Col span={12} style={{ textAlign: "left" }}>
+                  <p>Car Model</p>
+                  <p>Car Color</p>
+                  <p>Car License</p>
+                  <p>Host Name</p>
+                  <p>Host INE</p>
+                  <p>Pickup Location</p>
+                  <p>Drop-Off Location</p>
+                  <p>Total Rental Time</p>
+                </Col>
+                <Col span={12} style={{ textAlign: "right" }}>
+                  <p>{props.userPaymentData?.actions?.car?.carModelName}</p>
+                  <p>{props.userPaymentData?.actions?.car?.carColor}</p>
+                  <p>{props.userPaymentData?.actions?.car?.carLicenseNumber}</p>
+                  <p>Fahim</p>
+                  <p>BDAC287856B</p>
+                  <p>Moghbazer</p>
+                  <p>Rampura</p>
+                  <p>17 hours</p>
+                </Col>
+              </Row>
+            </div>
+            <div
+              style={{
+                margin: "15px 0",
+                borderBottom: "1px solid gray",
+                paddingBottom: "15px",
+              }}
+            >
+              <Title level={4}>Payment Information</Title>
+              <Row>
+                <Col span={12} style={{ textAlign: "left" }}>
+                  <p>Payment By</p>
+                  <p>Payment Method</p>
+                  <p>Payment Date</p>
+                  <p>Total Amount</p>
+                </Col>
+                <Col span={12} style={{ textAlign: "right" }}>
+                  <p>{props.userPaymentData?.username}</p>
+                  <p>{props.userPaymentData?.method}</p>
+                  <p>{props.userPaymentData?.time}</p>
+                  <p>{props.userPaymentData?.amount}</p>
+                </Col>
+              </Row>
+            </div>
           </div>
-          <div>
-            <Title level={4}>
-              Trip Details{" "}
-              <Badge
-                className="site-badge-count-109"
-                count={"complete"}
-                style={{ backgroundColor: "#E6F6F4", color: "#00A991" }}
-              />
-            </Title>
-          </div>
+
           <div
             style={{
-              margin: "15px 0",
-              borderBottom: "1px solid gray",
-              paddingBottom: "15px",
-            }}
-          >
-            <Row>
-              <Col span={12} style={{ textAlign: "left" }}>
-                <p>Car Model</p>
-                <p>Car Color</p>
-                <p>Car License</p>
-                <p>Host Name</p>
-                <p>Host INE</p>
-                <p>Pickup Location</p>
-                <p>Drop-Off Location</p>
-                <p>Total Rental Time</p>
-              </Col>
-              <Col span={12} style={{ textAlign: "right" }}>
-                <p>{props.userPaymentData?.actions?.car?.carModelName}</p>
-                <p>{props.userPaymentData?.actions?.car?.carColor}</p>
-                <p>{props.userPaymentData?.actions?.car?.carLicenseNumber}</p>
-                <p>Fahim</p>
-                <p>BDAC287856B</p>
-                <p>Moghbazer</p>
-                <p>Rampura</p>
-                <p>17 hours</p>
-              </Col>
-            </Row>
-          </div>
-          <div
-            style={{
-              margin: "15px 0",
-              borderBottom: "1px solid gray",
-              paddingBottom: "15px",
-            }}
-          >
-            <Title level={4}>Payment Information</Title>
-            <Row>
-              <Col span={12} style={{ textAlign: "left" }}>
-                <p>Payment By</p>
-                <p>Payment Method</p>
-                <p>Payment Date</p>
-                <p>Total Amount</p>
-              </Col>
-              <Col span={12} style={{ textAlign: "right" }}>
-                <p>{props.userPaymentData?.username}</p>
-                <p>{props.userPaymentData?.method}</p>
-                <p>{props.userPaymentData?.time}</p>
-                <p>{props.userPaymentData?.amount}</p>
-              </Col>
-            </Row>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              gap: 20,
               position: "absolute",
               bottom: 10,
+              width: "92%",
             }}
           >
             <Button
@@ -1063,155 +1033,148 @@ const DrawerPage = (props) => {
                 background: "#000B90",
                 color: "white",
                 height: 50,
-                width: "265px",
               }}
+              onClick={handlePrint}
             >
-              Download
-            </Button>
-            <Button
-              block
-              style={{
-                background: "#000B90",
-                color: "white",
-                height: 50,
-                width: "265px",
-              }}
-            >
-              Print
+              Print/Download
             </Button>
           </div>
         </div>
       )}
       {props.dashboardEarningData && (
         <div>
-          <div
-            style={{
-              display: "flex",
-              gap: "15px",
-              borderBottom: "1px solid gray",
-              paddingBottom: "10px",
-              marginBottom: "15px",
-            }}
-          >
-            <div>
-              <img
-                width={120}
-                style={{ borderRadius: "5px" }}
-                src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
-                alt=""
-              />
-            </div>
-            <div style={{ marginTop: "-7px" }}>
-              <p style={{ fontSize: "20px" }}>
-                {props.dashboardEarningData?.username}
-              </p>
-              <p>INE: SNHRM570818MDFPM10</p>
-              <p>Trip Completes: 45</p>
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "2px" }}
-              >
-                <AiFillStar color="#fba91d" />
-                <span>4.8</span>
+          <div ref={componentRef}>
+            <div
+              style={{
+                display: "flex",
+                gap: "15px",
+                borderBottom: "1px solid #ebebeb",
+                paddingBottom: "10px",
+                marginBottom: "15px",
+              }}
+            >
+              <div>
+                <img
+                  width={120}
+                  style={{ borderRadius: "5px" }}
+                  src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
+                  alt=""
+                />
+              </div>
+              <div style={{ marginTop: "-7px" }}>
+                <p style={{ fontSize: "20px" }}>
+                  {props.dashboardEarningData?.username}
+                </p>
+                <p>INE: SNHRM570818MDFPM10</p>
+                <p>Trip Completes: 45</p>
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "2px" }}
+                >
+                  <AiFillStar color="#fba91d" />
+                  <span>4.8</span>
+                </div>
               </div>
             </div>
-          </div>
-          <div>
-            <Title level={4}>
-              Trip Details{" "}
-              <Badge
-                className="site-badge-count-109"
-                count={"complete"}
-                style={{ backgroundColor: "#E6F6F4", color: "#00A991" }}
-              />
-            </Title>
+            <div>
+              <Title level={4}>
+                Trip Details{" "}
+                <Badge
+                  className="site-badge-count-109"
+                  count={"complete"}
+                  style={{ backgroundColor: "#E6F6F4", color: "#00A991" }}
+                />
+              </Title>
+            </div>
+            <div
+              style={{
+                margin: "15px 0",
+                borderBottom: "1px solid #ebebeb",
+                paddingBottom: "15px",
+              }}
+            >
+              <Row>
+                <Col span={12} style={{ textAlign: "left" }}>
+                  <p>Car Model</p>
+                  <p>Car Color</p>
+                  <p>Car License</p>
+                  <p>Host Name</p>
+                  <p>Host INE</p>
+                  <p>Pickup Location</p>
+                  <p>Drop-Off Location</p>
+                  <p>Total Rental Time</p>
+                </Col>
+                <Col span={12} style={{ textAlign: "right" }}>
+                  <p>
+                    {" "}
+                    {props.dashboardEarningData?.printView?.carId?.carModelName}
+                  </p>
+                  <p>
+                    {" "}
+                    {props.dashboardEarningData?.printView?.carId?.carColor}
+                  </p>
+                  <p>
+                    {" "}
+                    {
+                      props.dashboardEarningData?.printView?.carId
+                        ?.carLicenseNumber
+                    }
+                  </p>
+                  <p>
+                    {" "}
+                    {props.dashboardEarningData?.printView?.carId?.carModelName}
+                  </p>
+                  <p>
+                    {" "}
+                    {props.dashboardEarningData?.printView?.carId?.carModelName}
+                  </p>
+                  <p>
+                    {" "}
+                    {props.dashboardEarningData?.printView?.carId?.carModelName}
+                  </p>
+                  <p>
+                    {" "}
+                    {props.dashboardEarningData?.printView?.carId?.carModelName}
+                  </p>
+                  <p>
+                    17{" "}
+                    {props.dashboardEarningData?.printView?.carId?.carModelName}
+                  </p>
+                </Col>
+              </Row>
+            </div>
+            <div
+              style={{
+                margin: "15px 0",
+                borderBottom: "1px solid gray",
+                paddingBottom: "15px",
+              }}
+            >
+              <Title level={4}>Payment Information</Title>
+              <Row>
+                <Col span={12} style={{ textAlign: "left" }}>
+                  <p>Payment By</p>
+                  <p>Payment Method</p>
+                  <p>Payment Date</p>
+                  <p>Total Amount</p>
+                </Col>
+                <Col span={12} style={{ textAlign: "right" }}>
+                  <p>{props.dashboardEarningData?.username}</p>
+                  <p>{props.dashboardEarningData?.method}</p>
+                  <p>
+                    {moment(props.dashboardEarningData?.time).format(
+                      "YYYY-DD-MM"
+                    )}
+                  </p>
+                  <p>{props.dashboardEarningData?.amount}</p>
+                </Col>
+              </Row>
+            </div>
           </div>
           <div
             style={{
-              margin: "15px 0",
-              borderBottom: "1px solid gray",
-              paddingBottom: "15px",
-            }}
-          >
-            <Row>
-              <Col span={12} style={{ textAlign: "left" }}>
-                <p>Car Model</p>
-                <p>Car Color</p>
-                <p>Car License</p>
-                <p>Host Name</p>
-                <p>Host INE</p>
-                <p>Pickup Location</p>
-                <p>Drop-Off Location</p>
-                <p>Total Rental Time</p>
-              </Col>
-              <Col span={12} style={{ textAlign: "right" }}>
-                <p>
-                  {" "}
-                  {props.dashboardEarningData?.printView?.carId?.carModelName}
-                </p>
-                <p> {props.dashboardEarningData?.printView?.carId?.carColor}</p>
-                <p>
-                  {" "}
-                  {
-                    props.dashboardEarningData?.printView?.carId
-                      ?.carLicenseNumber
-                  }
-                </p>
-                <p>
-                  {" "}
-                  {props.dashboardEarningData?.printView?.carId?.carModelName}
-                </p>
-                <p>
-                  {" "}
-                  {props.dashboardEarningData?.printView?.carId?.carModelName}
-                </p>
-                <p>
-                  {" "}
-                  {props.dashboardEarningData?.printView?.carId?.carModelName}
-                </p>
-                <p>
-                  {" "}
-                  {props.dashboardEarningData?.printView?.carId?.carModelName}
-                </p>
-                <p>
-                  17{" "}
-                  {props.dashboardEarningData?.printView?.carId?.carModelName}
-                </p>
-              </Col>
-            </Row>
-          </div>
-          <div
-            style={{
-              margin: "15px 0",
-              borderBottom: "1px solid gray",
-              paddingBottom: "15px",
-            }}
-          >
-            <Title level={4}>Payment Information</Title>
-            <Row>
-              <Col span={12} style={{ textAlign: "left" }}>
-                <p>Payment By</p>
-                <p>Payment Method</p>
-                <p>Payment Date</p>
-                <p>Total Amount</p>
-              </Col>
-              <Col span={12} style={{ textAlign: "right" }}>
-                <p>{props.dashboardEarningData?.username}</p>
-                <p>{props.dashboardEarningData?.method}</p>
-                <p>
-                  {moment(props.dashboardEarningData?.time).format(
-                    "YYYY-DD-MM"
-                  )}
-                </p>
-                <p>{props.dashboardEarningData?.amount}</p>
-              </Col>
-            </Row>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              gap: 20,
               position: "absolute",
               bottom: 10,
+              width: "92%",
             }}
           >
             <Button
@@ -1220,22 +1183,10 @@ const DrawerPage = (props) => {
                 background: "#000B90",
                 color: "white",
                 height: 50,
-                width: "265px",
               }}
-              onClick={handleGenerateDownload}
+              onClick={handlePrint}
             >
-              Download
-            </Button>
-            <Button
-              block
-              style={{
-                background: "#000B90",
-                color: "white",
-                height: 50,
-                width: "265px",
-              }}
-            >
-              Print
+              Print/Download
             </Button>
           </div>
         </div>
