@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import {
   CartesianGrid,
   Line,
@@ -8,7 +9,15 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import axios from "../../../../Config";
 
+export default function IncomeRatioChart() {
+
+
+  useEffect(()=>{
+     axios.get("api/").then(res=>console.log(res.data)).catch(err=>console.log(err))
+  },[])
+  
 const data = [
   {
     time: "1",
@@ -108,7 +117,6 @@ const data = [
   },
 ];
 
-export default function IncomeRatioChart() {
   return (
     <div
       style={{

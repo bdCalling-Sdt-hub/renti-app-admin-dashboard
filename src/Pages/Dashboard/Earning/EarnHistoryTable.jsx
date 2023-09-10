@@ -11,14 +11,16 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const { todayEarning, weeklyEarning, monthlyEarning, pagination } =
     useSelector((state) => state.RecentEarnings);
-  const pageSize = 1;
+  const pageSize = 3;
 
+  
   //ok all things is done
   let today_data;
   let weekly_data;
   let monthly_data;
   if (todayEarning) {
     today_data = todayEarning?.map((item) => {
+      console.log(item)
       return {
         key: item._id,
         invoiceNo: item._id,
@@ -175,7 +177,7 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
           pagination={{
             pageSize,
             showSizeChanger: false,
-            total: pagination?.totalPage,
+            total: pagination?.totalDocuments,
             current: currentPage,
             onChange: handlePageChange,
           }}

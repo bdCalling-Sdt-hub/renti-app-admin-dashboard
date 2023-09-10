@@ -121,23 +121,30 @@ const PaymentListTable = ({ handleUserPaymentsPagination }) => {
   ];
 
   const handlePageChange = (page) => {
+    console.log("tushar");
     setCurrentPage(page);
     handleUserPaymentsPagination(page);
   };
 
+  
+
+
   return (
     <>
-      <Table
+
+<Table
         columns={columns}
         dataSource={data}
         pagination={{
           pageSize,
           showSizeChanger: false,
-          total: pagination?.totalDocuments / 2,
+          total: pagination?.totalDocuments,
           current: currentPage,
           onChange: handlePageChange,
         }}
       />
+
+      
       <Drawer
         title={
           <div>

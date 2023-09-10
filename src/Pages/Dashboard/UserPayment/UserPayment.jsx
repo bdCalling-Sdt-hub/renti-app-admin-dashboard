@@ -17,6 +17,7 @@ function UserPayment() {
   }, []);
 
   const handleUserPaymentsPagination = (page) => {
+    console.log(page)
     const data = {
       limit: 2,
       page: page,

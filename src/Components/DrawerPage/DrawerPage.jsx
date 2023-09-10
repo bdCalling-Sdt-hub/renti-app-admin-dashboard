@@ -2,12 +2,13 @@
 /* eslint-disable react/prop-types */
 import { Badge, Button, Col, Form, Input, Row, Select, Typography } from "antd";
 import moment from "moment";
-import React from "react";
+import React,{useRef} from "react";
 import { AiFillStar } from "react-icons/ai";
 import Swal from "sweetalert2";
 import axios from "../../../Config";
 import img from "../../Images/1.png";
 import cardImg from "../../Images/Cards.png";
+
 const { Title } = Typography;
 
 const { Option } = Select;
@@ -15,6 +16,9 @@ const { Option } = Select;
 const token = localStorage.token;
 
 const DrawerPage = (props) => {
+
+ 
+
   const style = {
     cardType: {
       height: "150px",
@@ -1209,6 +1213,9 @@ const DrawerPage = (props) => {
                 color: "white",
                 height: 50,
                 width: "265px",
+              }}
+              onClick={()=>{
+
               }}
             >
               Print
