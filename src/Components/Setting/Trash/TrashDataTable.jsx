@@ -30,8 +30,23 @@ const TrashDataTable = ({ setReload }) => {
 
   const token = localStorage.token;
 
-  const trashDataDelete = (id) => {
-    console.log("DeleteTrash", id);
+  const trashDataDelete = async (id) => {
+    const res = await axios.delete(`api/user/delete-user/${id}`, {
+      headers: {
+        "Content-type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (res.data.message !== "") {
+      Swal.fire({
+        icon: "success",
+        title: "Wow!",
+        text: res.data.message,
+      });
+
+      setReload((p) => p + 1);
+    }
   };
 
   const trashDataRestore = (id) => {

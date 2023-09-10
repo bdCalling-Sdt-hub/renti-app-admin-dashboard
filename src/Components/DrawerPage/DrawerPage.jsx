@@ -85,6 +85,29 @@ const DrawerPage = (props) => {
       });
   };
 
+  const handleGenerateDownload = () => {
+    // Prepare the data you want to download as a string or other suitable format
+    const data = JSON.stringify(props.dashboardEarningData);
+
+    // Create a Blob with the data
+    const blob = new Blob([data], { type: "application/pdf" });
+
+    // Create a URL for the Blob
+    const url = window.URL.createObjectURL(blob);
+
+    // Create an anchor element to trigger the download
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "Earning Details"; // You can specify the filename here
+
+    // Trigger the click event on the anchor element to start the download
+    a.click();
+
+    // Release the URL and remove the anchor element
+    window.URL.revokeObjectURL(url);
+    a.remove();
+  };
+
   return (
     <>
       {props.userInfoData && (
@@ -1199,6 +1222,7 @@ const DrawerPage = (props) => {
                 height: 50,
                 width: "265px",
               }}
+              onClick={handleGenerateDownload}
             >
               Download
             </Button>
