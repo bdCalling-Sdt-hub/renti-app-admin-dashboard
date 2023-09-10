@@ -8,21 +8,22 @@ import UserPaymentRatioChart from "./UserPaymentRatioChart";
 function UserPayment() {
   const dispatch = useDispatch();
 
+  const handleUserPaymentsPagination = (page) => {
+    const data = {
+      page: page,
+      limit: 2,
+    };
+
+    dispatch(UserPayments(data));
+  };
+
   useEffect(() => {
     const data = {
-      limit: null,
       page: 1,
+      limit: 2,
     };
     dispatch(UserPayments(data));
   }, []);
-
-  const handleUserPaymentsPagination = (page) => {
-    const data = {
-      limit: 2,
-      page: page,
-    };
-    dispatch(UserPayments(data));
-  };
 
   return (
     <div style={{ padding: "0 60px" }}>
