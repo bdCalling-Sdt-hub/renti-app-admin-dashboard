@@ -9,7 +9,7 @@ import Save from "../../../icons/Save";
 const { Title, Text } = Typography;
 
 const PaymentListTable = ({ handleUserPaymentsPagination }) => {
-  const [currentPage, setCurrentPage] = useState(1); // Current page number
+  const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 2;
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [userPaymentData, setUserPaymentData] = useState(null);

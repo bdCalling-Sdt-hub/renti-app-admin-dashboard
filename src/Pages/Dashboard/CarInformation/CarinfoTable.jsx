@@ -38,7 +38,7 @@ const CarInfoTable = ({ carDataByPagination }) => {
       carModel: car.carModelName,
       licenseNo: car.carLicenseNumber,
       registerDate: moment(car?.createAt).format("llll"),
-      owner: car.carOwner.fullName,
+      owner: car.carOwner?.fullName,
       status:
         car.tripStatus === "Start" ? (
           <div
@@ -146,7 +146,7 @@ const CarInfoTable = ({ carDataByPagination }) => {
         placement="right"
         onClose={closeDrawer}
         open={isDrawerVisible}
-        width={500}
+        width={600}
         closable={false}
         extra={
           <Space>

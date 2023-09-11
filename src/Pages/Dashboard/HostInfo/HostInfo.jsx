@@ -12,6 +12,7 @@ const HostInfo = () => {
 
   const hostDataGetByPagination = (page) => {
     const data = {
+      approve:"true",
       search: searchData,
       page: page,
       limit: 2,
@@ -23,6 +24,7 @@ const HostInfo = () => {
 
   const handleHostSearchData = (page) => {
     const data = {
+      approve:"true",
       search: searchData,
       page: page,
       limit: 2,
@@ -35,6 +37,7 @@ const HostInfo = () => {
 
   useEffect(() => {
     const data = {
+      approve:"true",
       search: searchData,
       page: 1,
       limit: 2,

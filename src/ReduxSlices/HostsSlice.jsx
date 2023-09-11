@@ -16,9 +16,10 @@ const token = localStorage.token;
 export const HostsData = createAsyncThunk(
   "HostsData",
   async (value, thunkAPI) => {
+    console.log(value)
     try {
       let response = await axios.get(
-        `api/user/all-host?limit=${value?.limit}&page=${value?.page}&search=${value?.search}`,
+        `api/user/all-host?approve=${value?.approve}&limit=${value?.limit}&page=${value?.page}&search=${value?.search}`,
         {
           headers: {
             "Content-type": "application/json",
@@ -27,6 +28,7 @@ export const HostsData = createAsyncThunk(
         }
       );
 
+      console.log(response.data)
       return response.data;
     } catch (error) {
       const message =

@@ -35,8 +35,8 @@ const CarKycTable = ({ carDataGetByPagination, carDataGetBySearch }) => {
   const data = CarData?.map((item) => {
     return {
       name: item?.carModelName,
-      email: item?.carOwner.email,
-      contact: item?.carOwner.phoneNumber,
+      email: item?.carOwner?.email,
+      contact: item?.carOwner?.phoneNumber,
       type: "pdf",
       status: (
         <div

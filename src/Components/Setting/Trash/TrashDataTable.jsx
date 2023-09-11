@@ -4,14 +4,18 @@ import React, { useState } from "react";
 import { MdRestore } from "react-icons/md";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import axios from "../../../../Config";
 const { Title, Text } = Typography;
 
-const TrashDataTable = () => {
+const TrashDataTable = ({ setReload }) => {
   const { allUsers, pagination } = useSelector((state) => state.AllUser);
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 2;
+  const pageSize = 4;
 
   const bannedUser = allUsers.filter((user) => user.isBanned === "trash");
+
+  console.log(bannedUser);
 
   const data = bannedUser.map((filterUser) => {
     return {
@@ -24,12 +28,49 @@ const TrashDataTable = () => {
     };
   });
 
-  const trashDataDelete = (id) => {
-    console.log("DeleteTrash", id);
+  const token = localStorage.token;
+
+  const trashDataDelete = async (id) => {
+    const res = await axios.delete(`api/user/delete-user/${id}`, {
+      headers: {
+        "Content-type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (res.data.message !== "") {
+      Swal.fire({
+        icon: "success",
+        title: "Wow!",
+        text: res.data.message,
+      });
+
+      setReload((p) => p + 1);
+    }
   };
 
   const trashDataRestore = (id) => {
-    console.log("RestoreTrash", id);
+    axios
+      .post(
+        `api/user/banned/${id}`,
+        {isApprove:"approve",approved:true},
+        {
+          headers: {
+            "Content-type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        if (res.status === 200) {
+          Swal.fire({
+            icon: "success",
+            title: "Wow!",
+            text: "User restore successfully",
+          });
+        }
+        setReload((p) => p + 1);
+      });
   };
 
   const columns = [

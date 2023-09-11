@@ -21,6 +21,8 @@ const HostPaymentTable = ({
     (state) => state.HostPaymentData
   );
 
+  console.log("host payment", pagination);
+
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
     console.log(record);

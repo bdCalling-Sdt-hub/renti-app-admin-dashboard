@@ -13,6 +13,7 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
     useSelector((state) => state.RecentEarnings);
   const pageSize = 3;
 
+  console.log(todayEarning)
   
   //ok all things is done
   let today_data;
@@ -23,9 +24,9 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
       console.log(item)
       return {
         key: item._id,
-        invoiceNo: item._id,
+        tripNo: item.rentId?.rentTripNumber,
         time: item.createdAt,
-        username: item.userId.fullName,
+        username: item.userId?.fullName,
         method: item.paymentData.payment_method_details.card.brand,
         amount: item.paymentData.amount,
         status: item.paymentData.status == "succeeded" ? "Complete" : "Pending",
@@ -38,9 +39,9 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
     weekly_data = weeklyEarning?.map((item) => {
       return {
         key: item._id,
-        invoiceNo: item._id,
+        tripNo: item.rentId?.rentTripNumber,
         time: item.createdAt,
-        username: item.userId.fullName,
+        username: item.userId?.fullName,
         method: item.paymentData.payment_method_details.card.brand,
         amount: item.paymentData.amount,
         status: item.paymentData.status == "succeeded" ? "Complete" : "Pending",
@@ -53,9 +54,9 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
     monthly_data = monthlyEarning?.map((item) => {
       return {
         key: item._id,
-        invoiceNo: item._id,
+        tripNo: item.rentId?.rentTripNumber,
         time: item.createdAt,
-        username: item.userId.fullName,
+        username: item.userId?.fullName,
         method: item.paymentData.payment_method_details.card.brand,
         amount: item.paymentData.amount,
         status: item.paymentData.status == "succeeded" ? "Complete" : "Pending",
