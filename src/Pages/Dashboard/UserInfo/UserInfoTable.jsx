@@ -44,7 +44,7 @@ const UserInfoTable = ({
     (data) => data.user.isBanned !== "true" && data.user.isBanned !== "trash"
   );
 
-  const data = withoutBlockUser.map((item) => {
+  const data = withoutBlockUser?.map((item) => {
     return {
       key: item?.user._id,
       name: item?.user.fullName,
@@ -96,7 +96,7 @@ const UserInfoTable = ({
           <Button onClick={() => showDrawer(record)} type="text">
             <Eye />
           </Button>
-          <Button type="text">
+          <Button onClick={() => showDrawer(record)} type="text">
             <Print />
           </Button>
         </div>

@@ -1,8 +1,8 @@
 import React from "react";
-import eye from "../Images/Eye icon.png";
+import { BsEye } from "react-icons/bs";
 
 const Eye = () => {
-  return <img width="100%" src={eye} />;
+  return <BsEye style={{ fontSize: "20px", color: "#595959" }} />;
 };
 
 export default Eye;

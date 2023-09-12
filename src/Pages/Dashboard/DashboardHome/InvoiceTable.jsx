@@ -88,7 +88,7 @@ const InvoiceTable = ({ recentDataGetByPagination }) => {
       responsive: ["lg"],
       render: (_, record) => (
         <div style={{ display: "flex", alignItems: "center" }}>
-          <Button type="text">
+          <Button onClick={() => showDrawer(record)} type="text">
             <Print />
           </Button>
           <Button onClick={() => showDrawer(record)} type="text">

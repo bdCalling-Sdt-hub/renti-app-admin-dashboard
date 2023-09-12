@@ -82,7 +82,7 @@ const RentiIncomeTable = ({ handlePagination, handleRentiIncomeSearch }) => {
       responsive: ["lg"],
       render: (_, record) => (
         <div style={{ display: "flex", alignItems: "center" }}>
-          <Button type="text">
+          <Button onClick={() => showDrawer(record)} type="text">
             <Print />
           </Button>
           <Button onClick={() => showDrawer(record)} type="text">
@@ -126,7 +126,7 @@ const RentiIncomeTable = ({ handlePagination, handleRentiIncomeSearch }) => {
         placement="right"
         onClose={closeDrawer}
         open={isDrawerVisible}
-        width={500}
+        width={600}
         closable={false}
         extra={
           <Space>

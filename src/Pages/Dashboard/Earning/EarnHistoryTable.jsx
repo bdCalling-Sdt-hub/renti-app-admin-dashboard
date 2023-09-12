@@ -13,15 +13,15 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
     useSelector((state) => state.RecentEarnings);
   const pageSize = 3;
 
-  console.log(todayEarning)
-  
+  console.log(todayEarning);
+
   //ok all things is done
   let today_data;
   let weekly_data;
   let monthly_data;
   if (todayEarning) {
     today_data = todayEarning?.map((item) => {
-      console.log(item)
+      console.log(item);
       return {
         key: item._id,
         tripNo: item.rentId?.rentTripNumber,
@@ -111,7 +111,7 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
         record // Use the second parameter 'record'
       ) => (
         <div style={{ display: "flex", alignItems: "center" }}>
-          <Button type="text">
+          <Button onClick={() => showDrawer(record)} type="text">
             <Print />
           </Button>
           <Button onClick={() => showDrawer(record)} type="text">
