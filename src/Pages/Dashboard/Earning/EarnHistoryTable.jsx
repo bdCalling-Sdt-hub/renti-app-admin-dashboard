@@ -11,19 +11,22 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const { todayEarning, weeklyEarning, monthlyEarning, pagination } =
     useSelector((state) => state.RecentEarnings);
-  const pageSize = 1;
+  const pageSize = 3;
 
+  console.log(todayEarning)
+  
   //ok all things is done
   let today_data;
   let weekly_data;
   let monthly_data;
   if (todayEarning) {
     today_data = todayEarning?.map((item) => {
+      console.log(item)
       return {
         key: item._id,
-        invoiceNo: item._id,
+        tripNo: item.rentId?.rentTripNumber,
         time: item.createdAt,
-        username: item.userId.fullName,
+        username: item.userId?.fullName,
         method: item.paymentData.payment_method_details.card.brand,
         amount: item.paymentData.amount,
         status: item.paymentData.status == "succeeded" ? "Complete" : "Pending",
@@ -36,9 +39,9 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
     weekly_data = weeklyEarning?.map((item) => {
       return {
         key: item._id,
-        invoiceNo: item._id,
+        tripNo: item.rentId?.rentTripNumber,
         time: item.createdAt,
-        username: item.userId.fullName,
+        username: item.userId?.fullName,
         method: item.paymentData.payment_method_details.card.brand,
         amount: item.paymentData.amount,
         status: item.paymentData.status == "succeeded" ? "Complete" : "Pending",
@@ -51,9 +54,9 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
     monthly_data = monthlyEarning?.map((item) => {
       return {
         key: item._id,
-        invoiceNo: item._id,
+        tripNo: item.rentId?.rentTripNumber,
         time: item.createdAt,
-        username: item.userId.fullName,
+        username: item.userId?.fullName,
         method: item.paymentData.payment_method_details.card.brand,
         amount: item.paymentData.amount,
         status: item.paymentData.status == "succeeded" ? "Complete" : "Pending",
@@ -175,7 +178,7 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
           pagination={{
             pageSize,
             showSizeChanger: false,
-            total: pagination?.totalPage,
+            total: pagination?.totalDocuments,
             current: currentPage,
             onChange: handlePageChange,
           }}

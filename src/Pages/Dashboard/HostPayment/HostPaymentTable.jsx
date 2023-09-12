@@ -42,14 +42,15 @@ const HostPaymentTable = ({
   };
 
   const data = hostPaymentList?.map((item) => {
+    console.log("host payments",item)
     return {
-      key: "1",
-      tripno: "10",
-      time: "18 Jul, 2023  4:30pm",
-      username: "Tushar",
-      method: "Credit Card",
-      amount: "$850.00",
-      status: "complete",
+      key: item._id,
+      tripno: item.rentTripNumber,
+      time: item.time,
+      username: item.carOwner,
+      totalamount: item.originalAmount,
+      paidamount: item.paidAmount,
+      status: item.status==false?"Pending":"Complete",
       printView: "Button",
     };
   });
@@ -73,14 +74,14 @@ const HostPaymentTable = ({
       responsive: ["lg"],
     },
     {
-      title: "METHOD",
-      dataIndex: "method",
-      key: "method",
+      title: "Total amount",
+      dataIndex: "totalamount",
+      key: "totalamount",
     },
     {
-      title: "Amount",
-      dataIndex: "amount",
-      key: "amount",
+      title: "Paid Amount",
+      dataIndex: "paidamount",
+      key: "paidamount",
       responsive: ["md"],
     },
     {

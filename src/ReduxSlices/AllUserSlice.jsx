@@ -23,7 +23,7 @@ export const AllUsers = createAsyncThunk(
       });
 
       return response.data;
-    } catch (err) {
+    } catch (error) {
       const message =
         (error.response &&
           error.response.data &&

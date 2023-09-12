@@ -36,7 +36,7 @@ function HostPayment() {
     if (searchData == "") {
       dispatch(HostPaymentData(data));
     }
-  }, []);
+  }, [searchData]);
 
   const hostPaymentDataGetByPagination = (page) => {
     let data = {
@@ -77,7 +77,7 @@ function HostPayment() {
             <Input
               onChange={(e) => setSearchData(e.target.value)}
               size="large"
-              placeholder="Search by name/email/phone"
+              placeholder="Search by name/email/phone/Trip no"
               prefix={<SearchOutlined style={{ color: "#cccccc" }} />}
             />
             <Button
@@ -112,7 +112,7 @@ function HostPayment() {
             <div className="progressbar">
               <Progress
                 type="circle"
-                percent={hostPayments?.income?.hostTotalPercentage}
+                percent={Math.round(hostPayments?.income?.hostTotalPercentage)}
                 strokeColor="#00a991"
               />
             </div>
@@ -135,7 +135,7 @@ function HostPayment() {
                   color: "#00a991",
                 }}
               >
-                $ {hostPayments?.income?.hostTotalPayment}.00
+                $ {Math.round(hostPayments?.income?.hostTotalPayment)}.00
               </h3>
             </div>
           </div>
@@ -155,7 +155,7 @@ function HostPayment() {
             <div className="progressbar">
               <Progress
                 type="circle"
-                percent={hostPayments?.income?.hostPendingPercentage}
+                percent={Math.round(hostPayments?.income?.hostPendingPercentage)}
                 strokeColor="red"
               />
             </div>

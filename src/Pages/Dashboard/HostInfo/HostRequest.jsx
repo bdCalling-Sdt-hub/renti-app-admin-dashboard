@@ -27,6 +27,7 @@ const HostRequest = () => {
 
   const handleSearch = () => {
     const data = {
+      approve:"false",
       page: null,
       search: searchData,
       limit: null,
@@ -36,6 +37,7 @@ const HostRequest = () => {
 
   useEffect(() => {
     const data = {
+      approve:"false",
       page: null,
       search: "",
       limit: null,
@@ -49,9 +51,10 @@ const HostRequest = () => {
 
   const items = hostsData.filter(
     (hostRequest) =>
-      hostRequest.host.approved === false &&
       hostRequest.host.isBanned !== "trash"
   );
+
+  console.log("dsfkjsd",items)
 
   return (
     <div style={{ padding: "0px 60px" }}>
@@ -94,8 +97,9 @@ const HostRequest = () => {
       <div
         style={{ background: "white", padding: "30px", borderRadius: "10px" }}
       >
-        <Row gutter={[16, 16]}>
-          {items.map((item) => (
+        {
+          items?.length!=0 && <Row gutter={[16, 16]}>
+          {items?.map((item) => (
             <HostRequestCard
               key={item._id}
               cardData={item}
@@ -103,6 +107,7 @@ const HostRequest = () => {
             />
           ))}
         </Row>
+        }
       </div>
     </div>
   );

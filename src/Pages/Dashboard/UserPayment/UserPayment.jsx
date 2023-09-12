@@ -25,6 +25,8 @@ function UserPayment() {
     dispatch(UserPayments(data));
   }, []);
 
+ 
+
   return (
     <div style={{ padding: "0 60px" }}>
       <Row>

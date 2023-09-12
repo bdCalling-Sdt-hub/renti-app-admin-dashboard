@@ -53,7 +53,7 @@ const TrashDataTable = ({ setReload }) => {
     axios
       .post(
         `api/user/banned/${id}`,
-        { isApprove: "cancel" },
+        {isApprove:"approve",approved:true},
         {
           headers: {
             "Content-type": "application/json",

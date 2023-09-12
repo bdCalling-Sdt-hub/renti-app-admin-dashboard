@@ -15,20 +15,20 @@ const HostInfoTable = ({ hostDataGetByPagination, handleHostSearchData }) => {
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [hostData, setHostData] = useState(null);
 
-  console.log(hostsData);
+  console.log("sdfjklsdf",hostsData);
 
-  const data = hostsData.map((host) => {
+  const data = hostsData?.map((host) => {
     return {
-      name: host.host.fullName,
-      email: host.host.email,
-      contact: host.host.phoneNumber,
+      name: host?.host.fullName,
+      email: host?.host.email,
+      contact: host?.host.phoneNumber,
       joiningDate: moment(host.host.createAt).format("YYYY-MM-DD"),
       car: host.carCount,
       action: host.host,
     };
   });
 
-  const restData = hostsData.filter((host) => host?.isBanned == false);
+  const restData = hostsData?.filter((host) => host?.isBanned == false);
   console.log(restData);
 
   const columns = [

@@ -15,6 +15,7 @@ const token = localStorage.token;
 export const UserPayments = createAsyncThunk(
   "UserPayments",
   async (value, thunkAPI) => {
+    console.log(value)
     try {
       const response = await axios.get(
         `api/income/user-payment-list?page=${value?.page}&limit=${value?.limit}`,
@@ -27,7 +28,7 @@ export const UserPayments = createAsyncThunk(
       );
 
       return response.data;
-    } catch (err) {
+    } catch (error) {
       const message =
         (error.response &&
           error.response.data &&
