@@ -1,8 +1,8 @@
 import React from "react";
-import print from "../Images/print.png";
+import { BsPrinter } from "react-icons/bs";
 
 const Print = () => {
-  return <img width="100%" src={print} />;
+  return <BsPrinter style={{ fontSize: "20px", color: "#595959" }} />;
 };
 
 export default Print;

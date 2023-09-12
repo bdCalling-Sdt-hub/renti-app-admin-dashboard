@@ -1,8 +1,8 @@
 import React from "react";
-import deleteImg from "../Images/delete.png";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 const Delete = () => {
-  return <img width="100%" src={deleteImg} />;
+  return <RiDeleteBin6Line style={{ fontSize: "20px", color: "#595959" }} />;
 };
 
 export default Delete;

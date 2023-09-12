@@ -8,7 +8,6 @@ import { useReactToPrint } from "react-to-print";
 import Swal from "sweetalert2";
 import axios from "../../../Config";
 import img from "../../Images/1.png";
-import cardImg from "../../Images/Cards.png";
 
 const { Title } = Typography;
 
@@ -49,7 +48,7 @@ const DrawerPage = (props) => {
     },
   };
 
-  console.log("drawer", props?.dashboardEarningData);
+  console.log("drawer", props);
 
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
@@ -69,6 +68,7 @@ const DrawerPage = (props) => {
     console.log("Received values of form: ", values);
   };
 
+  //user information
   const handleBlockUser = () => {
     axios
       .post(
@@ -93,6 +93,23 @@ const DrawerPage = (props) => {
       });
   };
 
+  const handleDeleteUser = () => {
+    const res = window.confirm("Are you wanna delete?");
+
+    if (res) {
+      console.log("User id", props.userInfoData?.key, "Successfully");
+    }
+  };
+
+  //host information
+  const handleBlockHost = () => {
+    console.log("Block", props.hostData?.action._id);
+  };
+
+  const handleDeleteHost = () => {
+    console.log("Delete", props.hostData?.action._id);
+  };
+
   return (
     <>
       {props.userInfoData && (
@@ -110,7 +127,7 @@ const DrawerPage = (props) => {
               <img
                 width={120}
                 style={{ borderRadius: "5px" }}
-                src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
+                src={props.userInfoData?.userInfo?.image}
                 alt=""
               />
             </div>
@@ -207,6 +224,7 @@ const DrawerPage = (props) => {
             </Button>
             <Button
               block
+              onClick={handleDeleteUser}
               style={{
                 background: "#000B90",
                 color: "white",
@@ -517,7 +535,7 @@ const DrawerPage = (props) => {
               <img
                 width={120}
                 style={{ borderRadius: "5px" }}
-                src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
+                src={props.hostData?.action?.image}
                 alt=""
               />
             </div>
@@ -530,8 +548,8 @@ const DrawerPage = (props) => {
                   {props?.hostData?.action?.fullName}
                 </p>
               </div>
-              <p>INC:</p>
-              <p>Rent Completed</p>
+              <p>INC: {props?.hostData?.action?.ine}</p>
+              <p>Trip Completed: 45</p>
               <div
                 style={{ display: "flex", alignItems: "center", gap: "2px" }}
               >
@@ -569,17 +587,7 @@ const DrawerPage = (props) => {
           </div>
 
           <div style={{ marginTop: "30px" }}>
-            <h3>Payment Method</h3>
-            <img width="80" style={{ margin: "10px 0" }} src={cardImg} alt="" />
             <div style={{ marginTop: "10px" }}>
-              <div style={{ marginBottom: "15px" }}>
-                <label htmlFor="">Credit Card Number</label>
-                <Input
-                  readOnly
-                  style={{ height: "40px" }}
-                  defaultValue={props?.hostData?.action?.creaditCardNumber}
-                />
-              </div>
               <div style={{ marginBottom: "15px" }}>
                 <label htmlFor="">Account Number</label>
                 <Input readOnly style={{ height: "40px" }} />
@@ -600,9 +608,10 @@ const DrawerPage = (props) => {
           >
             <Button
               block
+              onClick={handleBlockHost}
               style={{
-                background: "#000B90",
-                color: "white",
+                border: "1px solid red",
+                color: "red",
                 height: 50,
                 width: "270px",
               }}
@@ -611,6 +620,7 @@ const DrawerPage = (props) => {
             </Button>
             <Button
               block
+              onClick={handleDeleteHost}
               style={{
                 background: "#000B90",
                 color: "white",
@@ -938,7 +948,7 @@ const DrawerPage = (props) => {
                 <img
                   width={120}
                   style={{ borderRadius: "5px" }}
-                  src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
+                  src={props.userPaymentData?.actions?.carOwner?.image}
                   alt=""
                 />
               </div>
@@ -946,7 +956,7 @@ const DrawerPage = (props) => {
                 <p style={{ fontSize: "20px" }}>
                   {props.userPaymentData?.username}
                 </p>
-                <p>INE: SNHRM570818MDFPM10</p>
+                <p>INE: {props.userPaymentData?.actions?.carOwner?.ine}</p>
                 <p>Trip Completes: 45</p>
                 <div
                   style={{ display: "flex", alignItems: "center", gap: "2px" }}
@@ -961,8 +971,18 @@ const DrawerPage = (props) => {
                 Trip Details{" "}
                 <Badge
                   className="site-badge-count-109"
-                  count={"complete"}
-                  style={{ backgroundColor: "#E6F6F4", color: "#00A991" }}
+                  count={
+                    props.userPaymentData?.actions?.status
+                      ? "Completed"
+                      : "Pending"
+                  }
+                  style={{
+                    background: "#E6F6F4",
+                    color: "#00A991",
+                    fontSize: "11px",
+                    borderRadius: "4px",
+                    textAlign: "center",
+                  }}
                 />
               </Title>
             </div>
@@ -981,18 +1001,22 @@ const DrawerPage = (props) => {
                   <p>Host Name</p>
                   <p>Host INE</p>
                   <p>Pickup Location</p>
-                  <p>Drop-Off Location</p>
                   <p>Total Rental Time</p>
                 </Col>
                 <Col span={12} style={{ textAlign: "right" }}>
                   <p>{props.userPaymentData?.actions?.car?.carModelName}</p>
                   <p>{props.userPaymentData?.actions?.car?.carColor}</p>
                   <p>{props.userPaymentData?.actions?.car?.carLicenseNumber}</p>
-                  <p>Fahim</p>
-                  <p>BDAC287856B</p>
-                  <p>Moghbazer</p>
-                  <p>Rampura</p>
-                  <p>17 hours</p>
+                  <p>
+                    {props.userPaymentData?.actions?.rentInfo?.hostId?.fullName}
+                  </p>
+                  <p>{props.userPaymentData?.actions?.rentInfo?.hostId?.ine}</p>
+                  <p>
+                    {props.userPaymentData?.actions?.rentInfo?.hostId?.address}
+                  </p>
+                  <p>
+                    {props.userPaymentData?.actions?.rentInfo?.totalHours} hours
+                  </p>
                 </Col>
               </Row>
             </div>
@@ -1058,7 +1082,7 @@ const DrawerPage = (props) => {
                 <img
                   width={120}
                   style={{ borderRadius: "5px" }}
-                  src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
+                  src={props.dashboardEarningData?.printView?.userId?.image}
                   alt=""
                 />
               </div>
@@ -1066,7 +1090,7 @@ const DrawerPage = (props) => {
                 <p style={{ fontSize: "20px" }}>
                   {props.dashboardEarningData?.username}
                 </p>
-                <p>INE: SNHRM570818MDFPM10</p>
+                <p>INE: {props.dashboardEarningData?.printView?.userId?.ine}</p>
                 <p>Trip Completes: 45</p>
                 <div
                   style={{ display: "flex", alignItems: "center", gap: "2px" }}
@@ -1077,15 +1101,37 @@ const DrawerPage = (props) => {
               </div>
             </div>
             <div>
-              <Title level={4}>
+              <Title level={5}>
                 Trip Details{" "}
-                <Badge
-                  className="site-badge-count-109"
-                  count={"complete"}
-                  style={{ backgroundColor: "#E6F6F4", color: "#00A991" }}
-                />
+                {props.dashboardEarningData?.printView?.paymentData?.status ===
+                "succeeded" ? (
+                  <Badge
+                    className="site-badge-count-109"
+                    count={"Complete"}
+                    style={{
+                      background: "#E6F6F4",
+                      color: "#00A991",
+                      fontSize: "11px",
+                      borderRadius: "4px",
+                      textAlign: "center",
+                    }}
+                  />
+                ) : (
+                  <Badge
+                    className="site-badge-count-109"
+                    count={"Pending"}
+                    style={{
+                      background: "#FBE9EC",
+                      color: "#D7263D",
+                      fontSize: "11px",
+                      borderRadius: "4px",
+                      textAlign: "center",
+                    }}
+                  />
+                )}
               </Title>
             </div>
+
             <div
               style={{
                 margin: "15px 0",
@@ -1146,7 +1192,7 @@ const DrawerPage = (props) => {
                 paddingBottom: "15px",
               }}
             >
-              <Title level={4}>Payment Information</Title>
+              <Title level={5}>Payment Information</Title>
               <Row>
                 <Col span={12} style={{ textAlign: "left" }}>
                   <p>Payment By</p>
@@ -1336,6 +1382,218 @@ const DrawerPage = (props) => {
                 <p> {props.carKycData?.actions?.hourlyRate}</p>
               </Col>
             </Row>
+          </div>
+        </div>
+      )}
+      {props.rentiIncomeData && (
+        <div>
+          <div ref={componentRef}>
+            <div
+              style={{
+                display: "flex",
+                gap: "15px",
+                borderBottom: "1px solid #ebebeb",
+                paddingBottom: "10px",
+                marginBottom: "10px",
+              }}
+            >
+              <div>
+                <img
+                  width={120}
+                  style={{ borderRadius: "5px" }}
+                  src={props.rentiIncomeData?.actions?.carOwner?.image}
+                  alt=""
+                />
+              </div>
+              <div style={{ marginTop: "-7px" }}>
+                <p style={{ fontSize: "20px" }}>
+                  {props.rentiIncomeData?.actions?.carOwner?.fullName}
+                </p>
+                <p>INE: {props.rentiIncomeData?.actions?.carOwner?.ine}</p>
+                <p>Trip Completes: 45</p>
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "2px" }}
+                >
+                  <AiFillStar color="#fba91d" />
+                  <span>4.8</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <Title level={5}>Trip Details</Title>
+            </div>
+            <div
+              style={{
+                margin: "10px 0",
+                borderBottom: "1px solid #ebebeb",
+                paddingBottom: "15px",
+              }}
+            >
+              <Row>
+                <Col span={12} style={{ textAlign: "left" }}>
+                  <p>Car Model</p>
+                  <p>Car Color</p>
+                  <p>Car License</p>
+                  <p>Host Name</p>
+                  <p>Host INE</p>
+                  <p>Pickup Location</p>
+                  <p>Total Rental Time</p>
+                </Col>
+                <Col span={12} style={{ textAlign: "right" }}>
+                  <p>
+                    {" "}
+                    {
+                      props.rentiIncomeData?.actions?.rentInfo?.carId
+                        ?.carModelName
+                    }
+                  </p>
+                  <p>
+                    {props.rentiIncomeData?.actions?.rentInfo?.carId?.carColor}
+                  </p>
+                  <p>
+                    {" "}
+                    {
+                      props.rentiIncomeData?.actions?.rentInfo?.carId
+                        ?.carLicenseNumber
+                    }
+                  </p>
+                  <p>
+                    {" "}
+                    {props.rentiIncomeData?.actions?.rentInfo?.hostId?.fullName}
+                  </p>
+                  <p>
+                    {" "}
+                    {props.rentiIncomeData?.actions?.rentInfo?.hostId?.ine}
+                  </p>
+                  <p>
+                    {" "}
+                    {props.rentiIncomeData?.actions?.rentInfo?.hostId?.address}
+                  </p>
+                  <p>
+                    {props.rentiIncomeData?.actions?.rentInfo?.totalHours} Hours
+                  </p>
+                </Col>
+              </Row>
+            </div>
+            <div
+              style={{
+                margin: "10px 0",
+                borderBottom: "1px solid #ebebeb",
+                paddingBottom: "15px",
+              }}
+            >
+              <Title level={5}>Total Payment By User</Title>
+              <Row>
+                <Col span={12} style={{ textAlign: "left" }}>
+                  <p>Payment By</p>
+                  <p>Payment Method</p>
+                  <p>Payment Date</p>
+                  <p>Total Amount</p>
+                </Col>
+                <Col span={12} style={{ textAlign: "right" }}>
+                  <p>{props.rentiIncomeData?.actions?.carOwner?.fullName}</p>
+                  <p>{props.rentiIncomeData?.actions?.method}</p>
+                  <p>
+                    {moment(props.rentiIncomeData?.time).format("YYYY-DD-MM")}
+                  </p>
+                  <p>{props.rentiIncomeData?.totalAmount}</p>
+                </Col>
+              </Row>
+            </div>
+            <div
+              style={{
+                margin: "10px 0",
+                borderBottom: "1px solid #ebebeb",
+                paddingBottom: "15px",
+              }}
+            >
+              <Title level={5}>Stripe Fee</Title>
+              <Row>
+                <Col span={12} style={{ textAlign: "left" }}>
+                  <p>Payment Date</p>
+                  <p>Total Amount</p>
+                  <p>Stripe Fee</p>
+                </Col>
+                <Col span={12} style={{ textAlign: "right" }}>
+                  <p>
+                    {moment(props.rentiIncomeData?.time).format("YYYY-DD-MM")}
+                  </p>
+                  <p>{props.rentiIncomeData?.totalAmount}</p>
+                  <p>{props.rentiIncomeData?.stripeFee}</p>
+                </Col>
+              </Row>
+            </div>
+            <div
+              style={{
+                margin: "10px 0",
+                borderBottom: "1px solid #ebebeb",
+                paddingBottom: "15px",
+              }}
+            >
+              <Title level={5}>Host Payment</Title>
+              <Row>
+                <Col span={12} style={{ textAlign: "left" }}>
+                  <p>Payment Date</p>
+                  <p>Total Amount</p>
+                  <p>Stripe Fee</p>
+                  <p>Host Payment</p>
+                </Col>
+                <Col span={12} style={{ textAlign: "right" }}>
+                  <p>
+                    {moment(props.rentiIncomeData?.time).format("YYYY-DD-MM")}
+                  </p>
+                  <p>{props.rentiIncomeData?.actions?.method}</p>
+                  <p>{props.rentiIncomeData?.stripeFee}</p>
+                  <p>{props.rentiIncomeData?.hostPayment}</p>
+                </Col>
+              </Row>
+            </div>
+            <div
+              style={{
+                margin: "10px 0",
+                paddingBottom: "15px",
+                marginBottom: "50px",
+              }}
+            >
+              <Title level={5}>Renti Income</Title>
+              <Row>
+                <Col span={12} style={{ textAlign: "left" }}>
+                  <p>Date</p>
+                  <p>Total Amount</p>
+                  <p>Stripe Fee</p>
+                  <p>Host Payment</p>
+                  <p>Renti's Income</p>
+                </Col>
+                <Col span={12} style={{ textAlign: "right" }}>
+                  <p>
+                    {moment(props.rentiIncomeData?.time).format("YYYY-DD-MM")}
+                  </p>
+                  <p>{props.rentiIncomeData?.totalAmount}</p>
+                  <p>{props.rentiIncomeData?.stripeFee}</p>
+                  <p>{props.rentiIncomeData?.hostPayment}</p>
+                  <p>{props.rentiIncomeData?.rentiIncome}</p>
+                </Col>
+              </Row>
+            </div>
+          </div>
+          <div
+            style={{
+              position: "absolute",
+              bottom: 10,
+              width: "92%",
+            }}
+          >
+            <Button
+              block
+              style={{
+                background: "#000B90",
+                color: "white",
+                height: 50,
+              }}
+              onClick={handlePrint}
+            >
+              Print/Download
+            </Button>
           </div>
         </div>
       )}

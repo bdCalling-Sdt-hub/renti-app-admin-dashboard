@@ -42,7 +42,34 @@ const InvoiceTable = ({ recentDataGetByPagination }) => {
       username: item.userId?.fullName,
       method: item.paymentData.payment_method_details.card.brand,
       amount: item.paymentData.amount,
-      status: item.paymentData.status == "succeeded" ? "Complete" : "Pending",
+      status:
+        item.paymentData.status == "succeeded" ? (
+          <div
+            style={{
+              background: "#E6F6F4",
+              color: "#00A991",
+              padding: "4px",
+              fontSize: "11px",
+              borderRadius: "4px",
+              textAlign: "center",
+            }}
+          >
+            Completed
+          </div>
+        ) : (
+          <div
+            style={{
+              background: "#FBE9EC",
+              color: "#D7263D",
+              padding: "4px",
+              fontSize: "11px",
+              borderRadius: "4px",
+              textAlign: "center",
+            }}
+          >
+            Pending
+          </div>
+        ),
       printView: item,
     };
   });
@@ -88,7 +115,7 @@ const InvoiceTable = ({ recentDataGetByPagination }) => {
       responsive: ["lg"],
       render: (_, record) => (
         <div style={{ display: "flex", alignItems: "center" }}>
-          <Button type="text">
+          <Button onClick={() => showDrawer(record)} type="text">
             <Print />
           </Button>
           <Button onClick={() => showDrawer(record)} type="text">

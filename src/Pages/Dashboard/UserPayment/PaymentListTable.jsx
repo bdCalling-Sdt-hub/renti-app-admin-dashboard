@@ -109,7 +109,7 @@ const PaymentListTable = ({ handleUserPaymentsPagination }) => {
       responsive: ["lg"],
       render: (_, record) => (
         <div style={{ display: "flex", alignItems: "center" }}>
-          <Button type="text">
+          <Button onClick={() => showDrawer(record)} type="text">
             <Print />
           </Button>
           <Button onClick={() => showDrawer(record)} type="text">
@@ -126,13 +126,9 @@ const PaymentListTable = ({ handleUserPaymentsPagination }) => {
     handleUserPaymentsPagination(page);
   };
 
-  
-
-
   return (
     <>
-
-<Table
+      <Table
         columns={columns}
         dataSource={data}
         pagination={{
@@ -144,7 +140,6 @@ const PaymentListTable = ({ handleUserPaymentsPagination }) => {
         }}
       />
 
-      
       <Drawer
         title={
           <div>

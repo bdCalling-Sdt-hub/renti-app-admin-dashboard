@@ -12,19 +12,19 @@ const RentiIncomeTable = ({ handlePagination, handleRentiIncomeSearch }) => {
   const [currentPage, setCurrentPage] = useState(1); // Current page number
   const pageSize = 2;
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
-  const [invoiceData, setInvoiceData] = useState(null);
+  const [rentiIncomeData, setRentiIncomeData] = useState(null);
   const { rentiIncomeList, pagination } = useSelector(
     (state) => state.RentiIncomes
   );
 
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
-    setInvoiceData(record);
+    setRentiIncomeData(record);
   };
 
   const closeDrawer = () => {
     setIsDrawerVisible(false);
-    setInvoiceData(null);
+    setRentiIncomeData(null);
   };
 
   const data = rentiIncomeList.map((rtIncome) => {
@@ -36,7 +36,7 @@ const RentiIncomeTable = ({ handlePagination, handleRentiIncomeSearch }) => {
       stripeFee: rtIncome.stripeFee,
       hostPayment: rtIncome.hostPayment,
       rentiIncome: rtIncome.rentiIncome,
-      printView: "Button",
+      actions: rtIncome,
     };
   });
 
@@ -77,12 +77,12 @@ const RentiIncomeTable = ({ handlePagination, handleRentiIncomeSearch }) => {
 
     {
       title: "PRINT/VIEW",
-      dataIndex: "printView",
-      key: "printView",
+      dataIndex: "action",
+      key: "action",
       responsive: ["lg"],
       render: (_, record) => (
         <div style={{ display: "flex", alignItems: "center" }}>
-          <Button type="text">
+          <Button onClick={() => showDrawer(record)} type="text">
             <Print />
           </Button>
           <Button onClick={() => showDrawer(record)} type="text">
@@ -117,7 +117,7 @@ const RentiIncomeTable = ({ handlePagination, handleRentiIncomeSearch }) => {
           <div>
             <Typography>
               <Title level={5} strong>
-                Invoice# Trip No.{invoiceData?.invoiceNo}
+                Invoice# Trip No.{rentiIncomeData?.invoiceNo}
               </Title>
               <Text>See all information about the trip no. 68656</Text>
             </Typography>
@@ -126,7 +126,7 @@ const RentiIncomeTable = ({ handlePagination, handleRentiIncomeSearch }) => {
         placement="right"
         onClose={closeDrawer}
         open={isDrawerVisible}
-        width={500}
+        width={600}
         closable={false}
         extra={
           <Space>
@@ -146,7 +146,7 @@ const RentiIncomeTable = ({ handlePagination, handleRentiIncomeSearch }) => {
           </Space>
         }
       >
-        {invoiceData && <DrawerPage invoiceData={invoiceData} />}
+        {rentiIncomeData && <DrawerPage rentiIncomeData={rentiIncomeData} />}
       </Drawer>
     </>
   );

@@ -1,8 +1,8 @@
 import React from "react";
-import save from "../Images/Save Icon.png";
+import { FiSave } from "react-icons/fi";
 
 const Save = () => {
-  return <img width="100%" src={save} />;
+  return <FiSave style={{ fontSize: "20px", color: "#595959" }} />;
 };
 
 export default Save;
