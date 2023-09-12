@@ -1121,7 +1121,12 @@ const DrawerPage = (props) => {
                   </p>
                   <p>
                     {" "}
-                    {props.dashboardEarningData?.printView?.carId?.carModelName}
+                    {props.dashboardEarningData?.printView?.hostId?.fullName}
+                  </p>
+                  <p>
+                    {" "}
+                    {props.dashboardEarningData?.printView?.hostId?.ine ||
+                      "INE:"}{" "}
                   </p>
                   <p>
                     {" "}
@@ -1132,12 +1137,8 @@ const DrawerPage = (props) => {
                     {props.dashboardEarningData?.printView?.carId?.carModelName}
                   </p>
                   <p>
-                    {" "}
-                    {props.dashboardEarningData?.printView?.carId?.carModelName}
-                  </p>
-                  <p>
-                    17{" "}
-                    {props.dashboardEarningData?.printView?.carId?.carModelName}
+                    {props.dashboardEarningData?.printView?.rentId?.totalHours}{" "}
+                    Hours
                   </p>
                 </Col>
               </Row>
