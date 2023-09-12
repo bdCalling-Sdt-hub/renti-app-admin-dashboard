@@ -1,7 +1,7 @@
 import { CloseOutlined } from "@ant-design/icons";
 import { Button, Drawer, Space, Table, Typography } from "antd";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 import Print from "../../../icons/Print";
 import Save from "../../../icons/Save";
@@ -11,10 +11,13 @@ const InvoiceTable = ({ recentDataGetByPagination }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 3;
 
-  const dispatch = useDispatch();
-
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [dashboardEarningData, setDashboardEarningData] = useState(null);
+  const { recentEarning, pagination } = useSelector(
+    (state) => state.RecentEarnings
+  );
+
+  console.log(recentEarning);
 
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
@@ -31,9 +34,6 @@ const InvoiceTable = ({ recentDataGetByPagination }) => {
     recentDataGetByPagination(page);
   };
 
-  const { recentEarning, pagination } = useSelector(
-    (state) => state.RecentEarnings
-  );
   const data = recentEarning?.map((item) => {
     return {
       key: item._id,

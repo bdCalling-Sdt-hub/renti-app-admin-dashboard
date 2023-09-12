@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import { Badge, Button, Col, Form, Input, Row, Select, Typography } from "antd";
 import moment from "moment";
-import React,{useRef} from "react";
+import React, { useRef } from "react";
 import { AiFillStar } from "react-icons/ai";
 import { useReactToPrint } from "react-to-print";
 import Swal from "sweetalert2";
@@ -1101,7 +1101,6 @@ const DrawerPage = (props) => {
                   <p>Host Name</p>
                   <p>Host INE</p>
                   <p>Pickup Location</p>
-                  <p>Drop-Off Location</p>
                   <p>Total Rental Time</p>
                 </Col>
                 <Col span={12} style={{ textAlign: "right" }}>
@@ -1131,11 +1130,7 @@ const DrawerPage = (props) => {
                   </p>
                   <p>
                     {" "}
-                    {props.dashboardEarningData?.printView?.carId?.carModelName}
-                  </p>
-                  <p>
-                    {" "}
-                    {props.dashboardEarningData?.printView?.carId?.carModelName}
+                    {props.dashboardEarningData?.printView?.hostId?.address}
                   </p>
                   <p>
                     {props.dashboardEarningData?.printView?.rentId?.totalHours}{" "}
@@ -1160,7 +1155,7 @@ const DrawerPage = (props) => {
                   <p>Total Amount</p>
                 </Col>
                 <Col span={12} style={{ textAlign: "right" }}>
-                  <p>{props.dashboardEarningData?.username}</p>
+                  <p>{props.dashboardEarningData?.username || ""}</p>
                   <p>{props.dashboardEarningData?.method}</p>
                   <p>
                     {moment(props.dashboardEarningData?.time).format(
