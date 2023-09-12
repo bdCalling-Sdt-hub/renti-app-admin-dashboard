@@ -8,7 +8,6 @@ import { useReactToPrint } from "react-to-print";
 import Swal from "sweetalert2";
 import axios from "../../../Config";
 import img from "../../Images/1.png";
-import cardImg from "../../Images/Cards.png";
 
 const { Title } = Typography;
 
@@ -69,6 +68,7 @@ const DrawerPage = (props) => {
     console.log("Received values of form: ", values);
   };
 
+  //user information
   const handleBlockUser = () => {
     axios
       .post(
@@ -93,6 +93,23 @@ const DrawerPage = (props) => {
       });
   };
 
+  const handleDeleteUser = () => {
+    const res = window.confirm("Are you wanna delete?");
+
+    if (res) {
+      console.log("User id", props.userInfoData?.key, "Successfully");
+    }
+  };
+
+  //host information
+  const handleBlockHost = () => {
+    console.log("Block", props.hostData?.action._id);
+  };
+
+  const handleDeleteHost = () => {
+    console.log("Delete", props.hostData?.action._id);
+  };
+
   return (
     <>
       {props.userInfoData && (
@@ -110,7 +127,7 @@ const DrawerPage = (props) => {
               <img
                 width={120}
                 style={{ borderRadius: "5px" }}
-                src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
+                src={props.userInfoData?.userInfo?.image}
                 alt=""
               />
             </div>
@@ -207,6 +224,7 @@ const DrawerPage = (props) => {
             </Button>
             <Button
               block
+              onClick={handleDeleteUser}
               style={{
                 background: "#000B90",
                 color: "white",
@@ -517,7 +535,7 @@ const DrawerPage = (props) => {
               <img
                 width={120}
                 style={{ borderRadius: "5px" }}
-                src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
+                src={props.hostData?.action?.image}
                 alt=""
               />
             </div>
@@ -530,8 +548,8 @@ const DrawerPage = (props) => {
                   {props?.hostData?.action?.fullName}
                 </p>
               </div>
-              <p>INC:</p>
-              <p>Rent Completed</p>
+              <p>INC: {props?.hostData?.action?.ine}</p>
+              <p>Trip Completed: 45</p>
               <div
                 style={{ display: "flex", alignItems: "center", gap: "2px" }}
               >
@@ -569,17 +587,7 @@ const DrawerPage = (props) => {
           </div>
 
           <div style={{ marginTop: "30px" }}>
-            <h3>Payment Method</h3>
-            <img width="80" style={{ margin: "10px 0" }} src={cardImg} alt="" />
             <div style={{ marginTop: "10px" }}>
-              <div style={{ marginBottom: "15px" }}>
-                <label htmlFor="">Credit Card Number</label>
-                <Input
-                  readOnly
-                  style={{ height: "40px" }}
-                  defaultValue={props?.hostData?.action?.creaditCardNumber}
-                />
-              </div>
               <div style={{ marginBottom: "15px" }}>
                 <label htmlFor="">Account Number</label>
                 <Input readOnly style={{ height: "40px" }} />
@@ -600,9 +608,10 @@ const DrawerPage = (props) => {
           >
             <Button
               block
+              onClick={handleBlockHost}
               style={{
-                background: "#000B90",
-                color: "white",
+                border: "1px solid red",
+                color: "red",
                 height: 50,
                 width: "270px",
               }}
@@ -611,6 +620,7 @@ const DrawerPage = (props) => {
             </Button>
             <Button
               block
+              onClick={handleDeleteHost}
               style={{
                 background: "#000B90",
                 color: "white",
@@ -1072,7 +1082,7 @@ const DrawerPage = (props) => {
                 <img
                   width={120}
                   style={{ borderRadius: "5px" }}
-                  src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
+                  src={props.dashboardEarningData?.printView?.userId?.image}
                   alt=""
                 />
               </div>
@@ -1080,7 +1090,7 @@ const DrawerPage = (props) => {
                 <p style={{ fontSize: "20px" }}>
                   {props.dashboardEarningData?.username}
                 </p>
-                <p>INE: SNHRM570818MDFPM10</p>
+                <p>INE: {props.dashboardEarningData?.printView?.userId?.ine}</p>
                 <p>Trip Completes: 45</p>
                 <div
                   style={{ display: "flex", alignItems: "center", gap: "2px" }}

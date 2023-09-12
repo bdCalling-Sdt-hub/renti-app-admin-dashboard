@@ -15,7 +15,7 @@ const HostInfoTable = ({ hostDataGetByPagination, handleHostSearchData }) => {
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [hostData, setHostData] = useState(null);
 
-  console.log("sdfjklsdf",hostsData);
+  console.log("sdfjklsdf", hostsData);
 
   const data = hostsData?.map((host) => {
     return {
