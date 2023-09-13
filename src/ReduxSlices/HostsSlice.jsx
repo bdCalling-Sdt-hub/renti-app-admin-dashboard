@@ -19,7 +19,7 @@ export const HostsData = createAsyncThunk(
     console.log(value)
     try {
       let response = await axios.get(
-        `api/user/all-host?approve=${value?.approve}&limit=${value?.limit}&page=${value?.page}&search=${value?.search}`,
+        `api/user/all-host?approve=${value?.approve}&isBanned=${value?.isBanned}&limit=${value?.limit}&page=${value?.page}&search=${value?.search}`,
         {
           headers: {
             "Content-type": "application/json",
