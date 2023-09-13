@@ -40,7 +40,6 @@ const HostRequestCard = ({ cardData, setAutoReload }) => {
         if (res.status == 200) {
           Swal.fire({
             icon: "success",
-            title: "Wow!",
             text: res.data.message,
           });
           setAutoReload((prev) => prev + 1);
@@ -64,7 +63,6 @@ const HostRequestCard = ({ cardData, setAutoReload }) => {
         if (res.status === 200) {
           Swal.fire({
             icon: "success",
-            title: "Wow!",
             text: "User cancel successfully",
           });
           setAutoReload((prev) => prev + 1);

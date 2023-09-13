@@ -40,7 +40,6 @@ const BlockUserCard = ({ data, setReload }) => {
     if (response.status === 200) {
       Swal.fire({
         icon: "success",
-        title: "Wow!",
         text: "User unblock successfully",
       });
       setReload((prev) => prev + 1);
@@ -63,7 +62,6 @@ const BlockUserCard = ({ data, setReload }) => {
         if (res.status === 200) {
           Swal.fire({
             icon: "success",
-            title: "Wow!",
             text: "User cancel successfully",
           });
           setReload((prev) => prev + 1);

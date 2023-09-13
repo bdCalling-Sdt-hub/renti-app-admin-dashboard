@@ -70,66 +70,209 @@ const DrawerPage = (props) => {
 
   //user information
   const handleBlockUser = () => {
-    axios
-      .post(
-        `api/user/banned/${props.userInfoData?.key}`,
-        { isApprove: "cancel" },
-        {
-          headers: {
-            "Content-type": "application/json",
-            authorization: `Bearer ${token}`,
-          },
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger",
+      },
+      buttonsStyling: true,
+    });
+
+    swalWithBootstrapButtons
+      .fire({
+        title: "Are you sure?",
+        text: "You want to Block User",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, Block it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          axios
+            .post(
+              `api/user/banned/${props.userInfoData?.key}`,
+              { isApprove: "cancel" },
+              {
+                headers: {
+                  "Content-type": "application/json",
+                  authorization: `Bearer ${token}`,
+                },
+              }
+            )
+            .then((res) => {
+              if (res.status === 200) {
+                Swal.fire({
+                  icon: "success",
+                  text: "User Block successfully",
+                });
+              }
+              props?.setUserInfoReload((prev) => prev + 1);
+            });
+        } else {
+          swalWithBootstrapButtons.fire(
+            "Cancelled",
+            "Your User safe :)",
+            "error"
+          );
         }
-      )
-      .then((res) => {
-        if (res.status === 200) {
-          Swal.fire({
-            icon: "success",
-            title: "Wow!",
-            text: "User Block successfully",
-          });
-        }
-        props?.setUserInfoReload((prev) => prev + 1);
       });
   };
 
   const handleDeleteUser = () => {
-    const res = window.confirm("Are you wanna delete?");
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger",
+      },
+      buttonsStyling: true,
+    });
 
-    if (res) {
-      console.log("User id", props.userInfoData?.key, "Successfully");
-    }
+    swalWithBootstrapButtons
+      .fire({
+        title: "Are you sure?",
+        text: "You want to Delete User",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          axios
+            .post(
+              `api/user/banned/${props.userInfoData?.key}`,
+              { isApprove: "trash" },
+              {
+                headers: {
+                  "Content-type": "application/json",
+                  authorization: `Bearer ${token}`,
+                },
+              }
+            )
+            .then((res) => {
+              if (res.status === 200) {
+                Swal.fire({
+                  icon: "success",
+                  text: "User Delete successfully",
+                });
+                props?.setUserInfoReload((prev) => prev + 1);
+              }
+            });
+        } else {
+          swalWithBootstrapButtons.fire(
+            "Cancelled",
+            "Your User safe :)",
+            "error"
+          );
+        }
+      });
   };
 
   //host information
   const handleBlockHost = () => {
-    console.log("Block", props.hostData?.action._id);
-
-    axios
-    .post(
-      `api/user/banned/${props.hostData?.action._id}`,
-      { isApprove: "cancel" },
-      {
-        headers: {
-          "Content-type": "application/json",
-          authorization: `Bearer ${token}`,
-        },
-      }
-    )
-    .then((res) => {
-      if (res.status === 200) {
-        Swal.fire({
-          icon: "success",
-          title: "Wow!",
-          text: "User Block successfully",
-        });
-      }
-      props?.setUserInfoReload((prev) => prev + 1);
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "success",
+        cancelButton: "btn btn-danger",
+      },
+      buttonsStyling: true,
     });
+
+    swalWithBootstrapButtons
+      .fire({
+        title: "Are you sure?",
+        text: "You want to Block Host",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, Block it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          axios
+            .post(
+              `api/user/banned/${props.hostData?.action.host._id}`,
+              { isApprove: "cancel" },
+              {
+                headers: {
+                  "Content-type": "application/json",
+                  authorization: `Bearer ${token}`,
+                },
+              }
+            )
+            .then((res) => {
+              if (res.status === 200) {
+                Swal.fire({
+                  icon: "success",
+                  text: "User Block successfully",
+                });
+              }
+              props?.setReload((prev) => prev + 1);
+            });
+        } else {
+          swalWithBootstrapButtons.fire(
+            "Cancelled",
+            "Your Host safe :)",
+            "error"
+          );
+        }
+      });
   };
 
   const handleDeleteHost = () => {
-    console.log("Delete", props.hostData?.action._id);
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "success",
+        cancelButton: "btn btn-danger",
+      },
+      buttonsStyling: true,
+    });
+
+    swalWithBootstrapButtons
+      .fire({
+        title: "Are you sure?",
+        text: "You want to Delete Host",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          axios
+            .post(
+              `api/user/banned/${props.hostData?.action.host._id}`,
+              { isApprove: "trash" },
+              {
+                headers: {
+                  "Content-type": "application/json",
+                  authorization: `Bearer ${token}`,
+                },
+              }
+            )
+            .then((res) => {
+              if (res.status === 200) {
+                swalWithBootstrapButtons.fire(
+                  "Deleted!",
+                  "Successfully Deleted Host",
+                  "success"
+                );
+                props?.setReload((prev) => prev + 1);
+              }
+            });
+        } else {
+          swalWithBootstrapButtons.fire(
+            "Cancelled",
+            "Your Host safe :)",
+            "error"
+          );
+        }
+      });
   };
 
   return (

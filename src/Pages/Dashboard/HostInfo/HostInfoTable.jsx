@@ -8,7 +8,11 @@ import Delete from "../../../icons/Delete";
 import Eye from "../../../icons/Eye";
 const { Title, Text } = Typography;
 
-const HostInfoTable = ({ hostDataGetByPagination, handleHostSearchData }) => {
+const HostInfoTable = ({
+  hostDataGetByPagination,
+  handleHostSearchData,
+  setReload,
+}) => {
   const { hostsData, pagination } = useSelector((state) => state.hostsData);
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 2;
@@ -135,7 +139,7 @@ const HostInfoTable = ({ hostDataGetByPagination, handleHostSearchData }) => {
         open={isDrawerVisible}
         width={600}
       >
-        {hostData && <DrawerPage hostData={hostData} />}
+        {hostData && <DrawerPage hostData={hostData} setReload={setReload} />}
       </Drawer>
     </div>
   );

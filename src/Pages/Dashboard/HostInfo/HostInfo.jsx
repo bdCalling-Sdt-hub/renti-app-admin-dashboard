@@ -9,11 +9,12 @@ import HostInfoTable from "./HostInfoTable";
 const HostInfo = () => {
   const dispatch = useDispatch();
   const [searchData, setSearchData] = useState("");
+  const [reload, setReload] = useState(1);
 
   const hostDataGetByPagination = (page) => {
     const data = {
-      approve:"true",
-      isBanned:"false",
+      approve: "true",
+      isBanned: "false",
       search: searchData,
       page: page,
       limit: 2,
@@ -25,8 +26,8 @@ const HostInfo = () => {
 
   const handleHostSearchData = (page) => {
     const data = {
-      approve:"true",
-      isBanned:"false",
+      approve: "true",
+      isBanned: "false",
       search: searchData,
       page: page,
       limit: 2,
@@ -39,8 +40,8 @@ const HostInfo = () => {
 
   useEffect(() => {
     const data = {
-      approve:"true",
-      isBanned:"false",
+      approve: "true",
+      isBanned: "false",
       search: searchData,
       page: 1,
       limit: 2,
@@ -48,7 +49,7 @@ const HostInfo = () => {
     if (searchData === "") {
       dispatch(HostsData(data));
     }
-  }, [searchData]);
+  }, [searchData, reload]);
 
   return (
     <div style={{ padding: "0px 60px" }}>
@@ -91,6 +92,7 @@ const HostInfo = () => {
       <HostInfoTable
         hostDataGetByPagination={hostDataGetByPagination}
         handleHostSearchData={handleHostSearchData}
+        setReload={setReload}
       />
     </div>
   );

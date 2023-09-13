@@ -53,7 +53,7 @@ const TrashDataTable = ({ setReload }) => {
     axios
       .post(
         `api/user/banned/${id}`,
-        {isApprove:"approve",approved:true},
+        { isApprove: "approve", approved: true },
         {
           headers: {
             "Content-type": "application/json",
@@ -65,7 +65,6 @@ const TrashDataTable = ({ setReload }) => {
         if (res.status === 200) {
           Swal.fire({
             icon: "success",
-            title: "Wow!",
             text: "User restore successfully",
           });
         }
