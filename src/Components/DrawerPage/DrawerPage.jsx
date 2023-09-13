@@ -435,11 +435,32 @@ const DrawerPage = (props) => {
             <div>
               <Title level={4}>
                 Trip Details{" "}
-                <Badge
-                  className="site-badge-count-109"
-                  count={"complete"}
-                  style={{ backgroundColor: "#E6F6F4", color: "#00A991" }}
-                />
+                {props.earningData?.printView?.paymentData?.status ===
+                "succeeded" ? (
+                  <Badge
+                    className="site-badge-count-109"
+                    count={"Complete"}
+                    style={{
+                      background: "#E6F6F4",
+                      color: "#00A991",
+                      fontSize: "11px",
+                      borderRadius: "4px",
+                      textAlign: "center",
+                    }}
+                  />
+                ) : (
+                  <Badge
+                    className="site-badge-count-109"
+                    count={"Pending"}
+                    style={{
+                      background: "#FBE9EC",
+                      color: "#D7263D",
+                      fontSize: "11px",
+                      borderRadius: "4px",
+                      textAlign: "center",
+                    }}
+                  />
+                )}
               </Title>
             </div>
             <div
@@ -535,7 +556,7 @@ const DrawerPage = (props) => {
               <img
                 width={120}
                 style={{ borderRadius: "5px" }}
-                src={props.hostData?.action?.image}
+                src={props.hostData?.action?.host?.image}
                 alt=""
               />
             </div>
@@ -544,11 +565,9 @@ const DrawerPage = (props) => {
                 style={{ display: "flex", alignItems: "center", gap: "10px" }}
               >
                 {" "}
-                <p style={{ fontSize: "20px" }}>
-                  {props?.hostData?.action?.fullName}
-                </p>
+                <p style={{ fontSize: "20px" }}>{props?.hostData?.name}</p>
               </div>
-              <p>INC: {props?.hostData?.action?.ine}</p>
+              <p>INC: {props?.hostData?.action?.host?.ine}</p>
               <p>Trip Completed: 45</p>
               <div
                 style={{ display: "flex", alignItems: "center", gap: "2px" }}
@@ -565,7 +584,7 @@ const DrawerPage = (props) => {
               <Input
                 readOnly
                 style={{ height: "40px" }}
-                defaultValue={props?.hostData?.action?.email}
+                defaultValue={props?.hostData?.email}
               />
             </div>
             <div style={{ marginBottom: "15px" }}>
@@ -573,7 +592,7 @@ const DrawerPage = (props) => {
               <Input
                 readOnly
                 style={{ height: "40px" }}
-                defaultValue={props?.hostData?.action?.phoneNumber}
+                defaultValue={props?.hostData?.contact}
               />
             </div>
             <div style={{ marginBottom: "15px" }}>
@@ -581,7 +600,7 @@ const DrawerPage = (props) => {
               <Input
                 readOnly
                 style={{ height: "40px" }}
-                defaultValue={props?.hostData?.action?.address}
+                defaultValue={props?.hostData?.action?.host?.address}
               />
             </div>
           </div>
@@ -590,11 +609,23 @@ const DrawerPage = (props) => {
             <div style={{ marginTop: "10px" }}>
               <div style={{ marginBottom: "15px" }}>
                 <label htmlFor="">Account Number</label>
-                <Input readOnly style={{ height: "40px" }} />
+                <Input
+                  readOnly
+                  style={{ height: "40px" }}
+                  defaultValue={
+                    props?.hostData?.action?.cards[0]?.bankAccountNumber
+                  }
+                />
               </div>
               <div style={{ marginBottom: "15px" }}>
                 <label htmlFor="">Account Holder Name</label>
-                <Input readOnly style={{ height: "40px" }} />
+                <Input
+                  readOnly
+                  style={{ height: "40px" }}
+                  defaultValue={
+                    props?.hostData?.action?.cards[0]?.accountHolderName
+                  }
+                />
               </div>
             </div>
           </div>

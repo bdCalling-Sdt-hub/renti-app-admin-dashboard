@@ -24,7 +24,7 @@ const HostInfoTable = ({ hostDataGetByPagination, handleHostSearchData }) => {
       contact: host?.host.phoneNumber,
       joiningDate: moment(host.host.createAt).format("YYYY-MM-DD"),
       car: host.carCount,
-      action: host.host,
+      action: host,
     };
   });
 

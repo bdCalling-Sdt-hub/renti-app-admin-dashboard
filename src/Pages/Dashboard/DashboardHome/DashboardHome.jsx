@@ -29,29 +29,23 @@ function DashboardHome() {
       page: page,
     };
     dispatch(RecentEarningsData(data));
-  }
- 
-  useEffect(()=>{
+  };
 
-     let data={
-       income:"all",
-       page:1
-     }
-      dispatch(RecentEarningsData(data));
-      dispatch(IncomeData());
-      dispatch(RentStatusData());
-      
-
-
-  },[])
-
+  useEffect(() => {
+    let data = {
+      income: "all",
+      page: 1,
+    };
+    dispatch(RecentEarningsData(data));
+    dispatch(IncomeData());
+    dispatch(RentStatusData());
+  }, []);
 
   const onChange = (pageNumber) => {
     console.log("Page: ", pageNumber);
   };
 
- 
-  
+  console.log(rentStatus);
 
   return (
     <div>

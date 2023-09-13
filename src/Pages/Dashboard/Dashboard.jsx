@@ -13,16 +13,13 @@ import { RiUserSearchLine } from "react-icons/ri";
 import React, { useEffect, useState } from "react";
 
 import { useTranslation } from "react-i18next";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import rentiLogo from "../../Images/renti-logo.png";
 import Styles from "./Dashboard.module.css";
-import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
 const { Header, Sider, Content } = Layout;
 const { SubMenu } = Menu;
 const { Option } = Select;
-
-
 
 const items = [...Array(5).keys()].map((item, index) => {
   return {
@@ -62,14 +59,16 @@ const Dashboard = () => {
   const [selectedLanguage, setSelectedLanguage] = useState(
     localStorage.lang || "en"
   );
-
-
-
   const navigate = useNavigate();
   const {
     token: { colorBgContainer },
   } = theme.useToken();
   const [t, i18n] = useTranslation("global");
+
+  const handleLinkClick = (event, linkText) => {
+    event.preventDefault(); // Prevent the default link behavior (navigation)
+    console.log(`Clicked on link with text: ${linkText}`);
+  };
 
   const handleSelectLanguage = (value) => {
     setSelectedLanguage(value);
@@ -82,12 +81,11 @@ const Dashboard = () => {
   }, [selectedLanguage, i18n]);
 
   const logout = () => {
-
     Swal.fire({
-      title: 'Do you want to Logout from here?',
+      title: "Do you want to Logout from here?",
       showDenyButton: true,
       showCancelButton: false,
-      confirmButtonText: 'Yes',
+      confirmButtonText: "Yes",
       denyButtonText: `No`,
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
@@ -95,23 +93,22 @@ const Dashboard = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("yourInfo");
 
-        navigate("/signin")
-        
+        navigate("/signin");
       } else if (result.isDenied) {
-        Swal.fire('Ok', '', 'info')
+        Swal.fire("Ok", "", "info");
       }
-    })
-
-
-
-  }
-
+    });
+  };
 
   const profileItems = [
     {
       key: 1,
       label: (
-        <Link to="/setting/personal-information" style={{ height: "50px" }} rel="noreferrer">
+        <Link
+          to="/setting/personal-information"
+          style={{ height: "50px" }}
+          rel="noreferrer"
+        >
           <div
             className={Styles.everyNotify}
             style={{ display: "flex", alignItems: "center" }}
