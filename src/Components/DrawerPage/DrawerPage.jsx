@@ -104,6 +104,28 @@ const DrawerPage = (props) => {
   //host information
   const handleBlockHost = () => {
     console.log("Block", props.hostData?.action._id);
+
+    axios
+    .post(
+      `api/user/banned/${props.hostData?.action._id}`,
+      { isApprove: "cancel" },
+      {
+        headers: {
+          "Content-type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      }
+    )
+    .then((res) => {
+      if (res.status === 200) {
+        Swal.fire({
+          icon: "success",
+          title: "Wow!",
+          text: "User Block successfully",
+        });
+      }
+      props?.setUserInfoReload((prev) => prev + 1);
+    });
   };
 
   const handleDeleteHost = () => {

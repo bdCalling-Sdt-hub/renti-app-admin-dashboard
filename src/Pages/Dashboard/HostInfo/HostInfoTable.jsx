@@ -28,8 +28,8 @@ const HostInfoTable = ({ hostDataGetByPagination, handleHostSearchData }) => {
     };
   });
 
-  const restData = hostsData?.filter((host) => host?.isBanned == false);
-  console.log(restData);
+  // const restData = hostsData?.filter((host) => host?.isBanned == false);
+  // console.log(restData);
 
   const columns = [
     {
