@@ -313,7 +313,7 @@ function DashboardHome() {
                   color: "gray",
                 }}
               >
-                562
+                  {rentStatus?.tripCompleted?.length}
               </h3>
             </div>
           </div>

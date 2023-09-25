@@ -23,6 +23,7 @@ function HostPayment() {
         },
       })
       .then((res) => {
+        console.log("sdkjfsd",res.data)
         setHostPayments(res.data);
       })
       .catch((err) => console.log(err));
@@ -156,7 +157,7 @@ function HostPayment() {
               <Progress
                 type="circle"
                 percent={Math.round(hostPayments?.income?.hostPendingPercentage)}
-                strokeColor="red"
+                strokeColor="#d7263d"
               />
             </div>
             <div className="total-payment">
