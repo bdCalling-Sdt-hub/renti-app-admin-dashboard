@@ -1,56 +1,51 @@
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Form, Input } from "antd";
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import logo from "../../Images/Logo.png";
-import style from "./Signin.module.css";
-import {useDispatch,useSelector} from 'react-redux'
-import {UserData,reset} from '../../ReduxSlices/SigninSlice'
 import Swal from "sweetalert2";
-
-
+import UAParser from "ua-parser-js";
+import logo from "../../Images/Logo.png";
+import { UserData, reset } from "../../ReduxSlices/SigninSlice";
+import style from "./Signin.module.css";
 
 const Signin = () => {
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {isLoading, isError, isSuccess, userData, accessToken, message } = useSelector(
-    (state) => state.UserData
-  );
+  const { isLoading, isError, isSuccess, userData, accessToken, message } =
+    useSelector((state) => state.UserData);
 
-  useEffect(()=>{
-    
-    if(isError==true){
+  useEffect(() => {
+    if (isError == true) {
       Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
+        icon: "error",
+        title: "Oops...",
         text: message,
-        
-      })
+      });
     }
-    if(isSuccess==true){
-        localStorage.setItem("yourInfo",JSON.stringify(userData));
-        localStorage.setItem("token",accessToken);
-        window.location.href="/"
-        
+    if (isSuccess == true) {
+      localStorage.setItem("yourInfo", JSON.stringify(userData));
+      localStorage.setItem("token", accessToken);
+      window.location.href = "/";
     }
 
-  dispatch(reset())
-
-  },[isLoading, isError, isSuccess,dispatch,navigate])
-
-
-
-
-
+    dispatch(reset());
+  }, [isLoading, isError, isSuccess, dispatch, navigate]);
 
   const onFinish = (values) => {
-    console.log("Received values of form: ", values);
-    dispatch(UserData(values))
+    const userAgent = navigator.userAgent;
+    const parser = new UAParser();
+    parser.setUA(userAgent);
+    const result = parser.getResult();
+    const userPlatform = result.os.name;
+
+    // const info = {
+    //   values,
+    //   platform: userPlatform,
+    // };
+
+    dispatch(UserData(values));
   };
-
-
-
-
 
   const handleForget = () => {
     navigate("/forget-password");

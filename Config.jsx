@@ -1,10 +1,9 @@
-import axios from 'axios';
+import axios from "axios";
 
 const baseAxios = axios.create({
-    
-    baseURL: "http://103.161.9.106:3001",
-    timeout: 10000,
-    headers: {'X-Custom-Header': 'foobar'}
-  });
+  baseURL: "http://192.168.10.14:3001",
+  timeout: 10000,
+  headers: { "X-Custom-Header": "foobar" },
+});
 
-  export default baseAxios;
+export default baseAxios;

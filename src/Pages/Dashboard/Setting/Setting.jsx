@@ -343,6 +343,7 @@ const Setting = () => {
             checkedChildren="ON"
             unCheckedChildren="OFF"
             defaultChecked
+            style={{ background: "#000B90" }}
           />
         </div>
         {/* change password*/}

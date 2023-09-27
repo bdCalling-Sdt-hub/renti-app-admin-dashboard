@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { CarOutlined, MenuOutlined, SettingOutlined } from "@ant-design/icons";
-import { Button, Dropdown, Layout, Menu, Select, theme } from "antd";
+import { Badge, Button, Dropdown, Layout, Menu, Select, theme } from "antd";
 
 import { Divider } from "antd";
 import { GiReceiveMoney } from "react-icons/gi";
@@ -13,7 +13,8 @@ import { RiUserSearchLine } from "react-icons/ri";
 import React, { useEffect, useState } from "react";
 
 import { useTranslation } from "react-i18next";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { IoIosNotificationsOutline } from "react-icons/io";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import rentiLogo from "../../Images/renti-logo.png";
 import Styles from "./Dashboard.module.css";
@@ -60,10 +61,20 @@ const Dashboard = () => {
     localStorage.lang || "en"
   );
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.yourInfo);
+
   const {
     token: { colorBgContainer },
   } = theme.useToken();
   const [t, i18n] = useTranslation("global");
+  const location = useLocation();
+
+  const route = location.pathname;
+
+  const splitRoute = route.slice(1, 2).toUpperCase();
+  const splitNext = route.slice(2);
+
+  console.log(splitNext);
 
   const handleLinkClick = (event, linkText) => {
     event.preventDefault(); // Prevent the default link behavior (navigation)
@@ -316,7 +327,7 @@ const Dashboard = () => {
             title={t("hostInfo.title")}
           >
             <Menu.Item key="39">
-              <Link to="/host-info">{t("hostInfo.subTitle1")}</Link>
+              <Link to="/host-information">{t("hostInfo.subTitle1")}</Link>
             </Menu.Item>
             <Menu.Item key="40">
               <Link to="/host-request">{t("hostInfo.subTitle2")}</Link>
@@ -327,7 +338,7 @@ const Dashboard = () => {
             key="5"
             icon={<MdPeopleOutline style={{ fontSize: "14px" }} />}
           >
-            <Link to="/user-info" style={{ fontSize: "16px" }}>
+            <Link to="/user-information" style={{ fontSize: "16px" }}>
               {t("userInfo")}
             </Link>
           </Menu.Item>
@@ -336,7 +347,7 @@ const Dashboard = () => {
             key="6"
             icon={<MdCarRental style={{ fontSize: "14px" }} />}
           >
-            <Link to="/rent-info" style={{ fontSize: "16px" }}>
+            <Link to="/rent-information" style={{ fontSize: "16px" }}>
               {t("rentInfo")}
             </Link>
           </Menu.Item>
@@ -345,7 +356,7 @@ const Dashboard = () => {
             key="7"
             icon={<CarOutlined style={{ fontSize: "14px" }} />}
           >
-            <Link to="/car-info" style={{ fontSize: "16px" }}>
+            <Link to="/car-information" style={{ fontSize: "16px" }}>
               {t("carInfo")}
             </Link>
           </Menu.Item>
@@ -410,6 +421,7 @@ const Dashboard = () => {
               }}
             />
             <h2>{t("header.title")}</h2>
+            <h2>/{splitRoute + splitNext}</h2>
           </div>
 
           <div
@@ -451,13 +463,13 @@ const Dashboard = () => {
                   pointAtCenter: true,
                 }}
               >
-                <img
-                  style={{ cursor: "pointer" }}
-                  width="30"
-                  height="30"
-                  src="https://img.icons8.com/ios/50/appointment-reminders--v1.png"
-                  alt="appointment-reminders--v1"
-                />
+                <Badge count={5} color="#000b90">
+                  <IoIosNotificationsOutline
+                    className="cursor-pointer"
+                    fontSize={35}
+                    color="#000b90"
+                  />
+                </Badge>
               </Dropdown>
             </div>
             <div className={Styles.profile}>
@@ -471,11 +483,14 @@ const Dashboard = () => {
                 }}
               >
                 <img
-                  style={{ cursor: "pointer" }}
-                  width="40"
-                  height="40"
-                  src="https://img.icons8.com/3d-fluency/94/person-male--v2.png"
-                  alt="person-male--v2"
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
+                    cursor: "pointer",
+                  }}
+                  src={user?.image}
+                  alt="profile"
                 />
               </Dropdown>
             </div>
