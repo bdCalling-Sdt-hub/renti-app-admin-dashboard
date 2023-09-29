@@ -13,16 +13,16 @@ const UserKycTable = ({ userDataGetByPagination, userDataGetBySearch }) => {
   const { UserData, pagination } = useSelector((state) => state.UserInfoData);
 
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
-  const [carKycData, setCarKycData] = useState();
+  const [userKycData, setUserKycData] = useState();
 
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
-    setCarKycData(record);
+    setUserKycData(record);
   };
 
   const closeDrawer = () => {
     setIsDrawerVisible(false);
-    setCarKycData(null);
+    setUserKycData(null);
   };
 
   const handlePageChange = (page) => {
@@ -126,22 +126,23 @@ const UserKycTable = ({ userDataGetByPagination, userDataGetBySearch }) => {
           >
             <Typography>
               <Title level={5} strong>
-                Invoice# Trip No.{carKycData?.tripNo}
+                User KYC Documents
               </Title>
-              <Text>See all information about the trip no. 68656</Text>
+              <Text>See all KYC documents of Sanchez Haro Manuel</Text>
             </Typography>
             <Button type="text" onClick={closeDrawer}>
               <IoMdClose fontSize={25} />
             </Button>
           </div>
         }
+        headerStyle={{ background: "#E6E7F4" }}
         closable={false}
         placement="right"
         onClose={closeDrawer}
         open={isDrawerVisible}
         width={600}
       >
-        {carKycData && <DrawerPage carKycData={carKycData} />}
+        {userKycData && <DrawerPage userKycData={userKycData} />}
       </Drawer>
     </div>
   );

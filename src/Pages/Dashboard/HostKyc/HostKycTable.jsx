@@ -125,15 +125,18 @@ const HostKycTable = ({ hostDataGetByPagination, hostDataGetBySearch }) => {
           >
             <Typography>
               <Title level={5} strong>
-                Invoice# Trip No
+                Host KYC Documents
               </Title>
-              <Text>See all information about the trip no. 68656</Text>
+              <Text style={{ color: "gray" }}>
+                See all KYC documents of {hostKycData?.name}
+              </Text>
             </Typography>
             <Button type="text" onClick={closeDrawer}>
               <IoMdClose fontSize={25} />
             </Button>
           </div>
         }
+        headerStyle={{ background: "#E6E7F4" }}
         closable={false}
         placement="right"
         onClose={closeDrawer}

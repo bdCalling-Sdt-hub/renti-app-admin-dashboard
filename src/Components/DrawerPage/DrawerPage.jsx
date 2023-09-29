@@ -8,6 +8,7 @@ import { useReactToPrint } from "react-to-print";
 import Swal from "sweetalert2";
 import axios from "../../../Config";
 import img from "../../Images/1.png";
+import pdfImg from "../../Images/PDF Icon.png";
 
 const { Title } = Typography;
 
@@ -1445,13 +1446,13 @@ const DrawerPage = (props) => {
               <img
                 width={120}
                 style={{ borderRadius: "5px" }}
-                src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
+                src={props.hostKycData?.actions?.image}
                 alt=""
               />
             </div>
             <div style={{ marginTop: "-7px" }}>
               <p style={{ fontSize: "20px" }}>{props.hostKycData?.name}</p>
-              <p>INE: SNHRM570818MDFPM10</p>
+              <p>INE: {props.hostKycData?.actions?.ine}</p>
               <p>Trip Completes: 45</p>
               <div
                 style={{ display: "flex", alignItems: "center", gap: "2px" }}
@@ -1515,6 +1516,141 @@ const DrawerPage = (props) => {
               </Col>
             </Row>
           </div>
+          <div
+            style={{
+              margin: "15px 0",
+            }}
+          >
+            <Title level={4}>KYC Documents</Title>
+            {props.hostKycData?.actions?.KYC.map((kyc) => (
+              <div style={{ marginBottom: "10px" }}>
+                <a
+                  href={kyc}
+                  target="_blank"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 12,
+                    color: "#000b90",
+                  }}
+                >
+                  <img src={pdfImg} alt="PDF Icon" />
+                  View PDF Document
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+      {props.userKycData && (
+        <div>
+          <div
+            style={{
+              display: "flex",
+              gap: "15px",
+              borderBottom: "1px solid gray",
+              paddingBottom: "10px",
+              marginBottom: "15px",
+            }}
+          >
+            <div>
+              <img
+                width={120}
+                style={{ borderRadius: "5px" }}
+                src={props.userKycData?.actions?.image}
+                alt=""
+              />
+            </div>
+            <div style={{ marginTop: "-7px" }}>
+              <p style={{ fontSize: "20px" }}>{props.userKycData?.name}</p>
+              <p>INE: {props.userKycData?.actions?.ine}</p>
+              <p>Trip Completes: 45</p>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "2px" }}
+              >
+                <AiFillStar color="#fba91d" />
+                <span>4.8</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <Title level={4}>User Information</Title>
+          </div>
+          <div
+            style={{
+              margin: "15px 0",
+              borderBottom: "1px solid gray",
+              paddingBottom: "15px",
+            }}
+          >
+            <Row>
+              <Col span={12} style={{ textAlign: "left" }}>
+                <p>Name</p>
+                <p>Email</p>
+                <p>Phone</p>
+                <p>Gender</p>
+                <p>Date of Birth</p>
+                <p>Address</p>
+              </Col>
+              <Col span={12} style={{ textAlign: "right" }}>
+                <p>{props.userKycData?.name}</p>
+                <p>{props.userKycData?.email}</p>
+                <p>{props.userKycData?.contact}</p>
+                <p>{props.userKycData?.actions?.gender}</p>
+                <p>{props.userKycData?.actions?.dateOfBirth}</p>
+                <p>{props.userKycData?.actions?.address}</p>
+              </Col>
+            </Row>
+          </div>
+          <div
+            style={{
+              margin: "15px 0",
+              borderBottom: "1px solid gray",
+              paddingBottom: "15px",
+            }}
+          >
+            <Title level={4}>More Information</Title>
+            <Row>
+              <Col span={12} style={{ textAlign: "left" }}>
+                <p>Joining Date</p>
+                <p>Register Method</p>
+                <p>Last Log In</p>
+              </Col>
+              <Col span={12} style={{ textAlign: "right" }}>
+                <p>
+                  {moment(props.userKycData?.actions?.createdAt).format(
+                    "YYYY-MM-DD"
+                  )}
+                </p>
+                <p>Email</p>
+                <p>Last Login Date</p>
+              </Col>
+            </Row>
+          </div>
+          <div
+            style={{
+              margin: "15px 0",
+            }}
+          >
+            <Title level={4}>KYC Documents</Title>
+            {props.userKycData?.actions?.KYC.map((kyc) => (
+              <div style={{ marginBottom: "10px" }}>
+                <a
+                  href={kyc}
+                  target="_blank"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 12,
+                    color: "#000b90",
+                  }}
+                >
+                  <img src={pdfImg} alt="PDF Icon" />
+                  View PDF Document
+                </a>
+              </div>
+            ))}
+          </div>
         </div>
       )}
       {props.carKycData && (
@@ -1532,16 +1668,29 @@ const DrawerPage = (props) => {
               <img
                 width={120}
                 style={{ borderRadius: "5px" }}
-                src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
+                src={props.carKycData?.actions?.image[0]}
                 alt=""
               />
             </div>
             <div style={{ marginTop: "-7px" }}>
               <p style={{ fontSize: "20px" }}>{props.carKycData?.name}</p>
-              <p>License: {props.carKycData?.actions?.carLicenseNumber}</p>
-              <p>Car Model: {props.carKycData?.actions?.carModelName}</p>
-              <p>Gear Type: {props.carKycData?.actions?.gearType}</p>
-              <p>Color: {props.carKycData?.actions?.carColor}</p>
+              <p>
+                <span style={{ fontWeight: "bold" }}>License:</span>{" "}
+                {props.carKycData?.actions?.carLicenseNumber}
+              </p>
+              <p>
+                {" "}
+                <span style={{ fontWeight: "bold" }}>Car Model:</span>{" "}
+                {props.carKycData?.actions?.carModelName}
+              </p>
+              <p>
+                <span style={{ fontWeight: "bold" }}>Gear Type:</span>{" "}
+                {props.carKycData?.actions?.gearType}
+              </p>
+              <p>
+                <span style={{ fontWeight: "bold" }}>Color:</span>{" "}
+                {props.carKycData?.actions?.carColor}
+              </p>
               <div
                 style={{ display: "flex", alignItems: "center", gap: "2px" }}
               >
@@ -1578,6 +1727,30 @@ const DrawerPage = (props) => {
                 <p> {props.carKycData?.actions?.hourlyRate}</p>
               </Col>
             </Row>
+          </div>
+          <div
+            style={{
+              margin: "15px 0",
+            }}
+          >
+            <Title level={4}>KYC Documents</Title>
+            {props.carKycData?.actions?.KYC.map((kyc) => (
+              <div style={{ marginBottom: "10px" }}>
+                <a
+                  href={kyc}
+                  target="_blank"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 12,
+                    color: "#000b90",
+                  }}
+                >
+                  <img src={pdfImg} alt="PDF Icon" />
+                  View PDF Document
+                </a>
+              </div>
+            ))}
           </div>
         </div>
       )}

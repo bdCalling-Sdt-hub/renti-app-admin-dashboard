@@ -16,7 +16,7 @@ export const AdminData = createAsyncThunk(
   async (value, thunkAPI) => {
     try {
       const userFromLocalStorage = JSON.parse(localStorage.getItem("yourInfo"));
-      console.log(userFromLocalStorage._id);
+
       let response = await axios.post(
         `api/user/update/${userFromLocalStorage._id}`,
         value,
