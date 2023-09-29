@@ -73,7 +73,18 @@ const Dashboard = () => {
 
   const path = location.pathname;
 
-  console.log("d", path);
+  //profile
+  let imgUrl;
+  if (
+    user.image !== null &&
+    user.image !== undefined &&
+    user.image !== "" &&
+    user.image.length !== 0
+  ) {
+    imgUrl = user.image;
+  } else {
+    imgUrl = "https://siffahim.github.io/MetaCGI-Tailwind/images/2.jpg";
+  }
 
   const handleLinkClick = (event, linkText) => {
     event.preventDefault(); // Prevent the default link behavior (navigation)
@@ -400,7 +411,7 @@ const Dashboard = () => {
               }}
             />
             {/* <h2>{t("header.title")}</h2> */}
-            <h2 style={{ color: "#4f4f4f" }}>
+            <h2 style={{ color: "#000B90", letterSpacing: "0.3px" }}>
               {path === "/"
                 ? "Dashboard"
                 : path === "/earning/today-income"
@@ -495,14 +506,27 @@ const Dashboard = () => {
                 arrow={{
                   pointAtCenter: true,
                 }}
+                trigger={["click"]}
               >
-                <Badge count={5} color="#000b90">
-                  <IoIosNotificationsOutline
-                    className="cursor-pointer"
-                    fontSize={35}
-                    color="#000b90"
-                  />
-                </Badge>
+                <Button
+                  type="text"
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Badge count={5} color="#000b90">
+                    <IoIosNotificationsOutline
+                      style={{ cursor: "pointer" }}
+                      fontSize={35}
+                      color="#000b90"
+                    />
+                  </Badge>
+                </Button>
               </Dropdown>
             </div>
             <div className={Styles.profile}>
@@ -519,10 +543,10 @@ const Dashboard = () => {
                   style={{
                     width: "40px",
                     height: "40px",
-                    borderRadius: "50%",
+                    borderRadius: "100%",
                     cursor: "pointer",
                   }}
-                  src={user?.image}
+                  src={imgUrl}
                   alt="profile"
                 />
               </Dropdown>
