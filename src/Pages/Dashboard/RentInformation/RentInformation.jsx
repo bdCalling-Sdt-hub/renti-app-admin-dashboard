@@ -61,7 +61,7 @@ function RentInformation() {
             fontWeight: "normal",
           }}
         >
-          Rent Information
+          Search
         </h2>
         <Col lg={{ span: 24 }}>
           <div className="" style={{ display: "flex", gap: "15px" }}>
@@ -184,7 +184,7 @@ function RentInformation() {
         <h2
           style={{
             fontSize: "25px",
-            marginBottom: "10px",
+            marginBottom: "15px",
             fontWeight: "normal",
           }}
         >

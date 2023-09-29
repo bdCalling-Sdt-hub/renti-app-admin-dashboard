@@ -30,7 +30,7 @@ function CarInformation() {
             fontWeight: "normal",
           }}
         >
-          Car Information
+          Car's status
         </h3>
       </Row>
 
@@ -133,6 +133,7 @@ function CarInformation() {
             fontSize: "25px",
             marginBottom: "10px",
             fontWeight: "normal",
+            marginTop: "20px",
           }}
         >
           Car Details

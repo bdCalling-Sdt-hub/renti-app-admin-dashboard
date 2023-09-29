@@ -10,8 +10,8 @@ function StripeBills() {
       <Row>
         <h2
           style={{
-            fontSize: "30px",
-            marginBottom: "10px",
+            fontSize: "25px",
+            marginBottom: "15px",
             fontWeight: "normal",
           }}
         >

@@ -13,7 +13,9 @@ import { RiUserSearchLine } from "react-icons/ri";
 import React, { useEffect, useState } from "react";
 
 import { useTranslation } from "react-i18next";
+import { BiUser } from "react-icons/bi";
 import { IoIosNotificationsOutline } from "react-icons/io";
+import { PiSignOutThin } from "react-icons/pi";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import rentiLogo from "../../Images/renti-logo.png";
@@ -69,12 +71,9 @@ const Dashboard = () => {
   const [t, i18n] = useTranslation("global");
   const location = useLocation();
 
-  const route = location.pathname;
+  const path = location.pathname;
 
-  const splitRoute = route.slice(1, 2).toUpperCase();
-  const splitNext = route.slice(2);
-
-  console.log(splitNext);
+  console.log("d", path);
 
   const handleLinkClick = (event, linkText) => {
     event.preventDefault(); // Prevent the default link behavior (navigation)
@@ -116,74 +115,51 @@ const Dashboard = () => {
       key: 1,
       label: (
         <Link
-          to="/setting/personal-information"
-          style={{ height: "50px" }}
-          rel="noreferrer"
+          to="/notification"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
+            padding: "0px",
+          }}
         >
-          <div
-            className={Styles.everyNotify}
-            style={{ display: "flex", alignItems: "center" }}
-          >
-            <img
-              style={{ marginRight: "20px" }}
-              width="30"
-              height="30"
-              src="https://img.icons8.com/windows/32/gender-neutral-user.png"
-              alt="gender-neutral-user"
-            />
-            <div className="" style={{ marginTop: "" }}>
-              <p>Profile</p>
-            </div>
-          </div>
+          <BiUser color="#000B90" fontSize={25} />
+          Profile
         </Link>
       ),
     },
     {
       key: 2,
       label: (
-        <Link to="/notification" style={{}} rel="noreferrer">
-          <div
-            className={Styles.everyNotify}
-            style={{ display: "flex", alignItems: "center" }}
-          >
-            <img
-              style={{ marginRight: "20px" }}
-              width="30"
-              height="30"
-              src="https://img.icons8.com/ios/50/appointment-reminders--v1.png"
-              alt="appointment-reminders--v1"
-            />
-            <div className="" style={{ marginTop: "" }}>
-              <p>Notification</p>
-            </div>
-          </div>
+        <Link
+          to="/notification"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
+            padding: "0px",
+          }}
+        >
+          <IoIosNotificationsOutline color="#000B90" fontSize={25} />
+          <span style={{ fontSize: "16px" }}>Notification</span>
         </Link>
       ),
     },
     {
       key: 3,
       label: (
-        <div
-          onClick={logout}
-          style={{ border: "none", backgroundColor: "transparent" }}
-          rel="noreferrer"
+        <Link
+          to="/notification"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
+            padding: "0px",
+          }}
         >
-          <div
-            className={Styles.everyNotify}
-            style={{ display: "flex", alignItems: "center" }}
-          >
-            <img
-              style={{ marginRight: "20px" }}
-              width="25"
-              height="25"
-              src="https://img.icons8.com/ios/50/exit--v1.png"
-              alt="exit--v1"
-            />
-            <div className="" style={{ marginTop: "" }}>
-              <p>Logout</p>
-            </div>
-          </div>
-        </div>
+          <PiSignOutThin color="#000B90" fontSize={25} />
+          Logout
+        </Link>
       ),
     },
   ];
@@ -407,7 +383,10 @@ const Dashboard = () => {
             paddingRight: "60px",
           }}
         >
-          <div className="" style={{ display: "flex", alignItems: "center" }}>
+          <div
+            className=""
+            style={{ display: "flex", alignItems: "center", gap: 1 }}
+          >
             <Button
               type="text"
               icon={collapsed ? <MenuOutlined /> : <MenuOutlined />}
@@ -415,13 +394,67 @@ const Dashboard = () => {
               style={{
                 marginLeft: collapsed ? "125px" : "360px",
                 fontSize: "16px",
+                color: "#000B90",
                 width: 45,
                 height: 45,
-                marginRight: "10px",
               }}
             />
-            <h2>{t("header.title")}</h2>
-            <h2>/{splitRoute + splitNext}</h2>
+            {/* <h2>{t("header.title")}</h2> */}
+            <h2 style={{ color: "#4f4f4f" }}>
+              {path === "/"
+                ? "Dashboard"
+                : path === "/earning/today-income"
+                ? "Earnings"
+                : path === "/earning/weekly-income"
+                ? "Earnings"
+                : path === "/earning/monthly-income"
+                ? "Earnings"
+                : path === "/host-information"
+                ? "Host Information"
+                : path === "/host-request"
+                ? "Host Information"
+                : path === "/user-information"
+                ? "User Information"
+                : path === "/rent-information"
+                ? "Rent Information"
+                : path === "/car-information"
+                ? "Car Information"
+                : path === "/host-kyc"
+                ? "KYC"
+                : path === "/user-kyc"
+                ? "KYC"
+                : path === "/car-kyc"
+                ? "KYC"
+                : path === "/kyc-form"
+                ? "KYC"
+                : path === "/user-payment"
+                ? "Payments"
+                : path === "/host-payment"
+                ? "Payments"
+                : path === "/stripe-bills"
+                ? "Payments"
+                : path === "/renti-income"
+                ? "Payments"
+                : path === "/wallet"
+                ? "Payments"
+                : path === "/setting"
+                ? "Settings"
+                : path === "/setting/personal-information"
+                ? "Settings"
+                : path === "/setting/login-activity"
+                ? "Settings"
+                : path === "/setting/block-list"
+                ? "Settings"
+                : path === "/setting/trash"
+                ? "Settings"
+                : path === "/setting/privacy-policy"
+                ? "Settings"
+                : path === "/setting/terms-condition"
+                ? "Settings"
+                : path === "/setting/about-us"
+                ? "Settings"
+                : ""}
+            </h2>
           </div>
 
           <div

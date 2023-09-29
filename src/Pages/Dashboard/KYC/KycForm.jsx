@@ -24,7 +24,11 @@ const KycForm = () => {
 
   return (
     <div style={{ padding: "0 60px" }}>
-      <h2 style={{ marginBottom: "10px", fontWeight: "normal" }}>Kyc Form</h2>
+      <h2
+        style={{ fontSize: "25px", marginBottom: "15px", fontWeight: "normal" }}
+      >
+        KYC Form
+      </h2>
       <div style={style.formContainer}>
         <div
           style={{

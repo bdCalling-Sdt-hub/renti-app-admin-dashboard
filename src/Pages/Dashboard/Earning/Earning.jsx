@@ -10,7 +10,7 @@ import style from "./Earning.module.css";
 
 const Earning = () => {
   const params = useParams();
-  console.log(params.income);
+
   let incomeTime = params?.income;
   const { incomeData } = useSelector((state) => state.IncomeData);
 

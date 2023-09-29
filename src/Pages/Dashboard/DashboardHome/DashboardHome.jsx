@@ -49,9 +49,11 @@ function DashboardHome() {
 
   return (
     <div>
-      <h1 style={{ fontSize: "30px", marginBottom: "20px" }}>
-        Dashboard overview
-      </h1>
+      <h2
+        style={{ fontSize: "25px", marginBottom: "15px", fontWeight: "normal" }}
+      >
+        Dashboard Overview
+      </h2>
       <Row gutter={16} style={{ marginBottom: "20px" }}>
         <Col
           className="gutter-row"
