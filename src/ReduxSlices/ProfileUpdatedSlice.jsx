@@ -14,6 +14,10 @@ const token = localStorage.token;
 export const AdminData = createAsyncThunk(
   "AdminData",
   async (value, thunkAPI) => {
+    console.log(
+      "img Value",
+      value.forEach((item) => item)
+    );
     try {
       const userFromLocalStorage = JSON.parse(localStorage.getItem("yourInfo"));
 
@@ -22,11 +26,13 @@ export const AdminData = createAsyncThunk(
         value,
         {
           headers: {
-            "Content-type": "application/json",
+            "Content-type": "application/multipart/form-data",
             authorization: `Bearer ${token}`,
           },
         }
       );
+
+      localStorage.setItem("yourInfo", JSON.stringify(response.data.user));
       return response.data;
     } catch (error) {
       const message =

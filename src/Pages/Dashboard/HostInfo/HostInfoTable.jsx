@@ -1,7 +1,7 @@
-import { Button, Drawer, Table, Typography } from "antd";
+import { CloseOutlined } from "@ant-design/icons";
+import { Button, Drawer, Space, Table, Typography } from "antd";
 import moment from "moment";
 import React, { useState } from "react";
-import { IoMdClose } from "react-icons/io";
 import { useSelector } from "react-redux";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 import Delete from "../../../icons/Delete";
@@ -115,29 +115,42 @@ const HostInfoTable = ({
       />
       <Drawer
         title={
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
+          <div>
             <Typography>
-              <Title level={5} strong>
+              <Title style={{ color: "#333333" }} level={5} strong>
                 Invoice# Trip No.{hostData?.tripNo}
               </Title>
-              <Text>See all information about the trip no. 68656</Text>
+              <Text style={{ color: "gray" }}>
+                See all information about the trip no. 68656
+              </Text>
             </Typography>
-            <Button type="text" onClick={closeDrawer}>
-              <IoMdClose fontSize={25} />
-            </Button>
           </div>
         }
+        headerStyle={{ background: "#E6E7F4" }}
         closable={false}
         placement="right"
         onClose={closeDrawer}
         open={isDrawerVisible}
         width={600}
+        extra={
+          <Space>
+            <Button
+              style={{
+                borderRadius: "100%",
+                backgroundColor: "white",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "red",
+                height: "40px",
+                width: "40px",
+              }}
+              onClick={closeDrawer}
+            >
+              <CloseOutlined />
+            </Button>
+          </Space>
+        }
       >
         {hostData && <DrawerPage hostData={hostData} setReload={setReload} />}
       </Drawer>

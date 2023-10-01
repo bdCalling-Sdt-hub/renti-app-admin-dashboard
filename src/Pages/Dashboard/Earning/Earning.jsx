@@ -14,8 +14,6 @@ const Earning = () => {
   let incomeTime = params?.income;
   const { incomeData } = useSelector((state) => state.IncomeData);
 
-  console.log("right", incomeData);
-
   const dispatch = useDispatch();
 
   useEffect(() => {

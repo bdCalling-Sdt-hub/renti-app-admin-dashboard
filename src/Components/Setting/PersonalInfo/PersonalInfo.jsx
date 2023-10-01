@@ -1,7 +1,6 @@
 import { Button, Col, DatePicker, Form, Image, Input, Row, Upload } from "antd";
 import ImgCrop from "antd-img-crop";
 import moment from "moment";
-
 import React, { useState } from "react";
 import { LiaEditSolid } from "react-icons/lia";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,10 +11,12 @@ const PersonalInfo = () => {
   const [profileEdit, setProfileEdit] = useState(false);
   const userFromLocalStorage = JSON.parse(localStorage.getItem("yourInfo"));
   const dispatch = useDispatch();
-  const { userData } = useSelector((state) => state.UserData);
-  const { isSuccess, message } = useSelector((state) => state.adminData);
+  const { isSuccess, message, adminData } = useSelector(
+    (state) => state.adminData
+  );
+  const [img, setImg] = useState();
 
-  const { fullName, address, phoneNumber, email, dateOfBirth } =
+  const { fullName, address, phoneNumber, email, dateOfBirth, ine, image } =
     userFromLocalStorage;
 
   const initialFormValues = {
@@ -24,7 +25,7 @@ const PersonalInfo = () => {
     phoneNumber: phoneNumber,
     dateOfBirth: dateOfBirth ? moment(dateOfBirth) : null,
     address: address,
-    inc: "", // Add a default value for inc if necessary
+    inc: ine,
   };
 
   const handleChange = () => {
@@ -36,39 +37,33 @@ const PersonalInfo = () => {
       uid: "-1",
       name: "image.png",
       status: "done",
-      url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+      url: image,
     },
   ]);
+
+  console.log(fileList);
+
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
+    setImg(newFileList[0].originFileObj);
   };
-  const onPreview = async (file) => {
-    let src = file.url;
-    if (!src) {
-      src = await new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file.originFileObj);
-        reader.onload = () => resolve(reader.result);
-      });
+
+  const handleProfileUpdate = (values) => {
+    const formData = new FormData();
+
+    formData.append("fullName", values.name);
+    formData.append("address", values.address);
+    formData.append("phoneNumber", values.phoneNumber);
+    formData.append("email", values.email);
+    formData.append("ine", values.ine);
+    formData.append("dateOfBirth", values.dateOfBirth);
+
+    // Append text data
+    if (img) {
+      formData.append("image", img);
     }
-    const image = new Image();
-    image.src = src;
-    const imgWindow = window.open(src);
-    imgWindow?.document.write(image.outerHTML);
-  };
 
-  const onFinish = (values) => {
-    const userUpdatedValues = {
-      ...userFromLocalStorage,
-      fullName: values.name,
-      address: values.address,
-      phoneNumber: values.phoneNumber,
-      email: values.email,
-      dateOfBirth: moment(values.dateOfBirth).format("YYYY-MM-DD"),
-    };
-
-    dispatch(AdminData(userUpdatedValues));
-    localStorage.setItem("yourInfo", JSON.stringify(userUpdatedValues));
+    dispatch(AdminData(formData));
 
     if (isSuccess) {
       Swal.fire({
@@ -76,6 +71,7 @@ const PersonalInfo = () => {
         title: "Wow!",
         text: message,
       });
+      setProfileEdit(false);
     }
   };
 
@@ -92,16 +88,12 @@ const PersonalInfo = () => {
               marginBottom: "20px",
             }}
           >
-            <div style={{ display: "flex", gap: "20px" }}>
-              <Image
-                width={200}
-                style={{ borderRadius: "6px" }}
-                src="https://yt3.googleusercontent.com/Qy5Gk9hccQxiZdX8IxdK-mF2ktN17gap3ZkGQZkGz8NB4Yep3urmucp5990H2tjXIISgUoYssJE=s900-c-k-c0x00ffffff-no-rj"
-              />
+            <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
+              <Image width={150} style={{ borderRadius: "6px" }} src={image} />
               <div>
                 <h2>{fullName}</h2>
                 <p>@{fullName}</p>
-                <p>INE: GMVLMR80070501M100</p>
+                <p>INE: {ine}</p>
               </div>
             </div>
             <div>
@@ -189,28 +181,30 @@ const PersonalInfo = () => {
             <div
               style={{
                 display: "flex",
+                alignItems: "center",
                 gap: "20px",
                 borderBottom: "1px solid #d9d9d9",
                 paddingBottom: "30px",
                 marginBottom: "20px",
               }}
             >
-              <ImgCrop rotationSlider>
-                <Upload
-                  action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                  listType="picture-card"
-                  fileList={fileList}
-                  onChange={onChange}
-                  onPreview={onPreview}
-                >
-                  {fileList.length < 5 && "+ Upload"}
-                </Upload>
-              </ImgCrop>
+              <div style={{ width: "150px" }}>
+                <ImgCrop rotationSlider style={{ width: "100%" }}>
+                  <Upload
+                    listType="picture-card"
+                    fileList={fileList}
+                    onChange={onChange}
+                    style={{ width: "150px" }}
+                  >
+                    {fileList.length < 1 && "+ Upload"}
+                  </Upload>
+                </ImgCrop>
+              </div>
 
               <div>
                 <h2>{fullName}</h2>
                 <p>@{fullName}</p>
-                <p>INE: GMVLMR80070501M100</p>
+                <p>INE: {ine}</p>
               </div>
             </div>
           </div>
@@ -218,7 +212,7 @@ const PersonalInfo = () => {
           <Form
             name="normal_login"
             className="login-form"
-            onFinish={onFinish}
+            onFinish={handleProfileUpdate}
             initialValues={initialFormValues}
           >
             <Form.Item

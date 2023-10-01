@@ -126,7 +126,7 @@ const Dashboard = () => {
       key: 1,
       label: (
         <Link
-          to="/notification"
+          to="/setting/personal-information"
           style={{
             display: "flex",
             alignItems: "center",
@@ -159,8 +159,8 @@ const Dashboard = () => {
     {
       key: 3,
       label: (
-        <Link
-          to="/notification"
+        <div
+          onClick={logout}
           style={{
             display: "flex",
             alignItems: "center",
@@ -170,7 +170,7 @@ const Dashboard = () => {
         >
           <PiSignOutThin color="#000B90" fontSize={25} />
           Logout
-        </Link>
+        </div>
       ),
     },
   ];

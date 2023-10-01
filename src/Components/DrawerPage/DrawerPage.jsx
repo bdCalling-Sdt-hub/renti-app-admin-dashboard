@@ -967,7 +967,7 @@ const DrawerPage = (props) => {
                 <img
                   width={120}
                   style={{ borderRadius: "5px" }}
-                  src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
+                  src={props.rentInfoData?.actionData?.carId?.image[0]}
                   alt=""
                 />
               </div>
@@ -1722,7 +1722,12 @@ const DrawerPage = (props) => {
                 <p> {props.carKycData?.actions?.carDoors}</p>
                 <p> {props.carKycData?.actions?.carSeats}</p>
                 <p> {props.carKycData?.actions?.totalRun}</p>
-                <p> {props.carKycData?.actions?.createdAt}</p>
+                <p>
+                  {" "}
+                  {moment(props.carKycData?.actions?.createdAt).format(
+                    "YYYY-MM-DD"
+                  )}
+                </p>
                 <p> 56L</p>
                 <p> {props.carKycData?.actions?.hourlyRate}</p>
               </Col>

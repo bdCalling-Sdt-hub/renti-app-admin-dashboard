@@ -163,13 +163,16 @@ const InvoiceTable = ({ recentDataGetByPagination }) => {
         title={
           <div>
             <Typography>
-              <Title level={5} strong>
+              <Title style={{ color: "#333333" }} level={5} strong>
                 Invoice# Trip No
               </Title>
-              <Text>See all information about the trip no. 68656</Text>
+              <Text style={{ color: "gray" }}>
+                See all information about the trip no. 68656
+              </Text>
             </Typography>
           </div>
         }
+        headerStyle={{ background: "#E6E7F4" }}
         placement="right"
         onClose={closeDrawer}
         open={isDrawerVisible}

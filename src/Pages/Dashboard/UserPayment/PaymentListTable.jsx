@@ -144,16 +144,17 @@ const PaymentListTable = ({ handleUserPaymentsPagination }) => {
         title={
           <div>
             <Typography>
-              <Title level={5} strong>
+              <Title style={{ color: "#333333" }} level={5} strong>
                 Invoice# Trip No. -{userPaymentData?.rentTripNumbers}
               </Title>
-              <p style={{ fontWeight: "normal" }}>
+              <p style={{ fontWeight: "normal", color: "gray" }}>
                 See all information about the trip no.{" "}
                 {userPaymentData?.rentTripNumbers}
               </p>
             </Typography>
           </div>
         }
+        headerStyle={{ background: "#E6E7F4" }}
         placement="right"
         onClose={closeDrawer}
         open={isDrawerVisible}
