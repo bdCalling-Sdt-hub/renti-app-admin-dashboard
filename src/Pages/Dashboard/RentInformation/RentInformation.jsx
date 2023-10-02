@@ -31,7 +31,6 @@ function RentInformation() {
   }, [searchData]);
 
   const rentDataGetByPagination = (page) => {
-    console.log("rent info", page);
     let data = {
       search: searchData,
       page: page,

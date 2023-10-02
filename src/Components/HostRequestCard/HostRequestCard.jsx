@@ -20,8 +20,6 @@ const HostRequestCard = ({ cardData, setAutoReload }) => {
     },
   };
 
-  console.log(_id, approved, isBanned);
-
   const token = localStorage.token;
 
   const handleApprove = () => {

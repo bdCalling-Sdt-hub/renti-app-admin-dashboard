@@ -8,8 +8,6 @@ const { Title, Text } = Typography;
 const LoginActivityTable = () => {
   const { loginActivity } = useSelector((state) => state.LoginActivity);
 
-  console.log(loginActivity);
-
   const data = loginActivity.map((activity) => {
     return {
       browser: activity.browser,

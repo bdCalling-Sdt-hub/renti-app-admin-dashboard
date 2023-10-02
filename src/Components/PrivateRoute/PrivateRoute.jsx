@@ -5,8 +5,6 @@ const PrivateRoute = ({ children }) => {
   const location = useLocation();
   const UserData = JSON.parse(localStorage.getItem("yourInfo"));
 
-  //console.log(UserData);
-
   if (
     UserData?.approved != false &&
     UserData?.isBanned == "false" &&

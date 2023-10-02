@@ -1,8 +1,17 @@
+import { CloseOutlined } from "@ant-design/icons";
 import { Pie } from "@ant-design/plots";
-import { Button, Col, Drawer, Modal, Progress, Row, Typography } from "antd";
+import {
+  Button,
+  Col,
+  Drawer,
+  Modal,
+  Progress,
+  Row,
+  Space,
+  Typography,
+} from "antd";
 import React, { useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
-import { IoMdClose } from "react-icons/io";
 import WalletCard from "./WalletCard";
 const { Title, Text } = Typography;
 
@@ -245,26 +254,40 @@ const Wallet = () => {
       </Modal>
       <Drawer
         title={
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
+          <div>
             <Typography>
-              <Text>{cardTitle}</Text>
+              <Title style={{ color: "#333333" }} level={5} strong>
+                Add <span>{cardTitle === "credit" ? "Credit" : "Debit"}</span>{" "}
+                Card
+              </Title>
             </Typography>
-            <Button type="text" onClick={closeDrawer}>
-              <IoMdClose fontSize={25} />
-            </Button>
           </div>
         }
+        headerStyle={{ background: "#E6E7F4" }}
         closable={false}
         placement="right"
         onClose={closeDrawer}
         open={isDrawerVisible}
-        width={500}
+        width={600}
+        extra={
+          <Space>
+            <Button
+              style={{
+                borderRadius: "100%",
+                backgroundColor: "white",
+                color: "red",
+                height: "40px",
+                width: "40px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              onClick={closeDrawer}
+            >
+              <CloseOutlined />
+            </Button>
+          </Space>
+        }
       >
         {cardTitle === "credit" && <h2>Credit Card</h2>}
         {cardTitle === "debit" && <h2>Debit Card</h2>}

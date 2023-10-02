@@ -34,7 +34,6 @@ const HostInfo = () => {
     };
     if (searchData != "") {
       dispatch(HostsData(data));
-      console.log("search");
     }
   };
 

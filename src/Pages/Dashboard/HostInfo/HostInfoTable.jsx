@@ -32,9 +32,6 @@ const HostInfoTable = ({
     };
   });
 
-  // const restData = hostsData?.filter((host) => host?.isBanned == false);
-  // console.log(restData);
-
   const columns = [
     {
       title: "NAME",
@@ -85,8 +82,6 @@ const HostInfoTable = ({
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
     setHostData(record);
-
-    console.log(record);
   };
 
   const closeDrawer = () => {

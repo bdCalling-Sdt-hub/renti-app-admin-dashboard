@@ -9,8 +9,6 @@ const BlockList = () => {
   const { blockUser } = useSelector((state) => state.BlockUser);
   const [reload, setReload] = useState(1);
 
-  console.log(blockUser);
-
   useEffect(() => {
     dispatch(BLockUser());
   }, [reload]);

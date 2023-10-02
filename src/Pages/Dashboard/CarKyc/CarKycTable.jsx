@@ -27,7 +27,6 @@ const CarKycTable = ({ carDataGetByPagination, carDataGetBySearch }) => {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    console.log(currentPage);
     carDataGetByPagination(page);
     carDataGetBySearch(page);
   };

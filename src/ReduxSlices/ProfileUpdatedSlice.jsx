@@ -14,10 +14,6 @@ const token = localStorage.token;
 export const AdminData = createAsyncThunk(
   "AdminData",
   async (value, thunkAPI) => {
-    console.log(
-      "img Value",
-      value.forEach((item) => item)
-    );
     try {
       const userFromLocalStorage = JSON.parse(localStorage.getItem("yourInfo"));
 

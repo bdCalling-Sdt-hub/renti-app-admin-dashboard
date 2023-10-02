@@ -31,7 +31,7 @@ const Otp = () => {
           enter the code here.
         </Paragraph>
 
-        <Form>
+        <Form onFinish={onFinish}>
           <Input.Group
             style={{ display: "flex", gap: "10px", marginBottom: "10px" }}
           >

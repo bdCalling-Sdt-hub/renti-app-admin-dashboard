@@ -72,7 +72,6 @@ const RentInformationTable = ({
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    console.log("mycurrent", currentPage);
     rentDataGetByPagination(page), rentDataGetBySearch(page);
   };
 

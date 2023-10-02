@@ -177,6 +177,120 @@ const Dashboard = () => {
     },
   ];
 
+  //breadcrumb
+  const breadcrumb = [
+    {
+      path: "/",
+      title: "Dashboard",
+    },
+    {
+      path: "/earning/today-income",
+      title: "Earnings",
+    },
+    {
+      path: "/earning/weekly-income",
+      title: "Earnings",
+    },
+    {
+      path: "/earning/monthly-income",
+      title: "Earnings",
+    },
+    {
+      path: "/host-information",
+      title: "Host Information",
+    },
+    {
+      path: "/host-request",
+      title: "Host Information",
+    },
+    {
+      path: "/user-information",
+      title: "User Information",
+    },
+    {
+      path: "/rent-information",
+      title: "Rent Information",
+    },
+    {
+      path: "/car-information",
+      title: "Car Information",
+    },
+    {
+      path: "/host-kyc",
+      title: "KYC",
+    },
+    {
+      path: "/user-kyc",
+      title: "KYC",
+    },
+    {
+      path: "/car-kyc",
+      title: "KYC",
+    },
+    {
+      path: "/kyc-form",
+      title: "KYC",
+    },
+    {
+      path: "/user-payment",
+      title: "Payments",
+    },
+    {
+      path: "/host-payment",
+      title: "Payments",
+    },
+    {
+      path: "/stripe-bills",
+      title: "Payments",
+    },
+    {
+      path: "/renti-income",
+      title: "Payments",
+    },
+    {
+      path: "/wallet",
+      title: "Payments",
+    },
+    {
+      path: "/setting",
+      title: "Settings",
+    },
+    {
+      path: "/setting/personal-information",
+      title: "Settings",
+    },
+    {
+      path: "/setting/login-activity",
+      title: "Settings",
+    },
+    {
+      path: "/setting/block-list",
+      title: "Settings",
+    },
+    {
+      path: "/setting/trash",
+      title: "Settings",
+    },
+    {
+      path: "/setting/privacy-policy",
+      title: "Settings",
+    },
+    {
+      path: "/setting/terms-condition",
+      title: "Settings",
+    },
+    {
+      path: "/setting/about-us",
+      title: "Settings",
+    },
+    {
+      path: "/notification",
+      title: "Notification",
+    },
+  ];
+
+  const dashboardTitle = breadcrumb.find((item) => item.path === path);
+
   const menu = (
     <Menu>
       <Menu.Item disabled>
@@ -414,59 +528,7 @@ const Dashboard = () => {
             />
             {/* <h2>{t("header.title")}</h2> */}
             <h2 style={{ color: "#000B90", letterSpacing: "0.3px" }}>
-              {path === "/"
-                ? "Dashboard"
-                : path === "/earning/today-income"
-                ? "Earnings"
-                : path === "/earning/weekly-income"
-                ? "Earnings"
-                : path === "/earning/monthly-income"
-                ? "Earnings"
-                : path === "/host-information"
-                ? "Host Information"
-                : path === "/host-request"
-                ? "Host Information"
-                : path === "/user-information"
-                ? "User Information"
-                : path === "/rent-information"
-                ? "Rent Information"
-                : path === "/car-information"
-                ? "Car Information"
-                : path === "/host-kyc"
-                ? "KYC"
-                : path === "/user-kyc"
-                ? "KYC"
-                : path === "/car-kyc"
-                ? "KYC"
-                : path === "/kyc-form"
-                ? "KYC"
-                : path === "/user-payment"
-                ? "Payments"
-                : path === "/host-payment"
-                ? "Payments"
-                : path === "/stripe-bills"
-                ? "Payments"
-                : path === "/renti-income"
-                ? "Payments"
-                : path === "/wallet"
-                ? "Payments"
-                : path === "/setting"
-                ? "Settings"
-                : path === "/setting/personal-information"
-                ? "Settings"
-                : path === "/setting/login-activity"
-                ? "Settings"
-                : path === "/setting/block-list"
-                ? "Settings"
-                : path === "/setting/trash"
-                ? "Settings"
-                : path === "/setting/privacy-policy"
-                ? "Settings"
-                : path === "/setting/terms-condition"
-                ? "Settings"
-                : path === "/setting/about-us"
-                ? "Settings"
-                : ""}
+              {dashboardTitle?.title}
             </h2>
           </div>
 

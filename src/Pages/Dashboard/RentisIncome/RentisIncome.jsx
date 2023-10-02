@@ -13,8 +13,6 @@ function RentisIncome() {
     (state) => state.RentiIncomes
   );
 
-  console.log(rentiTotalIncome,rentiTotalPaid)
-
   useEffect(() => {
     const data = {
       search: searchData,

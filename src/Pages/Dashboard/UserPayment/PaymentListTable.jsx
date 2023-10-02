@@ -121,7 +121,6 @@ const PaymentListTable = ({ handleUserPaymentsPagination }) => {
   ];
 
   const handlePageChange = (page) => {
-    console.log("tushar");
     setCurrentPage(page);
     handleUserPaymentsPagination(page);
   };

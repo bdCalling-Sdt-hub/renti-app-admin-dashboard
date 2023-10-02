@@ -90,7 +90,6 @@ const Setting = () => {
         },
       })
       .then((res) => {
-        console.log(res.data);
         setUpdatePassword(true), setVerify(false);
       })
       .catch((err) => {
@@ -291,13 +290,10 @@ const Setting = () => {
   //handle change password--------------->
   const handleChangePassword = (values) => {
     let userData = JSON.parse(localStorage.getItem("yourInfo"));
-    console.log(userData);
     let passChangeInfo = { ...values, email: userData.email };
-    console.log("Received values of form: ", passChangeInfo);
     axios
       .post("api/user/change-password", passChangeInfo)
       .then((res) => {
-        console.log(res.data);
         form.resetFields();
         setOpenChangePassModel(false);
         Swal.fire("Good job!", "Password updated successfully", "success");

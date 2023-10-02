@@ -26,7 +26,6 @@ const Earning = () => {
   }, [incomeTime]);
 
   const recentDataGetByPagination = (page) => {
-    console.log("peyecipage", page);
     let data = {
       income: incomeTime,
       page: page,

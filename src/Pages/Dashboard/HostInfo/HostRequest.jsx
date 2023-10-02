@@ -47,13 +47,9 @@ const HostRequest = () => {
     }
   }, [autoReload, searchData]);
 
-  console.log(hostsData);
-
   const items = hostsData.filter(
     (hostRequest) => hostRequest.host.isBanned !== "trash"
   );
-
-  console.log("dsfkjsd", items);
 
   return (
     <div style={{ padding: "0px 60px" }}>

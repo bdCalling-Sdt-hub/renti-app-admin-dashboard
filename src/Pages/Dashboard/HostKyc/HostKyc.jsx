@@ -28,7 +28,6 @@ function HostKyc() {
     };
     if (!searchData) {
       dispatch(HostInformationWithKycData(data));
-      console.log("without search");
     }
   };
 
@@ -39,7 +38,6 @@ function HostKyc() {
     };
     if (searchData) {
       dispatch(HostInformationWithKycData(data));
-      console.log("with search");
     }
   };
 

@@ -27,7 +27,6 @@ const UserKycTable = ({ userDataGetByPagination, userDataGetBySearch }) => {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    console.log(currentPage);
     userDataGetByPagination(page), userDataGetBySearch(page);
   };
 

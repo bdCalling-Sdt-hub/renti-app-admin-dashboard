@@ -17,8 +17,6 @@ const InvoiceTable = ({ recentDataGetByPagination }) => {
     (state) => state.RecentEarnings
   );
 
-  console.log(recentEarning);
-
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
     setDashboardEarningData(record);
@@ -29,7 +27,6 @@ const InvoiceTable = ({ recentDataGetByPagination }) => {
     setDashboardEarningData(null);
   };
   const handlePageChange = (page) => {
-    console.log(page);
     setCurrentPage(page);
     recentDataGetByPagination(page);
   };
