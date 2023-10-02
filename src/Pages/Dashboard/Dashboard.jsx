@@ -103,11 +103,13 @@ const Dashboard = () => {
 
   const logout = () => {
     Swal.fire({
-      title: "Do you want to Logout from here?",
-      showDenyButton: true,
-      showCancelButton: false,
-      confirmButtonText: "Yes",
-      denyButtonText: `No`,
+      title: "Are you sure?",
+      text: "You want to logout from here!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#000B90",
+      cancelButtonColor: "#d33333",
+      confirmButtonText: "Yes, Logout",
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
