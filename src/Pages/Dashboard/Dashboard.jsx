@@ -42,12 +42,13 @@ const items = [...Array(5).keys()].map((item, index) => {
             }}
             width="30"
             height="30"
-            src="https://img.icons8.com/3d-fluency/94/person-male--v2.png"
+            src="https://siffahim.github.io/MetaCGI-Tailwind/images/2.jpg"
             alt="person-male--v2"
           />
           <div className="" style={{ marginTop: "" }}>
             <p>
-              <span>Sanchej haro manual </span>started a new trip from mexico.
+              <span style={{ fontWeight: "bold" }}>Professor Sergio</span> start
+              a new trip at 5pm. Trip started from Mexico city.....
             </p>
             <span style={{ color: "#d2d2d2" }}>1 hr ago</span>
           </div>
@@ -318,19 +319,21 @@ const Dashboard = () => {
           margin: "15px",
         }}
       >
-        <Button
-          type="primary"
-          block
+        <Link
           style={{
-            height: "50px",
             backgroundColor: "#e6e7f4",
             color: "#000b90",
             fontSize: "18px",
             fontWeight: "bold",
+            width: "100%",
+            textAlign: "center",
+            padding: "10px",
+            borderRadius: "5px",
           }}
+          to="/notification"
         >
-          <Link to="/notification">See All</Link>
-        </Button>
+          See all
+        </Link>
       </div>
     </Menu>
   );
@@ -602,6 +605,7 @@ const Dashboard = () => {
                 arrow={{
                   pointAtCenter: true,
                 }}
+                trigger={["click"]}
               >
                 <img
                   style={{

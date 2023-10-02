@@ -4,7 +4,6 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
-import UAParser from "ua-parser-js";
 import logo from "../../Images/Logo.png";
 import { UserData, reset } from "../../ReduxSlices/SigninSlice";
 import style from "./Signin.module.css";
@@ -33,17 +32,6 @@ const Signin = () => {
   }, [isLoading, isError, isSuccess, dispatch, navigate]);
 
   const onFinish = (values) => {
-    const userAgent = navigator.userAgent;
-    const parser = new UAParser();
-    parser.setUA(userAgent);
-    const result = parser.getResult();
-    const userPlatform = result.os.name;
-
-    // const info = {
-    //   values,
-    //   platform: userPlatform,
-    // };
-
     dispatch(UserData(values));
   };
 

@@ -577,18 +577,26 @@ const DrawerPage = (props) => {
       {props.earningData && (
         <div>
           <div ref={componentRef}>
-            <div style={{ display: "flex", gap: "15px" }}>
+            <div
+              style={{
+                display: "flex",
+                gap: "15px",
+                borderBottom: "1px solid gray",
+                paddingBottom: "10px",
+                marginBottom: "20px",
+              }}
+            >
               <div>
                 <img
                   width={120}
                   style={{ borderRadius: "5px" }}
-                  src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
+                  src={props.earningData.printView?.userId?.image}
                   alt=""
                 />
               </div>
               <div style={{ marginTop: "-7px" }}>
                 <p style={{ fontSize: "20px" }}>{props.earningData.username}</p>
-                <p>INE: siffahim</p>
+                <p>INE: {props.earningData?.printView?.userId?.ine}</p>
                 <p>Trip Completes:{props.earningData.status.length}</p>
                 <div
                   style={{ display: "flex", alignItems: "center", gap: "2px" }}
@@ -644,7 +652,7 @@ const DrawerPage = (props) => {
                   <p>Host Name</p>
                   <p>Host INE</p>
                   <p>Pickup Location</p>
-                  <p>Drop-Off Location</p>
+
                   <p>Total Rental Time</p>
                 </Col>
                 <Col span={12} style={{ textAlign: "right" }}>
@@ -654,19 +662,30 @@ const DrawerPage = (props) => {
                     {" "}
                     {props.earningData?.printView?.carId?.carLicenseNumber}
                   </p>
-                  <p> {props.earningData?.printView?.carId?.carModelName}</p>
-                  <p> {props.earningData?.printView?.carId?.carModelName}</p>
-                  <p> {props.earningData?.printView?.carId?.carModelName}</p>
-                  <p> {props.earningData?.printView?.carId?.carModelName}</p>
-                  <p>{props.earningData?.printView?.carId?.carModelName}</p>
+                  <p>
+                    {" "}
+                    {props.earningData?.printView?.hostId?.fullName || "Name"}
+                  </p>
+                  <p>
+                    {" "}
+                    {props.earningData?.printView?.hostId?.ine ||
+                      "INE Number"}{" "}
+                  </p>
+
+                  <p>
+                    {props.earningData?.printView?.hostId?.address || "Address"}
+                  </p>
+                  <p>
+                    {props.earningData?.printView?.rentId?.totalHours ||
+                      "Total Rental"}{" "}
+                    hours
+                  </p>
                 </Col>
               </Row>
             </div>
             <div
               style={{
                 margin: "15px 0",
-                borderBottom: "1px solid gray",
-                paddingBottom: "15px",
               }}
             >
               <Title level={4}>Payment Information</Title>
@@ -950,6 +969,33 @@ const DrawerPage = (props) => {
               </Col>
             </Row>
           </div>
+          <div
+            style={{
+              margin: "15px 0",
+              paddingBottom: "15px",
+            }}
+          >
+            <Title level={4}>Documents</Title>
+            <div style={{ display: "flex", gap: "15px" }}>
+              {props.carDetails?.printView?.KYC.map((kyc) => (
+                <div>
+                  <a
+                    href={kyc}
+                    target="_blank"
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+
+                      color: "#000b90",
+                    }}
+                  >
+                    <img width="50px" src={pdfImg} alt="PDF Icon" />
+                    View PDF
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       )}
       {props.rentInfoData && (
@@ -979,32 +1025,32 @@ const DrawerPage = (props) => {
                   <p style={{ fontSize: "20px" }}>
                     {props.rentInfoData?.carModel}
                   </p>
-                  {props.rentInfoData?.actionData?.carId?.tripStatus ===
-                  "Start" ? (
-                    <Badge
-                      className="site-badge-count-109"
-                      count={"Reserved"}
-                      style={{
-                        background: "#FBE9EC",
-                        color: "#D7263D",
-                        fontSize: "11px",
-                        borderRadius: "4px",
-                        textAlign: "center",
-                      }}
-                    />
-                  ) : (
-                    <Badge
-                      className="site-badge-count-109"
-                      count={"Active"}
-                      style={{
-                        background: "#E6F6F4",
-                        color: "#00A991",
-                        fontSize: "11px",
-                        borderRadius: "4px",
-                        textAlign: "center",
-                      }}
-                    />
-                  )}
+                  <div
+                    style={{
+                      color:
+                        props.rentInfoData?.actionData?.requestStatus ==
+                        "Accepted"
+                          ? "#000b90"
+                          : props.rentInfoData?.actionData?.requestStatus ==
+                            "Pending"
+                          ? "#D7263D"
+                          : "#00A991",
+                      backgroundColor:
+                        props.rentInfoData?.actionData?.requestStatus ==
+                        "Accepted"
+                          ? "#e2e4ff"
+                          : props.rentInfoData?.actionData?.requestStatus ==
+                            "Pending"
+                          ? "#FBE9EC"
+                          : "#E6F6F4",
+                      padding: "5px",
+                      fontSize: "11px",
+                      borderRadius: "4px",
+                      textAlign: "center",
+                    }}
+                  >
+                    {props.rentInfoData?.actionData?.requestStatus}
+                  </div>
                 </div>
                 <p>
                   License:{" "}
