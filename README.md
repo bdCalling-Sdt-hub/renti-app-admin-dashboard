@@ -1,1 +1,1 @@
-# Renti app admin Dashboard
+# Renti app admin Panel
