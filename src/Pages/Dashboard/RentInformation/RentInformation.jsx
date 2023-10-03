@@ -113,7 +113,7 @@ function RentInformation() {
                 marginBottom: "15px",
               }}
             >
-              $ {rentCompletedTotalAmount}.00
+              ${rentCompletedTotalAmount}
             </h3>
           </div>
         </Col>
@@ -143,7 +143,7 @@ function RentInformation() {
                 marginBottom: "15px",
               }}
             >
-              $ {rentReservedTotalAmount}.00
+              ${rentReservedTotalAmount}
             </h3>
           </div>
         </Col>
@@ -173,7 +173,7 @@ function RentInformation() {
                 marginBottom: "15px",
               }}
             >
-              $ {totalRejectedAmount}.00
+              ${totalRejectedAmount}
             </h3>
           </div>
         </Col>

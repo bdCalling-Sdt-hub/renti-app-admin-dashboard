@@ -1,13 +1,36 @@
-import { Button, Form, Input, Typography } from "antd";
-import React from "react";
+import { Button, Form, Typography } from "antd";
+import React, { useState } from "react";
+import OtpInput from "react-otp-input";
+import { useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
+import axios from "../../../Config";
 import logo from "../../Images/Logo.png";
 import style from "./Otp.module.css";
 
 const { Title, Paragraph, Text, Link } = Typography;
 
 const Otp = () => {
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+  const [otp, setOtp] = useState();
+  const navigate = useNavigate();
+  const { email } = useParams();
+
+  const handleCheckOtp = () => {
+    axios
+      .post(
+        "/api/user/verify-code",
+        { oneTimeCode: otp },
+        {
+          headers: {
+            email: email,
+          },
+        }
+      )
+      .then((res) => {
+        if (res.data.message) {
+          navigate(`/update-password/${email}`);
+        }
+      })
+      .catch((err) => Swal.fire("🤢", `${err.message}`, "error"));
   };
   return (
     <div className={style.otpContainer}>
@@ -19,29 +42,35 @@ const Otp = () => {
           level={2}
           style={{
             color: "#000B90",
-            fontWeight: "normal",
+            fontWeight: "500",
             marginBottom: "10px",
-            textShadow: "#bfbfbf 2px 2px 4px",
           }}
         >
-          Verify OTP
+          Check your email
         </Title>
         <Paragraph style={{ marginBottom: "30px" }}>
-          We'll send a verification code to your email. Check your inbox and
-          enter the code here.
+          Please enter the 4-digit verification code that was sent.{" "}
+          <span style={{ fontWeight: "bold", color: "orange" }}>{email}</span>{" "}
+          the code is valid for 3 minute.{" "}
         </Paragraph>
 
-        <Form onFinish={onFinish}>
-          <Input.Group
-            style={{ display: "flex", gap: "10px", marginBottom: "10px" }}
-          >
-            <Input className={style.otpInput} />
-            <Input className={style.otpInput} />
-            <Input className={style.otpInput} />
-            <Input className={style.otpInput} />
-            <Input className={style.otpInput} />
-            <Input className={style.otpInput} />
-          </Input.Group>
+        <Form onFinish={handleCheckOtp}>
+          <OtpInput
+            value={otp}
+            onChange={setOtp}
+            inputStyle={{
+              height: "80px",
+              width: "90px",
+              borderRadius: "5px",
+              marginRight: "17px",
+              fontSize: "20px",
+              border: "1px solid #000B90",
+              color: "#000B90",
+            }}
+            numInputs={4}
+            shouldAutoFocus={true}
+            renderInput={(props) => <input {...props} />}
+          />
 
           <div className={style.rememberAndPass}>
             <Text>Don't received code?</Text>
@@ -63,14 +92,12 @@ const Otp = () => {
               block
               style={{
                 height: "45px",
-                fontWeight: "400px",
-                fontSize: "18px",
                 background: "#000B90",
                 alignSelf: "bottom",
                 marginTop: "130px",
               }}
             >
-              Continue
+              Verify code
             </Button>
           </Form.Item>
         </Form>

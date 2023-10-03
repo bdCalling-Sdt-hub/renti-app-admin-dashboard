@@ -107,14 +107,14 @@ const Setting = () => {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
-      height: "45px",
+      height: "47px",
       marginBottom: "10px",
     },
     notification: {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
-      height: "45px",
+      height: "47px",
       marginTop: "10px",
       backgroundColor: "#ffffff",
       border: "1px solid #d9d9d9",
@@ -184,6 +184,7 @@ const Setting = () => {
   ];
 
   const [err, setErr] = useState("");
+
   const handleUpdated = (values) => {
     const { password, confirmPassword } = values;
 

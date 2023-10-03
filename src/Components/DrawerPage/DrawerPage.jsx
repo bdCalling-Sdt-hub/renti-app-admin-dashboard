@@ -71,209 +71,143 @@ const DrawerPage = (props) => {
 
   //user information
   const handleBlockUser = () => {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: "btn btn-success",
-        cancelButton: "btn btn-danger",
-      },
-      buttonsStyling: true,
+    Swal.fire({
+      title: "Are you sure!",
+      text: "You want to block user",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#000B90",
+      cancelButtonColor: "#d33333",
+      confirmButtonText: "Yes, Block",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .post(
+            `api/user/banned/${props.userInfoData?.key}`,
+            { isApprove: "cancel" },
+            {
+              headers: {
+                "Content-type": "application/json",
+                authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            if (res.status === 200) {
+              Swal.fire({
+                icon: "success",
+                text: "User Block successfully",
+              });
+            }
+            props?.setUserInfoReload((prev) => prev + 1);
+          });
+      } else {
+      }
     });
-
-    swalWithBootstrapButtons
-      .fire({
-        title: "Are you sure?",
-        text: "You want to Block User",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Yes, Block it!",
-        cancelButtonText: "No, cancel!",
-        reverseButtons: true,
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          axios
-            .post(
-              `api/user/banned/${props.userInfoData?.key}`,
-              { isApprove: "cancel" },
-              {
-                headers: {
-                  "Content-type": "application/json",
-                  authorization: `Bearer ${token}`,
-                },
-              }
-            )
-            .then((res) => {
-              if (res.status === 200) {
-                Swal.fire({
-                  icon: "success",
-                  text: "User Block successfully",
-                });
-              }
-              props?.setUserInfoReload((prev) => prev + 1);
-            });
-        } else {
-          swalWithBootstrapButtons.fire(
-            "Cancelled",
-            "Your User safe :)",
-            "error"
-          );
-        }
-      });
   };
 
   const handleDeleteUser = () => {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: "btn btn-success",
-        cancelButton: "btn btn-danger",
-      },
-      buttonsStyling: true,
+    Swal.fire({
+      title: "Moved to trash",
+      text: "User go to the trash",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#000B90",
+      cancelButtonColor: "#d33333",
+      confirmButtonText: "Yes, Block",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .post(
+            `api/user/banned/${props.userInfoData?.key}`,
+            { isApprove: "trash" },
+            {
+              headers: {
+                "Content-type": "application/json",
+                authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            if (res.status === 200) {
+              Swal.fire({
+                icon: "success",
+                text: "User Delete successfully",
+              });
+              props?.setUserInfoReload((prev) => prev + 1);
+            }
+          });
+      } else {
+      }
     });
-
-    swalWithBootstrapButtons
-      .fire({
-        title: "Are you sure?",
-        text: "You want to Delete User",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Yes, delete it!",
-        cancelButtonText: "No, cancel!",
-        reverseButtons: true,
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          axios
-            .post(
-              `api/user/banned/${props.userInfoData?.key}`,
-              { isApprove: "trash" },
-              {
-                headers: {
-                  "Content-type": "application/json",
-                  authorization: `Bearer ${token}`,
-                },
-              }
-            )
-            .then((res) => {
-              if (res.status === 200) {
-                Swal.fire({
-                  icon: "success",
-                  text: "User Delete successfully",
-                });
-                props?.setUserInfoReload((prev) => prev + 1);
-              }
-            });
-        } else {
-          swalWithBootstrapButtons.fire(
-            "Cancelled",
-            "Your User safe :)",
-            "error"
-          );
-        }
-      });
   };
 
   //host information
   const handleBlockHost = () => {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: "success",
-        cancelButton: "btn btn-danger",
-      },
-      buttonsStyling: true,
+    Swal.fire({
+      title: "Are you sure!",
+      text: "You want to block host",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#000B90",
+      cancelButtonColor: "#d33333",
+      confirmButtonText: "Yes, Block",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .post(
+            `api/user/banned/${props.hostData?.action.host._id}`,
+            { isApprove: "cancel" },
+            {
+              headers: {
+                "Content-type": "application/json",
+                authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            if (res.status === 200) {
+              Swal.fire({
+                icon: "success",
+                text: "Successfully Host Blocked",
+              });
+            }
+            props?.setReload((prev) => prev + 1);
+          });
+      }
     });
-
-    swalWithBootstrapButtons
-      .fire({
-        title: "Are you sure?",
-        text: "You want to Block Host",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Yes, Block it!",
-        cancelButtonText: "No, cancel!",
-        reverseButtons: true,
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          axios
-            .post(
-              `api/user/banned/${props.hostData?.action.host._id}`,
-              { isApprove: "cancel" },
-              {
-                headers: {
-                  "Content-type": "application/json",
-                  authorization: `Bearer ${token}`,
-                },
-              }
-            )
-            .then((res) => {
-              if (res.status === 200) {
-                Swal.fire({
-                  icon: "success",
-                  text: "User Block successfully",
-                });
-              }
-              props?.setReload((prev) => prev + 1);
-            });
-        } else {
-          swalWithBootstrapButtons.fire(
-            "Cancelled",
-            "Your Host safe :)",
-            "error"
-          );
-        }
-      });
   };
 
   const handleDeleteHost = () => {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: "success",
-        cancelButton: "btn btn-danger",
-      },
-      buttonsStyling: true,
+    Swal.fire({
+      title: "Moved to trash",
+      text: "Host go to the trash",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#000B90",
+      cancelButtonColor: "#d33333",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .post(
+            `api/user/banned/${props.hostData?.action.host._id}`,
+            { isApprove: "trash" },
+            {
+              headers: {
+                "Content-type": "application/json",
+                authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            if (res.status === 200) {
+              Swal.fire("Move!", "Successfully moved Host", "success");
+            }
+            props?.setReload((prev) => prev + 1);
+          });
+      }
     });
-
-    swalWithBootstrapButtons
-      .fire({
-        title: "Are you sure?",
-        text: "You want to Delete Host",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Yes, delete it!",
-        cancelButtonText: "No, cancel!",
-        reverseButtons: true,
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          axios
-            .post(
-              `api/user/banned/${props.hostData?.action.host._id}`,
-              { isApprove: "trash" },
-              {
-                headers: {
-                  "Content-type": "application/json",
-                  authorization: `Bearer ${token}`,
-                },
-              }
-            )
-            .then((res) => {
-              if (res.status === 200) {
-                swalWithBootstrapButtons.fire(
-                  "Deleted!",
-                  "Successfully Deleted Host",
-                  "success"
-                );
-                props?.setReload((prev) => prev + 1);
-              }
-            });
-        } else {
-          swalWithBootstrapButtons.fire(
-            "Cancelled",
-            "Your Host safe :)",
-            "error"
-          );
-        }
-      });
   };
 
   return (
@@ -613,7 +547,7 @@ const DrawerPage = (props) => {
                 "succeeded" ? (
                   <Badge
                     className="site-badge-count-109"
-                    count={"Complete"}
+                    count={"Completed"}
                     style={{
                       background: "#E6F6F4",
                       color: "#00A991",
@@ -1350,7 +1284,7 @@ const DrawerPage = (props) => {
                 "succeeded" ? (
                   <Badge
                     className="site-badge-count-109"
-                    count={"Complete"}
+                    count={"Completed"}
                     style={{
                       background: "#E6F6F4",
                       color: "#00A991",

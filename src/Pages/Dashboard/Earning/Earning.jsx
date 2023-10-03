@@ -59,7 +59,7 @@ const Earning = () => {
             <div>
               <LiaHandHoldingUsdSolid style={{ fontSize: "50px" }} />
               <h2 className={style.cardTitle}>Today’s Income</h2>
-              <h2>$ {incomeData.todayIncome}.00</h2>
+              <h2 className={style.cardTitle}>${incomeData.todayIncome}</h2>
             </div>
           </div>
         </Col>
@@ -75,7 +75,7 @@ const Earning = () => {
             <div>
               <LiaHandHoldingUsdSolid style={{ fontSize: "50px" }} />
               <h2 className={style.cardTitle}>Weakly Income</h2>
-              <h2>$ {incomeData.weeklyIncome}.00</h2>
+              <h2 className={style.cardTitle}>${incomeData.weeklyIncome}</h2>
             </div>
           </div>
         </Col>
@@ -91,7 +91,9 @@ const Earning = () => {
             <div>
               <LiaHandHoldingUsdSolid style={{ fontSize: "50px" }} />
               <h2 className={style.cardTitle}>Monthly Income</h2>
-              <h2>$ {incomeData.totalMonthlyIncome}.00</h2>
+              <h2 className={style.cardTitle}>
+                ${incomeData.totalMonthlyIncome}
+              </h2>
             </div>
           </div>
         </Col>

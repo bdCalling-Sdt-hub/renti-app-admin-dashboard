@@ -8,6 +8,7 @@ import HostPaymentReducer from "./ReduxSlices/HostPaymentSlice";
 import HostReducer from "./ReduxSlices/HostsSlice";
 import IncomeReducer from "./ReduxSlices/IncomeGetSlice";
 import LoginActivityReducer from "./ReduxSlices/LoginActivitySlice";
+import NotificationsReducer from "./ReduxSlices/NotificationSlice";
 import adminReducer from "./ReduxSlices/ProfileUpdatedSlice";
 import RecentEarningsReducer from "./ReduxSlices/RecentEarningsSlice";
 import RentInformationReducer from "./ReduxSlices/RentInformationSlice";
@@ -38,5 +39,6 @@ export const Store = configureStore({
     LoginActivity: LoginActivityReducer,
     RentiIncomes: RentiIncomeReducer,
     HostPaymentData: HostPaymentReducer,
+    NotificationData: NotificationsReducer,
   },
 });

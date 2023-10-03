@@ -62,25 +62,23 @@ function DashboardHome() {
         >
           <div className="income-card">
             <LiaHandHoldingUsdSolid style={{ fontSize: "50px" }} />
-            <h1
+            <h2
               style={{
-                fontSize: "1.5rem",
                 fontWeight: "300",
                 marginTop: "15px",
                 marginBottom: "15px",
               }}
             >
               Today's income
-            </h1>
-            <h3
+            </h2>
+            <h2
               style={{
-                fontSize: "1.5rem",
                 letterSpacing: ".2rem",
                 marginBottom: "15px",
               }}
             >
-              $ {incomeData?.todayIncome}.00
-            </h3>
+              ${incomeData?.todayIncome}
+            </h2>
           </div>
         </Col>
         <Col
@@ -93,25 +91,23 @@ function DashboardHome() {
         >
           <div className="income-card">
             <LiaHandHoldingUsdSolid style={{ fontSize: "50px" }} />
-            <h1
+            <h2
               style={{
-                fontSize: "1.5rem",
                 fontWeight: "300",
                 marginTop: "15px",
                 marginBottom: "15px",
               }}
             >
               Weekly income
-            </h1>
-            <h3
+            </h2>
+            <h2
               style={{
-                fontSize: "1.5rem",
                 letterSpacing: "1px",
                 marginBottom: "15px",
               }}
             >
-              $ {incomeData?.weeklyIncome}.00
-            </h3>
+              ${incomeData?.weeklyIncome}
+            </h2>
           </div>
         </Col>
         <Col
@@ -124,25 +120,23 @@ function DashboardHome() {
         >
           <div className="income-card">
             <LiaHandHoldingUsdSolid style={{ fontSize: "50px" }} />
-            <h1
+            <h2
               style={{
-                fontSize: "1.5rem",
                 fontWeight: "300",
                 marginTop: "15px",
                 marginBottom: "15px",
               }}
             >
               Monthly income
-            </h1>
-            <h3
+            </h2>
+            <h2
               style={{
-                fontSize: "1.5rem",
                 letterSpacing: "1px",
                 marginBottom: "15px",
               }}
             >
-              $ {incomeData?.totalMonthlyIncome}.00
-            </h3>
+              ${incomeData?.totalMonthlyIncome}
+            </h2>
           </div>
         </Col>
         <Col
@@ -155,25 +149,23 @@ function DashboardHome() {
         >
           <div className="income-card">
             <LiaHandHoldingUsdSolid style={{ fontSize: "50px" }} />
-            <h1
+            <h2
               style={{
-                fontSize: "1.5rem",
                 fontWeight: "300",
                 marginTop: "15px",
                 marginBottom: "15px",
               }}
             >
               All time income
-            </h1>
-            <h3
+            </h2>
+            <h2
               style={{
-                fontSize: "1.5rem",
                 letterSpacing: "1px",
                 marginBottom: "15px",
               }}
             >
-              $ {incomeData?.totalIncome}.00
-            </h3>
+              ${incomeData?.totalIncome}
+            </h2>
           </div>
         </Col>
       </Row>
@@ -333,7 +325,7 @@ function DashboardHome() {
               backgroundColor: "#fff",
             }}
           >
-            <h1 style={{ color: "#000b90" }}>Most using car</h1>
+            <h2 style={{ color: "#000b90" }}>Most using car</h2>
             <MostRentCarChart />
           </div>
         </Col>

@@ -1,9 +1,12 @@
 import { Col, Modal, Pagination, Row } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { Notifications } from "../../../ReduxSlices/NotificationSlice";
 import "./Notification.css";
 
 function Notification() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const dispatch = useDispatch();
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -11,6 +14,11 @@ function Notification() {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
+  useEffect(() => {
+    dispatch(Notifications());
+  }, []);
+
   return (
     <div>
       <Row>

@@ -36,7 +36,7 @@ const Signin = () => {
   };
 
   const handleForget = () => {
-    navigate("/forget-password");
+    navigate("/email");
   };
 
   return (

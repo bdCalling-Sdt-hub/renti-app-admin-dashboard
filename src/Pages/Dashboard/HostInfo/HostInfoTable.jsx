@@ -3,10 +3,14 @@ import { Button, Drawer, Space, Table, Typography } from "antd";
 import moment from "moment";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import axios from "../../../../Config";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 import Delete from "../../../icons/Delete";
 import Eye from "../../../icons/Eye";
 const { Title, Text } = Typography;
+
+const token = localStorage.token;
 
 const HostInfoTable = ({
   hostDataGetByPagination,
@@ -19,7 +23,39 @@ const HostInfoTable = ({
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [hostData, setHostData] = useState(null);
 
-  console.log("sdfjklsdf", hostsData);
+  const handleDeleteHost = (id) => {
+    Swal.fire({
+      title: "Moved to trash",
+      text: "Host go to the trash",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#000B90",
+      cancelButtonColor: "#d33333",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .post(
+            `api/user/banned/${id}`,
+            { isApprove: "trash" },
+            {
+              headers: {
+                "Content-type": "application/json",
+                authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            if (res.status === 200) {
+              Swal.fire("Move!", "Successfully moved Host", "success");
+            }
+            setReload((prev) => prev + 1);
+          });
+      } else if (result.isDenied) {
+        Swal.fire("Ok", "", "info");
+      }
+    });
+  };
 
   const data = hostsData?.map((host) => {
     return {
@@ -71,7 +107,10 @@ const HostInfoTable = ({
           <Button onClick={() => showDrawer(record)} type="text">
             <Eye />
           </Button>
-          <Button type="text">
+          <Button
+            onClick={() => handleDeleteHost(record.action.host._id)}
+            type="text"
+          >
             <Delete />
           </Button>
         </div>

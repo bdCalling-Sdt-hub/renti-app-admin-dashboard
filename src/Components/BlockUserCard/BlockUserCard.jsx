@@ -36,7 +36,7 @@ const BlockUserCard = ({ data, setReload }) => {
     if (response.status === 200) {
       Swal.fire({
         icon: "success",
-        text: "User unblock successfully",
+        text: "✅Successfully Unblock",
       });
       setReload((prev) => prev + 1);
     }

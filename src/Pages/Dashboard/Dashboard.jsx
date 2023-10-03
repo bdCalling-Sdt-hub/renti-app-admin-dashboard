@@ -16,7 +16,9 @@ import { useTranslation } from "react-i18next";
 import { BiUser } from "react-icons/bi";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { PiSignOutThin } from "react-icons/pi";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { io } from "socket.io-client";
 import Swal from "sweetalert2";
 import rentiLogo from "../../Images/renti-logo.png";
 import Styles from "./Dashboard.module.css";
@@ -65,6 +67,11 @@ const Dashboard = () => {
   );
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.yourInfo);
+  const dispatch = useDispatch();
+  const { notView, allNotification } = useSelector(
+    (state) => state.NotificationData
+  );
+  const [notificationsData, setNotificationsData] = useState();
 
   const {
     token: { colorBgContainer },
@@ -92,6 +99,13 @@ const Dashboard = () => {
     console.log(`Clicked on link with text: ${linkText}`);
   };
 
+  //socket
+  let socket = io("http://192.168.10.14:9000");
+  socket.on("admin-notification", (data) => {
+    console.log("Socket", data);
+    setNotificationsData(data);
+  });
+
   const handleSelectLanguage = (value) => {
     setSelectedLanguage(value);
     i18n.changeLanguage(selectedLanguage);
@@ -101,6 +115,17 @@ const Dashboard = () => {
   useEffect(() => {
     i18n.changeLanguage(selectedLanguage);
   }, [selectedLanguage, i18n]);
+
+  //socket
+  // useEffect(() => {
+  //   let socket = io("192.168.10.14:9000");
+  //   socket.on("connect", () => {
+  //     socket.on("admin-notification", (data) => {
+  //       console.log(data);
+  //       dispatch(Notifications(data));
+  //     });
+  //   });
+  // }, []);
 
   const logout = () => {
     Swal.fire({
@@ -112,7 +137,6 @@ const Dashboard = () => {
       cancelButtonColor: "#d33333",
       confirmButtonText: "Yes, Logout",
     }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         localStorage.removeItem("token");
         localStorage.removeItem("yourInfo");
@@ -586,7 +610,12 @@ const Dashboard = () => {
                     justifyContent: "center",
                   }}
                 >
-                  <Badge count={5} color="#000b90">
+                  <Badge
+                    count={
+                      notificationsData ? notificationsData.notViewed : notView
+                    }
+                    color="#000b90"
+                  >
                     <IoIosNotificationsOutline
                       style={{ cursor: "pointer" }}
                       fontSize={35}

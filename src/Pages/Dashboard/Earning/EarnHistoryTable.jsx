@@ -38,7 +38,7 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
                 textAlign: "center",
               }}
             >
-              Complete
+              Completed
             </div>
           ) : (
             <div
@@ -80,7 +80,7 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
                 textAlign: "center",
               }}
             >
-              Complete
+              Completed
             </div>
           ) : (
             <div
@@ -122,7 +122,7 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
                 textAlign: "center",
               }}
             >
-              Complete
+              Completed
             </div>
           ) : (
             <div

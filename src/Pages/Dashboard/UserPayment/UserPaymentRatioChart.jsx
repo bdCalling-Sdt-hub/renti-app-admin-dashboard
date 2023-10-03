@@ -42,9 +42,15 @@ export default function UserPaymentRatioChart() {
         backgroundColor: "#fff",
       }}
     >
-      <h1 style={{ marginTop: "10px", marginBottom: "10px", color: "#000b90" }}>
+      <h2
+        style={{
+          marginTop: "10px",
+          marginBottom: "10px",
+          color: "#000b90",
+        }}
+      >
         Daily Payment Ratio
-      </h1>
+      </h2>
 
       <ResponsiveContainer width="100%" height={300}>
         <LineChart
