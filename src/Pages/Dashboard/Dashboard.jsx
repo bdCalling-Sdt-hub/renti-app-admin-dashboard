@@ -1,26 +1,31 @@
 /* eslint-disable no-unused-vars */
 import { CarOutlined, MenuOutlined, SettingOutlined } from "@ant-design/icons";
-import { Badge, Button, Dropdown, Layout, Menu, Select, theme } from "antd";
-
-import { Divider } from "antd";
-import { GiReceiveMoney } from "react-icons/gi";
-import { MdCarRental, MdPayment, MdPeopleOutline } from "react-icons/md";
-import { RxDashboard } from "react-icons/rx";
-import { GoPeople } from "./../../../node_modules/react-icons/go/index.esm";
-
-import { RiUserSearchLine } from "react-icons/ri";
-
+import {
+  Badge,
+  Button,
+  Divider,
+  Dropdown,
+  Layout,
+  Menu,
+  Select,
+  theme,
+} from "antd";
 import React, { useEffect, useState } from "react";
-
 import { useTranslation } from "react-i18next";
 import { BiUser } from "react-icons/bi";
+import { GiReceiveMoney } from "react-icons/gi";
 import { IoIosNotificationsOutline } from "react-icons/io";
+import { MdCarRental, MdPayment, MdPeopleOutline } from "react-icons/md";
 import { PiSignOutThin } from "react-icons/pi";
+import { RiUserSearchLine } from "react-icons/ri";
+import { RxDashboard } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
 import Swal from "sweetalert2";
 import rentiLogo from "../../Images/renti-logo.png";
+import { Notifications } from "../../ReduxSlices/NotificationSlice";
+import { GoPeople } from "./../../../node_modules/react-icons/go/index.esm";
 import Styles from "./Dashboard.module.css";
 const { Header, Sider, Content } = Layout;
 const { SubMenu } = Menu;
@@ -72,13 +77,11 @@ const Dashboard = () => {
     (state) => state.NotificationData
   );
   const [notificationsData, setNotificationsData] = useState();
-
   const {
     token: { colorBgContainer },
   } = theme.useToken();
   const [t, i18n] = useTranslation("global");
   const location = useLocation();
-
   const path = location.pathname;
 
   //profile
@@ -114,18 +117,8 @@ const Dashboard = () => {
 
   useEffect(() => {
     i18n.changeLanguage(selectedLanguage);
+    dispatch(Notifications());
   }, [selectedLanguage, i18n]);
-
-  //socket
-  // useEffect(() => {
-  //   let socket = io("192.168.10.14:9000");
-  //   socket.on("connect", () => {
-  //     socket.on("admin-notification", (data) => {
-  //       console.log(data);
-  //       dispatch(Notifications(data));
-  //     });
-  //   });
-  // }, []);
 
   const logout = () => {
     Swal.fire({

@@ -57,7 +57,6 @@ export const NotificationsSlice = createSlice({
       state.isLoading = true;
     },
     [Notifications.fulfilled]: (state, action) => {
-      console.log(action.payload.data);
       state.isError = false;
       state.isSuccess = true;
       state.isLoading = false;
