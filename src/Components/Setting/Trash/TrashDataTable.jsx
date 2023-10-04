@@ -15,8 +15,6 @@ const TrashDataTable = ({ setReload }) => {
 
   const bannedUser = allUsers.filter((user) => user.isBanned === "trash");
 
-  console.log(bannedUser);
-
   const data = bannedUser.map((filterUser) => {
     return {
       name: filterUser.fullName,

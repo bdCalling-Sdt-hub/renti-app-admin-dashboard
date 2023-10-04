@@ -7,8 +7,6 @@ import img from "../../Images/Photo.png";
 const BlockUserCard = ({ data, setReload }) => {
   const { _id, fullName, email, phoneNumber, approved } = data;
 
-  console.log(_id);
-
   const style = {
     cardStyle: {
       background: "#E6E7F4",
@@ -35,12 +33,10 @@ const BlockUserCard = ({ data, setReload }) => {
       }
     );
 
-    console.log(response.data);
-
     if (response.status === 200) {
       Swal.fire({
         icon: "success",
-        text: "User unblock successfully",
+        text: "✅Successfully Unblock",
       });
       setReload((prev) => prev + 1);
     }

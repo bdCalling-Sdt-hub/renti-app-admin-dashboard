@@ -31,3 +31,7 @@
   color: white;
   border: 0;
 }
+
+.ant-upload-list-item img {
+  max-width: 150px !important; /* Set the maximum width of the uploaded images */
+}

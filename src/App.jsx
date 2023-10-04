@@ -46,14 +46,14 @@ function App() {
               <Route path="/" element={<DashboardHome />} />
               <Route path="/notification" element={<Notification />} />
               <Route path="/earning/:income" element={<Earning />} />
-              <Route path="/host-info" element={<HostInfo />} />
+              <Route path="/host-information" element={<HostInfo />} />
               <Route path="/host-request" element={<HostRequest />} />
               <Route path="/kyc-form" element={<KycForm />} />
               <Route path="/wallet" element={<Wallet />} />
 
-              <Route path="/user-info" element={<UserInfo />} />
-              <Route path="/rent-info" element={<RentInformation />} />
-              <Route path="/car-info" element={<CarInformation />} />
+              <Route path="/user-information" element={<UserInfo />} />
+              <Route path="/rent-information" element={<RentInformation />} />
+              <Route path="/car-information" element={<CarInformation />} />
               <Route path="/user-payment" element={<UserPayment />} />
               <Route path="/renti-income" element={<RentisIncome />} />
               <Route path="/host-payment" element={<HostPayment />} />
@@ -67,8 +67,8 @@ function App() {
 
             <Route path="/signin" element={<Signin />} />
             <Route path="/email" element={<Email />} />
-            <Route path="/forget-password" element={<Otp />} />
-            <Route path="/update-password" element={<UpdatePass />} />
+            <Route path="/forget-password/:email" element={<Otp />} />
+            <Route path="/update-password/:email" element={<UpdatePass />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>

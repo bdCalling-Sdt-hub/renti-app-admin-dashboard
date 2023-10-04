@@ -1,21 +1,31 @@
 /* eslint-disable no-unused-vars */
 import { CarOutlined, MenuOutlined, SettingOutlined } from "@ant-design/icons";
-import { Button, Dropdown, Layout, Menu, Select, theme } from "antd";
-
-import { Divider } from "antd";
-import { GiReceiveMoney } from "react-icons/gi";
-import { MdCarRental, MdPayment, MdPeopleOutline } from "react-icons/md";
-import { RxDashboard } from "react-icons/rx";
-import { GoPeople } from "./../../../node_modules/react-icons/go/index.esm";
-
-import { RiUserSearchLine } from "react-icons/ri";
-
+import {
+  Badge,
+  Button,
+  Divider,
+  Dropdown,
+  Layout,
+  Menu,
+  Select,
+  theme,
+} from "antd";
 import React, { useEffect, useState } from "react";
-
 import { useTranslation } from "react-i18next";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { BiUser } from "react-icons/bi";
+import { GiReceiveMoney } from "react-icons/gi";
+import { IoIosNotificationsOutline } from "react-icons/io";
+import { MdCarRental, MdPayment, MdPeopleOutline } from "react-icons/md";
+import { PiSignOutThin } from "react-icons/pi";
+import { RiUserSearchLine } from "react-icons/ri";
+import { RxDashboard } from "react-icons/rx";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { io } from "socket.io-client";
 import Swal from "sweetalert2";
 import rentiLogo from "../../Images/renti-logo.png";
+import { Notifications } from "../../ReduxSlices/NotificationSlice";
+import { GoPeople } from "./../../../node_modules/react-icons/go/index.esm";
 import Styles from "./Dashboard.module.css";
 const { Header, Sider, Content } = Layout;
 const { SubMenu } = Menu;
@@ -39,12 +49,13 @@ const items = [...Array(5).keys()].map((item, index) => {
             }}
             width="30"
             height="30"
-            src="https://img.icons8.com/3d-fluency/94/person-male--v2.png"
+            src="https://siffahim.github.io/MetaCGI-Tailwind/images/2.jpg"
             alt="person-male--v2"
           />
           <div className="" style={{ marginTop: "" }}>
             <p>
-              <span>Sanchej haro manual </span>started a new trip from mexico.
+              <span style={{ fontWeight: "bold" }}>Professor Sergio</span> start
+              a new trip at 5pm. Trip started from Mexico city.....
             </p>
             <span style={{ color: "#d2d2d2" }}>1 hr ago</span>
           </div>
@@ -60,15 +71,43 @@ const Dashboard = () => {
     localStorage.lang || "en"
   );
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.yourInfo);
+  const dispatch = useDispatch();
+  const { notView, allNotification } = useSelector(
+    (state) => state.NotificationData
+  );
+  const [notificationsData, setNotificationsData] = useState();
   const {
     token: { colorBgContainer },
   } = theme.useToken();
   const [t, i18n] = useTranslation("global");
+  const location = useLocation();
+  const path = location.pathname;
+
+  //profile
+  let imgUrl;
+  if (
+    user.image !== null &&
+    user.image !== undefined &&
+    user.image !== "" &&
+    user.image.length !== 0
+  ) {
+    imgUrl = user.image;
+  } else {
+    imgUrl = "https://siffahim.github.io/MetaCGI-Tailwind/images/2.jpg";
+  }
 
   const handleLinkClick = (event, linkText) => {
     event.preventDefault(); // Prevent the default link behavior (navigation)
     console.log(`Clicked on link with text: ${linkText}`);
   };
+
+  //socket
+  let socket = io("http://192.168.10.14:9000");
+  socket.on("admin-notification", (data) => {
+    console.log("Socket", data);
+    setNotificationsData(data);
+  });
 
   const handleSelectLanguage = (value) => {
     setSelectedLanguage(value);
@@ -78,17 +117,19 @@ const Dashboard = () => {
 
   useEffect(() => {
     i18n.changeLanguage(selectedLanguage);
+    dispatch(Notifications());
   }, [selectedLanguage, i18n]);
 
   const logout = () => {
     Swal.fire({
-      title: "Do you want to Logout from here?",
-      showDenyButton: true,
-      showCancelButton: false,
-      confirmButtonText: "Yes",
-      denyButtonText: `No`,
+      title: "Are you sure?",
+      text: "You want to logout from here!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#000B90",
+      cancelButtonColor: "#d33333",
+      confirmButtonText: "Yes, Logout",
     }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         localStorage.removeItem("token");
         localStorage.removeItem("yourInfo");
@@ -106,46 +147,32 @@ const Dashboard = () => {
       label: (
         <Link
           to="/setting/personal-information"
-          style={{ height: "50px" }}
-          rel="noreferrer"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
+            padding: "0px",
+          }}
         >
-          <div
-            className={Styles.everyNotify}
-            style={{ display: "flex", alignItems: "center" }}
-          >
-            <img
-              style={{ marginRight: "20px" }}
-              width="30"
-              height="30"
-              src="https://img.icons8.com/windows/32/gender-neutral-user.png"
-              alt="gender-neutral-user"
-            />
-            <div className="" style={{ marginTop: "" }}>
-              <p>Profile</p>
-            </div>
-          </div>
+          <BiUser color="#000B90" fontSize={25} />
+          Profile
         </Link>
       ),
     },
     {
       key: 2,
       label: (
-        <Link to="/notification" style={{}} rel="noreferrer">
-          <div
-            className={Styles.everyNotify}
-            style={{ display: "flex", alignItems: "center" }}
-          >
-            <img
-              style={{ marginRight: "20px" }}
-              width="30"
-              height="30"
-              src="https://img.icons8.com/ios/50/appointment-reminders--v1.png"
-              alt="appointment-reminders--v1"
-            />
-            <div className="" style={{ marginTop: "" }}>
-              <p>Notification</p>
-            </div>
-          </div>
+        <Link
+          to="/notification"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
+            padding: "0px",
+          }}
+        >
+          <IoIosNotificationsOutline color="#000B90" fontSize={25} />
+          <span style={{ fontSize: "16px" }}>Notification</span>
         </Link>
       ),
     },
@@ -154,28 +181,133 @@ const Dashboard = () => {
       label: (
         <div
           onClick={logout}
-          style={{ border: "none", backgroundColor: "transparent" }}
-          rel="noreferrer"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
+            padding: "0px",
+          }}
         >
-          <div
-            className={Styles.everyNotify}
-            style={{ display: "flex", alignItems: "center" }}
-          >
-            <img
-              style={{ marginRight: "20px" }}
-              width="25"
-              height="25"
-              src="https://img.icons8.com/ios/50/exit--v1.png"
-              alt="exit--v1"
-            />
-            <div className="" style={{ marginTop: "" }}>
-              <p>Logout</p>
-            </div>
-          </div>
+          <PiSignOutThin color="#000B90" fontSize={25} />
+          Logout
         </div>
       ),
     },
   ];
+
+  //breadcrumb
+  const breadcrumb = [
+    {
+      path: "/",
+      title: "Dashboard",
+    },
+    {
+      path: "/earning/today-income",
+      title: "Earnings",
+    },
+    {
+      path: "/earning/weekly-income",
+      title: "Earnings",
+    },
+    {
+      path: "/earning/monthly-income",
+      title: "Earnings",
+    },
+    {
+      path: "/host-information",
+      title: "Host Information",
+    },
+    {
+      path: "/host-request",
+      title: "Host Information",
+    },
+    {
+      path: "/user-information",
+      title: "User Information",
+    },
+    {
+      path: "/rent-information",
+      title: "Rent Information",
+    },
+    {
+      path: "/car-information",
+      title: "Car Information",
+    },
+    {
+      path: "/host-kyc",
+      title: "KYC",
+    },
+    {
+      path: "/user-kyc",
+      title: "KYC",
+    },
+    {
+      path: "/car-kyc",
+      title: "KYC",
+    },
+    {
+      path: "/kyc-form",
+      title: "KYC",
+    },
+    {
+      path: "/user-payment",
+      title: "Payments",
+    },
+    {
+      path: "/host-payment",
+      title: "Payments",
+    },
+    {
+      path: "/stripe-bills",
+      title: "Payments",
+    },
+    {
+      path: "/renti-income",
+      title: "Payments",
+    },
+    {
+      path: "/wallet",
+      title: "Payments",
+    },
+    {
+      path: "/setting",
+      title: "Settings",
+    },
+    {
+      path: "/setting/personal-information",
+      title: "Settings",
+    },
+    {
+      path: "/setting/login-activity",
+      title: "Settings",
+    },
+    {
+      path: "/setting/block-list",
+      title: "Settings",
+    },
+    {
+      path: "/setting/trash",
+      title: "Settings",
+    },
+    {
+      path: "/setting/privacy-policy",
+      title: "Settings",
+    },
+    {
+      path: "/setting/terms-condition",
+      title: "Settings",
+    },
+    {
+      path: "/setting/about-us",
+      title: "Settings",
+    },
+    {
+      path: "/notification",
+      title: "Notification",
+    },
+  ];
+
+  const dashboardTitle = breadcrumb.find((item) => item.path === path);
 
   const menu = (
     <Menu>
@@ -204,19 +336,21 @@ const Dashboard = () => {
           margin: "15px",
         }}
       >
-        <Button
-          type="primary"
-          block
+        <Link
           style={{
-            height: "50px",
             backgroundColor: "#e6e7f4",
             color: "#000b90",
             fontSize: "18px",
             fontWeight: "bold",
+            width: "100%",
+            textAlign: "center",
+            padding: "10px",
+            borderRadius: "5px",
           }}
+          to="/notification"
         >
-          <Link to="/notification">See All</Link>
-        </Button>
+          See all
+        </Link>
       </div>
     </Menu>
   );
@@ -316,7 +450,7 @@ const Dashboard = () => {
             title={t("hostInfo.title")}
           >
             <Menu.Item key="39">
-              <Link to="/host-info">{t("hostInfo.subTitle1")}</Link>
+              <Link to="/host-information">{t("hostInfo.subTitle1")}</Link>
             </Menu.Item>
             <Menu.Item key="40">
               <Link to="/host-request">{t("hostInfo.subTitle2")}</Link>
@@ -327,7 +461,7 @@ const Dashboard = () => {
             key="5"
             icon={<MdPeopleOutline style={{ fontSize: "14px" }} />}
           >
-            <Link to="/user-info" style={{ fontSize: "16px" }}>
+            <Link to="/user-information" style={{ fontSize: "16px" }}>
               {t("userInfo")}
             </Link>
           </Menu.Item>
@@ -336,7 +470,7 @@ const Dashboard = () => {
             key="6"
             icon={<MdCarRental style={{ fontSize: "14px" }} />}
           >
-            <Link to="/rent-info" style={{ fontSize: "16px" }}>
+            <Link to="/rent-information" style={{ fontSize: "16px" }}>
               {t("rentInfo")}
             </Link>
           </Menu.Item>
@@ -345,7 +479,7 @@ const Dashboard = () => {
             key="7"
             icon={<CarOutlined style={{ fontSize: "14px" }} />}
           >
-            <Link to="/car-info" style={{ fontSize: "16px" }}>
+            <Link to="/car-information" style={{ fontSize: "16px" }}>
               {t("carInfo")}
             </Link>
           </Menu.Item>
@@ -396,7 +530,10 @@ const Dashboard = () => {
             paddingRight: "60px",
           }}
         >
-          <div className="" style={{ display: "flex", alignItems: "center" }}>
+          <div
+            className=""
+            style={{ display: "flex", alignItems: "center", gap: 1 }}
+          >
             <Button
               type="text"
               icon={collapsed ? <MenuOutlined /> : <MenuOutlined />}
@@ -404,12 +541,15 @@ const Dashboard = () => {
               style={{
                 marginLeft: collapsed ? "125px" : "360px",
                 fontSize: "16px",
+                color: "#000B90",
                 width: 45,
                 height: 45,
-                marginRight: "10px",
               }}
             />
-            <h2>{t("header.title")}</h2>
+            {/* <h2>{t("header.title")}</h2> */}
+            <h2 style={{ color: "#000B90", letterSpacing: "0.3px" }}>
+              {dashboardTitle?.title}
+            </h2>
           </div>
 
           <div
@@ -450,14 +590,32 @@ const Dashboard = () => {
                 arrow={{
                   pointAtCenter: true,
                 }}
+                trigger={["click"]}
               >
-                <img
-                  style={{ cursor: "pointer" }}
-                  width="30"
-                  height="30"
-                  src="https://img.icons8.com/ios/50/appointment-reminders--v1.png"
-                  alt="appointment-reminders--v1"
-                />
+                <Button
+                  type="text"
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Badge
+                    count={
+                      notificationsData ? notificationsData.notViewed : notView
+                    }
+                    color="#000b90"
+                  >
+                    <IoIosNotificationsOutline
+                      style={{ cursor: "pointer" }}
+                      fontSize={35}
+                      color="#000b90"
+                    />
+                  </Badge>
+                </Button>
               </Dropdown>
             </div>
             <div className={Styles.profile}>
@@ -469,13 +627,17 @@ const Dashboard = () => {
                 arrow={{
                   pointAtCenter: true,
                 }}
+                trigger={["click"]}
               >
                 <img
-                  style={{ cursor: "pointer" }}
-                  width="40"
-                  height="40"
-                  src="https://img.icons8.com/3d-fluency/94/person-male--v2.png"
-                  alt="person-male--v2"
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "100%",
+                    cursor: "pointer",
+                  }}
+                  src={imgUrl}
+                  alt="profile"
                 />
               </Dropdown>
             </div>

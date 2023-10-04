@@ -17,6 +17,8 @@ const CarInfoTable = ({ carDataByPagination }) => {
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [carDetailsData, setCarDetailsData] = useState(null);
 
+  console.log(cars);
+
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
     setCarDetailsData(record);
@@ -136,13 +138,16 @@ const CarInfoTable = ({ carDataByPagination }) => {
         title={
           <div>
             <Typography>
-              <Title level={5} strong>
+              <Title style={{ color: "#333333" }} level={5} strong>
                 Car Details
               </Title>
-              <Text>See all information about selected car</Text>
+              <Text style={{ color: "gray" }}>
+                See all information about selected car
+              </Text>
             </Typography>
           </div>
         }
+        headerStyle={{ background: "#E6E7F4" }}
         placement="right"
         onClose={closeDrawer}
         open={isDrawerVisible}
@@ -155,9 +160,11 @@ const CarInfoTable = ({ carDataByPagination }) => {
                 borderRadius: "100%",
                 backgroundColor: "white",
                 color: "red",
-                height: "50px",
-                width: "50px",
-                textAlign: "center",
+                height: "40px",
+                width: "40px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
               onClick={closeDrawer}
             >

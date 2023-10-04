@@ -21,11 +21,8 @@ const HostPaymentTable = ({
     (state) => state.HostPaymentData
   );
 
-  console.log("host payment", pagination);
-
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
-    console.log(record);
     setUserInfoData(record);
   };
 
@@ -36,13 +33,11 @@ const HostPaymentTable = ({
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    console.log(currentPage);
     hostPaymentDataGetByPagination(page);
     hostPaymentDataGetBySearch(page);
   };
 
   const data = hostPaymentList?.map((item) => {
-    console.log("host payments", item);
     return {
       key: item._id,
       tripno: item.rentTripNumber,

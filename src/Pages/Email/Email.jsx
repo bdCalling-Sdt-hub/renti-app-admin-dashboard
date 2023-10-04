@@ -1,13 +1,27 @@
 import { Button, Form, Input, Typography } from "antd";
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import axios from "../../../Config";
 import logo from "../../Images/Logo.png";
 import style from "./Email.module.css";
 
 const { Title, Paragraph, Text, Link } = Typography;
 
 const Email = () => {
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+  const navigate = useNavigate();
+  const handleEmail = (values) => {
+    const email = values.email;
+    axios
+      .post("/api/user/forget-password", { email: email })
+      .then((res) => {
+        console.log(res);
+        if (res.data.message) {
+          Swal.fire("✅", "Successfully Send OTP on your email", "success");
+          navigate(`/forget-password/${values.email}`);
+        }
+      })
+      .catch((err) => Swal.fire("🤢", `${err.message}`, "error"));
   };
   return (
     <div className={style.emailContainer}>
@@ -19,19 +33,18 @@ const Email = () => {
           level={2}
           style={{
             color: "#000B90",
-            fontWeight: "normal",
-            marginBottom: "10px",
-            textShadow: "#bfbfbf 2px 2px 4px",
+            fontWeight: "500px",
+            marginBottom: "5px",
           }}
         >
-          Email Verification
+          Enter your email
         </Title>
         <Paragraph style={{ marginBottom: "30px" }}>
           We'll send a verification code to your email. Check your inbox and
           enter the code here.
         </Paragraph>
 
-        <Form>
+        <Form onFinish={handleEmail}>
           <div>
             <label htmlFor="email" className={style.label}>
               Email
@@ -68,7 +81,7 @@ const Email = () => {
                 marginTop: "130px",
               }}
             >
-              Verify
+              Send verification code
             </Button>
           </Form.Item>
         </Form>

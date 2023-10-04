@@ -71,7 +71,7 @@ function HostPayment() {
             fontWeight: "normal",
           }}
         >
-          Host Payments
+          Search
         </h2>
         <Col lg={{ span: 24 }}>
           <div className="" style={{ display: "flex", gap: "15px" }}>
@@ -126,7 +126,7 @@ function HostPayment() {
                   marginBottom: "15px",
                 }}
               >
-                Total Payments
+                Total Payment
               </h1>
               <h3
                 style={{
@@ -136,7 +136,7 @@ function HostPayment() {
                   color: "#00a991",
                 }}
               >
-                $ {Math.round(hostPayments?.income?.hostTotalPayment)}.00
+                ${Math.round(hostPayments?.income?.hostTotalPayment)}
               </h3>
             </div>
           </div>
@@ -151,13 +151,14 @@ function HostPayment() {
         >
           <div
             className="host-payment-card pending"
-            style={{ border: "1px solid #d7263d" }}
+            style={{ border: "1px solid #eb6363" }}
           >
             <div className="progressbar">
               <Progress
                 type="circle"
-                percent={Math.round(hostPayments?.income?.hostPendingPercentage)}
-                strokeColor="#d7263d"
+                percent={Math.round(
+                  hostPayments?.income?.hostPendingPercentage
+                )}
               />
             </div>
             <div className="total-payment">
@@ -169,23 +170,31 @@ function HostPayment() {
                   marginBottom: "15px",
                 }}
               >
-                Total Pendings
+                Total Pending
               </h1>
               <h3
                 style={{
                   fontSize: "1.5rem",
                   letterSpacing: "1px",
                   marginBottom: "15px",
-                  color: "#d7263d",
+                  color: "#eb6363",
                 }}
               >
-                $ {hostPayments?.income?.hostTotalPending}.00
+                ${hostPayments?.income?.hostTotalPending}
               </h3>
             </div>
           </div>
         </Col>
       </Row>
-
+      <h2
+        style={{
+          fontSize: "25px",
+          marginBottom: "10px",
+          fontWeight: "normal",
+        }}
+      >
+        Payment List
+      </h2>
       <Row>
         <Col lg={{ span: 24 }}>
           <HostPaymentTable

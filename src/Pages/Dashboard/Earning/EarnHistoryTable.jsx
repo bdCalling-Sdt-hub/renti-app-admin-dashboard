@@ -1,6 +1,6 @@
-import { Button, Drawer, Table, Typography } from "antd";
+import { CloseOutlined } from "@ant-design/icons";
+import { Button, Drawer, Space, Table, Typography } from "antd";
 import React, { useState } from "react";
-import { IoMdClose } from "react-icons/io";
 import { useSelector } from "react-redux";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 import Print from "../../../icons/Print";
@@ -13,15 +13,12 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
     useSelector((state) => state.RecentEarnings);
   const pageSize = 3;
 
-  console.log(todayEarning);
-
   //ok all things is done
   let today_data;
   let weekly_data;
   let monthly_data;
   if (todayEarning) {
     today_data = todayEarning?.map((item) => {
-      console.log(item);
       return {
         key: item._id,
         tripNo: item.rentId?.rentTripNumber,
@@ -41,7 +38,7 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
                 textAlign: "center",
               }}
             >
-              Complete
+              Completed
             </div>
           ) : (
             <div
@@ -83,7 +80,7 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
                 textAlign: "center",
               }}
             >
-              Complete
+              Completed
             </div>
           ) : (
             <div
@@ -125,7 +122,7 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
                 textAlign: "center",
               }}
             >
-              Complete
+              Completed
             </div>
           ) : (
             <div
@@ -145,8 +142,6 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
       };
     });
   }
-
-  console.log("today earning");
 
   const columns = [
     {
@@ -217,7 +212,6 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
   };
 
   const handlePageChange = (page) => {
-    console.log(page);
     setCurrentPage(page);
     recentDataGetByPagination(page);
   };
@@ -268,29 +262,42 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
 
       <Drawer
         title={
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
+          <div>
             <Typography>
-              <Title level={5} strong>
+              <Title style={{ color: "#333333" }} level={5} strong>
                 Invoice# Trip No.{earningData?.tripNo}
               </Title>
-              <Text>See all information about the trip no. 68656</Text>
+              <Text style={{ color: "gray" }}>
+                See all information about the trip no. 68656
+              </Text>
             </Typography>
-            <Button type="text" onClick={closeDrawer}>
-              <IoMdClose fontSize={25} />
-            </Button>
           </div>
         }
+        headerStyle={{ background: "#E6E7F4" }}
         closable={false}
         placement="right"
         onClose={closeDrawer}
         open={isDrawerVisible}
         width={600}
+        extra={
+          <Space>
+            <Button
+              style={{
+                borderRadius: "100%",
+                backgroundColor: "white",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "red",
+                height: "40px",
+                width: "40px",
+              }}
+              onClick={closeDrawer}
+            >
+              <CloseOutlined />
+            </Button>
+          </Space>
+        }
       >
         {earningData && <DrawerPage earningData={earningData} />}
       </Drawer>

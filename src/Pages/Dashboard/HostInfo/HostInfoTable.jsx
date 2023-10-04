@@ -1,12 +1,16 @@
-import { Button, Drawer, Table, Typography } from "antd";
+import { CloseOutlined } from "@ant-design/icons";
+import { Button, Drawer, Space, Table, Typography } from "antd";
 import moment from "moment";
 import React, { useState } from "react";
-import { IoMdClose } from "react-icons/io";
 import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import axios from "../../../../Config";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 import Delete from "../../../icons/Delete";
 import Eye from "../../../icons/Eye";
 const { Title, Text } = Typography;
+
+const token = localStorage.token;
 
 const HostInfoTable = ({
   hostDataGetByPagination,
@@ -19,7 +23,39 @@ const HostInfoTable = ({
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [hostData, setHostData] = useState(null);
 
-  console.log("sdfjklsdf", hostsData);
+  const handleDeleteHost = (id) => {
+    Swal.fire({
+      title: "Moved to trash",
+      text: "Host go to the trash",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#000B90",
+      cancelButtonColor: "#d33333",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .post(
+            `api/user/banned/${id}`,
+            { isApprove: "trash" },
+            {
+              headers: {
+                "Content-type": "application/json",
+                authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            if (res.status === 200) {
+              Swal.fire("Move!", "Successfully moved Host", "success");
+            }
+            setReload((prev) => prev + 1);
+          });
+      } else if (result.isDenied) {
+        Swal.fire("Ok", "", "info");
+      }
+    });
+  };
 
   const data = hostsData?.map((host) => {
     return {
@@ -31,9 +67,6 @@ const HostInfoTable = ({
       action: host,
     };
   });
-
-  // const restData = hostsData?.filter((host) => host?.isBanned == false);
-  // console.log(restData);
 
   const columns = [
     {
@@ -74,7 +107,10 @@ const HostInfoTable = ({
           <Button onClick={() => showDrawer(record)} type="text">
             <Eye />
           </Button>
-          <Button type="text">
+          <Button
+            onClick={() => handleDeleteHost(record.action.host._id)}
+            type="text"
+          >
             <Delete />
           </Button>
         </div>
@@ -85,8 +121,6 @@ const HostInfoTable = ({
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
     setHostData(record);
-
-    console.log(record);
   };
 
   const closeDrawer = () => {
@@ -115,29 +149,42 @@ const HostInfoTable = ({
       />
       <Drawer
         title={
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
+          <div>
             <Typography>
-              <Title level={5} strong>
+              <Title style={{ color: "#333333" }} level={5} strong>
                 Invoice# Trip No.{hostData?.tripNo}
               </Title>
-              <Text>See all information about the trip no. 68656</Text>
+              <Text style={{ color: "gray" }}>
+                See all information about the trip no. 68656
+              </Text>
             </Typography>
-            <Button type="text" onClick={closeDrawer}>
-              <IoMdClose fontSize={25} />
-            </Button>
           </div>
         }
+        headerStyle={{ background: "#E6E7F4" }}
         closable={false}
         placement="right"
         onClose={closeDrawer}
         open={isDrawerVisible}
         width={600}
+        extra={
+          <Space>
+            <Button
+              style={{
+                borderRadius: "100%",
+                backgroundColor: "white",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "red",
+                height: "40px",
+                width: "40px",
+              }}
+              onClick={closeDrawer}
+            >
+              <CloseOutlined />
+            </Button>
+          </Space>
+        }
       >
         {hostData && <DrawerPage hostData={hostData} setReload={setReload} />}
       </Drawer>

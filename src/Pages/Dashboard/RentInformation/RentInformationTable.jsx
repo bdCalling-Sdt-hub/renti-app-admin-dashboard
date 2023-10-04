@@ -34,6 +34,7 @@ const RentInformationTable = ({
   };
 
   const data = rents?.map((rent) => {
+    console.log(rent);
     return {
       key: rent._id,
       carModel: rent?.carId?.carModelName,
@@ -72,11 +73,8 @@ const RentInformationTable = ({
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    console.log("mycurrent", currentPage);
     rentDataGetByPagination(page), rentDataGetBySearch(page);
   };
-
-  console.log("rentinformation page data", rents, pagination);
 
   const columns = [
     {
@@ -152,15 +150,16 @@ const RentInformationTable = ({
         title={
           <div>
             <Typography>
-              <Title level={5} strong>
+              <Title style={{ color: "#333333" }} level={5} strong>
                 Trip No {rentInfoData?.tripNo}
               </Title>
-              <p style={{ fontWeight: "normal" }}>
+              <p style={{ fontWeight: "normal", color: "gray" }}>
                 See all information about the trip no. {rentInfoData?.tripNo}
               </p>
             </Typography>
           </div>
         }
+        headerStyle={{ background: "#E6E7F4" }}
         placement="right"
         onClose={closeDrawer}
         open={isDrawerVisible}
@@ -172,10 +171,12 @@ const RentInformationTable = ({
               style={{
                 borderRadius: "100%",
                 backgroundColor: "white",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
                 color: "red",
-                height: "50px",
-                width: "50px",
-                textAlign: "center",
+                height: "40px",
+                width: "40px",
               }}
               onClick={closeDrawer}
             >

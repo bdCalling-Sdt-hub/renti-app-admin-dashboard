@@ -1,4 +1,5 @@
 import { Table, Typography } from "antd";
+import moment from "moment";
 import React from "react";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
@@ -7,52 +8,14 @@ const { Title, Text } = Typography;
 const LoginActivityTable = () => {
   const { loginActivity } = useSelector((state) => state.LoginActivity);
 
-  console.log(loginActivity);
-
-  const data = [
-    {
-      browser: "Chrome",
-      device: "Windows 11",
-      location: "Rampura",
-      time: "22/05/2023",
+  const data = loginActivity.map((activity) => {
+    return {
+      browser: activity.browser,
+      device: activity.operatingSystem,
+      time: moment(activity.createdAt).format("llll"),
       actions: "Button",
-    },
-    {
-      browser: "Firefox",
-      device: "Windows 10",
-      location: "Moghbazer",
-      time: "22/05/2023",
-      actions: "Button",
-    },
-    {
-      browser: "Microsoft Eadg",
-      device: "Huawei Y9",
-      location: "Comilla",
-      time: "22/05/2023",
-      actions: "Button",
-    },
-    {
-      browser: "Safari",
-      device: "Iphone 14 pro",
-      location: "Mohakhali",
-      time: "22/05/2023",
-      actions: "Button",
-    },
-    {
-      browser: "Chrome",
-      device: "Vivo y23",
-      location: "Malibagh",
-      time: "22/05/2023",
-      actions: "Button",
-    },
-    {
-      browser: "Chrome",
-      device: "Iphone 12",
-      location: "Dhanmondi",
-      time: "22/05/2023",
-      actions: "Button",
-    },
-  ];
+    };
+  });
 
   const columns = [
     {
@@ -65,12 +28,6 @@ const LoginActivityTable = () => {
       dataIndex: "device",
       key: "device",
       responsive: ["md"],
-    },
-    {
-      title: "LOCATION",
-      dataIndex: "location",
-      key: "location",
-      responsive: ["lg"],
     },
     {
       title: "TIME",
@@ -108,7 +65,7 @@ const LoginActivityTable = () => {
   };
 
   const handleSignOutDevice = () => {
-    Swal.fire("Good job!", "Sign out successfully", "success");
+    Swal.fire("", "Sign out successfully", "success");
   };
 
   return (

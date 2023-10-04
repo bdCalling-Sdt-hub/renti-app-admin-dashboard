@@ -5,27 +5,23 @@ const initialState = {
   isError: false,
   isSuccess: false,
   isLoading: false,
-  message: "",
-  hostsData: [],
+  allNotification: [],
+  notView: null,
   pagination: {},
 };
-
 const token = localStorage.token;
 
-//async request handle here
-export const HostsData = createAsyncThunk(
-  "HostsData",
+export const Notifications = createAsyncThunk(
+  "Notifications",
   async (value, thunkAPI) => {
+    console.log("reduxGrab", value);
     try {
-      let response = await axios.get(
-        `api/user/all-host?approve=${value?.approve}&isBanned=${value?.isBanned}&limit=${value?.limit}&page=${value?.page}&search=${value?.search}`,
-        {
-          headers: {
-            "Content-type": "application/json",
-            authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get(`api/notifications`, {
+        headers: {
+          "Content-type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      });
 
       return response.data;
     } catch (error) {
@@ -42,33 +38,33 @@ export const HostsData = createAsyncThunk(
 );
 
 //create slice for host
-export const hostDataSlice = createSlice({
-  name: "hostsData",
+export const NotificationsSlice = createSlice({
+  name: "Notifications",
   initialState,
   reducers: {
     reset: (state) => {
       state.isError = false;
       state.isSuccess = false;
       state.isLoading = false;
-      state.message = "";
-      state.hostsData = [];
+      state.allNotification = [];
       state.pagination = {};
+      state.notView = null;
     },
   },
 
   extraReducers: {
-    [HostsData.pending]: (state, action) => {
+    [Notifications.pending]: (state, action) => {
       state.isLoading = true;
     },
-    [HostsData.fulfilled]: (state, action) => {
+    [Notifications.fulfilled]: (state, action) => {
       state.isError = false;
       state.isSuccess = true;
       state.isLoading = false;
-      state.message = action.payload.message;
-      state.hostsData = action.payload.hostData;
-      state.pagination = action.payload.pagination;
+      state.allNotification = action.payload.data?.allNotification;
+      state.pagination = action.payload.data?.pagination;
+      state.notView = action.payload.data?.notViewed;
     },
-    [HostsData.rejected]: (state, action) => {
+    [Notifications.rejected]: (state, action) => {
       state.isError = true;
       state.isSuccess = false;
       state.isLoading = false;
@@ -77,6 +73,6 @@ export const hostDataSlice = createSlice({
   },
 });
 
-export const {} = hostDataSlice.actions;
+export const {} = NotificationsSlice.actions;
 
-export default hostDataSlice.reducer;
+export default NotificationsSlice.reducer;

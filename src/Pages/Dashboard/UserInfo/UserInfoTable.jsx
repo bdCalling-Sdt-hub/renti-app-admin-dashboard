@@ -121,15 +121,16 @@ const UserInfoTable = ({
         title={
           <div>
             <Typography>
-              <Title level={5} strong>
+              <Title style={{ color: "#333333" }} level={5} strong>
                 User Information
               </Title>
-              <p style={{ fontWeight: "normal" }}>
+              <p style={{ fontWeight: "normal", color: "gray" }}>
                 See all information about the user
               </p>
             </Typography>
           </div>
         }
+        headerStyle={{ background: "#E6E7F4" }}
         placement="right"
         onClose={closeDrawer}
         open={isDrawerVisible}
@@ -142,9 +143,11 @@ const UserInfoTable = ({
                 borderRadius: "100%",
                 backgroundColor: "white",
                 color: "red",
-                height: "50px",
-                width: "50px",
-                textAlign: "center",
+                height: "40px",
+                width: "40px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
               onClick={closeDrawer}
             >

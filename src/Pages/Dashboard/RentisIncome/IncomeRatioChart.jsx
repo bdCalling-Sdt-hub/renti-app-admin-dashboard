@@ -43,9 +43,16 @@ export default function IncomeRatioChart() {
         backgroundColor: "#fff",
       }}
     >
-      <h1 style={{ marginTop: "10px", marginBottom: "10px", color: "#000b90" }}>
-        Income Ratio Per Day
-      </h1>
+      <h2
+        style={{
+          marginTop: "10px",
+          marginBottom: "10px",
+          color: "#000b90",
+          fontWeight: "normal",
+        }}
+      >
+        Per Day Income Ratio
+      </h2>
 
       <ResponsiveContainer width="100%" height={300}>
         <LineChart

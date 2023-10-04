@@ -90,7 +90,6 @@ const Setting = () => {
         },
       })
       .then((res) => {
-        console.log(res.data);
         setUpdatePassword(true), setVerify(false);
       })
       .catch((err) => {
@@ -108,14 +107,14 @@ const Setting = () => {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
-      height: "45px",
+      height: "47px",
       marginBottom: "10px",
     },
     notification: {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
-      height: "45px",
+      height: "47px",
       marginTop: "10px",
       backgroundColor: "#ffffff",
       border: "1px solid #d9d9d9",
@@ -185,6 +184,7 @@ const Setting = () => {
   ];
 
   const [err, setErr] = useState("");
+
   const handleUpdated = (values) => {
     const { password, confirmPassword } = values;
 
@@ -291,13 +291,10 @@ const Setting = () => {
   //handle change password--------------->
   const handleChangePassword = (values) => {
     let userData = JSON.parse(localStorage.getItem("yourInfo"));
-    console.log(userData);
     let passChangeInfo = { ...values, email: userData.email };
-    console.log("Received values of form: ", passChangeInfo);
     axios
       .post("api/user/change-password", passChangeInfo)
       .then((res) => {
-        console.log(res.data);
         form.resetFields();
         setOpenChangePassModel(false);
         Swal.fire("Good job!", "Password updated successfully", "success");
@@ -343,6 +340,7 @@ const Setting = () => {
             checkedChildren="ON"
             unCheckedChildren="OFF"
             defaultChecked
+            style={{ background: "#000B90" }}
           />
         </div>
         {/* change password*/}

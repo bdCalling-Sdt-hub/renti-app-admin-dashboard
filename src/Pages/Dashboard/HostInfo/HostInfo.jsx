@@ -34,7 +34,6 @@ const HostInfo = () => {
     };
     if (searchData != "") {
       dispatch(HostsData(data));
-      console.log("search");
     }
   };
 
@@ -56,12 +55,12 @@ const HostInfo = () => {
       <h2
         style={{ fontSize: "25px", marginBottom: "10px", fontWeight: "normal" }}
       >
-        All Host Info
+        Search
       </h2>
       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
         <Input
           onChange={(e) => setSearchData(e.target.value)}
-          style={{ height: "44px" }}
+          style={{ height: "50px" }}
           size="large"
           placeholder="Search by name/email/phone"
           prefix={<SearchOutlined style={{ color: "#cccccc" }} />}
@@ -71,7 +70,7 @@ const HostInfo = () => {
           style={{
             background: "#000B90",
             color: "white",
-            height: 45,
+            height: 50,
             width: "180px",
           }}
         >
@@ -82,12 +81,12 @@ const HostInfo = () => {
       <h2
         style={{
           fontSize: "25px",
-          marginTop: "40px",
-          marginBottom: "20px",
+          marginBottom: "15px",
           fontWeight: "normal",
+          marginTop: "40px",
         }}
       >
-        All Host List With Their Information
+        Host List
       </h2>
       <HostInfoTable
         hostDataGetByPagination={hostDataGetByPagination}

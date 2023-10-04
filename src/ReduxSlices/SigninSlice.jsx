@@ -13,13 +13,11 @@ const initialState = {
 export const UserData = createAsyncThunk(
   "UserData",
   async (value, thunkAPI) => {
-    console.log("redux", value);
     try {
       let response = await axios.post("api/user/sign-in", value);
 
       return response.data;
     } catch (error) {
-      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -52,7 +50,6 @@ export const signinSlice = createSlice({
       state.isLoading = true;
     },
     [UserData.fulfilled]: (state, action) => {
-      console.log(action);
       state.isError = false;
       state.isSuccess = true;
       state.isLoading = false;

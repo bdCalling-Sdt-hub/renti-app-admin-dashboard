@@ -27,7 +27,7 @@ const HostRequest = () => {
 
   const handleSearch = () => {
     const data = {
-      approve:"false",
+      approve: "false",
       page: null,
       search: searchData,
       limit: null,
@@ -37,7 +37,7 @@ const HostRequest = () => {
 
   useEffect(() => {
     const data = {
-      approve:"false",
+      approve: "false",
       page: null,
       search: "",
       limit: null,
@@ -47,26 +47,21 @@ const HostRequest = () => {
     }
   }, [autoReload, searchData]);
 
-  console.log(hostsData);
-
   const items = hostsData.filter(
-    (hostRequest) =>
-      hostRequest.host.isBanned !== "trash"
+    (hostRequest) => hostRequest.host.isBanned !== "trash"
   );
-
-  console.log("dsfkjsd",items)
 
   return (
     <div style={{ padding: "0px 60px" }}>
       <Text
         style={{ fontSize: "25px", marginBottom: "10px", fontWeight: "normal" }}
       >
-        Host Request
+        Search
       </Text>
       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
         <Input
           onChange={(e) => setSearchData(e.target.value)}
-          style={{ height: "44px" }}
+          style={{ height: "50px" }}
           size="large"
           placeholder="Search by name/email/phone"
           prefix={<SearchOutlined style={{ color: "#cccccc" }} />}
@@ -76,7 +71,7 @@ const HostRequest = () => {
           style={{
             background: "#000B90",
             color: "white",
-            height: 45,
+            height: 50,
             width: "180px",
           }}
         >
@@ -92,22 +87,22 @@ const HostRequest = () => {
           fontWeight: "normal",
         }}
       >
-        Show all host request
+        Host request
       </h2>
       <div
         style={{ background: "white", padding: "30px", borderRadius: "10px" }}
       >
-        {
-          items?.length!=0 && <Row gutter={[16, 16]}>
-          {items?.map((item) => (
-            <HostRequestCard
-              key={item._id}
-              cardData={item}
-              setAutoReload={setAutoReload}
-            />
-          ))}
-        </Row>
-        }
+        {items?.length != 0 && (
+          <Row gutter={[16, 16]}>
+            {items?.map((item) => (
+              <HostRequestCard
+                key={item._id}
+                cardData={item}
+                setAutoReload={setAutoReload}
+              />
+            ))}
+          </Row>
+        )}
       </div>
     </div>
   );

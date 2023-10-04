@@ -8,6 +8,7 @@ import { useReactToPrint } from "react-to-print";
 import Swal from "sweetalert2";
 import axios from "../../../Config";
 import img from "../../Images/1.png";
+import pdfImg from "../../Images/PDF Icon.png";
 
 const { Title } = Typography;
 
@@ -70,209 +71,143 @@ const DrawerPage = (props) => {
 
   //user information
   const handleBlockUser = () => {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: "btn btn-success",
-        cancelButton: "btn btn-danger",
-      },
-      buttonsStyling: true,
+    Swal.fire({
+      title: "Are you sure!",
+      text: "You want to block user",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#000B90",
+      cancelButtonColor: "#d33333",
+      confirmButtonText: "Yes, Block",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .post(
+            `api/user/banned/${props.userInfoData?.key}`,
+            { isApprove: "cancel" },
+            {
+              headers: {
+                "Content-type": "application/json",
+                authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            if (res.status === 200) {
+              Swal.fire({
+                icon: "success",
+                text: "User Block successfully",
+              });
+            }
+            props?.setUserInfoReload((prev) => prev + 1);
+          });
+      } else {
+      }
     });
-
-    swalWithBootstrapButtons
-      .fire({
-        title: "Are you sure?",
-        text: "You want to Block User",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Yes, Block it!",
-        cancelButtonText: "No, cancel!",
-        reverseButtons: true,
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          axios
-            .post(
-              `api/user/banned/${props.userInfoData?.key}`,
-              { isApprove: "cancel" },
-              {
-                headers: {
-                  "Content-type": "application/json",
-                  authorization: `Bearer ${token}`,
-                },
-              }
-            )
-            .then((res) => {
-              if (res.status === 200) {
-                Swal.fire({
-                  icon: "success",
-                  text: "User Block successfully",
-                });
-              }
-              props?.setUserInfoReload((prev) => prev + 1);
-            });
-        } else {
-          swalWithBootstrapButtons.fire(
-            "Cancelled",
-            "Your User safe :)",
-            "error"
-          );
-        }
-      });
   };
 
   const handleDeleteUser = () => {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: "btn btn-success",
-        cancelButton: "btn btn-danger",
-      },
-      buttonsStyling: true,
+    Swal.fire({
+      title: "Moved to trash",
+      text: "User go to the trash",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#000B90",
+      cancelButtonColor: "#d33333",
+      confirmButtonText: "Yes, Block",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .post(
+            `api/user/banned/${props.userInfoData?.key}`,
+            { isApprove: "trash" },
+            {
+              headers: {
+                "Content-type": "application/json",
+                authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            if (res.status === 200) {
+              Swal.fire({
+                icon: "success",
+                text: "User Delete successfully",
+              });
+              props?.setUserInfoReload((prev) => prev + 1);
+            }
+          });
+      } else {
+      }
     });
-
-    swalWithBootstrapButtons
-      .fire({
-        title: "Are you sure?",
-        text: "You want to Delete User",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Yes, delete it!",
-        cancelButtonText: "No, cancel!",
-        reverseButtons: true,
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          axios
-            .post(
-              `api/user/banned/${props.userInfoData?.key}`,
-              { isApprove: "trash" },
-              {
-                headers: {
-                  "Content-type": "application/json",
-                  authorization: `Bearer ${token}`,
-                },
-              }
-            )
-            .then((res) => {
-              if (res.status === 200) {
-                Swal.fire({
-                  icon: "success",
-                  text: "User Delete successfully",
-                });
-                props?.setUserInfoReload((prev) => prev + 1);
-              }
-            });
-        } else {
-          swalWithBootstrapButtons.fire(
-            "Cancelled",
-            "Your User safe :)",
-            "error"
-          );
-        }
-      });
   };
 
   //host information
   const handleBlockHost = () => {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: "success",
-        cancelButton: "btn btn-danger",
-      },
-      buttonsStyling: true,
+    Swal.fire({
+      title: "Are you sure!",
+      text: "You want to block host",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#000B90",
+      cancelButtonColor: "#d33333",
+      confirmButtonText: "Yes, Block",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .post(
+            `api/user/banned/${props.hostData?.action.host._id}`,
+            { isApprove: "cancel" },
+            {
+              headers: {
+                "Content-type": "application/json",
+                authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            if (res.status === 200) {
+              Swal.fire({
+                icon: "success",
+                text: "Successfully Host Blocked",
+              });
+            }
+            props?.setReload((prev) => prev + 1);
+          });
+      }
     });
-
-    swalWithBootstrapButtons
-      .fire({
-        title: "Are you sure?",
-        text: "You want to Block Host",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Yes, Block it!",
-        cancelButtonText: "No, cancel!",
-        reverseButtons: true,
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          axios
-            .post(
-              `api/user/banned/${props.hostData?.action.host._id}`,
-              { isApprove: "cancel" },
-              {
-                headers: {
-                  "Content-type": "application/json",
-                  authorization: `Bearer ${token}`,
-                },
-              }
-            )
-            .then((res) => {
-              if (res.status === 200) {
-                Swal.fire({
-                  icon: "success",
-                  text: "User Block successfully",
-                });
-              }
-              props?.setReload((prev) => prev + 1);
-            });
-        } else {
-          swalWithBootstrapButtons.fire(
-            "Cancelled",
-            "Your Host safe :)",
-            "error"
-          );
-        }
-      });
   };
 
   const handleDeleteHost = () => {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: "success",
-        cancelButton: "btn btn-danger",
-      },
-      buttonsStyling: true,
+    Swal.fire({
+      title: "Moved to trash",
+      text: "Host go to the trash",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#000B90",
+      cancelButtonColor: "#d33333",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .post(
+            `api/user/banned/${props.hostData?.action.host._id}`,
+            { isApprove: "trash" },
+            {
+              headers: {
+                "Content-type": "application/json",
+                authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            if (res.status === 200) {
+              Swal.fire("Move!", "Successfully moved Host", "success");
+            }
+            props?.setReload((prev) => prev + 1);
+          });
+      }
     });
-
-    swalWithBootstrapButtons
-      .fire({
-        title: "Are you sure?",
-        text: "You want to Delete Host",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Yes, delete it!",
-        cancelButtonText: "No, cancel!",
-        reverseButtons: true,
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          axios
-            .post(
-              `api/user/banned/${props.hostData?.action.host._id}`,
-              { isApprove: "trash" },
-              {
-                headers: {
-                  "Content-type": "application/json",
-                  authorization: `Bearer ${token}`,
-                },
-              }
-            )
-            .then((res) => {
-              if (res.status === 200) {
-                swalWithBootstrapButtons.fire(
-                  "Deleted!",
-                  "Successfully Deleted Host",
-                  "success"
-                );
-                props?.setReload((prev) => prev + 1);
-              }
-            });
-        } else {
-          swalWithBootstrapButtons.fire(
-            "Cancelled",
-            "Your Host safe :)",
-            "error"
-          );
-        }
-      });
   };
 
   return (
@@ -576,18 +511,26 @@ const DrawerPage = (props) => {
       {props.earningData && (
         <div>
           <div ref={componentRef}>
-            <div style={{ display: "flex", gap: "15px" }}>
+            <div
+              style={{
+                display: "flex",
+                gap: "15px",
+                borderBottom: "1px solid gray",
+                paddingBottom: "10px",
+                marginBottom: "20px",
+              }}
+            >
               <div>
                 <img
                   width={120}
                   style={{ borderRadius: "5px" }}
-                  src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
+                  src={props.earningData.printView?.userId?.image}
                   alt=""
                 />
               </div>
               <div style={{ marginTop: "-7px" }}>
                 <p style={{ fontSize: "20px" }}>{props.earningData.username}</p>
-                <p>INE: siffahim</p>
+                <p>INE: {props.earningData?.printView?.userId?.ine}</p>
                 <p>Trip Completes:{props.earningData.status.length}</p>
                 <div
                   style={{ display: "flex", alignItems: "center", gap: "2px" }}
@@ -604,7 +547,7 @@ const DrawerPage = (props) => {
                 "succeeded" ? (
                   <Badge
                     className="site-badge-count-109"
-                    count={"Complete"}
+                    count={"Completed"}
                     style={{
                       background: "#E6F6F4",
                       color: "#00A991",
@@ -643,7 +586,7 @@ const DrawerPage = (props) => {
                   <p>Host Name</p>
                   <p>Host INE</p>
                   <p>Pickup Location</p>
-                  <p>Drop-Off Location</p>
+
                   <p>Total Rental Time</p>
                 </Col>
                 <Col span={12} style={{ textAlign: "right" }}>
@@ -653,19 +596,30 @@ const DrawerPage = (props) => {
                     {" "}
                     {props.earningData?.printView?.carId?.carLicenseNumber}
                   </p>
-                  <p> {props.earningData?.printView?.carId?.carModelName}</p>
-                  <p> {props.earningData?.printView?.carId?.carModelName}</p>
-                  <p> {props.earningData?.printView?.carId?.carModelName}</p>
-                  <p> {props.earningData?.printView?.carId?.carModelName}</p>
-                  <p>{props.earningData?.printView?.carId?.carModelName}</p>
+                  <p>
+                    {" "}
+                    {props.earningData?.printView?.hostId?.fullName || "Name"}
+                  </p>
+                  <p>
+                    {" "}
+                    {props.earningData?.printView?.hostId?.ine ||
+                      "INE Number"}{" "}
+                  </p>
+
+                  <p>
+                    {props.earningData?.printView?.hostId?.address || "Address"}
+                  </p>
+                  <p>
+                    {props.earningData?.printView?.rentId?.totalHours ||
+                      "Total Rental"}{" "}
+                    hours
+                  </p>
                 </Col>
               </Row>
             </div>
             <div
               style={{
                 margin: "15px 0",
-                borderBottom: "1px solid gray",
-                paddingBottom: "15px",
               }}
             >
               <Title level={4}>Payment Information</Title>
@@ -949,6 +903,33 @@ const DrawerPage = (props) => {
               </Col>
             </Row>
           </div>
+          <div
+            style={{
+              margin: "15px 0",
+              paddingBottom: "15px",
+            }}
+          >
+            <Title level={4}>Documents</Title>
+            <div style={{ display: "flex", gap: "15px" }}>
+              {props.carDetails?.printView?.KYC.map((kyc) => (
+                <div>
+                  <a
+                    href={kyc}
+                    target="_blank"
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+
+                      color: "#000b90",
+                    }}
+                  >
+                    <img width="50px" src={pdfImg} alt="PDF Icon" />
+                    View PDF
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       )}
       {props.rentInfoData && (
@@ -966,7 +947,7 @@ const DrawerPage = (props) => {
                 <img
                   width={120}
                   style={{ borderRadius: "5px" }}
-                  src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
+                  src={props.rentInfoData?.actionData?.carId?.image[0]}
                   alt=""
                 />
               </div>
@@ -978,32 +959,32 @@ const DrawerPage = (props) => {
                   <p style={{ fontSize: "20px" }}>
                     {props.rentInfoData?.carModel}
                   </p>
-                  {props.rentInfoData?.actionData?.carId?.tripStatus ===
-                  "Start" ? (
-                    <Badge
-                      className="site-badge-count-109"
-                      count={"Reserved"}
-                      style={{
-                        background: "#FBE9EC",
-                        color: "#D7263D",
-                        fontSize: "11px",
-                        borderRadius: "4px",
-                        textAlign: "center",
-                      }}
-                    />
-                  ) : (
-                    <Badge
-                      className="site-badge-count-109"
-                      count={"Active"}
-                      style={{
-                        background: "#E6F6F4",
-                        color: "#00A991",
-                        fontSize: "11px",
-                        borderRadius: "4px",
-                        textAlign: "center",
-                      }}
-                    />
-                  )}
+                  <div
+                    style={{
+                      color:
+                        props.rentInfoData?.actionData?.requestStatus ==
+                        "Accepted"
+                          ? "#000b90"
+                          : props.rentInfoData?.actionData?.requestStatus ==
+                            "Pending"
+                          ? "#D7263D"
+                          : "#00A991",
+                      backgroundColor:
+                        props.rentInfoData?.actionData?.requestStatus ==
+                        "Accepted"
+                          ? "#e2e4ff"
+                          : props.rentInfoData?.actionData?.requestStatus ==
+                            "Pending"
+                          ? "#FBE9EC"
+                          : "#E6F6F4",
+                      padding: "5px",
+                      fontSize: "11px",
+                      borderRadius: "4px",
+                      textAlign: "center",
+                    }}
+                  >
+                    {props.rentInfoData?.actionData?.requestStatus}
+                  </div>
                 </div>
                 <p>
                   License:{" "}
@@ -1303,7 +1284,7 @@ const DrawerPage = (props) => {
                 "succeeded" ? (
                   <Badge
                     className="site-badge-count-109"
-                    count={"Complete"}
+                    count={"Completed"}
                     style={{
                       background: "#E6F6F4",
                       color: "#00A991",
@@ -1445,13 +1426,13 @@ const DrawerPage = (props) => {
               <img
                 width={120}
                 style={{ borderRadius: "5px" }}
-                src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
+                src={props.hostKycData?.actions?.image}
                 alt=""
               />
             </div>
             <div style={{ marginTop: "-7px" }}>
               <p style={{ fontSize: "20px" }}>{props.hostKycData?.name}</p>
-              <p>INE: SNHRM570818MDFPM10</p>
+              <p>INE: {props.hostKycData?.actions?.ine}</p>
               <p>Trip Completes: 45</p>
               <div
                 style={{ display: "flex", alignItems: "center", gap: "2px" }}
@@ -1515,6 +1496,141 @@ const DrawerPage = (props) => {
               </Col>
             </Row>
           </div>
+          <div
+            style={{
+              margin: "15px 0",
+            }}
+          >
+            <Title level={4}>KYC Documents</Title>
+            {props.hostKycData?.actions?.KYC.map((kyc) => (
+              <div style={{ marginBottom: "10px" }}>
+                <a
+                  href={kyc}
+                  target="_blank"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 12,
+                    color: "#000b90",
+                  }}
+                >
+                  <img src={pdfImg} alt="PDF Icon" />
+                  View PDF Document
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+      {props.userKycData && (
+        <div>
+          <div
+            style={{
+              display: "flex",
+              gap: "15px",
+              borderBottom: "1px solid gray",
+              paddingBottom: "10px",
+              marginBottom: "15px",
+            }}
+          >
+            <div>
+              <img
+                width={120}
+                style={{ borderRadius: "5px" }}
+                src={props.userKycData?.actions?.image}
+                alt=""
+              />
+            </div>
+            <div style={{ marginTop: "-7px" }}>
+              <p style={{ fontSize: "20px" }}>{props.userKycData?.name}</p>
+              <p>INE: {props.userKycData?.actions?.ine}</p>
+              <p>Trip Completes: 45</p>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "2px" }}
+              >
+                <AiFillStar color="#fba91d" />
+                <span>4.8</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <Title level={4}>User Information</Title>
+          </div>
+          <div
+            style={{
+              margin: "15px 0",
+              borderBottom: "1px solid gray",
+              paddingBottom: "15px",
+            }}
+          >
+            <Row>
+              <Col span={12} style={{ textAlign: "left" }}>
+                <p>Name</p>
+                <p>Email</p>
+                <p>Phone</p>
+                <p>Gender</p>
+                <p>Date of Birth</p>
+                <p>Address</p>
+              </Col>
+              <Col span={12} style={{ textAlign: "right" }}>
+                <p>{props.userKycData?.name}</p>
+                <p>{props.userKycData?.email}</p>
+                <p>{props.userKycData?.contact}</p>
+                <p>{props.userKycData?.actions?.gender}</p>
+                <p>{props.userKycData?.actions?.dateOfBirth}</p>
+                <p>{props.userKycData?.actions?.address}</p>
+              </Col>
+            </Row>
+          </div>
+          <div
+            style={{
+              margin: "15px 0",
+              borderBottom: "1px solid gray",
+              paddingBottom: "15px",
+            }}
+          >
+            <Title level={4}>More Information</Title>
+            <Row>
+              <Col span={12} style={{ textAlign: "left" }}>
+                <p>Joining Date</p>
+                <p>Register Method</p>
+                <p>Last Log In</p>
+              </Col>
+              <Col span={12} style={{ textAlign: "right" }}>
+                <p>
+                  {moment(props.userKycData?.actions?.createdAt).format(
+                    "YYYY-MM-DD"
+                  )}
+                </p>
+                <p>Email</p>
+                <p>Last Login Date</p>
+              </Col>
+            </Row>
+          </div>
+          <div
+            style={{
+              margin: "15px 0",
+            }}
+          >
+            <Title level={4}>KYC Documents</Title>
+            {props.userKycData?.actions?.KYC.map((kyc) => (
+              <div style={{ marginBottom: "10px" }}>
+                <a
+                  href={kyc}
+                  target="_blank"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 12,
+                    color: "#000b90",
+                  }}
+                >
+                  <img src={pdfImg} alt="PDF Icon" />
+                  View PDF Document
+                </a>
+              </div>
+            ))}
+          </div>
         </div>
       )}
       {props.carKycData && (
@@ -1532,16 +1648,29 @@ const DrawerPage = (props) => {
               <img
                 width={120}
                 style={{ borderRadius: "5px" }}
-                src="https://avatars.githubusercontent.com/u/86902893?s=400&u=5c636d3d7bfab170f2f42e5a759e0c426eadb008&v=4"
+                src={props.carKycData?.actions?.image[0]}
                 alt=""
               />
             </div>
             <div style={{ marginTop: "-7px" }}>
               <p style={{ fontSize: "20px" }}>{props.carKycData?.name}</p>
-              <p>License: {props.carKycData?.actions?.carLicenseNumber}</p>
-              <p>Car Model: {props.carKycData?.actions?.carModelName}</p>
-              <p>Gear Type: {props.carKycData?.actions?.gearType}</p>
-              <p>Color: {props.carKycData?.actions?.carColor}</p>
+              <p>
+                <span style={{ fontWeight: "bold" }}>License:</span>{" "}
+                {props.carKycData?.actions?.carLicenseNumber}
+              </p>
+              <p>
+                {" "}
+                <span style={{ fontWeight: "bold" }}>Car Model:</span>{" "}
+                {props.carKycData?.actions?.carModelName}
+              </p>
+              <p>
+                <span style={{ fontWeight: "bold" }}>Gear Type:</span>{" "}
+                {props.carKycData?.actions?.gearType}
+              </p>
+              <p>
+                <span style={{ fontWeight: "bold" }}>Color:</span>{" "}
+                {props.carKycData?.actions?.carColor}
+              </p>
               <div
                 style={{ display: "flex", alignItems: "center", gap: "2px" }}
               >
@@ -1573,11 +1702,40 @@ const DrawerPage = (props) => {
                 <p> {props.carKycData?.actions?.carDoors}</p>
                 <p> {props.carKycData?.actions?.carSeats}</p>
                 <p> {props.carKycData?.actions?.totalRun}</p>
-                <p> {props.carKycData?.actions?.createdAt}</p>
+                <p>
+                  {" "}
+                  {moment(props.carKycData?.actions?.createdAt).format(
+                    "YYYY-MM-DD"
+                  )}
+                </p>
                 <p> 56L</p>
                 <p> {props.carKycData?.actions?.hourlyRate}</p>
               </Col>
             </Row>
+          </div>
+          <div
+            style={{
+              margin: "15px 0",
+            }}
+          >
+            <Title level={4}>KYC Documents</Title>
+            {props.carKycData?.actions?.KYC.map((kyc) => (
+              <div style={{ marginBottom: "10px" }}>
+                <a
+                  href={kyc}
+                  target="_blank"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 12,
+                    color: "#000b90",
+                  }}
+                >
+                  <img src={pdfImg} alt="PDF Icon" />
+                  View PDF Document
+                </a>
+              </div>
+            ))}
           </div>
         </div>
       )}

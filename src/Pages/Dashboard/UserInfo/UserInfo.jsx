@@ -27,7 +27,6 @@ function UserInfo() {
     };
     if (searchData == "") {
       dispatch(UserInformationData(data));
-      console.log("without search");
     }
   };
 
@@ -38,7 +37,6 @@ function UserInfo() {
     };
     if (searchData != "") {
       dispatch(UserInformationData(data));
-      console.log("with search");
     }
   };
 
@@ -52,7 +50,7 @@ function UserInfo() {
             fontWeight: "normal",
           }}
         >
-          All user info
+          Search
         </h2>
         <Col lg={{ span: 24 }}>
           <div className="" style={{ display: "flex", gap: "15px" }}>

@@ -18,7 +18,6 @@ let token = localStorage.getItem("token");
 export const RentInformationData = createAsyncThunk(
   "RentInfo",
   async (value, thunkAPI) => {
-    console.log("rent page number", value);
     try {
       let response = await axios.get(
         `/api/rent/all/?limit=5&page=${value.page}&search=${value.search}`,
@@ -29,7 +28,6 @@ export const RentInformationData = createAsyncThunk(
           },
         }
       );
-      //console.log("mydataksdjfklsdjkfljsdklfjklsdjf55555555",response.data);
       return response.data;
     } catch (error) {
       const message =
@@ -65,7 +63,6 @@ export const RentInformationSlice = createSlice({
       state.Loading = true;
     },
     [RentInformationData.fulfilled]: (state, action) => {
-      //console.log("tushar-saiful",action.payload)
       state.Loading = false;
       state.Success = true;
       state.Error = false;

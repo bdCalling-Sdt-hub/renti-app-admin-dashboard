@@ -16,17 +16,19 @@ export const AdminData = createAsyncThunk(
   async (value, thunkAPI) => {
     try {
       const userFromLocalStorage = JSON.parse(localStorage.getItem("yourInfo"));
-      console.log(userFromLocalStorage._id);
+
       let response = await axios.post(
         `api/user/update/${userFromLocalStorage._id}`,
         value,
         {
           headers: {
-            "Content-type": "application/json",
+            "Content-type": "application/multipart/form-data",
             authorization: `Bearer ${token}`,
           },
         }
       );
+
+      localStorage.setItem("yourInfo", JSON.stringify(response.data.user));
       return response.data;
     } catch (error) {
       const message =

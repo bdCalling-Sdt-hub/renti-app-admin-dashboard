@@ -31,7 +31,6 @@ function RentInformation() {
   }, [searchData]);
 
   const rentDataGetByPagination = (page) => {
-    console.log("rent info", page);
     let data = {
       search: searchData,
       page: page,
@@ -61,7 +60,7 @@ function RentInformation() {
             fontWeight: "normal",
           }}
         >
-          Rent Information
+          Search
         </h2>
         <Col lg={{ span: 24 }}>
           <div className="" style={{ display: "flex", gap: "15px" }}>
@@ -114,7 +113,7 @@ function RentInformation() {
                 marginBottom: "15px",
               }}
             >
-              $ {rentCompletedTotalAmount}.00
+              ${rentCompletedTotalAmount}
             </h3>
           </div>
         </Col>
@@ -144,7 +143,7 @@ function RentInformation() {
                 marginBottom: "15px",
               }}
             >
-              $ {rentReservedTotalAmount}.00
+              ${rentReservedTotalAmount}
             </h3>
           </div>
         </Col>
@@ -174,7 +173,7 @@ function RentInformation() {
                 marginBottom: "15px",
               }}
             >
-              $ {totalRejectedAmount}.00
+              ${totalRejectedAmount}
             </h3>
           </div>
         </Col>
@@ -184,7 +183,7 @@ function RentInformation() {
         <h2
           style={{
             fontSize: "25px",
-            marginBottom: "10px",
+            marginBottom: "15px",
             fontWeight: "normal",
           }}
         >

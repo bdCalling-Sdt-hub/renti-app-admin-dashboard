@@ -10,12 +10,12 @@ function StripeBills() {
       <Row>
         <h2
           style={{
-            fontSize: "30px",
-            marginBottom: "10px",
+            fontSize: "25px",
+            marginBottom: "15px",
             fontWeight: "normal",
           }}
         >
-          Stripe Bills
+          Search
         </h2>
         <Col lg={{ span: 24 }}>
           <div className="" style={{ display: "flex", gap: "15px" }}>
@@ -64,7 +64,7 @@ function StripeBills() {
                   marginBottom: "15px",
                 }}
               >
-                Total Payments
+                Total Payment
               </h1>
               <h3
                 style={{
@@ -89,10 +89,10 @@ function StripeBills() {
         >
           <div
             className="host-payment-card pending"
-            style={{ border: "1px solid #d7263d" }}
+            style={{ border: "1px solid #eb6363" }}
           >
             <div className="progressbar">
-              <Progress type="circle" percent={22} strokeColor="#d7263d" />
+              <Progress type="circle" percent={22} strokeColor="#eb6363" />
             </div>
             <div className="total-payment">
               <h1
@@ -103,14 +103,14 @@ function StripeBills() {
                   marginBottom: "15px",
                 }}
               >
-                Total Pendings
+                Total Pending
               </h1>
               <h3
                 style={{
                   fontSize: "1.5rem",
                   letterSpacing: "1px",
                   marginBottom: "15px",
-                  color: "#d7263d",
+                  color: "#eb6363",
                 }}
               >
                 $ 505,202.00
@@ -119,7 +119,15 @@ function StripeBills() {
           </div>
         </Col>
       </Row>
-
+      <h2
+        style={{
+          fontSize: "25px",
+          marginBottom: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        Stripe Bills
+      </h2>
       <Row>
         <Col lg={{ span: 24 }}>
           <StripeBillsTable />
