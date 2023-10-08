@@ -840,15 +840,27 @@ const DrawerPage = (props) => {
                   />
                 )}
               </div>
-              <p>License: {props.carDetails?.printView?.carLicenseNumber}</p>
-              <p>Car Model: {props.carDetails?.printView?.carModelName}</p>
-              <p>Gear Type: {props.carDetails?.printView?.gearType}</p>
-              <p>Color: {props.carDetails?.printView?.carColor}</p>
+              <p>
+                <span style={{ fontWeight: "bold" }}>License:</span>{" "}
+                {props.carDetails?.printView?.carLicenseNumber}
+              </p>
+              <p>
+                <span style={{ fontWeight: "bold" }}>Car Model:</span>{" "}
+                {props.carDetails?.printView?.carModelName}
+              </p>
+              <p>
+                <span style={{ fontWeight: "bold" }}>Gear Type:</span>{" "}
+                {props.carDetails?.printView?.gearType}
+              </p>
+              <p>
+                <span style={{ fontWeight: "bold" }}>Color:</span>{" "}
+                {props.carDetails?.printView?.carColor}
+              </p>
               <div
                 style={{ display: "flex", alignItems: "center", gap: "2px" }}
               >
                 <AiFillStar color="#fba91d" />
-                <span>4.8</span>
+                <span>{props.carDetails?.printView?.averageRatings | 0}</span>
               </div>
             </div>
           </div>
@@ -1554,7 +1566,7 @@ const DrawerPage = (props) => {
                 style={{ display: "flex", alignItems: "center", gap: "2px" }}
               >
                 <AiFillStar color="#fba91d" />
-                <span>4.8</span>
+                <span>{0}</span>
               </div>
             </div>
           </div>
@@ -1658,7 +1670,34 @@ const DrawerPage = (props) => {
               />
             </div>
             <div style={{ marginTop: "-7px" }}>
-              <p style={{ fontSize: "20px" }}>{props.carKycData?.name}</p>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "10px" }}
+              >
+                {" "}
+                <p style={{ fontSize: "20px" }}>{props.carKycData?.name}</p>
+                <div
+                  style={{
+                    color:
+                      props.carKycData.actions.tripStatus == "Pending"
+                        ? "#D7263D"
+                        : props.carKycData.actions.tripStatus == "Start"
+                        ? "#00A991"
+                        : "#000b90",
+                    backgroundColor:
+                      props.carKycData.actions.tripStatus == "Pending"
+                        ? "#FBE9EC"
+                        : props.carKycData.actions.tripStatus == "Start"
+                        ? "#E6F6F4"
+                        : "#e2e4ff",
+                    padding: "5px",
+                    fontSize: "11px",
+                    borderRadius: "4px",
+                    textAlign: "center",
+                  }}
+                >
+                  {props.carKycData.actions.tripStatus}
+                </div>
+              </div>
               <p>
                 <span style={{ fontWeight: "bold" }}>License:</span>{" "}
                 {props.carKycData?.actions?.carLicenseNumber}

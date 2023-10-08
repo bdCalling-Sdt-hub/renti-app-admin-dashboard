@@ -17,7 +17,7 @@ export const CarInformationWithKycData = createAsyncThunk(
   async (value, thunkAPI) => {
     try {
       let response = await axios.get(
-        `/api/car/all?page=${value.page}&limit=2&search=${value.search}`,
+        `/api/car/all?page=${value.page}&limit=10&search=${value.search}`,
         {
           headers: {
             "Content-Type": "application/json",

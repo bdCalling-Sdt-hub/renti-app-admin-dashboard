@@ -31,8 +31,10 @@ const Signin = () => {
     dispatch(reset());
   }, [isLoading, isError, isSuccess, dispatch, navigate]);
 
-  const onFinish = (values) => {
+  const handleSignIn = (values) => {
+    const loginTime = new Date().getTime();
     dispatch(UserData(values));
+    localStorage.setItem("loginTime", loginTime);
   };
 
   const handleForget = () => {
@@ -61,7 +63,7 @@ const Signin = () => {
           initialValues={{
             remember: true,
           }}
-          onFinish={onFinish}
+          onFinish={handleSignIn}
         >
           <div>
             <label htmlFor="email" className={style.label}>

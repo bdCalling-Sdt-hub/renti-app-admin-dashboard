@@ -10,7 +10,7 @@ const { Title, Text } = Typography;
 
 const PaymentListTable = ({ handleUserPaymentsPagination }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 2;
+  const pageSize = 10;
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [userPaymentData, setUserPaymentData] = useState(null);
 

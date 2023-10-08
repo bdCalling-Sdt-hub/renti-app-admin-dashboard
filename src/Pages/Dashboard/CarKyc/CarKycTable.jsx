@@ -9,7 +9,7 @@ const { Title, Text } = Typography;
 
 const CarKycTable = ({ carDataGetByPagination, carDataGetBySearch }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 2;
+  const pageSize = 10;
   const { CarData, pagination } = useSelector((state) => state.CarInfoData);
 
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
@@ -42,16 +42,16 @@ const CarKycTable = ({ carDataGetByPagination, carDataGetBySearch }) => {
           style={{
             color:
               item.tripStatus == "Pending"
-                ? "#000b90"
-                : item.tripStatus == "Start"
                 ? "#D7263D"
-                : "#00A991",
+                : item.tripStatus == "Start"
+                ? "#00A991"
+                : "#000b90",
             backgroundColor:
               item.tripStatus == "Pending"
-                ? "#e2e4ff"
-                : item.tripStatus == "Start"
                 ? "#FBE9EC"
-                : "#E6F6F4",
+                : item.tripStatus == "Start"
+                ? "#E6F6F4"
+                : "#e2e4ff",
             padding: "5px",
             fontSize: "11px",
             borderRadius: "4px",
@@ -64,94 +64,6 @@ const CarKycTable = ({ carDataGetByPagination, carDataGetBySearch }) => {
       actions: item,
     };
   });
-
-  // const data = [
-  //   {
-  //     name: "Kate Winslate",
-  //     email: "kate@gmail.com",
-  //     contact: " 014845454545",
-  //     type: "pdf",
-  //     status: <div style={{ color: "white", backgroundColor: "#000b90", textAlign: "center", padding: "10px", borderRadius: "5px", fontWeight: "bold" }}>Approve</div>
-  //   },
-  //   {
-  //     name: "Kate Winslate",
-  //     email: "kate@gmail.com",
-  //     contact: " 014845454545",
-  //     type: "pdf",
-  //     status: <div style={{ color: "white", backgroundColor: "red", textAlign: "center", padding: "10px", borderRadius: "5px", fontWeight: "bold" }}>Cancel</div>
-  //   },
-  //   {
-  //     name: "Kate Winslate",
-  //     email: "kate@gmail.com",
-  //     contact: " 014845454545",
-  //     type: "pdf",
-  //     status: <div style={{ color: "white", backgroundColor: "#000b90", textAlign: "center", padding: "10px", borderRadius: "5px", fontWeight: "bold" }}>Approve</div>
-  //   },
-  //   {
-  //     name: "Kate Winslate",
-  //     email: "kate@gmail.com",
-  //     contact: " 014845454545",
-  //     type: "pdf",
-  //     status: <div style={{ color: "white", backgroundColor: "red", textAlign: "center", padding: "10px", borderRadius: "5px", fontWeight: "bold" }}>Cancel</div>
-  //   },
-  //   {
-  //     name: "Kate Winslate",
-  //     email: "kate@gmail.com",
-  //     contact: " 014845454545",
-  //     type: "pdf",
-  //     status: <div style={{ color: "white", backgroundColor: "#000b90", textAlign: "center", padding: "10px", borderRadius: "5px", fontWeight: "bold" }}>Approve</div>
-  //   },
-  //   {
-  //     name: "Kate Winslate",
-  //     email: "kate@gmail.com",
-  //     contact: " 014845454545",
-  //     type: "pdf",
-  //     status: <div style={{ color: "white", backgroundColor: "red", textAlign: "center", padding: "10px", borderRadius: "5px", fontWeight: "bold" }}>Cancel</div>
-  //   },
-  //   {
-  //     name: "Kate Winslate",
-  //     email: "kate@gmail.com",
-  //     contact: " 014845454545",
-  //     type: "pdf",
-  //     status: <div style={{ color: "white", backgroundColor: "#000b90", textAlign: "center", padding: "10px", borderRadius: "5px", fontWeight: "bold" }}>Approve</div>
-  //   },
-  //   {
-  //     name: "Kate Winslate",
-  //     email: "kate@gmail.com",
-  //     contact: " 014845454545",
-  //     type: "pdf",
-  //     status: <div style={{ color: "white", backgroundColor: "red", textAlign: "center", padding: "10px", borderRadius: "5px", fontWeight: "bold" }}>Cancel</div>
-  //   },
-  //   {
-  //     name: "Kate Winslate",
-  //     email: "kate@gmail.com",
-  //     contact: " 014845454545",
-  //     type: "pdf",
-  //     status: <div style={{ color: "white", backgroundColor: "#000b90", textAlign: "center", padding: "10px", borderRadius: "5px", fontWeight: "bold" }}>Approve</div>
-  //   },
-  //   {
-  //     name: "Kate Winslate",
-  //     email: "kate@gmail.com",
-  //     contact: " 014845454545",
-  //     type: "pdf",
-  //     status: <div style={{ color: "white", backgroundColor: "red", textAlign: "center", padding: "10px", borderRadius: "5px", fontWeight: "bold" }}>Cancel</div>
-  //   },
-  //   {
-  //     name: "Kate Winslate",
-  //     email: "kate@gmail.com",
-  //     contact: " 014845454545",
-  //     type: "pdf",
-  //     status: <div style={{ color: "white", backgroundColor: "#000b90", textAlign: "center", padding: "10px", borderRadius: "5px", fontWeight: "bold" }}>Approve</div>
-  //   },
-  //   {
-  //     name: "Kate Winslate",
-  //     email: "kate@gmail.com",
-  //     contact: " 014845454545",
-  //     type: "pdf",
-  //     status: <div style={{ color: "white", backgroundColor: "red", textAlign: "center", padding: "10px", borderRadius: "5px", fontWeight: "bold" }}>Cancel</div>
-  //   }
-
-  // ];
 
   const columns = [
     {

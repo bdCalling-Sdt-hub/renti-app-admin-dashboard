@@ -21,10 +21,8 @@ import { RiUserSearchLine } from "react-icons/ri";
 import { RxDashboard } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { io } from "socket.io-client";
 import Swal from "sweetalert2";
 import rentiLogo from "../../Images/favLogo.png";
-import { Notifications } from "../../ReduxSlices/NotificationSlice";
 import { GoPeople } from "./../../../node_modules/react-icons/go/index.esm";
 import Styles from "./Dashboard.module.css";
 const { Header, Sider, Content } = Layout;
@@ -76,7 +74,6 @@ const Dashboard = () => {
   const { notView, allNotification } = useSelector(
     (state) => state.NotificationData
   );
-  const [notificationsData, setNotificationsData] = useState();
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -97,18 +94,6 @@ const Dashboard = () => {
     imgUrl = "https://siffahim.github.io/MetaCGI-Tailwind/images/2.jpg";
   }
 
-  const handleLinkClick = (event, linkText) => {
-    event.preventDefault(); // Prevent the default link behavior (navigation)
-    console.log(`Clicked on link with text: ${linkText}`);
-  };
-
-  //socket
-  let socket = io("http://192.168.10.14:9000");
-  socket.on("admin-notification", (data) => {
-    console.log("Socket", data);
-    setNotificationsData(data);
-  });
-
   const handleSelectLanguage = (value) => {
     setSelectedLanguage(value);
     i18n.changeLanguage(selectedLanguage);
@@ -117,8 +102,31 @@ const Dashboard = () => {
 
   useEffect(() => {
     i18n.changeLanguage(selectedLanguage);
-    dispatch(Notifications());
   }, [selectedLanguage, i18n]);
+  const logoutAutoMate = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("yourInfo");
+    localStorage.removeItem("loginTime");
+
+    navigate("/signin");
+  };
+
+  const checkLogOutTime = () => {
+    const loginTime = localStorage.loginTime;
+
+    if (loginTime) {
+      const currentTime = new Date().getTime();
+      const timeDifference = currentTime - parseInt(loginTime);
+
+      let diff = Math.round(timeDifference / 60000);
+
+      if (diff > 1440) {
+        logoutAutoMate();
+      }
+    }
+  };
+
+  checkLogOutTime();
 
   const logout = () => {
     Swal.fire({
@@ -133,6 +141,7 @@ const Dashboard = () => {
       if (result.isConfirmed) {
         localStorage.removeItem("token");
         localStorage.removeItem("yourInfo");
+        localStorage.removeItem("loginTime");
 
         navigate("/signin");
       } else if (result.isDenied) {
@@ -362,6 +371,7 @@ const Dashboard = () => {
         trigger={null}
         collapsible
         collapsed={collapsed}
+        className="sidebar-menu"
         style={{
           overflow: "auto",
           position: "fixed",
@@ -603,12 +613,7 @@ const Dashboard = () => {
                     justifyContent: "center",
                   }}
                 >
-                  <Badge
-                    count={
-                      notificationsData ? notificationsData.notViewed : notView
-                    }
-                    color="#000b90"
-                  >
+                  <Badge count={1} color="#000b90">
                     <IoIosNotificationsOutline
                       style={{ cursor: "pointer" }}
                       fontSize={35}
@@ -650,10 +655,11 @@ const Dashboard = () => {
             marginLeft: collapsed ? "130px" : "360px",
             marginRight: "60px",
             background: "#e6e7f4",
-
-            padding: 50,
+            padding: "0 50px",
+            paddingTop: "20px",
             minHeight: 280,
             overflow: "auto",
+            borderRadius: "5px",
           }}
         >
           <Outlet />

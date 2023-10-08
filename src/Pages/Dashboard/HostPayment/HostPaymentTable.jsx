@@ -14,7 +14,7 @@ const HostPaymentTable = ({
   const [userInfoData, setUserInfoData] = useState([]); // Data fetched from the server
   const [totalItems, setTotalItems] = useState(0); // Total number of items
   const [currentPage, setCurrentPage] = useState(1); // Current page number
-  const pageSize = 3;
+  const pageSize = 10;
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
 
   const { hostPaymentList, pagination } = useSelector(

@@ -1,5 +1,5 @@
 import { SearchOutlined } from "@ant-design/icons";
-import { Button, Input, Row, Typography } from "antd";
+import { Button, Col, Input, Pagination, Row, Typography } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import HostRequestCard from "../../../Components/HostRequestCard/HostRequestCard";
@@ -103,6 +103,19 @@ const HostRequest = () => {
             ))}
           </Row>
         )}
+        <Row className="justify-end mt-14 border py-4 rounded-b-md">
+          <Col span={12}>
+            <p>SHOWING 1-10 OF 250</p>
+          </Col>
+          <Col span={12} style={{ textAlign: "right" }}>
+            <Pagination
+              total={20}
+              responsive={true}
+              defaultCurrent={1}
+              showSizeChanger={false}
+            />
+          </Col>
+        </Row>
       </div>
     </div>
   );

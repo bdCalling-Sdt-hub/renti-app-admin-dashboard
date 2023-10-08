@@ -9,7 +9,7 @@ const { Title, Text } = Typography;
 
 const UserKycTable = ({ userDataGetByPagination, userDataGetBySearch }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 2;
+  const pageSize = 10;
   const { UserData, pagination } = useSelector((state) => state.UserInfoData);
 
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);

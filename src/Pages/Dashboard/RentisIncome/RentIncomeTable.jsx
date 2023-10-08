@@ -10,7 +10,7 @@ const { Title, Text } = Typography;
 
 const RentiIncomeTable = ({ handlePagination, handleRentiIncomeSearch }) => {
   const [currentPage, setCurrentPage] = useState(1); // Current page number
-  const pageSize = 2;
+  const pageSize = 10;
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [rentiIncomeData, setRentiIncomeData] = useState(null);
   const { rentiIncomeList, pagination } = useSelector(

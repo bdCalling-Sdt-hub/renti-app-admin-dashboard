@@ -20,7 +20,7 @@ export const RentInformationData = createAsyncThunk(
   async (value, thunkAPI) => {
     try {
       let response = await axios.get(
-        `/api/rent/all/?limit=5&page=${value.page}&search=${value.search}`,
+        `/api/rent/all/?limit=10&page=${value.page}&search=${value.search}`,
         {
           headers: {
             "Content-Type": "application/json",

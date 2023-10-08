@@ -1,8 +1,6 @@
 import { Col, Modal, Pagination, Row } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Notifications } from "../../../ReduxSlices/NotificationSlice";
-import setupSocket from "../../../socket/socketService";
 import "./Notification.css";
 
 function Notification() {
@@ -15,14 +13,6 @@ function Notification() {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-
-  const socketData = setupSocket();
-
-  console.log(socketData);
-
-  useEffect(() => {
-    dispatch(Notifications());
-  }, []);
 
   return (
     <div>

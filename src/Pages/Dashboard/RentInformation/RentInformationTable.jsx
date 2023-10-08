@@ -16,7 +16,7 @@ const RentInformationTable = ({
   const [rentData, setRentData] = useState([]); // Data fetched from the server
   const [totalItems, setTotalItems] = useState(0); // Total number of items
   const [currentPage, setCurrentPage] = useState(1); // Current page number
-  const pageSize = 5;
+  const pageSize = 10;
 
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [rentInfoData, setRentInfoData] = useState(null);
