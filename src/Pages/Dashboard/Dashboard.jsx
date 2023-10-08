@@ -367,7 +367,7 @@ const Dashboard = () => {
           position: "fixed",
           height: "100vh",
           zIndex: 2,
-          backgroundColor: "#cdd0ff",
+          backgroundColor: "#fff",
         }}
       >
         <div className="demo-logo-vertical" />
@@ -524,7 +524,7 @@ const Dashboard = () => {
             height: "70px",
             zIndex: 1,
             padding: 0,
-            background: "#cdd0ff",
+            background: "#fff",
             display: "flex",
             justifyContent: "space-between",
             paddingRight: "60px",
