@@ -19,7 +19,7 @@ const HostInfoTable = ({
 }) => {
   const { hostsData, pagination } = useSelector((state) => state.hostsData);
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 2;
+  const pageSize = 10;
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [hostData, setHostData] = useState(null);
 

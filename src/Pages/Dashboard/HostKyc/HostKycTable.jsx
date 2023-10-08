@@ -9,7 +9,7 @@ const { Title, Text } = Typography;
 
 const HostKycTable = ({ hostDataGetByPagination, hostDataGetBySearch }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 2;
+  const pageSize = 10;
   const { HostData, pagination } = useSelector((state) => state.HostInfoData);
   const [hostKycData, setHostKycData] = useState();
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);

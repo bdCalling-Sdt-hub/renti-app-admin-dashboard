@@ -17,7 +17,7 @@ export const HostInformationWithKycData = createAsyncThunk(
   async (value, thunkAPI) => {
     try {
       let response = await axios.get(
-        `/api/user/all-host?limit=2&page=${value.page}&search=${value.search}`,
+        `/api/user/all-host?limit=10&page=${value.page}&search=${value.search}`,
         {
           headers: {
             "Content-Type": "application/json",
