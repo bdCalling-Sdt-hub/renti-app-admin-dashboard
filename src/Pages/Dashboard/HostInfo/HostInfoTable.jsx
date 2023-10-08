@@ -186,7 +186,13 @@ const HostInfoTable = ({
           </Space>
         }
       >
-        {hostData && <DrawerPage hostData={hostData} setReload={setReload} />}
+        {hostData && (
+          <DrawerPage
+            hostData={hostData}
+            setReload={setReload}
+            setIsDrawerVisible={setIsDrawerVisible}
+          />
+        )}
       </Drawer>
     </div>
   );

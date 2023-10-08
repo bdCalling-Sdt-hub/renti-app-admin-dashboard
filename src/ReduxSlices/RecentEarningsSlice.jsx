@@ -19,7 +19,7 @@ export const RecentEarningsData = createAsyncThunk(
   async (value, thunkAPI) => {
     try {
       let response = await axios.get(
-        `api/dashboard/earnings/${value.income}?page=${value?.page}&limit=3`,
+        `api/dashboard/earnings/${value.income}?page=${value?.page}&limit=10`,
         {
           headers: {
             "Content-Type": "application/json",

@@ -99,6 +99,7 @@ const DrawerPage = (props) => {
                 text: "User Block successfully",
               });
             }
+            props.setIsDrawerVisible(false);
             props?.setUserInfoReload((prev) => prev + 1);
           });
       } else {
@@ -114,7 +115,7 @@ const DrawerPage = (props) => {
       showCancelButton: true,
       confirmButtonColor: "#000B90",
       cancelButtonColor: "#d33333",
-      confirmButtonText: "Yes, Block",
+      confirmButtonText: "Yes, Delete",
     }).then((result) => {
       if (result.isConfirmed) {
         axios
@@ -134,6 +135,7 @@ const DrawerPage = (props) => {
                 icon: "success",
                 text: "User Delete successfully",
               });
+              props.setIsDrawerVisible(false);
               props?.setUserInfoReload((prev) => prev + 1);
             }
           });
@@ -169,10 +171,12 @@ const DrawerPage = (props) => {
             if (res.status === 200) {
               Swal.fire({
                 icon: "success",
-                text: "Successfully Host Blocked",
+                title: "Successfully",
+                text: "Host Blocked",
               });
+              props.setIsDrawerVisible(false);
+              props?.setReload((prev) => prev + 1);
             }
-            props?.setReload((prev) => prev + 1);
           });
       }
     });
@@ -203,8 +207,9 @@ const DrawerPage = (props) => {
           .then((res) => {
             if (res.status === 200) {
               Swal.fire("Move!", "Successfully moved Host", "success");
+              props.setIsDrawerVisible(false);
+              props?.setReload((prev) => prev + 1);
             }
-            props?.setReload((prev) => prev + 1);
           });
       }
     });
@@ -797,7 +802,7 @@ const DrawerPage = (props) => {
               <img
                 width={180}
                 style={{ borderRadius: "6px" }}
-                src={props.carDetails?.printView?.carLicenseImage}
+                src={props.carDetails?.printView?.image[0]}
                 alt=""
               />
             </div>

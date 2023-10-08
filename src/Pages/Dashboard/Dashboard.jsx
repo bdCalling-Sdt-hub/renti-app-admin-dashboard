@@ -23,7 +23,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
 import Swal from "sweetalert2";
-import rentiLogo from "../../Images/renti-logo.png";
+import rentiLogo from "../../Images/favLogo.png";
 import { Notifications } from "../../ReduxSlices/NotificationSlice";
 import { GoPeople } from "./../../../node_modules/react-icons/go/index.esm";
 import Styles from "./Dashboard.module.css";
@@ -367,7 +367,7 @@ const Dashboard = () => {
           position: "fixed",
           height: "100vh",
           zIndex: 2,
-          backgroundColor: "white",
+          backgroundColor: "#cdd0ff",
         }}
       >
         <div className="demo-logo-vertical" />
@@ -521,10 +521,10 @@ const Dashboard = () => {
           style={{
             position: "fixed",
             width: "100vw",
-            height: "80px",
+            height: "70px",
             zIndex: 1,
             padding: 0,
-            background: colorBgContainer,
+            background: "#cdd0ff",
             display: "flex",
             justifyContent: "space-between",
             paddingRight: "60px",

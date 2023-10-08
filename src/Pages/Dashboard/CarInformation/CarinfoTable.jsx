@@ -10,7 +10,7 @@ const { Title, Text } = Typography;
 
 const CarInfoTable = ({ carDataByPagination }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 2;
+  const pageSize = 10;
 
   const { cars, pagination } = useSelector((state) => state.carsData.carsData);
 

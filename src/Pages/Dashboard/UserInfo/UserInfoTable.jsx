@@ -160,6 +160,7 @@ const UserInfoTable = ({
           <DrawerPage
             userInfoData={userInfoData}
             setUserInfoReload={setReload}
+            setIsDrawerVisible={setIsDrawerVisible}
           />
         )}
       </Drawer>

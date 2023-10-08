@@ -11,7 +11,7 @@ const { Title, Text } = Typography;
 const TrashDataTable = ({ setReload }) => {
   const { allUsers, pagination } = useSelector((state) => state.AllUser);
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 4;
+  const pageSize = 10;
 
   const bannedUser = allUsers.filter((user) => user.isBanned === "trash");
 
@@ -39,7 +39,7 @@ const TrashDataTable = ({ setReload }) => {
     if (res.data.message !== "") {
       Swal.fire({
         icon: "success",
-        title: "Wow!",
+        title: "Successfully",
         text: res.data.message,
       });
 
@@ -63,7 +63,8 @@ const TrashDataTable = ({ setReload }) => {
         if (res.status === 200) {
           Swal.fire({
             icon: "success",
-            text: "User restore successfully",
+            title: "Restored successfully",
+            text: "She/he saved",
           });
         }
         setReload((p) => p + 1);

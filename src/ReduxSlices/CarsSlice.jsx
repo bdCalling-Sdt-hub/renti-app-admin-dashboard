@@ -16,7 +16,7 @@ export const CarsData = createAsyncThunk(
   "CarsData",
   async (value, thunkAPI) => {
     try {
-      let response = await axios.get(`api/car/all?page=${value}&limit=2`, {
+      let response = await axios.get(`api/car/all?page=${value}&limit=10`, {
         headers: {
           "Content-type": "application/json",
           authorization: `Bearer ${token}`,
