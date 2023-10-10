@@ -1,6 +1,7 @@
 import { CloseOutlined } from "@ant-design/icons";
 import { Button, Drawer, Space, Table, Typography } from "antd";
 import React, { useState } from "react";
+import { TbTrashOff } from "react-icons/tb";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import axios from "../../../../Config";
@@ -24,6 +25,7 @@ const CarKycTable = ({
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
     setCarKycData(record);
+    console.log(record);
   };
 
   const closeDrawer = () => {
@@ -90,30 +92,34 @@ const CarKycTable = ({
       email: item?.carOwner?.email,
       contact: item?.carOwner?.phoneNumber,
       type: "pdf",
-      status: (
-        <div
-          style={{
-            color:
-              item.tripStatus == "Pending"
-                ? "#D7263D"
-                : item.tripStatus == "Start"
-                ? "#00A991"
-                : "#000b90",
-            backgroundColor:
-              item.tripStatus == "Pending"
-                ? "#FBE9EC"
-                : item.tripStatus == "Start"
-                ? "#E6F6F4"
-                : "#e2e4ff",
-            padding: "5px",
-            fontSize: "11px",
-            borderRadius: "4px",
-            textAlign: "center",
-          }}
-        >
-          {item.tripStatus}
-        </div>
-      ),
+      status:
+        item?.tripStatus === "Start" ? (
+          <div
+            style={{
+              background: "#FBE9EC",
+              color: "#D7263D",
+              padding: "5px",
+              fontSize: "11px",
+              borderRadius: "4px",
+              textAlign: "center",
+            }}
+          >
+            Reserved
+          </div>
+        ) : (
+          <div
+            style={{
+              background: "#E6F6F4",
+              color: "#00A991",
+              padding: "5px",
+              fontSize: "11px",
+              borderRadius: "4px",
+              textAlign: "center",
+            }}
+          >
+            Active
+          </div>
+        ),
       actions: item,
     };
   });
@@ -157,12 +163,21 @@ const CarKycTable = ({
           <Button onClick={() => showDrawer(record)} type="text">
             <Eye />
           </Button>
-          <Button
-            type="text"
-            onClick={() => handleCarDelete(record.actions._id)}
-          >
-            <Delete />
-          </Button>
+          {record?.actions?.tripStatus == "Start" ? (
+            <div
+              type="text"
+              style={{ marginLeft: "20px", cursor: "not-allowed" }}
+            >
+              <TbTrashOff style={{ fontSize: "20px", color: "#595959" }} />
+            </div>
+          ) : (
+            <Button
+              type="text"
+              onClick={() => handleCarDelete(record.actions._id)}
+            >
+              <Delete />
+            </Button>
+          )}
         </div>
       ),
     },
