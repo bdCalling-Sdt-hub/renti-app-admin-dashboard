@@ -7,8 +7,8 @@ import CarKycTable from "./CarKycTable";
 
 function CarKyc() {
   const [searchData, setSearchData] = useState("");
-
   const [imagePath, setImagePath] = useState("");
+  const [reload, setReload] = useState(1);
 
   const dispatch = useDispatch();
 
@@ -20,7 +20,7 @@ function CarKyc() {
     if (searchData == "") {
       dispatch(CarInformationWithKycData(data));
     }
-  }, [searchData]);
+  }, [searchData, reload]);
 
   const carDataGetByPagination = (page) => {
     let data = {
@@ -94,6 +94,7 @@ function CarKyc() {
         </h2>
         <Col lg={{ span: 24 }}>
           <CarKycTable
+            setReload={setReload}
             carDataGetByPagination={carDataGetByPagination}
             carDataGetBySearch={carDataGetBySearch}
           />

@@ -47,6 +47,8 @@ const HostRequest = () => {
     }
   }, [autoReload, searchData]);
 
+  console.log(pagination);
+
   const items = hostsData.filter(
     (hostRequest) => hostRequest.host.isBanned !== "trash"
   );
@@ -92,7 +94,7 @@ const HostRequest = () => {
       <div
         style={{ background: "white", padding: "30px", borderRadius: "10px" }}
       >
-        {items?.length != 0 && (
+        {
           <Row gutter={[16, 16]}>
             {items?.map((item) => (
               <HostRequestCard
@@ -102,18 +104,11 @@ const HostRequest = () => {
               />
             ))}
           </Row>
-        )}
+        }
         <Row className="justify-end mt-14 border py-4 rounded-b-md">
-          <Col span={12}>
-            <p>SHOWING 1-10 OF 250</p>
-          </Col>
+          <Col span={12}></Col>
           <Col span={12} style={{ textAlign: "right" }}>
-            <Pagination
-              total={20}
-              responsive={true}
-              defaultCurrent={1}
-              showSizeChanger={false}
-            />
+            <Pagination total={20} responsive={true} showSizeChanger={false} />
           </Col>
         </Row>
       </div>

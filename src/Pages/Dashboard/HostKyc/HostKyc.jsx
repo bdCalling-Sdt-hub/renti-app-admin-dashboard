@@ -13,8 +13,11 @@ function HostKyc() {
 
   useEffect(() => {
     let data = {
+      approve: "true",
+      isBanned: "false",
       search: searchData,
       page: 1,
+      limit: 10,
     };
     if (searchData == "") {
       dispatch(HostInformationWithKycData(data));
@@ -23,8 +26,11 @@ function HostKyc() {
 
   const hostDataGetByPagination = (page) => {
     let data = {
+      approve: "true",
+      isBanned: "false",
       search: searchData,
       page: page,
+      limit: 10,
     };
     if (!searchData) {
       dispatch(HostInformationWithKycData(data));
@@ -33,8 +39,11 @@ function HostKyc() {
 
   const hostDataGetBySearch = (page) => {
     let data = {
+      approve: "true",
+      isBanned: "false",
       search: searchData,
       page: page,
+      limit: 10,
     };
     if (searchData) {
       dispatch(HostInformationWithKycData(data));

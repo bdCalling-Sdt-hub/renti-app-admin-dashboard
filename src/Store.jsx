@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import AllUserReducer from "./ReduxSlices/AllUserSlice";
 import BlockUserReducer from "./ReduxSlices/BlockSlice";
 import CarInformationWithKycReducer from "./ReduxSlices/CarInformationWithKycSlice";
 import CarReducer from "./ReduxSlices/CarsSlice";
@@ -18,6 +17,7 @@ import SigninReducer from "./ReduxSlices/SigninSlice";
 import UserInformationReducer from "./ReduxSlices/UserInformationSlice";
 import UserInformationWithKycReducer from "./ReduxSlices/UserInformationWithKycSlice";
 import UserPaymentReducer from "./ReduxSlices/UserPaymentSlice";
+import TrashReducer from "./ReduxSlices/trashSlice";
 
 export const Store = configureStore({
   reducer: {
@@ -32,7 +32,7 @@ export const Store = configureStore({
     hostsData: HostReducer,
     carsData: CarReducer,
     adminData: adminReducer,
-    AllUser: AllUserReducer,
+    trashUser: TrashReducer,
     CarInfoData: CarInformationWithKycReducer,
     BlockUser: BlockUserReducer,
     UserPayments: UserPaymentReducer,

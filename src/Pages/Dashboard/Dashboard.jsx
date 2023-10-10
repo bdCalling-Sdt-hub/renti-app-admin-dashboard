@@ -33,7 +33,7 @@ const items = [...Array(5).keys()].map((item, index) => {
   return {
     key: index,
     label: (
-      <Link to="/notification" style={{}} rel="noreferrer">
+      <Link to="/notification" rel="noreferrer">
         <div
           className={Styles.everyNotify}
           style={{ display: "flex", alignItems: "center" }}
@@ -103,6 +103,7 @@ const Dashboard = () => {
   useEffect(() => {
     i18n.changeLanguage(selectedLanguage);
   }, [selectedLanguage, i18n]);
+
   const logoutAutoMate = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("yourInfo");
@@ -331,7 +332,6 @@ const Dashboard = () => {
         >
           Notifications
         </h2>
-        {/* <span style={{ fontWeight: 'bold', color: '#000' }}>Notifications</span> */}
       </Menu.Item>
       {items.map((item) => (
         <Menu.Item key={item.key}>{item.label}</Menu.Item>
@@ -566,7 +566,7 @@ const Dashboard = () => {
             className={Styles.notificatonProfileSection}
             style={{ display: "flex", alignItems: "center", lineHeight: 0 }}
           >
-            <div className="" style={{ marginRight: "40px" }}>
+            <div className="" style={{ marginRight: "30px" }}>
               <Select
                 value={selectedLanguage}
                 style={{ width: 150 }}
@@ -593,36 +593,36 @@ const Dashboard = () => {
                 </Option>
               </Select>
             </div>
-            <div className={Styles.notificaton}>
-              <Dropdown
-                overlay={menu}
-                placement="bottomRight"
-                arrow={{
-                  pointAtCenter: true,
+
+            <Dropdown
+              overlay={menu}
+              placement="bottomRight"
+              arrow={{
+                pointAtCenter: true,
+              }}
+              trigger={["click"]}
+            >
+              <Button
+                type="text"
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  borderRadius: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
-                trigger={["click"]}
               >
-                <Button
-                  type="text"
-                  style={{
-                    width: "40px",
-                    height: "40px",
-                    borderRadius: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Badge count={1} color="#000b90">
-                    <IoIosNotificationsOutline
-                      style={{ cursor: "pointer" }}
-                      fontSize={35}
-                      color="#000b90"
-                    />
-                  </Badge>
-                </Button>
-              </Dropdown>
-            </div>
+                <Badge count={1} color="#000b90">
+                  <IoIosNotificationsOutline
+                    style={{ cursor: "pointer" }}
+                    fontSize={35}
+                    color="#000b90"
+                  />
+                </Badge>
+              </Button>
+            </Dropdown>
+
             <div className={Styles.profile}>
               <Dropdown
                 menu={{

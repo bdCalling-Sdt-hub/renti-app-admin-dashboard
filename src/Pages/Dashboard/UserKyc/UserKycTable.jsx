@@ -15,6 +15,8 @@ const UserKycTable = ({ userDataGetByPagination, userDataGetBySearch }) => {
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [userKycData, setUserKycData] = useState();
 
+  console.log(UserData);
+
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
     setUserKycData(record);
@@ -39,15 +41,16 @@ const UserKycTable = ({ userDataGetByPagination, userDataGetBySearch }) => {
       status: (
         <div
           style={{
-            color: item.user.approved == true ? "#00A991" : "#D7263D",
-            backgroundColor: item.user.approved == true ? "#E6F6F4" : "#FBE9EC",
+            color: item.user.isBanned === "false" ? "#00A991" : "#D7263D",
+            backgroundColor:
+              item.user.isBanned === "false" ? "#E6F6F4" : "#FBE9EC",
             padding: "5px",
             fontSize: "11px",
             borderRadius: "4px",
             textAlign: "center",
           }}
         >
-          {item.user.approved == true ? "Approve" : "Cencel"}
+          {item.user.isBanned === "false" ? "Active" : "Disabled"}
         </div>
       ),
       actions: item.user,
