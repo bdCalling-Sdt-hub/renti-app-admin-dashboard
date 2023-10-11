@@ -12,35 +12,46 @@ const HostRequest = () => {
   const dispatch = useDispatch();
   const [autoReload, setAutoReload] = useState(1);
   const [searchData, setSearchData] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 6;
 
-  const style = {
-    cardStyle: {
-      background: "#E6E7F4",
-      padding: "15px",
-      textAlign: "center",
-      borderRadius: "10px",
-    },
-    cardBtn: {
-      color: "white",
-    },
-  };
-
-  const handleSearch = () => {
+  const handleSearch = (page) => {
     const data = {
       approve: "false",
-      page: null,
+      page: page,
       search: searchData,
-      limit: null,
+      limit: 6,
     };
-    dispatch(HostsData(data));
+    if (searchData !== "") {
+      dispatch(HostsData(data));
+    }
+  };
+
+  const handlePagination = (page) => {
+    const data = {
+      approve: "false",
+      page: page,
+      search: searchData,
+      limit: 6,
+    };
+
+    if (searchData === "") {
+      dispatch(HostsData(data));
+    }
+  };
+
+  const onChangePage = (page) => {
+    setCurrentPage(page);
+    handlePagination(page);
+    handleSearch(page);
   };
 
   useEffect(() => {
     const data = {
       approve: "false",
-      page: null,
+      page: 1,
       search: "",
-      limit: null,
+      limit: 6,
     };
     if (searchData === "") {
       dispatch(HostsData(data));
@@ -84,7 +95,7 @@ const HostRequest = () => {
       <h2
         style={{
           fontSize: "25px",
-          marginTop: "50px",
+          marginTop: "30px",
           marginBottom: "20px",
           fontWeight: "normal",
         }}
@@ -105,10 +116,15 @@ const HostRequest = () => {
             ))}
           </Row>
         }
-        <Row className="justify-end mt-14 border py-4 rounded-b-md">
+        <Row style={{ marginTop: "15px" }}>
           <Col span={12}></Col>
           <Col span={12} style={{ textAlign: "right" }}>
-            <Pagination total={20} responsive={true} showSizeChanger={false} />
+            <Pagination
+              pageSize={pageSize}
+              current={currentPage}
+              onChange={onChangePage}
+              total={pagination?.totalHosts}
+            />
           </Col>
         </Row>
       </div>
