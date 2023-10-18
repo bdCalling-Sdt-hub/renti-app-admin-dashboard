@@ -15,12 +15,15 @@ export const Notifications = createAsyncThunk(
   async (value, thunkAPI) => {
     console.log("reduxGrab", value);
     try {
-      const response = await axios.get(`api/notifications`, {
-        headers: {
-          "Content-type": "application/json",
-          authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(
+        `api/notifications?limit=${value.limit}&page=${value.page}`,
+        {
+          headers: {
+            "Content-type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       console.log(response.data);
       return response.data;

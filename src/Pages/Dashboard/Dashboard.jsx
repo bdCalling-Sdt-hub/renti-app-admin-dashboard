@@ -64,7 +64,11 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(Notifications());
+    const data = {
+      limit: 8,
+      page: 1,
+    };
+    dispatch(Notifications(data));
   }, []);
 
   console.log("Redux data", allNotification);
@@ -77,7 +81,7 @@ const Dashboard = () => {
 
   console.log("common Data", commonData);
 
-  const items = commonData?.allNotification?.slice(0, 5).map((item, index) => {
+  const items = commonData?.allNotification?.slice(0, 4).map((item, index) => {
     function getTimeAgo(timestamp) {
       const now = new Date();
       const date = new Date(timestamp);

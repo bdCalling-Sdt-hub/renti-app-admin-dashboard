@@ -7,36 +7,32 @@ import "./Notification.css";
 
 function Notification() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { allNotification } = useSelector((state) => state.NotificationData);
+  const { pagination, allNotification } = useSelector(
+    (state) => state.NotificationData
+  );
   const dispatch = useDispatch();
   const [notifications, setNotifications] = useState([]);
   const [modalData, setModalData] = useState();
+  const pageSize = 6;
+  const [currentPage, setCurrentPage] = useState(1);
 
-  console.log("fa", allNotification);
+  console.log("fa", pagination.totalDocuments);
+  let token = localStorage.getItem("token");
+
+  const handlePagination = (page) => {
+    const data = {
+      limit: 8,
+      page: page,
+    };
+    dispatch(Notifications(data));
+  };
 
   const showModal = (data) => {
     setIsModalOpen(true);
     setModalData(data);
-    console.log(data._id);
-    // axios
-    //   .patch(`api/notifications/${data?._id}`, {
-    //     headers: {
-    //       "Content-type": "application/json",
-    //       authorization: `Bearer ${token}`,
-    //     },
-    //   })
-    //   .then((res) => console.log(res.data))
-    //   .catch((err) => console.log(err));
-  };
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-
-  const notificationUpdateHandler = (id) => {
-    let token = localStorage.getItem("token");
     baseAxios
       .patch(
-        `/api/notifications/${id}`,
+        `/api/notifications/${data.id}`,
         {},
         {
           headers: {
@@ -46,28 +42,22 @@ function Notification() {
         }
       )
       .then((res) => {
-        console.log(res);
-        dispatch(Notifications());
-        // navigate("/booking");
+        const data = {
+          limit: 8,
+          page: 1,
+        };
+        dispatch(Notifications(data));
       })
       .catch((err) => console.log(err));
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
   };
 
   const commonData = notifications?.allNotification
     ? notifications
     : allNotification;
-
-  // useEffect(() => {
-  //   // Connect to server using socket.io-client
-  //   let socket = io("http://192.168.10.14:9000");
-  //   socket.on("connect", () => {
-  //     // Emit events or listen for events here
-  //     socket.on("admin-notification", (data) => {
-  //       setNotifications(data);
-  //     });
-  //   });
-  //   dispatch(Notifications());
-  // }, []);
 
   function getTimeAgo(timestamp) {
     const now = new Date();
@@ -92,6 +82,11 @@ function Notification() {
     }
   }
 
+  const onChangePage = (page) => {
+    setCurrentPage(page);
+    handlePagination(page);
+  };
+
   return (
     <div>
       <Row>
@@ -115,10 +110,7 @@ function Notification() {
               }}
               onClick={() => showModal(item)}
             >
-              <div
-                onClick={() => notificationUpdateHandler(item._id)}
-                style={{ display: "flex", alignItems: "center" }}
-              >
+              <div style={{ display: "flex", alignItems: "center" }}>
                 <div className="user-image" style={{ marginRight: "50px" }}>
                   <img
                     style={{
@@ -144,18 +136,14 @@ function Notification() {
           );
         })}
       </Row>
-      <Row style={{ marginTop: "20px" }}>
-        <Col lg={{ span: 12 }}>
-          <h1 style={{ fontSize: "20px", color: "#000b90" }}>
-            Showing 1-10 OF 250
-          </h1>
-        </Col>
+      <Row style={{ marginTop: "20px", marginBottom: "30px" }}>
+        <Col lg={{ span: 12 }}></Col>
         <Col lg={{ span: 8, offset: 4 }}>
           <Pagination
-            defaultCurrent={1}
-            total={50}
-            showQuickJumper={false}
-            showSizeChanger={false}
+            pageSize={pageSize}
+            current={currentPage}
+            onChange={onChangePage}
+            total={pagination.totalDocuments}
           />
         </Col>
       </Row>

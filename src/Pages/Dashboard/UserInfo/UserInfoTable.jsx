@@ -142,12 +142,12 @@ const UserInfoTable = ({
               style={{
                 borderRadius: "100%",
                 backgroundColor: "white",
-                color: "red",
-                height: "40px",
-                width: "40px",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
+                color: "red",
+                height: "40px",
+                width: "40px",
               }}
               onClick={closeDrawer}
             >

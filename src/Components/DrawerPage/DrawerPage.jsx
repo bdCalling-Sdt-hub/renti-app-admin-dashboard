@@ -1260,6 +1260,144 @@ const DrawerPage = (props) => {
           </div>
         </div>
       )}
+      {props.hostPaymentData && (
+        <div>
+          <div ref={componentRef}>
+            <div
+              style={{
+                display: "flex",
+                gap: "15px",
+                borderBottom: "1px solid gray",
+                paddingBottom: "10px",
+                marginBottom: "15px",
+              }}
+            >
+              <div>
+                <img
+                  width={120}
+                  style={{ borderRadius: "5px" }}
+                  src={props.hostPaymentData?.actions?.carOwner?.image}
+                  alt=""
+                />
+              </div>
+              <div style={{ marginTop: "-7px" }}>
+                <p style={{ fontSize: "20px" }}>
+                  {props.hostPaymentData?.username}
+                </p>
+                <p>INE: {props.hostPaymentData?.actions?.carOwner?.ine}</p>
+                <p>Trip Completes: 45</p>
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "2px" }}
+                >
+                  <AiFillStar color="#fba91d" />
+                  <span>4.8</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <Title level={4}>
+                Payment Information{" "}
+                {props.hostPaymentData?.actions?.status ? (
+                  <Badge
+                    className="site-badge-count-109"
+                    count={"Completed"}
+                    style={{
+                      background: "#E6F6F4",
+                      color: "#00A991",
+                      fontSize: "11px",
+                      borderRadius: "4px",
+                      textAlign: "center",
+                    }}
+                  />
+                ) : (
+                  <Badge
+                    className="site-badge-count-109"
+                    count={"Pending"}
+                    style={{
+                      background: "#FBE9EC",
+                      color: "#D7263D",
+                      fontSize: "11px",
+                      borderRadius: "4px",
+                      textAlign: "center",
+                    }}
+                  />
+                )}
+              </Title>
+            </div>
+            <div
+              style={{
+                margin: "15px 0",
+                borderBottom: "1px solid gray",
+                paddingBottom: "15px",
+              }}
+            >
+              <Row>
+                <Col span={12} style={{ textAlign: "left" }}>
+                  <p>Account Name</p>
+                  <p>Account Number</p>
+                  <p>Phone Number</p>
+                  <p>Payment Method</p>
+                  <p>Payment Date</p>
+                  <p>Total Amount(Including 25%)</p>
+                  <p>Paid Amount(Without 25%)</p>
+                </Col>
+                <Col span={12} style={{ textAlign: "right" }}>
+                  <p>Account Name</p>
+                  <p>Account Number</p>
+                  <p>{props.hostPaymentData?.actions?.carOwner.phoneNumber}</p>
+                  <p>{props.hostPaymentData?.actions?.method}</p>
+                  <p>
+                    {moment(props.hostPaymentData?.actions?.time).format(
+                      "DD-MM-YYYY"
+                    )}
+                  </p>
+                  <p>{props.hostPaymentData?.actions?.method}</p>
+                  <p>Paid Amount(Without 25%)</p>
+                </Col>
+              </Row>
+            </div>
+            <div
+              style={{
+                margin: "15px 0",
+                borderBottom: "1px solid gray",
+                paddingBottom: "15px",
+              }}
+            >
+              <Title level={4}>More Information</Title>
+              <Row>
+                <Col span={12} style={{ textAlign: "left" }}>
+                  <p>Total Trips Completed</p>
+                  <p>Trip Cancel</p>
+                  <p>Week Start Date</p>
+                  <p>Week End Date</p>
+                  <p>Total Rental Time</p>
+                </Col>
+                <Col span={12} style={{ textAlign: "right" }}></Col>
+              </Row>
+            </div>
+          </div>
+
+          <div
+            style={{
+              position: "absolute",
+              bottom: 10,
+              width: "92%",
+            }}
+          >
+            <Button
+              block
+              style={{
+                background: "#000B90",
+                color: "white",
+                height: 50,
+              }}
+              onClick={handlePrint}
+            >
+              Print/Download
+            </Button>
+          </div>
+        </div>
+      )}
       {props.dashboardEarningData && (
         <div>
           <div ref={componentRef}>
