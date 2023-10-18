@@ -1,18 +1,96 @@
 import { Col, Modal, Pagination, Row } from "antd";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import baseAxios from "../../../../Config";
+import { Notifications } from "../../../ReduxSlices/NotificationSlice";
 import "./Notification.css";
 
 function Notification() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { allNotification } = useSelector((state) => state.NotificationData);
   const dispatch = useDispatch();
+  const [notifications, setNotifications] = useState([]);
+  const [modalData, setModalData] = useState();
 
-  const showModal = () => {
+  console.log("fa", allNotification);
+
+  const showModal = (data) => {
     setIsModalOpen(true);
+    setModalData(data);
+    console.log(data._id);
+    // axios
+    //   .patch(`api/notifications/${data?._id}`, {
+    //     headers: {
+    //       "Content-type": "application/json",
+    //       authorization: `Bearer ${token}`,
+    //     },
+    //   })
+    //   .then((res) => console.log(res.data))
+    //   .catch((err) => console.log(err));
   };
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
+  const notificationUpdateHandler = (id) => {
+    let token = localStorage.getItem("token");
+    baseAxios
+      .patch(
+        `/api/notifications/${id}`,
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        dispatch(Notifications());
+        // navigate("/booking");
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const commonData = notifications?.allNotification
+    ? notifications
+    : allNotification;
+
+  // useEffect(() => {
+  //   // Connect to server using socket.io-client
+  //   let socket = io("http://192.168.10.14:9000");
+  //   socket.on("connect", () => {
+  //     // Emit events or listen for events here
+  //     socket.on("admin-notification", (data) => {
+  //       setNotifications(data);
+  //     });
+  //   });
+  //   dispatch(Notifications());
+  // }, []);
+
+  function getTimeAgo(timestamp) {
+    const now = new Date();
+    const date = new Date(timestamp);
+
+    const secondsAgo = Math.floor((now - date) / 1000);
+    const minutesAgo = Math.floor(secondsAgo / 60);
+    const hoursAgo = Math.floor(minutesAgo / 60);
+    const daysAgo = Math.floor(hoursAgo / 24);
+    const yearsAgo = Math.floor(daysAgo / 365);
+
+    if (yearsAgo > 0) {
+      return yearsAgo === 1 ? "1 year ago" : `${yearsAgo} years ago`;
+    } else if (daysAgo > 0) {
+      return daysAgo === 1 ? "1 day ago" : `${daysAgo} days ago`;
+    } else if (hoursAgo > 0) {
+      return hoursAgo === 1 ? "1 hour ago" : `${hoursAgo} hours ago`;
+    } else if (minutesAgo > 0) {
+      return minutesAgo === 1 ? "1 minute ago" : `${minutesAgo} minutes ago`;
+    } else {
+      return "just now";
+    }
+  }
 
   return (
     <div>
@@ -27,15 +105,20 @@ function Notification() {
           All Notifications
         </h2>
 
-        {[...Array(5).keys()].map((_, index) => {
+        {commonData?.allNotification?.map((item) => {
           return (
             <Col
               className="notification"
               lg={{ span: 24 }}
-              style={{ cursor: "pointer" }}
-              onClick={showModal}
+              style={{
+                cursor: "pointer",
+              }}
+              onClick={() => showModal(item)}
             >
-              <div style={{ display: "flex", alignItems: "center" }}>
+              <div
+                onClick={() => notificationUpdateHandler(item._id)}
+                style={{ display: "flex", alignItems: "center" }}
+              >
                 <div className="user-image" style={{ marginRight: "50px" }}>
                   <img
                     style={{
@@ -43,16 +126,18 @@ function Notification() {
                       width: "60px",
                       borderRadius: "50%",
                     }}
-                    src="https://siffahim.github.io/MetaCGI-Tailwind/images/2.jpg"
+                    src={item.image}
                   />
                 </div>
                 <div className="">
-                  <p>
-                    <span style={{ fontWeight: "bold" }}>Professor Sergio</span>{" "}
-                    start a new trip at 5pm. Trip No.56. Trip started from
-                    Mexico city.....
+                  <p
+                    style={{ fontWeight: item.viewStatus ? "normal" : "bold" }}
+                  >
+                    {item.message}
                   </p>
-                  <p style={{ color: "gray", marginTop: "10px" }}>1hr ago</p>
+                  <p style={{ color: "gray", marginTop: "10px" }}>
+                    {getTimeAgo(item.createdAt)}
+                  </p>
                 </div>
               </div>
             </Col>
@@ -81,22 +166,12 @@ function Notification() {
         width={"60%"}
       >
         <div>
-          <h2 style={{ marginBottom: "10px" }}>Trip offer from 5pm to 10pm</h2>
-          <p style={{ marginBottom: "20px" }}>
-            God implore long followed demons angels, all fowl god hopes
-            forgiveness. Bird my from if the no perched but silken. And sent
-            liftednevermore nothing whispered soul but me, oh the surely only
-            usby from horror then more usby. Before gave then now the whose
-            name, word hope the yet floor master wide more, louder ebony engaged
-            there door echo. Tempest mystery eyes and that sure let both. But
-            wandering and implore velvet only, if sent or it me but my. Thy
-            desert his upon is its the though my, at let thee devil that when
-            grew. Word usby i was.
-          </p>
+          <h2 style={{ marginBottom: "10px" }}>{modalData?.message}</h2>
+
           <img
             style={{ borderRadius: "10px" }}
             width="100%"
-            src="https://imageio.forbes.com/specials-images/imageserve/5d35eacaf1176b0008974b54/0x0.jpg?format=jpg&crop=4560,2565,x790,y784,safe&width=1200"
+            src={modalData?.image}
             alt=""
           />
         </div>
