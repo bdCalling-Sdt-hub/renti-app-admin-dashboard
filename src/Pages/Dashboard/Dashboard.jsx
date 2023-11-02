@@ -497,15 +497,15 @@ const Dashboard = () => {
             <Menu.Item key="35">
               <Link to="/host-payment">{t("payment.subTitle2")}</Link>
             </Menu.Item>
-            <Menu.Item key="36">
+            {/* <Menu.Item key="36">
               <Link to="/stripe-bills">{t("payment.subTitle3")}</Link>
-            </Menu.Item>
+            </Menu.Item> */}
             <Menu.Item key="37">
               <Link to="/renti-income">{t("payment.subTitle4")}</Link>
             </Menu.Item>
-            <Menu.Item key="38">
+            {/* <Menu.Item key="38">
               <Link to="/wallet">{t("payment.subTitle5")}</Link>
-            </Menu.Item>
+            </Menu.Item> */}
           </SubMenu>
           <Divider />
 

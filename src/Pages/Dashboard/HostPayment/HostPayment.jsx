@@ -8,9 +8,7 @@ import "./HostPayment.css";
 import HostPaymentTable from "./HostPaymentTable";
 function HostPayment() {
   const [searchData, setSearchData] = useState("");
-
   const [hostPayments, setHostPayments] = useState({});
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -29,7 +27,7 @@ function HostPayment() {
 
     let data = {
       page: 1,
-      limit: 3,
+      limit: 10,
       search: searchData,
     };
 
@@ -40,7 +38,7 @@ function HostPayment() {
 
   const hostPaymentDataGetByPagination = (page) => {
     let data = {
-      limit: 3,
+      limit: 10,
       page: page,
       search: searchData,
     };
@@ -53,7 +51,7 @@ function HostPayment() {
     let data = {
       search: searchData,
       page: page,
-      limit: 3,
+      limit: 10,
     };
     if (searchData) {
       dispatch(HostPaymentData(data));
@@ -148,7 +146,7 @@ function HostPayment() {
           md={{ span: 12 }}
           lg={{ span: 12 }}
         >
-          <div
+          {/*   <div
             className="host-payment-card pending"
             style={{ border: "1px solid #eb6363" }}
           >
@@ -182,7 +180,7 @@ function HostPayment() {
                 ${hostPayments?.income?.hostTotalPending}
               </h3>
             </div>
-          </div>
+          </div> */}
         </Col>
       </Row>
       <h2

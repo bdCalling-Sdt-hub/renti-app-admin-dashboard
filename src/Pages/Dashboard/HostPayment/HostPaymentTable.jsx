@@ -1,5 +1,6 @@
 import { CloseOutlined } from "@ant-design/icons";
-import { Badge, Button, Drawer, Space, Table, Typography } from "antd";
+import { Button, Drawer, Space, Table, Typography } from "antd";
+import moment from "moment";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
@@ -11,9 +12,8 @@ const HostPaymentTable = ({
   hostPaymentDataGetByPagination,
   hostPaymentDataGetBySearch,
 }) => {
-  const [hostPaymentData, setHostPaymentData] = useState([]); // Data fetched from the server
-  const [totalItems, setTotalItems] = useState(0); // Total number of items
-  const [currentPage, setCurrentPage] = useState(1); // Current page number
+  const [hostPaymentData, setHostPaymentData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10;
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
 
@@ -38,41 +38,41 @@ const HostPaymentTable = ({
   };
 
   const data = hostPaymentList?.map((item) => {
-    console.log(item);
     return {
       key: item._id,
       tripno: item.rentTripNumber,
-      time: item.time,
+      time: moment(item.time).format("lll"),
       username: item.carOwner?.fullName,
       totalamount: item.originalAmount,
       paidamount: item.paidAmount,
-      status: item.status ? (
-        <Badge
-          className="site-badge-count-109"
-          count={"Completed"}
-          style={{
-            background: "#E6F6F4",
-            color: "#00A991",
-            fontSize: "11px",
-            borderRadius: "4px",
-            textAlign: "center",
-            padding: "0px 20px",
-          }}
-        />
-      ) : (
-        <Badge
-          className="site-badge-count-109"
-          count={"Pending"}
-          style={{
-            background: "#FBE9EC",
-            color: "#D7263D",
-            fontSize: "11px",
-            borderRadius: "4px",
-            textAlign: "center",
-            padding: "0px 20px",
-          }}
-        />
-      ),
+      status:
+        item.status === "succeeded" ? (
+          <div
+            style={{
+              background: "#E6F6F4",
+              color: "#00A991",
+              padding: "5px",
+              fontSize: "11px",
+              borderRadius: "4px",
+              textAlign: "center",
+            }}
+          >
+            Completed
+          </div>
+        ) : (
+          <div
+            style={{
+              background: "#FBE9EC",
+              color: "#D7263D",
+              padding: "5px",
+              fontSize: "11px",
+              borderRadius: "4px",
+              textAlign: "center",
+            }}
+          >
+            Pending
+          </div>
+        ),
       actions: item,
     };
   });
@@ -148,10 +148,10 @@ const HostPaymentTable = ({
           <div>
             <Typography>
               <Title style={{ color: "#333333" }} level={5} strong>
-                Invoice# Trip No. -
+                Invoice# Trip No. - {hostPaymentData?.tripno}
               </Title>
               <p style={{ fontWeight: "normal", color: "gray" }}>
-                See all information about the trip no.{" "}
+                See all information about the trip no. {hostPaymentData?.tripno}
               </p>
             </Typography>
           </div>

@@ -152,10 +152,10 @@ const HostInfoTable = ({
           <div>
             <Typography>
               <Title style={{ color: "#333333" }} level={5} strong>
-                Invoice# Trip No.{hostData?.tripNo}
+                Host Details
               </Title>
               <Text style={{ color: "gray" }}>
-                See all information about the trip no. 68656
+                See all information about the host
               </Text>
             </Typography>
           </div>

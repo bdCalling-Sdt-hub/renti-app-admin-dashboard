@@ -117,9 +117,11 @@ const RentiIncomeTable = ({ handlePagination, handleRentiIncomeSearch }) => {
           <div>
             <Typography>
               <Title level={5} strong>
-                Invoice# Trip No.{rentiIncomeData?.invoiceNo}
+                Invoice# Trip No. - {rentiIncomeData?.tripNo}
               </Title>
-              <Text>See all information about the trip no. 68656</Text>
+              <Text>
+                See all information about the trip no {rentiIncomeData?.tripNo}
+              </Text>
             </Typography>
           </div>
         }

@@ -1,11 +1,11 @@
 import { CloseOutlined } from "@ant-design/icons";
 import { Button, Drawer, Space, Table, Typography } from "antd";
+import moment from "moment";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 import Eye from "../../../icons/Eye";
 import Print from "../../../icons/Print";
-
 const { Title, Text } = Typography;
 
 const UserInfoTable = ({
@@ -13,9 +13,7 @@ const UserInfoTable = ({
   userDataGetBySearch,
   setReload,
 }) => {
-  const [rentData, setRentData] = useState([]); // Data fetched from the server
-  const [totalItems, setTotalItems] = useState(0); // Total number of items
-  const [currentPage, setCurrentPage] = useState(1); // Current page number
+  const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10;
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [userInfoData, setUserInfoData] = useState(null);
@@ -50,7 +48,7 @@ const UserInfoTable = ({
       name: item?.user.fullName,
       email: item?.user.email,
       contact: item?.user.phoneNumber,
-      joiningDate: item?.user.createdAt,
+      joiningDate: moment(item?.user.createdAt).format("lll"),
       trips: "$" + item?.totalTripAmount,
       userInfo: item.user,
     };

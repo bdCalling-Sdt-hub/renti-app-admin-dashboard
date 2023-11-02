@@ -34,7 +34,6 @@ const RentInformationTable = ({
   };
 
   const data = rents?.map((rent) => {
-    console.log(rent);
     return {
       key: rent._id,
       carModel: rent?.carId?.carModelName,

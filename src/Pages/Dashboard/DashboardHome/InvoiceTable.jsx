@@ -37,8 +37,8 @@ const InvoiceTable = ({ recentDataGetByPagination }) => {
       invoiceNo: item._id,
       time: item.createdAt,
       username: item.userId?.fullName,
-      method: item.paymentData.payment_method_details.card.brand,
-      amount: item.paymentData.amount,
+      method: item.paymentData?.payment_method_details?.card.brand,
+      amount: item.paymentData?.amount,
       status:
         item.paymentData.status == "succeeded" ? (
           <div

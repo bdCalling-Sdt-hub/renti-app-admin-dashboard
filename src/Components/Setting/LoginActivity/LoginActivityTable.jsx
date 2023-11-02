@@ -1,14 +1,13 @@
 import { Table, Typography } from "antd";
 import moment from "moment";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import axios from "../../../../Config";
 const { Title, Text } = Typography;
 
 const LoginActivityTable = ({ setReload }) => {
   const { loginActivity } = useSelector((state) => state.LoginActivity);
-  const dispatch = useDispatch();
 
   const token = localStorage.token;
 
@@ -32,9 +31,9 @@ const LoginActivityTable = ({ setReload }) => {
           })
           .then((res) => {
             if (res.data.statusCode === "201") {
+              console.log(res.data);
               Swal.fire("Successfully", "Device removed", "success");
-
-              window.location.reload();
+              setReload((p) => p + 1);
             }
           })
           .catch((err) => {
@@ -91,7 +90,7 @@ const LoginActivityTable = ({ setReload }) => {
 
   const style = {
     signOutBtn: {
-      background: "linear-gradient(#000b90ba, #f11330)",
+      background: "linear-gradient(#000b90ba, #0b90ba)",
       color: "#fff",
       borderRadius: "3px",
       padding: "7px 20px",

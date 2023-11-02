@@ -32,8 +32,8 @@ const PaymentListTable = ({ handleUserPaymentsPagination }) => {
     return {
       key: userPayment._id,
       tripNo: userPayment.rentTripNumbers,
-      time: moment(userPayment.time).format("YYYY-MM-DD"),
-      username: userPayment.carOwner?.fullName,
+      time: moment(userPayment.time).format("lll"),
+      username: userPayment.userInfo?.fullName,
       method: userPayment.method,
       amount: userPayment.amount,
       status: userPayment.status ? (
@@ -132,7 +132,7 @@ const PaymentListTable = ({ handleUserPaymentsPagination }) => {
         dataSource={data}
         pagination={{
           pageSize,
-          showSizeChanger: false,
+
           total: pagination?.totalDocuments,
           current: currentPage,
           onChange: handlePageChange,
@@ -144,11 +144,10 @@ const PaymentListTable = ({ handleUserPaymentsPagination }) => {
           <div>
             <Typography>
               <Title style={{ color: "#333333" }} level={5} strong>
-                Invoice# Trip No. -{userPaymentData?.rentTripNumbers}
+                Invoice# Trip No. - {userPaymentData?.tripNo}
               </Title>
               <p style={{ fontWeight: "normal", color: "gray" }}>
-                See all information about the trip no.{" "}
-                {userPaymentData?.rentTripNumbers}
+                See all information about the trip no. {userPaymentData?.tripNo}
               </p>
             </Typography>
           </div>

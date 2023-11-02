@@ -16,7 +16,6 @@ function Notification() {
   const pageSize = 6;
   const [currentPage, setCurrentPage] = useState(1);
 
-  console.log("fa", pagination.totalDocuments);
   let token = localStorage.getItem("token");
 
   const handlePagination = (page) => {
@@ -123,7 +122,10 @@ function Notification() {
                 </div>
                 <div className="">
                   <p
-                    style={{ fontWeight: item.viewStatus ? "normal" : "bold" }}
+                    style={{
+                      fontWeight: item.viewStatus ? "normal" : "bold",
+                      fontSize: item.viewStatus ? "10px" : "15px",
+                    }}
                   >
                     {item.message}
                   </p>
@@ -138,7 +140,7 @@ function Notification() {
       </Row>
       <Row style={{ marginTop: "20px", marginBottom: "30px" }}>
         <Col lg={{ span: 12 }}></Col>
-        <Col lg={{ span: 8, offset: 4 }}>
+        <Col lg={{ span: 12 }} style={{ textAlign: "right" }}>
           <Pagination
             pageSize={pageSize}
             current={currentPage}
