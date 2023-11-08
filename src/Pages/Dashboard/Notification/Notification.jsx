@@ -16,9 +16,10 @@ function Notification() {
     setIsModalOpen(false);
   };
 
-  const socketData = setupSocket();
 
-  console.log(socketData);
+  setupSocket();
+
+
 
   useEffect(() => {
     dispatch(Notifications());
