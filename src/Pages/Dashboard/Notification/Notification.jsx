@@ -31,7 +31,7 @@ function Notification() {
     setModalData(data);
     baseAxios
       .patch(
-        `/api/notifications/${data.id}`,
+        `/api/notifications/${data._id}`,
         {},
         {
           headers: {
