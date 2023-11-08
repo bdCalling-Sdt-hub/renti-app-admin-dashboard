@@ -23,47 +23,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
 import Swal from "sweetalert2";
-import rentiLogo from "../../Images/renti-logo.png";
+import rentiLogo from "../../Images/favLogo.png";
 import { Notifications } from "../../ReduxSlices/NotificationSlice";
 import { GoPeople } from "./../../../node_modules/react-icons/go/index.esm";
 import Styles from "./Dashboard.module.css";
 const { Header, Sider, Content } = Layout;
 const { SubMenu } = Menu;
 const { Option } = Select;
-
-const items = [...Array(5).keys()].map((item, index) => {
-  return {
-    key: index,
-    label: (
-      <Link to="/notification" style={{}} rel="noreferrer">
-        <div
-          className={Styles.everyNotify}
-          style={{ display: "flex", alignItems: "center" }}
-        >
-          <img
-            style={{
-              backgroundColor: "#d9cffb",
-              borderRadius: "100%",
-              padding: "5px",
-              marginRight: "15px",
-            }}
-            width="30"
-            height="30"
-            src="https://siffahim.github.io/MetaCGI-Tailwind/images/2.jpg"
-            alt="person-male--v2"
-          />
-          <div className="" style={{ marginTop: "" }}>
-            <p>
-              <span style={{ fontWeight: "bold" }}>Professor Sergio</span> start
-              a new trip at 5pm. Trip started from Mexico city.....
-            </p>
-            <span style={{ color: "#d2d2d2" }}>1 hr ago</span>
-          </div>
-        </div>
-      </Link>
-    ),
-  };
-});
 
 const Dashboard = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -76,13 +42,100 @@ const Dashboard = () => {
   const { notView, allNotification } = useSelector(
     (state) => state.NotificationData
   );
-  const [notificationsData, setNotificationsData] = useState();
   const {
     token: { colorBgContainer },
   } = theme.useToken();
   const [t, i18n] = useTranslation("global");
   const location = useLocation();
   const path = location.pathname;
+
+  const [notifications, setNotifications] = useState([]);
+
+  useEffect(() => {
+    // Connect to server using socket.io-client
+    var socket = io("http://192.168.10.14:9000");
+    socket.on("connect", () => {
+      // Emit events or listen for events here
+      socket.on("admin-notification", (data) => {
+        console.log(data.allNotification);
+        setNotifications(data);
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    const data = {
+      limit: 8,
+      page: 1,
+    };
+    dispatch(Notifications(data));
+  }, []);
+
+  console.log("Redux data", allNotification);
+
+  console.log("sokceat data", notifications);
+
+  const commonData = notifications?.allNotification
+    ? notifications
+    : allNotification;
+
+  console.log("common Data", commonData);
+
+  const items = commonData?.allNotification?.slice(0, 4).map((item, index) => {
+    function getTimeAgo(timestamp) {
+      const now = new Date();
+      const date = new Date(timestamp);
+
+      const secondsAgo = Math.floor((now - date) / 1000);
+      const minutesAgo = Math.floor(secondsAgo / 60);
+      const hoursAgo = Math.floor(minutesAgo / 60);
+      const daysAgo = Math.floor(hoursAgo / 24);
+      const yearsAgo = Math.floor(daysAgo / 365);
+
+      if (yearsAgo > 0) {
+        return yearsAgo === 1 ? "1 year ago" : `${yearsAgo} years ago`;
+      } else if (daysAgo > 0) {
+        return daysAgo === 1 ? "1 day ago" : `${daysAgo} days ago`;
+      } else if (hoursAgo > 0) {
+        return hoursAgo === 1 ? "1 hour ago" : `${hoursAgo} hours ago`;
+      } else if (minutesAgo > 0) {
+        return minutesAgo === 1 ? "1 minute ago" : `${minutesAgo} minutes ago`;
+      } else {
+        return "just now";
+      }
+    }
+
+    return {
+      key: index,
+      label: (
+        <Link to="/notification" rel="noreferrer">
+          <div
+            className={Styles.everyNotify}
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            <img
+              style={{
+                backgroundColor: "#d9cffb",
+                borderRadius: "100%",
+                padding: "5px",
+                marginRight: "15px",
+              }}
+              width="30"
+              height="30"
+              src={item.image}
+              alt="person-male--v2"
+            />
+            <div className="" style={{ marginTop: "" }}>
+              <p>{item.message}</p>
+              <span style={{ color: "#d2d2d2" }}>
+                {getTimeAgo(item.createdAt)}
+              </span>
+            </div>
+          </div>
+        </Link>
+      ),
+    };
+  });
 
   //profile
   let imgUrl;
@@ -97,18 +150,6 @@ const Dashboard = () => {
     imgUrl = "https://siffahim.github.io/MetaCGI-Tailwind/images/2.jpg";
   }
 
-  const handleLinkClick = (event, linkText) => {
-    event.preventDefault(); // Prevent the default link behavior (navigation)
-    console.log(`Clicked on link with text: ${linkText}`);
-  };
-
-  //socket
-  let socket = io("http://192.168.10.14:9000");
-  socket.on("admin-notification", (data) => {
-    console.log("Socket", data);
-    setNotificationsData(data);
-  });
-
   const handleSelectLanguage = (value) => {
     setSelectedLanguage(value);
     i18n.changeLanguage(selectedLanguage);
@@ -117,8 +158,32 @@ const Dashboard = () => {
 
   useEffect(() => {
     i18n.changeLanguage(selectedLanguage);
-    dispatch(Notifications());
   }, [selectedLanguage, i18n]);
+
+  const logoutAutoMate = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("yourInfo");
+    localStorage.removeItem("loginTime");
+
+    navigate("/signin");
+  };
+
+  const checkLogOutTime = () => {
+    const loginTime = localStorage.loginTime;
+
+    if (loginTime) {
+      const currentTime = new Date().getTime();
+      const timeDifference = currentTime - parseInt(loginTime);
+
+      let diff = Math.round(timeDifference / 60000);
+
+      if (diff > 1440) {
+        logoutAutoMate();
+      }
+    }
+  };
+
+  checkLogOutTime();
 
   const logout = () => {
     Swal.fire({
@@ -133,6 +198,7 @@ const Dashboard = () => {
       if (result.isConfirmed) {
         localStorage.removeItem("token");
         localStorage.removeItem("yourInfo");
+        localStorage.removeItem("loginTime");
 
         navigate("/signin");
       } else if (result.isDenied) {
@@ -322,9 +388,8 @@ const Dashboard = () => {
         >
           Notifications
         </h2>
-        {/* <span style={{ fontWeight: 'bold', color: '#000' }}>Notifications</span> */}
       </Menu.Item>
-      {items.map((item) => (
+      {items?.map((item) => (
         <Menu.Item key={item.key}>{item.label}</Menu.Item>
       ))}
       <div
@@ -362,12 +427,13 @@ const Dashboard = () => {
         trigger={null}
         collapsible
         collapsed={collapsed}
+        className="sidebar-menu"
         style={{
           overflow: "auto",
           position: "fixed",
           height: "100vh",
           zIndex: 2,
-          backgroundColor: "white",
+          backgroundColor: "#fff",
         }}
       >
         <div className="demo-logo-vertical" />
@@ -431,15 +497,15 @@ const Dashboard = () => {
             <Menu.Item key="35">
               <Link to="/host-payment">{t("payment.subTitle2")}</Link>
             </Menu.Item>
-            <Menu.Item key="36">
+            {/* <Menu.Item key="36">
               <Link to="/stripe-bills">{t("payment.subTitle3")}</Link>
-            </Menu.Item>
+            </Menu.Item> */}
             <Menu.Item key="37">
               <Link to="/renti-income">{t("payment.subTitle4")}</Link>
             </Menu.Item>
-            <Menu.Item key="38">
+            {/* <Menu.Item key="38">
               <Link to="/wallet">{t("payment.subTitle5")}</Link>
-            </Menu.Item>
+            </Menu.Item> */}
           </SubMenu>
           <Divider />
 
@@ -521,10 +587,10 @@ const Dashboard = () => {
           style={{
             position: "fixed",
             width: "100vw",
-            height: "80px",
+            height: "70px",
             zIndex: 1,
             padding: 0,
-            background: colorBgContainer,
+            background: "#fff",
             display: "flex",
             justifyContent: "space-between",
             paddingRight: "60px",
@@ -556,7 +622,7 @@ const Dashboard = () => {
             className={Styles.notificatonProfileSection}
             style={{ display: "flex", alignItems: "center", lineHeight: 0 }}
           >
-            <div className="" style={{ marginRight: "40px" }}>
+            <div className="" style={{ marginRight: "30px" }}>
               <Select
                 value={selectedLanguage}
                 style={{ width: 150 }}
@@ -583,41 +649,36 @@ const Dashboard = () => {
                 </Option>
               </Select>
             </div>
-            <div className={Styles.notificaton}>
-              <Dropdown
-                overlay={menu}
-                placement="bottomRight"
-                arrow={{
-                  pointAtCenter: true,
+
+            <Dropdown
+              overlay={menu}
+              placement="bottomRight"
+              arrow={{
+                pointAtCenter: true,
+              }}
+              trigger={["click"]}
+            >
+              <Button
+                type="text"
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  borderRadius: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
-                trigger={["click"]}
               >
-                <Button
-                  type="text"
-                  style={{
-                    width: "40px",
-                    height: "40px",
-                    borderRadius: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Badge
-                    count={
-                      notificationsData ? notificationsData.notViewed : notView
-                    }
+                <Badge count={commonData.notViewed} color="#000b90">
+                  <IoIosNotificationsOutline
+                    style={{ cursor: "pointer" }}
+                    fontSize={35}
                     color="#000b90"
-                  >
-                    <IoIosNotificationsOutline
-                      style={{ cursor: "pointer" }}
-                      fontSize={35}
-                      color="#000b90"
-                    />
-                  </Badge>
-                </Button>
-              </Dropdown>
-            </div>
+                  />
+                </Badge>
+              </Button>
+            </Dropdown>
+
             <div className={Styles.profile}>
               <Dropdown
                 menu={{
@@ -650,10 +711,11 @@ const Dashboard = () => {
             marginLeft: collapsed ? "130px" : "360px",
             marginRight: "60px",
             background: "#e6e7f4",
-
-            padding: 50,
+            padding: "0 50px",
+            paddingTop: "20px",
             minHeight: 280,
             overflow: "auto",
+            borderRadius: "5px",
           }}
         >
           <Outlet />

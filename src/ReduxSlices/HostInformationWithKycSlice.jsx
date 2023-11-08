@@ -17,7 +17,7 @@ export const HostInformationWithKycData = createAsyncThunk(
   async (value, thunkAPI) => {
     try {
       let response = await axios.get(
-        `/api/user/all-host?limit=2&page=${value.page}&search=${value.search}`,
+        `api/user/all-host?approve=${value?.approve}&isBanned=${value?.isBanned}&limit=${value?.limit}&page=${value?.page}&search=${value?.search}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -28,6 +28,12 @@ export const HostInformationWithKycData = createAsyncThunk(
 
       return response.data;
     } catch (error) {
+      if (
+        "You are not authorised to sign in now" === error.response.data.message
+      ) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("yourInfo");
+      }
       const message =
         (error.response &&
           error.response.data &&

@@ -17,7 +17,7 @@ function RentisIncome() {
     const data = {
       search: searchData,
       page: 1,
-      limit: 2,
+      limit: 10,
     };
     if (searchData === "") {
       dispatch(RentiIncomes(data));
@@ -28,7 +28,7 @@ function RentisIncome() {
     const data = {
       search: searchData,
       page: page,
-      limit: 2,
+      limit: 10,
     };
     if (!searchData) {
       dispatch(RentiIncomes(data));
@@ -39,7 +39,7 @@ function RentisIncome() {
     const data = {
       search: searchData,
       page: page,
-      limit: 2,
+      limit: 10,
     };
     if (searchData) {
       dispatch(RentiIncomes(data));

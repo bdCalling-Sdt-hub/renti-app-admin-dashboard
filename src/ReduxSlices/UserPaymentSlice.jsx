@@ -28,6 +28,12 @@ export const UserPayments = createAsyncThunk(
 
       return response.data;
     } catch (error) {
+      if (
+        "You are not authorised to sign in now" === error.response.data.message
+      ) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("yourInfo");
+      }
       const message =
         (error.response &&
           error.response.data &&
@@ -60,6 +66,7 @@ export const userPaymentSlice = createSlice({
       state.isLoading = true;
     },
     [UserPayments.fulfilled]: (state, action) => {
+      console.log(action.payload);
       state.isError = false;
       state.isSuccess = true;
       state.isLoading = false;

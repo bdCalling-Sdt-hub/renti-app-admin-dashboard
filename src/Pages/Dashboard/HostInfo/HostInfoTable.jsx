@@ -19,7 +19,7 @@ const HostInfoTable = ({
 }) => {
   const { hostsData, pagination } = useSelector((state) => state.hostsData);
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 2;
+  const pageSize = 10;
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [hostData, setHostData] = useState(null);
 
@@ -152,10 +152,10 @@ const HostInfoTable = ({
           <div>
             <Typography>
               <Title style={{ color: "#333333" }} level={5} strong>
-                Invoice# Trip No.{hostData?.tripNo}
+                Host Details
               </Title>
               <Text style={{ color: "gray" }}>
-                See all information about the trip no. 68656
+                See all information about the host
               </Text>
             </Typography>
           </div>
@@ -186,7 +186,13 @@ const HostInfoTable = ({
           </Space>
         }
       >
-        {hostData && <DrawerPage hostData={hostData} setReload={setReload} />}
+        {hostData && (
+          <DrawerPage
+            hostData={hostData}
+            setReload={setReload}
+            setIsDrawerVisible={setIsDrawerVisible}
+          />
+        )}
       </Drawer>
     </div>
   );

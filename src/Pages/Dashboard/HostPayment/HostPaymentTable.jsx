@@ -1,5 +1,6 @@
 import { CloseOutlined } from "@ant-design/icons";
 import { Button, Drawer, Space, Table, Typography } from "antd";
+import moment from "moment";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
@@ -11,10 +12,9 @@ const HostPaymentTable = ({
   hostPaymentDataGetByPagination,
   hostPaymentDataGetBySearch,
 }) => {
-  const [userInfoData, setUserInfoData] = useState([]); // Data fetched from the server
-  const [totalItems, setTotalItems] = useState(0); // Total number of items
-  const [currentPage, setCurrentPage] = useState(1); // Current page number
-  const pageSize = 3;
+  const [hostPaymentData, setHostPaymentData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
 
   const { hostPaymentList, pagination } = useSelector(
@@ -23,12 +23,12 @@ const HostPaymentTable = ({
 
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
-    setUserInfoData(record);
+    setHostPaymentData(record);
   };
 
   const closeDrawer = () => {
     setIsDrawerVisible(false);
-    setUserInfoData(null);
+    setHostPaymentData(null);
   };
 
   const handlePageChange = (page) => {
@@ -41,12 +41,39 @@ const HostPaymentTable = ({
     return {
       key: item._id,
       tripno: item.rentTripNumber,
-      time: item.time,
-      username: item.carOwner,
+      time: moment(item.time).format("lll"),
+      username: item.carOwner?.fullName,
       totalamount: item.originalAmount,
       paidamount: item.paidAmount,
-      status: item.status == false ? "Pending" : "Complete",
-      printView: "Button",
+      status:
+        item.status === "succeeded" ? (
+          <div
+            style={{
+              background: "#E6F6F4",
+              color: "#00A991",
+              padding: "5px",
+              fontSize: "11px",
+              borderRadius: "4px",
+              textAlign: "center",
+            }}
+          >
+            Completed
+          </div>
+        ) : (
+          <div
+            style={{
+              background: "#FBE9EC",
+              color: "#D7263D",
+              padding: "5px",
+              fontSize: "11px",
+              borderRadius: "4px",
+              textAlign: "center",
+            }}
+          >
+            Pending
+          </div>
+        ),
+      actions: item,
     };
   });
 
@@ -120,16 +147,16 @@ const HostPaymentTable = ({
         title={
           <div>
             <Typography>
-              <Title level={5} strong>
-                Invoice # trip no.- {userInfoData && userInfoData.tripno}
+              <Title style={{ color: "#333333" }} level={5} strong>
+                Invoice# Trip No. - {hostPaymentData?.tripno}
               </Title>
-              <Text>
-                See all information about the trip no. -{" "}
-                {userInfoData && userInfoData.tripno}
-              </Text>
+              <p style={{ fontWeight: "normal", color: "gray" }}>
+                See all information about the trip no. {hostPaymentData?.tripno}
+              </p>
             </Typography>
           </div>
         }
+        headerStyle={{ background: "#E6E7F4" }}
         placement="right"
         onClose={closeDrawer}
         open={isDrawerVisible}
@@ -141,10 +168,12 @@ const HostPaymentTable = ({
               style={{
                 borderRadius: "100%",
                 backgroundColor: "white",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
                 color: "red",
-                height: "50px",
-                width: "50px",
-                textAlign: "center",
+                height: "40px",
+                width: "40px",
               }}
               onClick={closeDrawer}
             >
@@ -153,7 +182,7 @@ const HostPaymentTable = ({
           </Space>
         }
       >
-        {userInfoData && <DrawerPage userInfoData={userInfoData} />}
+        {hostPaymentData && <DrawerPage hostPaymentData={hostPaymentData} />}
       </Drawer>
     </>
   );

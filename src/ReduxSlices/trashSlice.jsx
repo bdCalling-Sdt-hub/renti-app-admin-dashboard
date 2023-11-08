@@ -6,24 +6,35 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   message: "",
-  allUsers: [],
+  trashUsers: [],
   pagination: {},
 };
 const token = localStorage.token;
 
-export const AllUsers = createAsyncThunk(
-  "AllUsers",
+export const TrashUser = createAsyncThunk(
+  "TrashUser",
   async (value, thunkAPI) => {
     try {
-      const response = await axios.get(`api/user/all`, {
-        headers: {
-          "Content-type": "application/json",
-          authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(
+        `api/user/trash?limit=${value?.limit}&page=${value?.page}`,
+        {
+          headers: {
+            "Content-type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log(response.data);
 
       return response.data;
     } catch (error) {
+      if (
+        "You are not authorised to sign in now" === error.response.data.message
+      ) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("yourInfo");
+      }
       const message =
         (error.response &&
           error.response.data &&
@@ -37,8 +48,8 @@ export const AllUsers = createAsyncThunk(
 );
 
 //create slice for host
-export const allUserSlice = createSlice({
-  name: "allUser",
+export const TrashSlice = createSlice({
+  name: "trash",
   initialState,
   reducers: {
     reset: (state) => {
@@ -52,18 +63,18 @@ export const allUserSlice = createSlice({
   },
 
   extraReducers: {
-    [AllUsers.pending]: (state, action) => {
+    [TrashUser.pending]: (state, action) => {
       state.isLoading = true;
     },
-    [AllUsers.fulfilled]: (state, action) => {
+    [TrashUser.fulfilled]: (state, action) => {
       state.isError = false;
       state.isSuccess = true;
       state.isLoading = false;
       state.message = action.payload.message;
-      state.allUsers = action.payload.users;
+      state.trashUsers = action.payload.trashUsers;
       state.pagination = action.payload.pagination;
     },
-    [AllUsers.rejected]: (state, action) => {
+    [TrashUser.rejected]: (state, action) => {
       state.isError = true;
       state.isSuccess = false;
       state.isLoading = false;
@@ -72,6 +83,6 @@ export const allUserSlice = createSlice({
   },
 });
 
-export const {} = allUserSlice.actions;
+export const {} = TrashSlice.actions;
 
-export default allUserSlice.reducer;
+export default TrashSlice.reducer;

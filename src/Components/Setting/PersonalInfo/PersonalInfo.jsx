@@ -200,12 +200,6 @@ const PersonalInfo = () => {
                   </Upload>
                 </ImgCrop>
               </div>
-
-              <div>
-                <h2>{fullName}</h2>
-                <p>@{fullName}</p>
-                <p>INE: {ine}</p>
-              </div>
             </div>
           </div>
 

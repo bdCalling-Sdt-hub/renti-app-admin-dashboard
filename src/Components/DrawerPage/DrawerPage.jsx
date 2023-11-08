@@ -99,6 +99,7 @@ const DrawerPage = (props) => {
                 text: "User Block successfully",
               });
             }
+            props.setIsDrawerVisible(false);
             props?.setUserInfoReload((prev) => prev + 1);
           });
       } else {
@@ -114,7 +115,7 @@ const DrawerPage = (props) => {
       showCancelButton: true,
       confirmButtonColor: "#000B90",
       cancelButtonColor: "#d33333",
-      confirmButtonText: "Yes, Block",
+      confirmButtonText: "Yes, Delete",
     }).then((result) => {
       if (result.isConfirmed) {
         axios
@@ -134,6 +135,7 @@ const DrawerPage = (props) => {
                 icon: "success",
                 text: "User Delete successfully",
               });
+              props.setIsDrawerVisible(false);
               props?.setUserInfoReload((prev) => prev + 1);
             }
           });
@@ -169,10 +171,12 @@ const DrawerPage = (props) => {
             if (res.status === 200) {
               Swal.fire({
                 icon: "success",
-                text: "Successfully Host Blocked",
+                title: "Successfully",
+                text: "Host Blocked",
               });
+              props.setIsDrawerVisible(false);
+              props?.setReload((prev) => prev + 1);
             }
-            props?.setReload((prev) => prev + 1);
           });
       }
     });
@@ -203,8 +207,9 @@ const DrawerPage = (props) => {
           .then((res) => {
             if (res.status === 200) {
               Swal.fire("Move!", "Successfully moved Host", "success");
+              props.setIsDrawerVisible(false);
+              props?.setReload((prev) => prev + 1);
             }
-            props?.setReload((prev) => prev + 1);
           });
       }
     });
@@ -234,12 +239,17 @@ const DrawerPage = (props) => {
             <div style={{ marginTop: "-6px" }}>
               <p style={{ fontSize: "20px" }}>{props.userInfoData?.name}</p>
               <p>INE: {props.userInfoData?.userInfo?.ine}</p>
-              <p>Trip Completes: 5</p>
+              <p>
+                Trip Completes:{" "}
+                {props.userInfoData?.actions?.userInfo?.tripCompleted || 0}
+              </p>
               <div
                 style={{ display: "flex", alignItems: "center", gap: "2px" }}
               >
                 <AiFillStar color="#fba91d" />
-                <span>4.8</span>
+                <span>
+                  {props.userInfoData?.actions?.userInfo?.averageRatings || 0}
+                </span>
               </div>
             </div>
           </div>
@@ -267,7 +277,7 @@ const DrawerPage = (props) => {
                 readOnly
               />
             </Form.Item>
-            <Form.Item
+            {/* <Form.Item
               label="Driving License No."
               labelCol={{ span: 24 }}
               style={{ marginBottom: "0px" }}
@@ -277,7 +287,7 @@ const DrawerPage = (props) => {
                 defaultValue={"License"}
                 readOnly
               />
-            </Form.Item>
+            </Form.Item> */}
             <Form.Item
               label="Joining Date"
               labelCol={{ span: 24 }}
@@ -531,12 +541,17 @@ const DrawerPage = (props) => {
               <div style={{ marginTop: "-7px" }}>
                 <p style={{ fontSize: "20px" }}>{props.earningData.username}</p>
                 <p>INE: {props.earningData?.printView?.userId?.ine}</p>
-                <p>Trip Completes:{props.earningData.status.length}</p>
+                <p>
+                  Trip Completes:
+                  {props.earningData?.printView?.userId?.tripCompleted}
+                </p>
                 <div
                   style={{ display: "flex", alignItems: "center", gap: "2px" }}
                 >
                   <AiFillStar color="#fba91d" />
-                  <span>4.8</span>
+                  <span>
+                    {props.earningData?.printView?.userId?.averageRatings}
+                  </span>
                 </div>
               </div>
             </div>
@@ -607,7 +622,10 @@ const DrawerPage = (props) => {
                   </p>
 
                   <p>
-                    {props.earningData?.printView?.hostId?.address || "Address"}
+                    {props.earningData?.printView?.hostId?.address?.line1 +
+                      ", " +
+                      props.earningData?.printView?.hostId?.address?.city ||
+                      "Address"}
                   </p>
                   <p>
                     {props.earningData?.printView?.rentId?.totalHours ||
@@ -687,12 +705,18 @@ const DrawerPage = (props) => {
                 <p style={{ fontSize: "20px" }}>{props?.hostData?.name}</p>
               </div>
               <p>INC: {props?.hostData?.action?.host?.ine}</p>
-              <p>Trip Completed: 45</p>
+              <p>
+                Trip Completed:{" "}
+                {props.hostData?.actions?.host?.tripCompleted || 0}
+              </p>
               <div
                 style={{ display: "flex", alignItems: "center", gap: "2px" }}
               >
                 <AiFillStar color="#fba91d" />
-                <span>4.8</span>
+                <span>
+                  {" "}
+                  {props.hostData?.actions?.host?.averageRatings || 0}
+                </span>
               </div>
             </div>
           </div>
@@ -797,7 +821,7 @@ const DrawerPage = (props) => {
               <img
                 width={180}
                 style={{ borderRadius: "6px" }}
-                src={props.carDetails?.printView?.carLicenseImage}
+                src={props.carDetails?.printView?.image[0]}
                 alt=""
               />
             </div>
@@ -835,15 +859,27 @@ const DrawerPage = (props) => {
                   />
                 )}
               </div>
-              <p>License: {props.carDetails?.printView?.carLicenseNumber}</p>
-              <p>Car Model: {props.carDetails?.printView?.carModelName}</p>
-              <p>Gear Type: {props.carDetails?.printView?.gearType}</p>
-              <p>Color: {props.carDetails?.printView?.carColor}</p>
+              <p>
+                <span style={{ fontWeight: "bold" }}>License:</span>{" "}
+                {props.carDetails?.printView?.carLicenseNumber}
+              </p>
+              <p>
+                <span style={{ fontWeight: "bold" }}>Car Model:</span>{" "}
+                {props.carDetails?.printView?.carModelName}
+              </p>
+              <p>
+                <span style={{ fontWeight: "bold" }}>Gear Type:</span>{" "}
+                {props.carDetails?.printView?.gearType}
+              </p>
+              <p>
+                <span style={{ fontWeight: "bold" }}>Color:</span>{" "}
+                {props.carDetails?.printView?.carColor}
+              </p>
               <div
                 style={{ display: "flex", alignItems: "center", gap: "2px" }}
               >
                 <AiFillStar color="#fba91d" />
-                <span>4.8</span>
+                <span>{props.carDetails?.printView?.averageRatings | 0}</span>
               </div>
             </div>
           </div>
@@ -870,9 +906,7 @@ const DrawerPage = (props) => {
                 <p>{props.carDetails?.printView?.carSeats}</p>
                 <p>{props.carDetails?.printView?.totalRun}</p>
                 <p>
-                  {moment(props.carDetails?.printView?.createAt).format(
-                    "YYYY-MM-DD"
-                  )}
+                  {moment(props.carDetails?.printView?.createAt).format("lll")}
                 </p>
                 <p>56L</p>
                 <p>{props.carDetails?.printView?.hourlyRate}</p>
@@ -899,7 +933,7 @@ const DrawerPage = (props) => {
                 <p>{props.carDetails?.printView?.carOwner?.fullName}</p>
                 <p>{props.carDetails?.printView?.carOwner?.email}</p>
                 <p>{props.carDetails?.printView?.carOwner?.phoneNumber}</p>
-                <p>{props.carDetails?.printView?.carOwner?.address}</p>
+                <p>{props.carDetails?.printView?.carOwner?.address?.city}</p>
               </Col>
             </Row>
           </div>
@@ -932,6 +966,26 @@ const DrawerPage = (props) => {
           </div>
         </div>
       )}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       {props.rentInfoData && (
         <div>
           <div ref={componentRef}>
@@ -1066,7 +1120,7 @@ const DrawerPage = (props) => {
             <div
               style={{
                 margin: "15px 0",
-                borderBottom: "1px solid gray",
+
                 paddingBottom: "15px",
               }}
             >
@@ -1082,7 +1136,12 @@ const DrawerPage = (props) => {
                   <p>{props.rentInfoData?.actionData?.hostId?.fullName}</p>
                   <p>{props.rentInfoData?.actionData?.hostId?.email}</p>
                   <p>{props.rentInfoData?.actionData?.hostId?.phoneNumber}</p>
-                  <p>{props.rentInfoData?.actionData?.hostId?.address}</p>
+                  <p>
+                    {props.rentInfoData?.actionData?.hostId?.address?.line1 +
+                      ", " +
+                      props.rentInfoData?.actionData?.hostId?.address?.city ||
+                      "address not provided"}
+                  </p>
                 </Col>
               </Row>
             </div>
@@ -1125,7 +1184,7 @@ const DrawerPage = (props) => {
                 <img
                   width={120}
                   style={{ borderRadius: "5px" }}
-                  src={props.userPaymentData?.actions?.carOwner?.image}
+                  src={props.userPaymentData?.actions?.userInfo?.image}
                   alt=""
                 />
               </div>
@@ -1133,13 +1192,24 @@ const DrawerPage = (props) => {
                 <p style={{ fontSize: "20px" }}>
                   {props.userPaymentData?.username}
                 </p>
-                <p>INE: {props.userPaymentData?.actions?.carOwner?.ine}</p>
-                <p>Trip Completes: 45</p>
+                <p>
+                  INE:{" "}
+                  {props.userPaymentData?.actions?.userInfo?.ine ||
+                    "Ine number isn't provided"}
+                </p>
+                <p>
+                  Trip Completes:{" "}
+                  {props.userPaymentData?.actions?.userInfo?.tripCompleted || 0}
+                </p>
                 <div
                   style={{ display: "flex", alignItems: "center", gap: "2px" }}
                 >
                   <AiFillStar color="#fba91d" />
-                  <span>4.8</span>
+                  <span>
+                    {" "}
+                    {props.userPaymentData?.actions?.userInfo?.averageRatings ||
+                      0}
+                  </span>
                 </div>
               </div>
             </div>
@@ -1181,6 +1251,7 @@ const DrawerPage = (props) => {
                   <p>Total Rental Time</p>
                 </Col>
                 <Col span={12} style={{ textAlign: "right" }}>
+                 
                   <p>{props.userPaymentData?.actions?.car?.carModelName}</p>
                   <p>{props.userPaymentData?.actions?.car?.carColor}</p>
                   <p>{props.userPaymentData?.actions?.car?.carLicenseNumber}</p>
@@ -1189,7 +1260,11 @@ const DrawerPage = (props) => {
                   </p>
                   <p>{props.userPaymentData?.actions?.rentInfo?.hostId?.ine}</p>
                   <p>
-                    {props.userPaymentData?.actions?.rentInfo?.hostId?.address}
+                    {props.userPaymentData?.actions?.rentInfo?.hostId?.address
+                      ?.line1 +
+                      ", " +
+                      props.userPaymentData?.actions?.rentInfo?.hostId?.address
+                        ?.city}
                   </p>
                   <p>
                     {props.userPaymentData?.actions?.rentInfo?.totalHours} hours
@@ -1200,7 +1275,7 @@ const DrawerPage = (props) => {
             <div
               style={{
                 margin: "15px 0",
-                borderBottom: "1px solid gray",
+
                 paddingBottom: "15px",
               }}
             >
@@ -1217,6 +1292,170 @@ const DrawerPage = (props) => {
                   <p>{props.userPaymentData?.method}</p>
                   <p>{props.userPaymentData?.time}</p>
                   <p>{props.userPaymentData?.amount}</p>
+                </Col>
+              </Row>
+            </div>
+          </div>
+
+          <div
+            style={{
+              position: "absolute",
+              bottom: 10,
+              width: "92%",
+            }}
+          >
+            <Button
+              block
+              style={{
+                background: "#000B90",
+                color: "white",
+                height: 50,
+              }}
+              onClick={handlePrint}
+            >
+              Print/Download
+            </Button>
+          </div>
+        </div>
+      )}
+      {props.hostPaymentData && (
+        <div>
+          <div ref={componentRef}>
+            <div
+              style={{
+                display: "flex",
+                gap: "15px",
+                borderBottom: "1px solid gray",
+                paddingBottom: "10px",
+                marginBottom: "15px",
+              }}
+            >
+              <div>
+                <img
+                  width={120}
+                  style={{ borderRadius: "5px" }}
+                  src={props.hostPaymentData?.actions?.carOwner?.image}
+                  alt=""
+                />
+              </div>
+              <div style={{ marginTop: "-7px" }}>
+                <p style={{ fontSize: "20px" }}>
+                  {props.hostPaymentData?.username}
+                </p>
+                <p>INE: {props.hostPaymentData?.actions?.carOwner?.ine}</p>
+                <p>Total Cars: {props.hostPaymentData?.actions?.carTotal}</p>
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "2px" }}
+                >
+                  <AiFillStar color="#fba91d" />
+                  <span>
+                    {" "}
+                    {props.hostPaymentData?.actions?.carOwner?.averageRatings ||
+                      0}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <Title level={4}>
+                Payment Information{" "}
+                {props.hostPaymentData?.actions?.status === "succeeded" ? (
+                  <Badge
+                    className="site-badge-count-109"
+                    count={"Completed"}
+                    style={{
+                      background: "#E6F6F4",
+                      color: "#00A991",
+                      fontSize: "11px",
+                      borderRadius: "4px",
+                      textAlign: "center",
+                    }}
+                  />
+                ) : (
+                  <Badge
+                    className="site-badge-count-109"
+                    count={"Pending"}
+                    style={{
+                      background: "#FBE9EC",
+                      color: "#D7263D",
+                      fontSize: "11px",
+                      borderRadius: "4px",
+                      textAlign: "center",
+                    }}
+                  />
+                )}
+              </Title>
+            </div>
+            <div
+              style={{
+                margin: "15px 0",
+                borderBottom: "1px solid gray",
+                paddingBottom: "15px",
+              }}
+            >
+              <Row>
+                <Col span={12} style={{ textAlign: "left" }}>
+                  <p>Account Name</p>
+                  <p>Account Number</p>
+                  <p>Phone Number</p>
+                  <p>Payment Method</p>
+                  <p>Payment Date</p>
+                  <p>Total Amount(Including 25%)</p>
+                  <p>Paid Amount(Without 25%)</p>
+                </Col>
+                <Col span={12} style={{ textAlign: "right" }}>
+                  <p>Account Name</p>
+                  <p>Account Number</p>
+                  <p>{props.hostPaymentData?.actions?.carOwner.phoneNumber}</p>
+                  <p>{props.hostPaymentData?.actions?.method}</p>
+                  <p>
+                    {moment(props.hostPaymentData?.actions?.time).format(
+                      "DD-MM-YYYY"
+                    )}
+                  </p>
+                  <p>{props.hostPaymentData?.totalamount}</p>
+                  <p>{props.hostPaymentData?.paidamount}</p>
+                </Col>
+              </Row>
+            </div>
+            <div
+              style={{
+                margin: "15px 0",
+
+                paddingBottom: "15px",
+              }}
+            >
+              <Title level={4}>More Information</Title>
+              <Row>
+                <Col span={12} style={{ textAlign: "left" }}>
+                  {/* <p>Total Trips Completed</p>
+                  <p>Trip Cancel</p> */}
+                  <p>Week Start Date</p>
+                  <p>Week End Date</p>
+                  <p>Total Rental Time</p>
+                </Col>
+                <Col span={12} style={{ textAlign: "right" }}>
+                  {/* <p>
+                    {props.hostPaymentData?.actions?.carOwner?.tripCompleted ||
+                      0}
+                  </p>
+                  <p>Trip Cancel</p> */}
+
+                  <p>
+                    {moment(props.hostPaymentData?.actions?.startDate).format(
+                      "lll"
+                    )}
+                  </p>
+
+                  <p>
+                    {moment(props.hostPaymentData?.actions?.endDate).format(
+                      "lll"
+                    )}
+                  </p>
+                  <p>
+                    {props.hostPaymentData?.actions?.rentTotalHours +
+                      " Hours" || 0}
+                  </p>
                 </Col>
               </Row>
             </div>
@@ -1268,12 +1507,20 @@ const DrawerPage = (props) => {
                   {props.dashboardEarningData?.username}
                 </p>
                 <p>INE: {props.dashboardEarningData?.printView?.userId?.ine}</p>
-                <p>Trip Completes: 45</p>
+                <p>
+                  Trip Completes:{" "}
+                  {props.dashboardEarningData?.printView?.userId
+                    ?.tripCompleted || 0}
+                </p>
                 <div
                   style={{ display: "flex", alignItems: "center", gap: "2px" }}
                 >
                   <AiFillStar color="#fba91d" />
-                  <span>4.8</span>
+                  <span>
+                    {" "}
+                    {props.dashboardEarningData?.printView?.userId
+                      ?.averageRatings || 0}
+                  </span>
                 </div>
               </div>
             </div>
@@ -1352,8 +1599,11 @@ const DrawerPage = (props) => {
                       "INE:"}{" "}
                   </p>
                   <p>
-                    {" "}
-                    {props.dashboardEarningData?.printView?.hostId?.address}
+                    {props.dashboardEarningData?.printView?.hostId?.address
+                      ?.line1 +
+                      ", " +
+                      props.dashboardEarningData?.printView?.hostId?.address
+                        ?.city}
                   </p>
                   <p>
                     {props.dashboardEarningData?.printView?.rentId?.totalHours}{" "}
@@ -1365,7 +1615,6 @@ const DrawerPage = (props) => {
             <div
               style={{
                 margin: "15px 0",
-                borderBottom: "1px solid gray",
                 paddingBottom: "15px",
               }}
             >
@@ -1433,12 +1682,14 @@ const DrawerPage = (props) => {
             <div style={{ marginTop: "-7px" }}>
               <p style={{ fontSize: "20px" }}>{props.hostKycData?.name}</p>
               <p>INE: {props.hostKycData?.actions?.ine}</p>
-              <p>Trip Completes: 45</p>
+              <p>
+                Trip Completes: {props.hostKycData?.actions?.tripCompleted || 0}
+              </p>
               <div
                 style={{ display: "flex", alignItems: "center", gap: "2px" }}
               >
                 <AiFillStar color="#fba91d" />
-                <span>4.8</span>
+                <span> {props.hostKycData?.actions?.averageRatings || 0}</span>
               </div>
             </div>
           </div>
@@ -1467,7 +1718,7 @@ const DrawerPage = (props) => {
                 <p>{props.hostKycData?.contact}</p>
                 <p>{props.hostKycData?.actions?.gender}</p>
                 <p>{props.hostKycData?.actions?.dateOfBirth}</p>
-                <p>{props.hostKycData?.actions?.address}</p>
+                <p>{props.hostKycData?.actions?.address?.city}</p>
               </Col>
             </Row>
           </div>
@@ -1544,12 +1795,14 @@ const DrawerPage = (props) => {
             <div style={{ marginTop: "-7px" }}>
               <p style={{ fontSize: "20px" }}>{props.userKycData?.name}</p>
               <p>INE: {props.userKycData?.actions?.ine}</p>
-              <p>Trip Completes: 45</p>
+              <p>
+                Trip Completes: {props.userKycData?.actions?.tripCompleted || 0}
+              </p>
               <div
                 style={{ display: "flex", alignItems: "center", gap: "2px" }}
               >
                 <AiFillStar color="#fba91d" />
-                <span>4.8</span>
+                <span> {props.userKycData?.actions?.averageRatings || 0}</span>
               </div>
             </div>
           </div>
@@ -1653,7 +1906,39 @@ const DrawerPage = (props) => {
               />
             </div>
             <div style={{ marginTop: "-7px" }}>
-              <p style={{ fontSize: "20px" }}>{props.carKycData?.name}</p>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "10px" }}
+              >
+                {" "}
+                <p style={{ fontSize: "20px" }}>{props.carKycData?.name}</p>
+                {props.carKycData?.actions?.tripStatus === "Start" ? (
+                  <div
+                    style={{
+                      background: "#FBE9EC",
+                      color: "#D7263D",
+                      padding: "5px",
+                      fontSize: "11px",
+                      borderRadius: "4px",
+                      textAlign: "center",
+                    }}
+                  >
+                    Reserved
+                  </div>
+                ) : (
+                  <div
+                    style={{
+                      background: "#E6F6F4",
+                      color: "#00A991",
+                      padding: "5px",
+                      fontSize: "11px",
+                      borderRadius: "4px",
+                      textAlign: "center",
+                    }}
+                  >
+                    Active
+                  </div>
+                )}
+              </div>
               <p>
                 <span style={{ fontWeight: "bold" }}>License:</span>{" "}
                 {props.carKycData?.actions?.carLicenseNumber}
@@ -1764,12 +2049,19 @@ const DrawerPage = (props) => {
                   {props.rentiIncomeData?.actions?.carOwner?.fullName}
                 </p>
                 <p>INE: {props.rentiIncomeData?.actions?.carOwner?.ine}</p>
-                <p>Trip Completes: 45</p>
+                <p>
+                  Trip Completes:{" "}
+                  {props.rentiIncomeData?.actions?.carOwner?.tripCompleted || 0}
+                </p>
                 <div
                   style={{ display: "flex", alignItems: "center", gap: "2px" }}
                 >
                   <AiFillStar color="#fba91d" />
-                  <span>4.8</span>
+                  <span>
+                    {" "}
+                    {props.rentiIncomeData?.actions?.carOwner?.averageRatings ||
+                      0}
+                  </span>
                 </div>
               </div>
             </div>
@@ -1821,7 +2113,11 @@ const DrawerPage = (props) => {
                   </p>
                   <p>
                     {" "}
-                    {props.rentiIncomeData?.actions?.rentInfo?.hostId?.address}
+                    {props.rentiIncomeData?.actions?.rentInfo?.hostId?.address
+                      ?.line1 +
+                      ", " +
+                      props.rentiIncomeData?.actions?.rentInfo?.hostId?.address
+                        ?.city}
                   </p>
                   <p>
                     {props.rentiIncomeData?.actions?.rentInfo?.totalHours} Hours

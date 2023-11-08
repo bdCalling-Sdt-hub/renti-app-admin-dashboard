@@ -16,7 +16,7 @@ export const CarsData = createAsyncThunk(
   "CarsData",
   async (value, thunkAPI) => {
     try {
-      let response = await axios.get(`api/car/all?page=${value}&limit=2`, {
+      let response = await axios.get(`api/car/all?page=${value}&limit=10`, {
         headers: {
           "Content-type": "application/json",
           authorization: `Bearer ${token}`,
@@ -25,6 +25,12 @@ export const CarsData = createAsyncThunk(
 
       return response.data;
     } catch (error) {
+      if (
+        "You are not authorised to sign in now" === error.response.data.message
+      ) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("yourInfo");
+      }
       const message =
         (error.response &&
           error.response.data &&

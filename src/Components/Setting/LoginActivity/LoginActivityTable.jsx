@@ -3,17 +3,52 @@ import moment from "moment";
 import React from "react";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
+import axios from "../../../../Config";
 const { Title, Text } = Typography;
 
-const LoginActivityTable = () => {
+const LoginActivityTable = ({ setReload }) => {
   const { loginActivity } = useSelector((state) => state.LoginActivity);
+
+  const token = localStorage.token;
+
+  const handleSignOutDevice = (id) => {
+    Swal.fire({
+      title: "Are you sure!",
+      text: "",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#000B90",
+      cancelButtonColor: "#d33333",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`api/activities/${id}`, {
+            headers: {
+              "Content-type": "application/json",
+              authorization: `Bearer ${token}`,
+            },
+          })
+          .then((res) => {
+            if (res.data.statusCode === "201") {
+              console.log(res.data);
+              Swal.fire("Successfully", "Device removed", "success");
+              setReload((p) => p + 1);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    });
+  };
 
   const data = loginActivity.map((activity) => {
     return {
       browser: activity.browser,
-      device: activity.operatingSystem,
+      device: activity.operatingSystem.split(";")[0],
       time: moment(activity.createdAt).format("llll"),
-      actions: "Button",
+      actions: activity,
     };
   });
 
@@ -44,9 +79,9 @@ const LoginActivityTable = () => {
           <button
             type="text"
             style={style.signOutBtn}
-            onClick={handleSignOutDevice}
+            onClick={() => handleSignOutDevice(record.actions._id)}
           >
-            Sign Out
+            Remove
           </button>
         </div>
       ),
@@ -55,17 +90,13 @@ const LoginActivityTable = () => {
 
   const style = {
     signOutBtn: {
-      background: "#FBE9EC",
-      color: "#D7263D",
+      background: "linear-gradient(#000b90ba, #0b90ba)",
+      color: "#fff",
       borderRadius: "3px",
       padding: "7px 20px",
       border: 0,
       cursor: "pointer",
     },
-  };
-
-  const handleSignOutDevice = () => {
-    Swal.fire("", "Sign out successfully", "success");
   };
 
   return (

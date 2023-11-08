@@ -11,7 +11,7 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const { todayEarning, weeklyEarning, monthlyEarning, pagination } =
     useSelector((state) => state.RecentEarnings);
-  const pageSize = 3;
+  const pageSize = 10;
 
   //ok all things is done
   let today_data;

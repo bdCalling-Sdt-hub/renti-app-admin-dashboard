@@ -6,7 +6,6 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   allNotification: [],
-  notView: null,
   pagination: {},
 };
 const token = localStorage.token;
@@ -16,15 +15,25 @@ export const Notifications = createAsyncThunk(
   async (value, thunkAPI) => {
     console.log("reduxGrab", value);
     try {
-      const response = await axios.get(`api/notifications`, {
-        headers: {
-          "Content-type": "application/json",
-          authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(
+        `api/notifications?limit=${value.limit}&page=${value.page}`,
+        {
+          headers: {
+            "Content-type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
+      console.log(response.data);
       return response.data;
     } catch (error) {
+      if (
+        "You are not authorised to sign in now" === error.response.data.message
+      ) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("yourInfo");
+      }
       const message =
         (error.response &&
           error.response.data &&
@@ -48,7 +57,6 @@ export const NotificationsSlice = createSlice({
       state.isLoading = false;
       state.allNotification = [];
       state.pagination = {};
-      state.notView = null;
     },
   },
 
@@ -60,9 +68,8 @@ export const NotificationsSlice = createSlice({
       state.isError = false;
       state.isSuccess = true;
       state.isLoading = false;
-      state.allNotification = action.payload.data?.allNotification;
+      state.allNotification = action.payload.data;
       state.pagination = action.payload.data?.pagination;
-      state.notView = action.payload.data?.notViewed;
     },
     [Notifications.rejected]: (state, action) => {
       state.isError = true;

@@ -22,6 +22,8 @@ function DashboardHome() {
 
   const { rentStatus } = useSelector((state) => state.RentStatus);
 
+  console.log(rentStatus);
+
   const recentDataGetByPagination = (page) => {
     let data = {
       income: "all",
@@ -304,7 +306,7 @@ function DashboardHome() {
                   color: "gray",
                 }}
               >
-                  {rentStatus?.tripCompleted?.length}
+                {rentStatus?.tripCompleted?.length}
               </h3>
             </div>
           </div>

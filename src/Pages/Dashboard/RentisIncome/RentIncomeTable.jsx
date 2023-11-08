@@ -10,7 +10,7 @@ const { Title, Text } = Typography;
 
 const RentiIncomeTable = ({ handlePagination, handleRentiIncomeSearch }) => {
   const [currentPage, setCurrentPage] = useState(1); // Current page number
-  const pageSize = 2;
+  const pageSize = 10;
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [rentiIncomeData, setRentiIncomeData] = useState(null);
   const { rentiIncomeList, pagination } = useSelector(
@@ -117,9 +117,11 @@ const RentiIncomeTable = ({ handlePagination, handleRentiIncomeSearch }) => {
           <div>
             <Typography>
               <Title level={5} strong>
-                Invoice# Trip No.{rentiIncomeData?.invoiceNo}
+                Invoice# Trip No. - {rentiIncomeData?.tripNo}
               </Title>
-              <Text>See all information about the trip no. 68656</Text>
+              <Text>
+                See all information about the trip no {rentiIncomeData?.tripNo}
+              </Text>
             </Typography>
           </div>
         }

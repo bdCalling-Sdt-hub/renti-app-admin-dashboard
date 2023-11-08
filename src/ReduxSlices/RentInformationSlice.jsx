@@ -20,7 +20,7 @@ export const RentInformationData = createAsyncThunk(
   async (value, thunkAPI) => {
     try {
       let response = await axios.get(
-        `/api/rent/all/?limit=5&page=${value.page}&search=${value.search}`,
+        `/api/rent/all/?limit=10&page=${value.page}&search=${value.search}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -30,6 +30,12 @@ export const RentInformationData = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
+      if (
+        "You are not authorised to sign in now" === error.response.data.message
+      ) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("yourInfo");
+      }
       const message =
         (error.response &&
           error.response.data &&
