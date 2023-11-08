@@ -22,7 +22,7 @@ export default function IncomeRatioChart() {
           authorization: `Bearer ${token}`,
         },
       })
-      .then((res) =>{ setChartDatas(res.data.hourlyPaymentCounts)})
+      .then((res) =>{ setChartDatas(res.data.hourlyPaymentCounts);console.log(res.data)})
       .catch((err) => console.log(err));
   }, []);
 
