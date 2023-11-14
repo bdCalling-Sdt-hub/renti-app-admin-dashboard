@@ -19,17 +19,17 @@
   font-weight: bold;
 }
 
-:where(.css-dev-only-do-not-override-17a39f8).ant-table-wrapper
-  .ant-table-thead
-  > tr
-  > th,
-:where(.css-dev-only-do-not-override-17a39f8).ant-table-wrapper
-  .ant-table-thead
-  > tr
-  > td {
+.ant-table-wrapper .ant-table-thead > tr > th,
+.ant-table-wrapper .ant-table-thead > tr > td {
   background: #000b90;
   color: white;
   border: 0;
+}
+
+.ant-pagination-item-active {
+  background: #000b90 !important;
+  color: #fff !important;
+  border: 0 !important;
 }
 
 .ant-upload-list-item img {

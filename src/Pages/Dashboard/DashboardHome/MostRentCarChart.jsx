@@ -19,71 +19,43 @@ const MostRentCarChart = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  const data = allCar.map((car) => {
+  let cars = allCar.map((car) => {
     return {
-      type: car.carModelName,
-      value: 10,
+      carModelName: car.carModelName,
     };
   });
 
-  // let cars = allCar.map((car) => {
-  //   return {
-  //     carModelName: car.carModelName,
-  //   };
-  // });
+  // Create an object to store car model frequencies
+  let carModelFrequencies = {};
 
-  // // Create an object to store car model frequencies
-  // let carModelFrequencies = {};
+  // Count the occurrences of each car model
+  for (let car of cars) {
+    let modelName = car.carModelName;
+    if (carModelFrequencies[modelName]) {
+      carModelFrequencies[modelName]++;
+    } else {
+      carModelFrequencies[modelName] = 1;
+    }
+  }
 
-  // // Count the occurrences of each car model
-  // for (let car of cars) {
-  //   let modelName = car.carModelName;
-  //   if (carModelFrequencies[modelName]) {
-  //     carModelFrequencies[modelName]++;
-  //   } else {
-  //     carModelFrequencies[modelName] = 1;
-  //   }
-  // }
+  // Sort the car model frequencies in descending order
+  let sortedCarModelFrequencies = Object.entries(carModelFrequencies).sort(
+    (a, b) => b[1] - a[1]
+  );
 
-  // // Sort the car model frequencies in descending order
-  // let sortedCarModelFrequencies = Object.entries(carModelFrequencies).sort(
-  //   (a, b) => b[1] - a[1]
-  // );
+  // Get the top three most used car models
+  let topThreeCarModels = sortedCarModelFrequencies.slice(0, 5);
 
-  // // Get the top three most used car models
-  // let topThreeCarModels = sortedCarModelFrequencies.slice(0, 5);
+  const data = [];
 
-  // const data = [];
-
-  // for (let [carModel, frequency] of topThreeCarModels) {
-  //   let percentage = (frequency / cars.length) * 100;
-  //   data.push({
-  //     type: carModel,
-  //     value: percentage,
-  //   });
-  // }
-
-  // const config = {
-  //   appendPadding: 10,
-  //   data,
-  //   angleField: "value",
-  //   colorField: "type",
-  //   radius: 0.9,
-  //   label: {
-  //     type: "inner",
-  //     offset: "-30%",
-  //     content: ({ percent }) => `${(percent * 100).toFixed(0)}%`,
-  //     style: {
-  //       fontSize: 20,
-  //       textAlign: "center",
-  //     },
-  //   },
-  //   interactions: [
-  //     {
-  //       type: "element-active",
-  //     },
-  //   ],
-  // };
+  for (let [carModel, frequency] of topThreeCarModels) {
+    let percentage = (frequency / cars.length) * 100;
+    data.push({
+      name: carModel,
+      value: percentage,
+    });
+  }
+  console.log(data);
 
   const COLORS = [
     "#8884d8",
@@ -113,20 +85,24 @@ const MostRentCarChart = () => {
           <Pie
             width={600}
             height={200}
-            dataKey="value"
+            dataKey={data.value}
             startAngle={360}
             endAngle={0}
             data={data}
             cx="50%"
             cy="50%"
             outerRadius={80}
-            fill="#8884d8"
             label
-          />
-          {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-          ))}
-          <Legend nameKey="type" />
+          >
+            {data.map((entry, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={COLORS[index % COLORS.length]}
+              />
+            ))}
+          </Pie>
+
+          <Legend />
         </PieChart>
       </ResponsiveContainer>
     </div>

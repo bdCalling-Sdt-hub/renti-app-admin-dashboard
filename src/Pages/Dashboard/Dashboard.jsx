@@ -459,7 +459,7 @@ const Dashboard = () => {
         >
           <Menu.Item
             key="1"
-            icon={<RxDashboard style={{ fontSize: "14px" }} />}
+            icon={<RxDashboard style={{ fontSize: "18px" }} />}
           >
             <Link to="/" style={{ fontSize: "16px" }}>
               {t("dashboard")}
@@ -469,7 +469,7 @@ const Dashboard = () => {
           <SubMenu
             style={{ fontSize: "16px" }}
             key="2"
-            icon={<GiReceiveMoney style={{ fontSize: "14px" }} />}
+            icon={<GiReceiveMoney style={{ fontSize: "18px" }} />}
             title={t("earning.title")}
           >
             <Menu.Item key="31">
@@ -486,7 +486,7 @@ const Dashboard = () => {
           <SubMenu
             style={{ fontSize: "16px" }}
             key="3"
-            icon={<MdPayment style={{ fontSize: "14px" }} />}
+            icon={<MdPayment style={{ fontSize: "18px" }} />}
             title={t("payment.title")}
           >
             <Menu.Item key="34">
@@ -510,7 +510,7 @@ const Dashboard = () => {
           <SubMenu
             style={{ fontSize: "16px" }}
             key="4"
-            icon={<GoPeople style={{ fontSize: "14px" }} />}
+            icon={<GoPeople style={{ fontSize: "18px" }} />}
             title={t("hostInfo.title")}
           >
             <Menu.Item key="39">
@@ -523,7 +523,7 @@ const Dashboard = () => {
 
           <Menu.Item
             key="5"
-            icon={<MdPeopleOutline style={{ fontSize: "14px" }} />}
+            icon={<MdPeopleOutline style={{ fontSize: "18px" }} />}
           >
             <Link to="/user-information" style={{ fontSize: "16px" }}>
               {t("userInfo")}
@@ -532,14 +532,14 @@ const Dashboard = () => {
 
           <Menu.Item
             key="6"
-            icon={<MdCarRental style={{ fontSize: "14px" }} />}
+            icon={<MdCarRental style={{ fontSize: "18px" }} />}
           >
             <Link to="/rent-information" style={{ fontSize: "16px" }}>
               {t("rentInfo")}
             </Link>
           </Menu.Item>
 
-          <Menu.Item key="7" icon={<AiFillCar style={{ fontSize: "14px" }} />}>
+          <Menu.Item key="7" icon={<AiFillCar style={{ fontSize: "18px" }} />}>
             <Link to="/car-information" style={{ fontSize: "16px" }}>
               {t("carInfo")}
             </Link>
@@ -550,7 +550,7 @@ const Dashboard = () => {
           <SubMenu
             style={{ fontSize: "16px" }}
             key="8"
-            icon={<RiUserSearchLine style={{ fontSize: "14px" }} />}
+            icon={<RiUserSearchLine style={{ fontSize: "18px" }} />}
             title={t("kyc.title")}
           >
             <Menu.Item key="41">
@@ -569,7 +569,7 @@ const Dashboard = () => {
 
           <Menu.Item
             key="9"
-            icon={<AiFillSetting style={{ fontSize: "14px" }} />}
+            icon={<AiFillSetting style={{ fontSize: "18px" }} />}
           >
             <Link to="/setting" style={{ fontSize: "16px" }}>
               {t("setting.title")}
