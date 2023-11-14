@@ -318,18 +318,7 @@ function DashboardHome() {
           <DailyRentChart />
         </Col>
         <Col lg={{ span: 12 }}>
-          <div
-            className=""
-            style={{
-              border: "3px solid #000b90",
-              padding: "30px",
-              borderRadius: "15px",
-              backgroundColor: "#fff",
-            }}
-          >
-            <h2 style={{ color: "#000b90" }}>Most using car</h2>
-            <MostRentCarChart />
-          </div>
+          <MostRentCarChart />
         </Col>
       </Row>
 

@@ -39,7 +39,8 @@ const HostRequestCard = ({ cardData, setAutoReload }) => {
         if (res.status == 200) {
           Swal.fire({
             icon: "success",
-            text: res.data.message,
+            title: "Successfull",
+            text: `${fullName} approved`,
           });
           setAutoReload((prev) => prev + 1);
         }

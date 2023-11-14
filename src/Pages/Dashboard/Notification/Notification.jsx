@@ -153,23 +153,25 @@ function Notification() {
         open={isModalOpen}
         onCancel={handleCancel}
         footer={[]}
-        width={"60%"}
+        width={"50%"}
       >
         <div>
           <h2 style={{ marginBottom: "10px" }}>{modalData?.message}</h2>
 
           <div>
-          <img
-            style={{ borderRadius: "10px" }}
-            width="50%"
-            src={modalData?.image}
-            alt=""
-          />
+            <img
+              style={{
+                borderRadius: "10px",
+                width: "100%",
+                height: "450px",
+                objectFit: "cover",
+              }}
+              src={modalData?.image}
+              alt=""
+            />
 
-          <div className="">
-            
+            <div className=""></div>
           </div>
-            </div>
         </div>
       </Modal>
     </div>

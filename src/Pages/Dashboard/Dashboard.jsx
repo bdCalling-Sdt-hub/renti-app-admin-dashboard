@@ -48,8 +48,13 @@ const Dashboard = () => {
   const [t, i18n] = useTranslation("global");
   const location = useLocation();
   const path = location.pathname;
-
   const [notifications, setNotifications] = useState([]);
+  const notifyOnOffValue = useSelector(
+    (state) => state.NotifyOnOff?.notifyShow
+  );
+
+  const booleanValue =
+    notifyOnOffValue === "false" ? false : Boolean(notifyOnOffValue);
 
   useEffect(() => {
     // Connect to server using socket.io-client
@@ -71,15 +76,9 @@ const Dashboard = () => {
     dispatch(Notifications(data));
   }, []);
 
-  console.log("Redux data", allNotification);
-
-  console.log("sokceat data", notifications);
-
   const commonData = notifications?.allNotification
     ? notifications
     : allNotification;
-
-  console.log("common Data", commonData);
 
   const items = commonData?.allNotification?.slice(0, 4).map((item, index) => {
     function getTimeAgo(timestamp) {
@@ -647,34 +646,36 @@ const Dashboard = () => {
               </Select>
             </div>
 
-            <Dropdown
-              overlay={menu}
-              placement="bottomRight"
-              arrow={{
-                pointAtCenter: true,
-              }}
-              trigger={["click"]}
-            >
-              <Button
-                type="text"
-                style={{
-                  width: "40px",
-                  height: "40px",
-                  borderRadius: "100%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
+            {booleanValue && (
+              <Dropdown
+                overlay={menu}
+                placement="bottomRight"
+                arrow={{
+                  pointAtCenter: true,
                 }}
+                trigger={["click"]}
               >
-                <Badge count={commonData.notViewed} color="#000b90">
-                  <IoIosNotificationsOutline
-                    style={{ cursor: "pointer" }}
-                    fontSize={35}
-                    color="#000b90"
-                  />
-                </Badge>
-              </Button>
-            </Dropdown>
+                <Button
+                  type="text"
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Badge count={commonData.notViewed} color="#000b90">
+                    <IoIosNotificationsOutline
+                      style={{ cursor: "pointer" }}
+                      fontSize={35}
+                      color="#000b90"
+                    />
+                  </Badge>
+                </Button>
+              </Dropdown>
+            )}
 
             <div className={Styles.profile}>
               <Dropdown

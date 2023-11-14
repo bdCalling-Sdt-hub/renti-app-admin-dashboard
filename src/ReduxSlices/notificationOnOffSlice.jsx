@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  notifyShow: true,
+  notifyShow: localStorage.notifyShow,
 };
 
 const notificationOnOffSlice = createSlice({
@@ -9,7 +9,8 @@ const notificationOnOffSlice = createSlice({
   initialState,
   reducers: {
     notifyOnOff: (state, action) => {
-      state.notifyShow = action.payload;
+      state.notifyShow = action.payload.value;
+      localStorage.setItem("notifyShow", action.payload.value);
     },
   },
 });

@@ -743,7 +743,13 @@ const DrawerPage = (props) => {
               <Input
                 readOnly
                 style={{ height: "40px" }}
-                defaultValue={props?.hostData?.action?.host?.address}
+                defaultValue={
+                  props?.hostData?.action?.host?.address?.line1 +
+                  ", " +
+                  props?.hostData?.action?.host?.address?.city +
+                  ", " +
+                  props?.hostData?.action?.host?.address?.state
+                }
               />
             </div>
           </div>
@@ -756,7 +762,7 @@ const DrawerPage = (props) => {
                   readOnly
                   style={{ height: "40px" }}
                   defaultValue={
-                    props?.hostData?.action?.cards[0]?.bankAccountNumber
+                    props?.hostData?.action?.host?.bankInfo?.account_number
                   }
                 />
               </div>
@@ -766,7 +772,7 @@ const DrawerPage = (props) => {
                   readOnly
                   style={{ height: "40px" }}
                   defaultValue={
-                    props?.hostData?.action?.cards[0]?.accountHolderName
+                    props?.hostData?.action?.host?.bankInfo?.account_holder_name
                   }
                 />
               </div>
@@ -966,26 +972,6 @@ const DrawerPage = (props) => {
           </div>
         </div>
       )}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       {props.rentInfoData && (
         <div>
           <div ref={componentRef}>
@@ -1251,7 +1237,6 @@ const DrawerPage = (props) => {
                   <p>Total Rental Time</p>
                 </Col>
                 <Col span={12} style={{ textAlign: "right" }}>
-                 
                   <p>{props.userPaymentData?.actions?.car?.carModelName}</p>
                   <p>{props.userPaymentData?.actions?.car?.carColor}</p>
                   <p>{props.userPaymentData?.actions?.car?.carLicenseNumber}</p>

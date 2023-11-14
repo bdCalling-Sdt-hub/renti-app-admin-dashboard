@@ -43,6 +43,8 @@ const Setting = () => {
     setValue(e.target.value);
   };
 
+  console.log(localStorage.notifyShow);
+
   //select get value
   const handleSelectRadioValue = (e) => {
     setValue(e.target.value);
@@ -260,8 +262,7 @@ const Setting = () => {
   };
 
   const handleNotification = (e) => {
-    console.log(e);
-    dispatch(notifyOnOff({ payload: e }));
+    dispatch(notifyOnOff({ value: e }));
   };
 
   //set percentage
@@ -345,7 +346,13 @@ const Setting = () => {
             onChange={(e) => handleNotification(e)}
             checkedChildren="ON"
             unCheckedChildren="OFF"
-            defaultChecked
+            defaultChecked={
+              notifyOnOffValue === "true"
+                ? true
+                : notifyOnOffValue === "false"
+                ? false
+                : ""
+            }
             style={{ background: "#000B90" }}
           />
         </div>

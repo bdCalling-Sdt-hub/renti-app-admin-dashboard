@@ -20,10 +20,12 @@ export const RentStatusData = createAsyncThunk(
           authorization: `Bearer ${token}`,
         },
       });
+
+      console.log(response.data);
       return response.data;
     } catch (error) {
       if (
-        "You are not authorised to sign in now" === error.response.data.message
+        "You are not authorized to sign in now" === error.response.data.message
       ) {
         localStorage.removeItem("token");
         localStorage.removeItem("yourInfo");
