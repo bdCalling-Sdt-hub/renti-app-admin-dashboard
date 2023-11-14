@@ -933,7 +933,7 @@ const DrawerPage = (props) => {
                 <p>{props.carDetails?.printView?.carOwner?.fullName}</p>
                 <p>{props.carDetails?.printView?.carOwner?.email}</p>
                 <p>{props.carDetails?.printView?.carOwner?.phoneNumber}</p>
-                <p>{props.carDetails?.printView?.carOwner?.address}</p>
+                <p>{props.carDetails?.printView?.carOwner?.address?.city}</p>
               </Col>
             </Row>
           </div>
@@ -966,6 +966,26 @@ const DrawerPage = (props) => {
           </div>
         </div>
       )}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       {props.rentInfoData && (
         <div>
           <div ref={componentRef}>
@@ -1231,6 +1251,7 @@ const DrawerPage = (props) => {
                   <p>Total Rental Time</p>
                 </Col>
                 <Col span={12} style={{ textAlign: "right" }}>
+                 
                   <p>{props.userPaymentData?.actions?.car?.carModelName}</p>
                   <p>{props.userPaymentData?.actions?.car?.carColor}</p>
                   <p>{props.userPaymentData?.actions?.car?.carLicenseNumber}</p>
@@ -1697,7 +1718,7 @@ const DrawerPage = (props) => {
                 <p>{props.hostKycData?.contact}</p>
                 <p>{props.hostKycData?.actions?.gender}</p>
                 <p>{props.hostKycData?.actions?.dateOfBirth}</p>
-                <p>{props.hostKycData?.actions?.address}</p>
+                <p>{props.hostKycData?.actions?.address?.city}</p>
               </Col>
             </Row>
           </div>

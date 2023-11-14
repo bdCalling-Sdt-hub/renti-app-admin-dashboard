@@ -31,7 +31,7 @@ function Notification() {
     setModalData(data);
     baseAxios
       .patch(
-        `/api/notifications/${data.id}`,
+        `/api/notifications/${data._id}`,
         {},
         {
           headers: {
@@ -158,12 +158,18 @@ function Notification() {
         <div>
           <h2 style={{ marginBottom: "10px" }}>{modalData?.message}</h2>
 
+          <div>
           <img
             style={{ borderRadius: "10px" }}
-            width="100%"
+            width="50%"
             src={modalData?.image}
             alt=""
           />
+
+          <div className="">
+            
+          </div>
+            </div>
         </div>
       </Modal>
     </div>

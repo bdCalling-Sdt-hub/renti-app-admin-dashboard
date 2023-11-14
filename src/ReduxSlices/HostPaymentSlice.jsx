@@ -26,6 +26,7 @@ export const HostPaymentData = createAsyncThunk(
           },
         }
       );
+      console.log("host payments",response.data);
 
       return response.data;
     } catch (error) {

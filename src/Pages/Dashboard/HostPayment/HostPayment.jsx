@@ -21,6 +21,7 @@ function HostPayment() {
         },
       })
       .then((res) => {
+        console.log("sdkjfsd",res.data)
         setHostPayments(res.data);
       })
       .catch((err) => console.log(err));
