@@ -1,6 +1,6 @@
-import { CloseOutlined } from "@ant-design/icons";
 import { Button, Drawer, Space, Table, Typography } from "antd";
 import React, { useState } from "react";
+import { AiOutlineClose } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 import Print from "../../../icons/Print";
@@ -294,7 +294,7 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
               }}
               onClick={closeDrawer}
             >
-              <CloseOutlined />
+              <AiOutlineClose />
             </Button>
           </Space>
         }

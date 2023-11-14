@@ -1,5 +1,3 @@
-import { CloseOutlined } from "@ant-design/icons";
-import { Pie } from "@ant-design/plots";
 import {
   Button,
   Col,
@@ -12,6 +10,7 @@ import {
 } from "antd";
 import React, { useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
+import { PieChart, ResponsiveContainer } from "recharts";
 import WalletCard from "./WalletCard";
 const { Title, Text } = Typography;
 
@@ -191,7 +190,21 @@ const Wallet = () => {
               border: "2px solid #000B90",
             }}
           >
-            <Pie {...config} />
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart width={400} height={400}>
+                <Pie
+                  dataKey="value"
+                  startAngle={360}
+                  endAngle={0}
+                  data={data}
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={80}
+                  fill="#8884d8"
+                  label
+                />
+              </PieChart>
+            </ResponsiveContainer>
           </div>
         </Col>
       </Row>

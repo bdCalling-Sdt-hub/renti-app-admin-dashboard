@@ -1,6 +1,6 @@
-import { SearchOutlined } from "@ant-design/icons";
 import { Button, Col, Input, Progress, Row } from "antd";
 import React from "react";
+import { BiSearch } from "react-icons/bi";
 import "./StripeBills.css";
 
 import StripeBillsTable from "./StripeBillsTable";
@@ -22,7 +22,7 @@ function StripeBills() {
             <Input
               size="large"
               placeholder="Search by name/email/phone"
-              prefix={<SearchOutlined style={{ color: "#cccccc" }} />}
+              prefix={<BiSearch style={{ color: "#cccccc" }} />}
             />
             <Button
               style={{

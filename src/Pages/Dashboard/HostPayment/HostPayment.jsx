@@ -1,6 +1,6 @@
-import { SearchOutlined } from "@ant-design/icons";
 import { Button, Col, Input, Progress, Row } from "antd";
 import React, { useEffect, useState } from "react";
+import { BiSearch } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import axios from "../../../../Config";
 import { HostPaymentData } from "../../../ReduxSlices/HostPaymentSlice";
@@ -76,7 +76,7 @@ function HostPayment() {
               onChange={(e) => setSearchData(e.target.value)}
               size="large"
               placeholder="Search by name/email/phone/Trip no"
-              prefix={<SearchOutlined style={{ color: "#cccccc" }} />}
+              prefix={<BiSearch style={{ color: "#cccccc" }} />}
             />
             <Button
               onClick={hostPaymentDataGetBySearch}

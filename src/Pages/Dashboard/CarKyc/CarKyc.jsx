@@ -1,6 +1,6 @@
-import { SearchOutlined } from "@ant-design/icons";
 import { Button, Col, Input, Row } from "antd";
 import React, { useEffect, useState } from "react";
+import { BiSearch } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import { CarInformationWithKycData } from "../../../ReduxSlices/CarInformationWithKycSlice";
 import CarKycTable from "./CarKycTable";
@@ -63,7 +63,7 @@ function CarKyc() {
               value={searchData}
               size="large"
               placeholder="Search by name/email/phone"
-              prefix={<SearchOutlined style={{ color: "#cccccc" }} />}
+              prefix={<BiSearch style={{ color: "#cccccc" }} />}
             />
             <Button
               onClick={carDataGetBySearch}

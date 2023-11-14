@@ -1,6 +1,6 @@
-import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import React, { useEffect } from "react";
+import { AiFillLock, AiOutlineMail } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
@@ -80,7 +80,7 @@ const Signin = () => {
               ]}
             >
               <Input
-                prefix={<MailOutlined className="site-form-item-icon" />}
+                prefix={<AiOutlineMail className="site-form-item-icon" />}
                 placeholder="Enter your email address"
                 type="email"
                 className={style.input}
@@ -102,7 +102,7 @@ const Signin = () => {
               ]}
             >
               <Input
-                prefix={<LockOutlined className="site-form-item-icon" />}
+                prefix={<AiFillLock className="site-form-item-icon" />}
                 type="password"
                 placeholder="Enter your password"
                 className={style.input}

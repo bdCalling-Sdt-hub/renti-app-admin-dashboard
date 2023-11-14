@@ -1,10 +1,10 @@
-import { SearchOutlined } from "@ant-design/icons";
 import { Button, Input } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { HostsData } from "../../../ReduxSlices/HostsSlice";
 import HostInfoTable from "./HostInfoTable";
 //import axios from "../../../../Config";
+import { BiSearch } from "react-icons/bi";
 
 const HostInfo = () => {
   const dispatch = useDispatch();
@@ -63,7 +63,7 @@ const HostInfo = () => {
           style={{ height: "50px" }}
           size="large"
           placeholder="Search by name/email/phone"
-          prefix={<SearchOutlined style={{ color: "#cccccc" }} />}
+          prefix={<BiSearch style={{ color: "#cccccc" }} />}
         />
         <Button
           onClick={handleHostSearchData}

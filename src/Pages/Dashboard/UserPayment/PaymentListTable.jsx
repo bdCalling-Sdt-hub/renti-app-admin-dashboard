@@ -1,7 +1,7 @@
-import { CloseOutlined } from "@ant-design/icons";
 import { Button, Drawer, Space, Table, Typography } from "antd";
 import moment from "moment";
 import React, { useState } from "react";
+import { AiOutlineClose } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 import Print from "../../../icons/Print";
@@ -132,7 +132,6 @@ const PaymentListTable = ({ handleUserPaymentsPagination }) => {
         dataSource={data}
         pagination={{
           pageSize,
-
           total: pagination?.totalDocuments,
           current: currentPage,
           onChange: handlePageChange,
@@ -171,7 +170,7 @@ const PaymentListTable = ({ handleUserPaymentsPagination }) => {
               }}
               onClick={closeDrawer}
             >
-              <CloseOutlined />
+              <AiOutlineClose />
             </Button>
           </Space>
         }

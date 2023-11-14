@@ -1,6 +1,6 @@
-import { SearchOutlined } from "@ant-design/icons";
 import { Button, Col, Input, Row } from "antd";
 import React from "react";
+import { BiSearch } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 
 import { useEffect, useState } from "react";
@@ -62,7 +62,7 @@ function UserKyc() {
               value={searchData}
               size="large"
               placeholder="Search by name/email/phone"
-              prefix={<SearchOutlined style={{ color: "#cccccc" }} />}
+              prefix={<BiSearch style={{ color: "#cccccc" }} />}
             />
             <Button
               onClick={userDataGetBySearch}

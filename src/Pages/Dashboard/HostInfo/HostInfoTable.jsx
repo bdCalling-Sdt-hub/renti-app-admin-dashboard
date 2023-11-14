@@ -1,7 +1,7 @@
-import { CloseOutlined } from "@ant-design/icons";
 import { Button, Drawer, Space, Table, Typography } from "antd";
 import moment from "moment";
 import React, { useState } from "react";
+import { AiOutlineClose } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import axios from "../../../../Config";
@@ -181,7 +181,7 @@ const HostInfoTable = ({
               }}
               onClick={closeDrawer}
             >
-              <CloseOutlined />
+              <AiOutlineClose />
             </Button>
           </Space>
         }

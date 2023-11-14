@@ -1,6 +1,6 @@
-import { CloseOutlined } from "@ant-design/icons";
 import { Button, Drawer, Space, Table, Typography } from "antd";
 import React, { useState } from "react";
+import { AiOutlineClose } from "react-icons/ai";
 import { TbTrashOff } from "react-icons/tb";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
@@ -236,7 +236,7 @@ const CarKycTable = ({
               }}
               onClick={closeDrawer}
             >
-              <CloseOutlined />
+              <AiOutlineClose />
             </Button>
           </Space>
         }

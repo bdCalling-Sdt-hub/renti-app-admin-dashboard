@@ -1,13 +1,10 @@
-import { SearchOutlined } from "@ant-design/icons";
 import { Button, Col, Input, Row } from "antd";
-import React, { useEffect } from "react";
-
+import React, { useEffect, useState } from "react";
+import { BiSearch } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { RentInformationData } from "../../../ReduxSlices/RentInformationSlice";
 import "./RentInformation.css";
 import RentInformationTable from "./RentInformationTable";
-
-import { useState } from "react";
 
 function RentInformation() {
   const [searchData, setSearchData] = useState("");
@@ -68,7 +65,7 @@ function RentInformation() {
               onChange={(e) => setSearchData(e.target.value)}
               size="large"
               placeholder="Search by Trip no."
-              prefix={<SearchOutlined style={{ color: "#cccccc" }} />}
+              prefix={<BiSearch style={{ color: "#cccccc" }} />}
             />
             <Button
               onClick={rentDataGetBySearch}

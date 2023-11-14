@@ -1,6 +1,6 @@
-import { SearchOutlined } from "@ant-design/icons";
 import { Button, Col, Input, Pagination, Row, Typography } from "antd";
 import React, { useEffect, useState } from "react";
+import { BiSearch } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import HostRequestCard from "../../../Components/HostRequestCard/HostRequestCard";
 import { HostsData } from "../../../ReduxSlices/HostsSlice";
@@ -77,7 +77,7 @@ const HostRequest = () => {
           style={{ height: "50px" }}
           size="large"
           placeholder="Search by name/email/phone"
-          prefix={<SearchOutlined style={{ color: "#cccccc" }} />}
+          prefix={<BiSearch style={{ color: "#cccccc" }} />}
         />
         <Button
           onClick={handleSearch}

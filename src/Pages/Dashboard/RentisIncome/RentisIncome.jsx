@@ -1,11 +1,12 @@
-import { SearchOutlined } from "@ant-design/icons";
 import { Button, Col, Input, Row } from "antd";
 import React, { useEffect, useState } from "react";
+import { BiSearch } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { RentiIncomes } from "../../../ReduxSlices/RentiIncomeSlice";
 import IncomeRatioChart from "./IncomeRatioChart";
 import RentiIncomeTable from "./RentIncomeTable";
 import "./RentisIncome.css";
+
 function RentisIncome() {
   const dispatch = useDispatch();
   const [searchData, setSearchData] = useState("");
@@ -64,7 +65,7 @@ function RentisIncome() {
               size="large"
               placeholder="Search by Trip No"
               onChange={(e) => setSearchData(e.target.value)}
-              prefix={<SearchOutlined style={{ color: "#cccccc" }} />}
+              prefix={<BiSearch style={{ color: "#cccccc" }} />}
             />
             <Button
               onClick={handleRentiIncomeSearch}

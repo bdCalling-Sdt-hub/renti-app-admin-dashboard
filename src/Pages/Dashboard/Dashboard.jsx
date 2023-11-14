@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-import { CarOutlined, MenuOutlined, SettingOutlined } from "@ant-design/icons";
 import {
   Badge,
   Button,
@@ -12,6 +11,7 @@ import {
 } from "antd";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { AiFillCar, AiFillSetting, AiOutlineMenu } from "react-icons/ai";
 import { BiUser } from "react-icons/bi";
 import { GiReceiveMoney } from "react-icons/gi";
 import { IoIosNotificationsOutline } from "react-icons/io";
@@ -541,10 +541,7 @@ const Dashboard = () => {
             </Link>
           </Menu.Item>
 
-          <Menu.Item
-            key="7"
-            icon={<CarOutlined style={{ fontSize: "14px" }} />}
-          >
+          <Menu.Item key="7" icon={<AiFillCar style={{ fontSize: "14px" }} />}>
             <Link to="/car-information" style={{ fontSize: "16px" }}>
               {t("carInfo")}
             </Link>
@@ -574,7 +571,7 @@ const Dashboard = () => {
 
           <Menu.Item
             key="9"
-            icon={<SettingOutlined style={{ fontSize: "14px" }} />}
+            icon={<AiFillSetting style={{ fontSize: "14px" }} />}
           >
             <Link to="/setting" style={{ fontSize: "16px" }}>
               {t("setting.title")}
@@ -602,7 +599,7 @@ const Dashboard = () => {
           >
             <Button
               type="text"
-              icon={collapsed ? <MenuOutlined /> : <MenuOutlined />}
+              icon={collapsed ? <AiOutlineMenu /> : <AiOutlineMenu />}
               onClick={() => setCollapsed(!collapsed)}
               style={{
                 marginLeft: collapsed ? "125px" : "360px",

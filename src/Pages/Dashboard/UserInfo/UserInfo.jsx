@@ -1,9 +1,10 @@
-import { SearchOutlined } from "@ant-design/icons";
 import { Button, Input } from "antd";
 import React, { useEffect, useState } from "react";
+import { BiSearch } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import { UserInformationData } from "../../../ReduxSlices/UserInformationSlice";
 import UserInfoTable from "./UserInfoTable";
+
 function UserInfo() {
   const [searchData, setSearchData] = useState("");
   const [reload, setReload] = useState(1);
@@ -61,7 +62,7 @@ function UserInfo() {
           value={searchData}
           size="large"
           placeholder="Search by name/email/phone"
-          prefix={<SearchOutlined style={{ color: "#cccccc" }} />}
+          prefix={<BiSearch style={{ color: "#cccccc" }} />}
         />
         <Button
           onClick={userDataGetBySearch}
