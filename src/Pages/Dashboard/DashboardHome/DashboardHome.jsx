@@ -22,8 +22,6 @@ function DashboardHome() {
 
   const { rentStatus } = useSelector((state) => state.RentStatus);
 
-  console.log(rentStatus);
-
   const recentDataGetByPagination = (page) => {
     let data = {
       income: "all",
@@ -42,9 +40,9 @@ function DashboardHome() {
     dispatch(RentStatusData());
   }, []);
 
-  const onChange = (pageNumber) => {
-    console.log("Page: ", pageNumber);
-  };
+  // const onChange = (pageNumber) => {
+  //   console.log("Page: ", pageNumber);
+  // };
 
   return (
     <div>

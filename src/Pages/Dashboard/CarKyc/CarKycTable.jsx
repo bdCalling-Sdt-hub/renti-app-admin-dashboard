@@ -25,7 +25,6 @@ const CarKycTable = ({
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
     setCarKycData(record);
-    console.log(record);
   };
 
   const closeDrawer = () => {
@@ -64,7 +63,6 @@ const CarKycTable = ({
             }
           )
           .then((res) => {
-            console.log(res);
             if (res.data) {
               Swal.fire({
                 icon: "success",

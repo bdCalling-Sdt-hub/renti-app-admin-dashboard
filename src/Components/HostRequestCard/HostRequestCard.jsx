@@ -7,8 +7,6 @@ const HostRequestCard = ({ cardData, setAutoReload }) => {
   const { _id, fullName, email, phoneNumber, approved, isBanned, image } =
     cardData.host;
 
-  console.log(cardData.host);
-
   const style = {
     cardStyle: {
       background: "#E6E7F4",

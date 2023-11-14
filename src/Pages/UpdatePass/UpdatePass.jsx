@@ -24,7 +24,6 @@ const UpdatePass = () => {
         }
       )
       .then((res) => {
-        console.log(res);
         if (res.data.message) {
           Swal.fire("✅", "Successfully updated password", "success");
           navigate("/signin");

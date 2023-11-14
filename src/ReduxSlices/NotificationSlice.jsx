@@ -13,7 +13,6 @@ const token = localStorage.token;
 export const Notifications = createAsyncThunk(
   "Notifications",
   async (value, thunkAPI) => {
-    console.log("reduxGrab", value);
     try {
       const response = await axios.get(
         `api/notifications?limit=${value.limit}&page=${value.page}`,
@@ -25,7 +24,6 @@ export const Notifications = createAsyncThunk(
         }
       );
 
-      console.log(response.data);
       return response.data;
     } catch (error) {
       if (

@@ -13,8 +13,6 @@ const TrashDataTable = ({ setReload, trashPagination }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10;
 
-  console.log(pagination);
-
   const data = trashUsers.map((filterUser) => {
     return {
       name: filterUser.fullName,

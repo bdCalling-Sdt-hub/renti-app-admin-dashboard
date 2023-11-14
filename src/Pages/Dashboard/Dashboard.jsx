@@ -62,7 +62,6 @@ const Dashboard = () => {
     socket.on("connect", () => {
       // Emit events or listen for events here
       socket.on("admin-notification", (data) => {
-        console.log(data.allNotification);
         setNotifications(data);
       });
     });

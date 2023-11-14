@@ -36,14 +36,10 @@ const Setting = () => {
     (state) => state.NotifyOnOff?.notifyShow
   );
 
-  console.log(notifyOnOffValue);
-
   //manual writing get value
   const handleManualRadioValue = (e) => {
     setValue(e.target.value);
   };
-
-  console.log(localStorage.notifyShow);
 
   //select get value
   const handleSelectRadioValue = (e) => {

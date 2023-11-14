@@ -58,8 +58,6 @@ const HostRequest = () => {
     }
   }, [autoReload, searchData]);
 
-  console.log(pagination);
-
   const items = hostsData.filter(
     (hostRequest) => hostRequest.host.isBanned !== "trash"
   );

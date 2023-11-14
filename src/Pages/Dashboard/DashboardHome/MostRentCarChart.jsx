@@ -19,16 +19,12 @@ const MostRentCarChart = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  console.log(allCar);
-
   const data = allCar.map((car) => {
     return {
       type: car.carModelName,
       value: 10,
     };
   });
-
-  console.log(data);
 
   // let cars = allCar.map((car) => {
   //   return {

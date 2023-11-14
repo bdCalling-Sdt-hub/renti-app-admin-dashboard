@@ -16,8 +16,6 @@ const Earning = () => {
 
   const dispatch = useDispatch();
 
-  console.log(incomeData);
-
   useEffect(() => {
     let data = {
       income: incomeTime,

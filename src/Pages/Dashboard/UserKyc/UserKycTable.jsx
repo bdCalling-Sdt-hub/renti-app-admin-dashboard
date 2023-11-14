@@ -11,11 +11,8 @@ const UserKycTable = ({ userDataGetByPagination, userDataGetBySearch }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10;
   const { UserData, pagination } = useSelector((state) => state.UserInfoData);
-
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [userKycData, setUserKycData] = useState();
-
-  console.log(UserData);
 
   const showDrawer = (record) => {
     setIsDrawerVisible(true);

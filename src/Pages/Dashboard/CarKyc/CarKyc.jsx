@@ -29,7 +29,6 @@ function CarKyc() {
     };
     if (!searchData) {
       dispatch(CarInformationWithKycData(data));
-      console.log("without search");
     }
   };
 
@@ -40,7 +39,6 @@ function CarKyc() {
     };
     if (searchData) {
       dispatch(CarInformationWithKycData(data));
-      console.log("with search");
     }
   };
 

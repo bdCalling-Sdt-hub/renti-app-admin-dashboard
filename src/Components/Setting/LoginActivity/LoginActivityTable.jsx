@@ -31,7 +31,6 @@ const LoginActivityTable = ({ setReload }) => {
           })
           .then((res) => {
             if (res.data.statusCode === "201") {
-              console.log(res.data);
               Swal.fire("Successfully", "Device removed", "success");
               setReload((p) => p + 1);
             }

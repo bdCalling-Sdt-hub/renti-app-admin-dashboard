@@ -66,7 +66,6 @@ export const userPaymentSlice = createSlice({
       state.isLoading = true;
     },
     [UserPayments.fulfilled]: (state, action) => {
-      console.log(action.payload);
       state.isError = false;
       state.isSuccess = true;
       state.isLoading = false;

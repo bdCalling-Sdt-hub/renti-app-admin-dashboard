@@ -17,8 +17,6 @@ const CarInfoTable = ({ carDataByPagination }) => {
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [carDetailsData, setCarDetailsData] = useState(null);
 
-  console.log(cars);
-
   const showDrawer = (record) => {
     setIsDrawerVisible(true);
     setCarDetailsData(record);

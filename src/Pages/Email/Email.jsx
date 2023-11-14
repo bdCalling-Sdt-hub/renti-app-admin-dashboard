@@ -15,7 +15,6 @@ const Email = () => {
     axios
       .post("/api/user/forget-password", { email: email })
       .then((res) => {
-        console.log(res);
         if (res.data.message) {
           Swal.fire("✅", "Successfully Send OTP on your email", "success");
           navigate(`/forget-password/${values.email}`);
