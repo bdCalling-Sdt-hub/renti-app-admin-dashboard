@@ -17,6 +17,7 @@ import SigninReducer from "./ReduxSlices/SigninSlice";
 import UserInformationReducer from "./ReduxSlices/UserInformationSlice";
 import UserInformationWithKycReducer from "./ReduxSlices/UserInformationWithKycSlice";
 import UserPaymentReducer from "./ReduxSlices/UserPaymentSlice";
+import NotifyReducer from "./ReduxSlices/notificationOnOffSlice";
 import TrashReducer from "./ReduxSlices/trashSlice";
 
 export const Store = configureStore({
@@ -40,5 +41,6 @@ export const Store = configureStore({
     RentiIncomes: RentiIncomeReducer,
     HostPaymentData: HostPaymentReducer,
     NotificationData: NotificationsReducer,
+    NotifyOnOff: NotifyReducer,
   },
 });

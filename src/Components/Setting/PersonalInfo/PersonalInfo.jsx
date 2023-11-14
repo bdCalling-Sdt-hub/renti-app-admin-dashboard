@@ -11,7 +11,7 @@ const PersonalInfo = () => {
   const [profileEdit, setProfileEdit] = useState(false);
   const userFromLocalStorage = JSON.parse(localStorage.getItem("yourInfo"));
   const dispatch = useDispatch();
-  const { isSuccess, message, adminData } = useSelector(
+  const { isSuccess, message, adminData, isLoading } = useSelector(
     (state) => state.adminData
   );
   const [img, setImg] = useState();
@@ -40,8 +40,6 @@ const PersonalInfo = () => {
       url: image,
     },
   ]);
-
-  console.log(fileList);
 
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
@@ -262,23 +260,27 @@ const PersonalInfo = () => {
               <Input style={{ height: "45px" }} />
             </Form.Item>
 
-            <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="login-form-button"
-                block
-                style={{
-                  height: "45px",
-                  fontWeight: "400px",
-                  fontSize: "18px",
-                  background: "#000B90",
-                  marginTop: "60px",
-                }}
-              >
-                Save Changes
-              </Button>
-            </Form.Item>
+            {isLoading ? (
+              <p>Loading...</p>
+            ) : (
+              <Form.Item>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  className="login-form-button"
+                  block
+                  style={{
+                    height: "45px",
+                    fontWeight: "400px",
+                    fontSize: "18px",
+                    background: "#000B90",
+                    marginTop: "60px",
+                  }}
+                >
+                  Save Changes
+                </Button>
+              </Form.Item>
+            )}
           </Form>
         </>
       )}

@@ -10,9 +10,11 @@ import {
 } from "antd";
 import React, { useEffect, useState } from "react";
 import { LiaAngleRightSolid } from "react-icons/lia";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "../../../../Config";
+import { notifyOnOff } from "../../../ReduxSlices/notificationOnOffSlice";
 const { Paragraph, Title, Text } = Typography;
 
 const Setting = () => {
@@ -23,15 +25,18 @@ const Setting = () => {
   const [verify, setVerify] = useState(false);
   const [updatePassword, setUpdatePassword] = useState(false);
   const [form, form1, form2] = Form.useForm();
-
   const [firstInput, setFirstInput] = useState("");
   const [secondInput, setSecondInput] = useState("");
   const [thirdInput, setThirdInput] = useState("");
   const [fourthInput, setFourthInput] = useState("");
   const [value, setValue] = useState(1);
   const [percentageValue, setPercentageValue] = useState();
+  const dispatch = useDispatch();
+  const notifyOnOffValue = useSelector(
+    (state) => state.NotifyOnOff?.notifyShow
+  );
 
-  //set host payment time
+  console.log(notifyOnOffValue);
 
   //manual writing get value
   const handleManualRadioValue = (e) => {
@@ -256,6 +261,7 @@ const Setting = () => {
 
   const handleNotification = (e) => {
     console.log(e);
+    dispatch(notifyOnOff({ payload: e }));
   };
 
   //set percentage

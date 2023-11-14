@@ -1,6 +1,6 @@
 .signContainer {
   background: linear-gradient(#000a7385, #000a738e),
-    url("https://s3-alpha-sig.figma.com/img/b8c1/7945/8267e5119ace3dbb6e724ac46f9b17e1?Expires=1697414400&Signature=ewzwfC0mR0sEXlhBIXWC9TKrrv4mDfx~xjp6CN-bnqNYf1ahJSg0A2XhINyKmBBR~9Q1yDE6EL1LsfXVFaE8SLQDIHaHqlUFL2VhjGUROs62rEECMPdQSsiLWyEMmS~vmtGveyCQQFD1s2NlpMLnDVzWUuJWyu~2tPazvU~1WLRjRncZZBT68JB8wRvwIhvpNa4R~PwCP1pRbC0RyGYa5gZexCHUHw077M3VvopIE6umX0rCX58B9T3WsZWoN9mq39whC71VqO-t3pFdR04eiKTuO1zvPB6TJmgF16mjZhWBgQgQkAMbWBljOYl1Jlki5XWUqK-17lDe9QeVZ9OHHQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4");
+    url("../../Images/bg-sign.jpg");
   background-size: cover;
   backdrop-filter: blur(20);
   width: 100vw;
