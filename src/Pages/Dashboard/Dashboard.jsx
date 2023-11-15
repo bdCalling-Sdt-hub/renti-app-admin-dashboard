@@ -593,7 +593,7 @@ const Dashboard = () => {
         >
           <div
             className=""
-            style={{ display: "flex", alignItems: "center", gap: 1 }}
+            style={{ display: "flex", alignItems: "center", gap: "5px" }}
           >
             <Button
               type="text"
@@ -601,10 +601,8 @@ const Dashboard = () => {
               onClick={() => setCollapsed(!collapsed)}
               style={{
                 marginLeft: collapsed ? "125px" : "360px",
-                fontSize: "16px",
+                fontSize: "18px",
                 color: "#000B90",
-                width: 45,
-                height: 45,
               }}
             />
             {/* <h2>{t("header.title")}</h2> */}
