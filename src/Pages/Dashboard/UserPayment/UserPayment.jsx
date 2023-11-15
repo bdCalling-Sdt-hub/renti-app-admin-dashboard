@@ -11,7 +11,7 @@ function UserPayment() {
   const handleUserPaymentsPagination = (page) => {
     const data = {
       page: page,
-      limit: 2,
+      limit: 10,
     };
 
     dispatch(UserPayments(data));
@@ -20,12 +20,10 @@ function UserPayment() {
   useEffect(() => {
     const data = {
       page: 1,
-      limit: 2,
+      limit: 10,
     };
     dispatch(UserPayments(data));
   }, []);
-
- 
 
   return (
     <div style={{ padding: "0 60px" }}>

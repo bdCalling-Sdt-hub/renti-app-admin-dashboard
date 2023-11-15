@@ -100,7 +100,7 @@ const WalletCard = ({ data, cardBg }) => {
         </Col>
         <Col span={2}>
           <Dropdown
-            overlay={
+            menu={
               <div
                 style={{
                   background: "#fff",

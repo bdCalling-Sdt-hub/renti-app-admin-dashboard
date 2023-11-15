@@ -1,4 +1,14 @@
-import { Button, Col, DatePicker, Form, Image, Input, Row, Upload } from "antd";
+import {
+  Button,
+  Col,
+  DatePicker,
+  Form,
+  Image,
+  Input,
+  Row,
+  Spin,
+  Upload,
+} from "antd";
 import ImgCrop from "antd-img-crop";
 import moment from "moment";
 import React, { useState } from "react";
@@ -25,7 +35,7 @@ const PersonalInfo = () => {
     phoneNumber: phoneNumber,
     dateOfBirth: dateOfBirth ? moment(dateOfBirth) : null,
     address: address,
-    inc: ine,
+    ine: ine,
   };
 
   const handleChange = () => {
@@ -48,6 +58,8 @@ const PersonalInfo = () => {
 
   const handleProfileUpdate = (values) => {
     const formData = new FormData();
+
+    console.log(values.ine);
 
     formData.append("fullName", values.name);
     formData.append("address", values.address);
@@ -144,7 +156,7 @@ const PersonalInfo = () => {
 
             <Row gutter={15} style={{ marginBottom: "0px" }}>
               <Col span={12}>
-                <Form.Item name="inc" label="INE" labelCol={{ span: 24 }}>
+                <Form.Item name="ine" label="INE" labelCol={{ span: 24 }}>
                   <Input style={{ height: "45px" }} readOnly />
                 </Form.Item>
               </Col>
@@ -219,7 +231,7 @@ const PersonalInfo = () => {
             <Row gutter={15} style={{ marginBottom: "0px" }}>
               <Col span={12}>
                 <Form.Item name="email" label="Email" labelCol={{ span: 24 }}>
-                  <Input style={{ height: "45px" }} />
+                  <Input style={{ height: "45px" }} disabled />
                 </Form.Item>
               </Col>
 
@@ -236,7 +248,7 @@ const PersonalInfo = () => {
 
             <Row gutter={15} style={{ marginBottom: "0px" }}>
               <Col span={12}>
-                <Form.Item name="inc" label="INE" labelCol={{ span: 24 }}>
+                <Form.Item name="ine" label="INE" labelCol={{ span: 24 }}>
                   <Input style={{ height: "45px" }} />
                 </Form.Item>
               </Col>
@@ -261,7 +273,7 @@ const PersonalInfo = () => {
             </Form.Item>
 
             {isLoading ? (
-              <p>Loading...</p>
+              <Spin />
             ) : (
               <Form.Item>
                 <Button

@@ -68,6 +68,7 @@ export const adminSlice = createSlice({
       state.isLoading = true;
     },
     [AdminData.fulfilled]: (state, action) => {
+      console.log(action.payload.user);
       state.isError = false;
       state.isSuccess = true;
       state.isLoading = false;

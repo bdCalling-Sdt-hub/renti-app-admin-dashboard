@@ -14,6 +14,7 @@ const token = localStorage.token;
 
 export default function IncomeRatioChart() {
   const [chartDatas, setChartDatas] = useState();
+
   useEffect(() => {
     axios
       .get("api/income/hourly-renti-payment", {
@@ -31,7 +32,7 @@ export default function IncomeRatioChart() {
   const data = chartDatas?.map((chartData) => {
     return {
       time: chartData.hour,
-      CountOfPeople: chartData.userPaymentCounts,
+      CountOfPeople: chartData.userPaymentCounts.length,
     };
   });
 
