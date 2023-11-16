@@ -8,9 +8,9 @@ import { GrHistory } from "react-icons/gr";
 import { MdCarRental } from "react-icons/md";
 import { SlRefresh } from "react-icons/sl";
 import { useDispatch, useSelector } from "react-redux";
+import DailyRentChart from "./DailyRentChart";
 import InvoiceTable from "./InvoiceTable";
 import MostRentCarChart from "./MostRentCarChart";
-import DailyRentChart from "./dailyRentChart";
 
 import { IncomeData } from "../../../ReduxSlices/IncomeGetSlice";
 import { RecentEarningsData } from "../../../ReduxSlices/RecentEarningsSlice";

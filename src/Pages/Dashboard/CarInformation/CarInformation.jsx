@@ -2,8 +2,8 @@ import { Col, Row } from "antd";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CarsData } from "../../../ReduxSlices/CarsSlice";
+import "./CarInformation.css";
 import CarInfoTable from "./CarinfoTable";
-import "./Carinformation.css";
 
 function CarInformation() {
   const dispatch = useDispatch();

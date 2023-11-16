@@ -1,32 +1,31 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import NotFound from "./404";
 import "./App.css";
+import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
+import CarInformation from "./Pages/Dashboard/CarInformation/CarInformation";
+import CarKyc from "./Pages/Dashboard/CarKyc/CarKyc";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import DashboardHome from "./Pages/Dashboard/DashboardHome/DashboardHome";
 import Earning from "./Pages/Dashboard/Earning/Earning";
 import HostInfo from "./Pages/Dashboard/HostInfo/HostInfo";
 import HostRequest from "./Pages/Dashboard/HostInfo/HostRequest";
-import KycForm from "./Pages/Dashboard/Kyc/KycForm";
+import HostKyc from "./Pages/Dashboard/HostKyc/HostKyc";
+import HostPayment from "./Pages/Dashboard/HostPayment/HostPayment";
+import KycForm from "./Pages/Dashboard/KYC/KycForm";
 import Notification from "./Pages/Dashboard/Notification/Notification";
 import RentInformation from "./Pages/Dashboard/RentInformation/RentInformation";
+import RentisIncome from "./Pages/Dashboard/RentisIncome/RentisIncome";
+import Setting from "./Pages/Dashboard/Setting/Setting";
+import SettingPage from "./Pages/Dashboard/Setting/SettingPage/SettingPage";
+import StripeBills from "./Pages/Dashboard/StripeBills/StripeBills";
 import UserInfo from "./Pages/Dashboard/UserInfo/UserInfo";
+import UserKyc from "./Pages/Dashboard/UserKyc/UserKyc";
+import UserPayment from "./Pages/Dashboard/UserPayment/UserPayment";
 import Wallet from "./Pages/Dashboard/Wallet/Wallet";
 import Email from "./Pages/Email/Email";
 import Otp from "./Pages/Otp/Otp";
 import Signin from "./Pages/Signin/Signin";
 import UpdatePass from "./Pages/UpdatePass/UpdatePass";
-
-import NotFound from "./404";
-import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
-import CarInformation from "./Pages/Dashboard/CarInformation/CarInformation";
-import CarKyc from "./Pages/Dashboard/CarKyc/CarKyc";
-import HostKyc from "./Pages/Dashboard/HostKyc/HostKyc";
-import HostPayment from "./Pages/Dashboard/HostPayment/HostPayment";
-import RentisIncome from "./Pages/Dashboard/RentisIncome/RentisIncome";
-import Setting from "./Pages/Dashboard/Setting/Setting";
-import SettingPage from "./Pages/Dashboard/Setting/SettingPage/SettingPage";
-import StripeBills from "./Pages/Dashboard/StripeBills/StripeBills";
-import UserKyc from "./Pages/Dashboard/UserKyc/UserKyc";
-import UserPayment from "./Pages/Dashboard/UserPayment/UserPayment";
 
 function App() {
   return (
