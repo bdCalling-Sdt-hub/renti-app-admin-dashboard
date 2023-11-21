@@ -3,9 +3,11 @@ import { LiaAngleLeftSolid } from "react-icons/lia";
 import { Link, useParams } from "react-router-dom";
 import About from "../../../../Components/Setting/About/About";
 import BlockList from "../../../../Components/Setting/BlockList/BlockList";
+import HowRentiWork from "../../../../Components/Setting/HowRentiWork/HowRentiWork";
 import LoginActivity from "../../../../Components/Setting/LoginActivity/LoginActivity";
 import PersonalInfo from "../../../../Components/Setting/PersonalInfo/PersonalInfo";
 import PrivacyPolicy from "../../../../Components/Setting/PrivacyPolicy/PrivacyPolicy";
+import Support from "../../../../Components/Setting/Support/Support";
 import TermsAndCondition from "../../../../Components/Setting/TermsAndCondition/TermsAndCondition";
 import Trash from "../../../../Components/Setting/Trash/Trash";
 
@@ -32,6 +34,8 @@ const SettingPage = () => {
   const textSplit = params.dynamic.split("-");
   const text = textSplit.join(" ");
 
+  console.log(text);
+
   return (
     <>
       <Link to="/setting" style={style.btn}>
@@ -46,6 +50,8 @@ const SettingPage = () => {
         {text === "privacy policy" && <PrivacyPolicy />}
         {text === "terms condition" && <TermsAndCondition />}
         {text === "about us" && <About />}
+        {text === "support" && <Support />}
+        {text === "how renti work" && <HowRentiWork />}
       </div>
     </>
   );

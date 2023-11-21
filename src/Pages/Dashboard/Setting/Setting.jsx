@@ -194,6 +194,16 @@ const Setting = () => {
       title: "About Us",
       link: "about-us",
     },
+    {
+      key: "11",
+      title: "How Renti Work",
+      link: "how-renti-work",
+    },
+    {
+      key: "12",
+      title: "Support",
+      link: "support",
+    },
   ];
 
   const [err, setErr] = useState("");
