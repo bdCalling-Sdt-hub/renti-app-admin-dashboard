@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  notifyShow: localStorage.notifyShow,
+  notifyShow: localStorage.notifyShow || true,
 };
 
 const notificationOnOffSlice = createSlice({

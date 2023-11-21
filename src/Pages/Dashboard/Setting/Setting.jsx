@@ -36,6 +36,16 @@ const Setting = () => {
     (state) => state.NotifyOnOff?.notifyShow
   );
 
+  console.log("real", notifyOnOffValue);
+  const defaultNotificationValue =
+    notifyOnOffValue === "true"
+      ? true
+      : notifyOnOffValue === "false"
+      ? false
+      : "" || notifyOnOffValue;
+
+  console.log("make", defaultNotificationValue);
+
   //manual writing get value
   const handleManualRadioValue = (e) => {
     setValue(e.target.value);
@@ -347,7 +357,7 @@ const Setting = () => {
                 ? true
                 : notifyOnOffValue === "false"
                 ? false
-                : ""
+                : "" || notifyOnOffValue
             }
             style={{ background: "#000B90" }}
           />

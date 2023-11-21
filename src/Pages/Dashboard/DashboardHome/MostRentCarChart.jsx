@@ -49,7 +49,7 @@ const MostRentCarChart = () => {
   const data = [];
 
   for (let [carModel, frequency] of topThreeCarModels) {
-    let percentage = (frequency / cars.length) * 100;
+    let percentage = Math.ceil((frequency / cars.length) * 100);
     data.push({
       name: carModel,
       value: percentage,
