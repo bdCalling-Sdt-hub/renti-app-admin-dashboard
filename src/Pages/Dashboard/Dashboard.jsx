@@ -58,7 +58,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     // Connect to server using socket.io-client
-    var socket = io("http://104.131.72.121:9000");
+    var socket = io("http://159.65.25.16:9000");
     socket.on("connect", () => {
       // Emit events or listen for events here
       socket.on("admin-notification", (data) => {

@@ -102,6 +102,7 @@ function Notification() {
         {commonData?.allNotification?.map((item) => {
           return (
             <Col
+              key={item}
               className="notification"
               lg={{ span: 24 }}
               style={{
