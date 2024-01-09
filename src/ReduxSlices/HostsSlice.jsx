@@ -83,6 +83,4 @@ export const hostDataSlice = createSlice({
   },
 });
 
-export const {} = hostDataSlice.actions;
-
 export default hostDataSlice.reducer;
