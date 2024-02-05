@@ -13,9 +13,17 @@
     "subTitle3": "Car KYC",
     "subTitle4": "Form KYC"
   },
-  "carInfo": "Car Information",
   "rentInfo": "Rent Information",
-  "userInfo": "User Information",
+  "userInfo": {
+    "title": "User Information",
+    "subTitle1": "All User",
+    "subTitle2": "User Request"
+  },
+  "carInfo": {
+    "title": "Car Information",
+    "subTitle1": "All Car",
+    "subTitle2": "Car Request"
+  },
   "hostInfo": {
     "title": "Host Information",
     "subTitle1": "All Host",

@@ -13,12 +13,22 @@ function CarInformation() {
   const { activeCar, totalCar, reservedCar, cars } = carData;
 
   const carDataByPagination = (page) => {
-    dispatch(CarsData(page));
+    const value = {
+      isCarActive: "Active",
+      page: page,
+      limit: 10,
+    };
+    dispatch(CarsData(value));
   };
 
   useEffect(() => {
-    dispatch(CarsData(1));
-  }, []);
+    const value = {
+      page: 1,
+      limit: 10,
+      isCarActive: "Active",
+    };
+    dispatch(CarsData(value));
+  }, [dispatch]);
 
   return (
     <div style={{ padding: "0 60px" }}>

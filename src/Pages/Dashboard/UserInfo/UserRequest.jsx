@@ -2,41 +2,47 @@ import { Button, Col, Input, Pagination, Row, Typography } from "antd";
 import React, { useEffect, useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
-import HostRequestCard from "../../../Components/Card/HostRequestCard";
-import { HostsData } from "../../../ReduxSlices/HostsSlice";
+import UserRequestCard from "../../../Components/Card/UserRequestCard";
+import { UserInformationData } from "../../../ReduxSlices/UserInformationSlice";
 
 const { Text } = Typography;
 
-const HostRequest = () => {
-  const { hostsData, pagination } = useSelector((state) => state.hostsData);
+const UserRequest = () => {
+  const { userInfoWithTripAmount, pagination } = useSelector(
+    (state) => state.UserInformationData
+  );
   const dispatch = useDispatch();
   const [autoReload, setAutoReload] = useState(1);
   const [searchData, setSearchData] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 6;
 
+  console.log(pagination);
+
   const handleSearch = (page) => {
     const data = {
       approve: "false",
+      isBanned: "false",
       page: page,
       search: searchData,
       limit: 6,
     };
     if (searchData !== "") {
-      dispatch(HostsData(data));
+      dispatch(UserInformationData(data));
     }
   };
 
   const handlePagination = (page) => {
     const data = {
       approve: "false",
+      isBanned: "false",
       page: page,
       search: searchData,
       limit: 6,
     };
 
     if (searchData === "") {
-      dispatch(HostsData(data));
+      dispatch(UserInformationData(data));
     }
   };
 
@@ -49,18 +55,15 @@ const HostRequest = () => {
   useEffect(() => {
     const data = {
       approve: "false",
+      isBanned: "false",
       page: 1,
       search: "",
       limit: 6,
     };
     if (searchData === "") {
-      dispatch(HostsData(data));
+      dispatch(UserInformationData(data));
     }
-  }, [autoReload, searchData]);
-
-  const items = hostsData.filter(
-    (hostRequest) => hostRequest.host.isBanned !== "trash"
-  );
+  }, [autoReload, searchData, dispatch]);
 
   return (
     <div style={{ padding: "0px 60px" }}>
@@ -98,15 +101,15 @@ const HostRequest = () => {
           fontWeight: "normal",
         }}
       >
-        Host request
+        User request
       </h2>
       <div
         style={{ background: "white", padding: "30px", borderRadius: "10px" }}
       >
         {
           <Row gutter={[16, 16]}>
-            {items?.map((item) => (
-              <HostRequestCard
+            {userInfoWithTripAmount?.map((item) => (
+              <UserRequestCard
                 key={item._id}
                 cardData={item}
                 setAutoReload={setAutoReload}
@@ -121,7 +124,7 @@ const HostRequest = () => {
               pageSize={pageSize}
               current={currentPage}
               onChange={onChangePage}
-              total={pagination?.totalHosts}
+              total={pagination?.totalUsers}
             />
           </Col>
         </Row>
@@ -130,4 +133,4 @@ const HostRequest = () => {
   );
 };
 
-export default HostRequest;
+export default UserRequest;

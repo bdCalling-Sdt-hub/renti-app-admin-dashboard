@@ -15,14 +15,19 @@ const token = localStorage.token;
 export const CarsData = createAsyncThunk(
   "CarsData",
   async (value, thunkAPI) => {
+    console.log(value);
     try {
-      let response = await axios.get(`api/car/all?page=${value}&limit=10`, {
-        headers: {
-          "Content-type": "application/json",
-          authorization: `Bearer ${token}`,
-        },
-      });
+      let response = await axios.get(
+        `/api/car/all-req?isCarActive=${value.isCarActive}&page=${value.page}&limit=${value.limit}`,
+        {
+          headers: {
+            "Content-type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
+      console.log("response", response.data);
       return response.data;
     } catch (error) {
       if (

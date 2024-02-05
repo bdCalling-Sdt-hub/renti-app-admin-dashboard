@@ -13,6 +13,8 @@ function UserInfo() {
 
   useEffect(() => {
     let data = {
+      approve: "true",
+      isBanned: "false",
       search: searchData,
       page: 1,
       limit: 10,
@@ -20,10 +22,12 @@ function UserInfo() {
     if (searchData === "") {
       dispatch(UserInformationData(data));
     }
-  }, [searchData, reload]);
+  }, [searchData, reload, dispatch]);
 
   const userDataGetByPagination = (page) => {
     let data = {
+      approve: "true",
+      isBanned: "false",
       search: searchData,
       page: page,
       limit: 10,
@@ -35,6 +39,8 @@ function UserInfo() {
 
   const userDataGetBySearch = (page) => {
     let data = {
+      approve: "true",
+      isBanned: "false",
       search: searchData,
       page: page,
       limit: 10,

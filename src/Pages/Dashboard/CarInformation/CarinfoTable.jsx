@@ -11,11 +11,11 @@ const { Title, Text } = Typography;
 const CarInfoTable = ({ carDataByPagination }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10;
-
   const { cars, pagination } = useSelector((state) => state.carsData.carsData);
-
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [carDetailsData, setCarDetailsData] = useState(null);
+
+  console.log("car activeoi", cars);
 
   const showDrawer = (record) => {
     setIsDrawerVisible(true);

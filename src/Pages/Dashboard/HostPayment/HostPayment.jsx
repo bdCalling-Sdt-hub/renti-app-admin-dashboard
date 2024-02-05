@@ -11,6 +11,8 @@ function HostPayment() {
   const [hostPayments, setHostPayments] = useState({});
   const dispatch = useDispatch();
 
+  console.log(hostPayments?.income?.hostTotalPayment);
+
   useEffect(() => {
     let token = localStorage.getItem("token");
 
@@ -133,7 +135,10 @@ function HostPayment() {
                   color: "#00a991",
                 }}
               >
-                ${Math.round(hostPayments?.income?.hostTotalPayment)}
+                $
+                {hostPayments?.income?.hostTotalPayment
+                  ? Math.round(hostPayments?.income?.hostTotalPayment)
+                  : 0}
               </h3>
             </div>
           </div>

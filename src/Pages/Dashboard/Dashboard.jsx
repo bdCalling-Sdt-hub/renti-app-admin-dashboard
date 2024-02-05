@@ -15,7 +15,7 @@ import { AiFillCar, AiFillSetting, AiOutlineMenu } from "react-icons/ai";
 import { BiUser } from "react-icons/bi";
 import { GiReceiveMoney } from "react-icons/gi";
 import { IoIosNotificationsOutline } from "react-icons/io";
-import { MdCarRental, MdPayment, MdPeopleOutline } from "react-icons/md";
+import { MdCarRental, MdPayment } from "react-icons/md";
 import { PiSignOutThin } from "react-icons/pi";
 import { RiUserSearchLine } from "react-icons/ri";
 import { RxDashboard } from "react-icons/rx";
@@ -290,11 +290,19 @@ const Dashboard = () => {
       title: "User Information",
     },
     {
+      path: "/user-request",
+      title: "User Information",
+    },
+    {
       path: "/rent-information",
       title: "Rent Information",
     },
     {
       path: "/car-information",
+      title: "Car Information",
+    },
+    {
+      path: "/car-request",
       title: "Car Information",
     },
     {
@@ -521,14 +529,21 @@ const Dashboard = () => {
             </Menu.Item>
           </SubMenu>
 
-          <Menu.Item
+          <SubMenu
+            style={{ fontSize: "16px" }}
             key="5"
-            icon={<MdPeopleOutline style={{ fontSize: "18px" }} />}
+            icon={<GoPeople style={{ fontSize: "18px" }} />}
+            title={t("userInfo.title")}
           >
-            <Link to="/user-information" style={{ fontSize: "16px" }}>
-              {t("userInfo")}
-            </Link>
-          </Menu.Item>
+            <Menu.Item key="47">
+              <Link to="/user-information" style={{ fontSize: "16px" }}>
+                {t("userInfo.subTitle1")}
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="48">
+              <Link to="/user-request">{t("userInfo.subTitle2")}</Link>
+            </Menu.Item>
+          </SubMenu>
 
           <Menu.Item
             key="6"
@@ -539,11 +554,21 @@ const Dashboard = () => {
             </Link>
           </Menu.Item>
 
-          <Menu.Item key="7" icon={<AiFillCar style={{ fontSize: "18px" }} />}>
-            <Link to="/car-information" style={{ fontSize: "16px" }}>
-              {t("carInfo")}
-            </Link>
-          </Menu.Item>
+          <SubMenu
+            style={{ fontSize: "16px" }}
+            key="7"
+            icon={<AiFillCar style={{ fontSize: "18px" }} />}
+            title={t("carInfo.title")}
+          >
+            <Menu.Item key="45">
+              <Link to="/car-information" style={{ fontSize: "16px" }}>
+                {t("carInfo.subTitle1")}
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="46">
+              <Link to="/car-request">{t("carInfo.subTitle2")}</Link>
+            </Menu.Item>
+          </SubMenu>
 
           <Divider />
 
@@ -701,13 +726,12 @@ const Dashboard = () => {
         </Header>
         <Content
           style={{
-            marginTop: "120px",
-            marginBottom: "50px",
+            marginTop: "90px",
+            marginBottom: "20px",
             marginLeft: collapsed ? "130px" : "360px",
             marginRight: "60px",
             background: "#e6e7f4",
-            padding: "0 50px",
-            paddingTop: "20px",
+            padding: "10px 50px",
             minHeight: 280,
             overflow: "auto",
             borderRadius: "5px",

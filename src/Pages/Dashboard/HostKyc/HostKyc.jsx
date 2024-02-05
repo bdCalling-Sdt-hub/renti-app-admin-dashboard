@@ -13,7 +13,7 @@ function HostKyc() {
 
   useEffect(() => {
     let data = {
-      approve: "true",
+      // approve: "true",
       isBanned: "false",
       search: searchData,
       page: 1,
@@ -26,7 +26,7 @@ function HostKyc() {
 
   const hostDataGetByPagination = (page) => {
     let data = {
-      approve: "true",
+      // approve: "true",
       isBanned: "false",
       search: searchData,
       page: page,
@@ -39,7 +39,7 @@ function HostKyc() {
 
   const hostDataGetBySearch = (page) => {
     let data = {
-      approve: "true",
+      // approve: "true",
       isBanned: "false",
       search: searchData,
       page: page,

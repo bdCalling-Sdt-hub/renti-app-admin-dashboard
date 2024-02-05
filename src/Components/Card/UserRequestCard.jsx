@@ -3,9 +3,9 @@ import React from "react";
 import Swal from "sweetalert2";
 import axios from "../../../Config";
 
-const HostRequestCard = ({ cardData, setAutoReload }) => {
+const UserRequestCard = ({ cardData, setAutoReload }) => {
   const { _id, fullName, email, phoneNumber, approved, isBanned, image } =
-    cardData.host;
+    cardData.user;
 
   const style = {
     cardStyle: {
@@ -24,7 +24,7 @@ const HostRequestCard = ({ cardData, setAutoReload }) => {
   const handleApprove = () => {
     axios
       .post(
-        `api/user/approve/${_id}`,
+        `/api/user/approve-user/${_id}`,
         { approved: true },
         {
           headers: {
@@ -76,10 +76,10 @@ const HostRequestCard = ({ cardData, setAutoReload }) => {
           src={image}
           alt=""
         />
-        <h2 style={{ color: "#000B90", marginBottom: "5px" }}>{fullName}</h2>
+        <h2 style={{ color: "#000B90", marginTop: "20px" }}>{fullName}</h2>
         <p>{email}</p>
-        <p style={{ margin: "8px 0" }}>{phoneNumber}</p>
-        <div>
+        <p>{phoneNumber}</p>
+        <div style={{ marginTop: "20px" }}>
           <Button
             className={style.cardBtn}
             onClick={handleCancel}
@@ -103,4 +103,4 @@ const HostRequestCard = ({ cardData, setAutoReload }) => {
   );
 };
 
-export default HostRequestCard;
+export default UserRequestCard;

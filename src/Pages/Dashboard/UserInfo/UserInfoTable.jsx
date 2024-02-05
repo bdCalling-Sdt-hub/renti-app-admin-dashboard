@@ -7,6 +7,7 @@ import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 import Eye from "../../../icons/Eye";
 import Print from "../../../icons/Print";
 const { Title, Text } = Typography;
+
 const UserInfoTable = ({
   userDataGetByPagination,
   userDataGetBySearch,
@@ -20,6 +21,8 @@ const UserInfoTable = ({
   const { userInfoWithTripAmount, pagination } = useSelector(
     (state) => state.UserInformationData
   );
+
+  console.log(pagination);
 
   const showDrawer = (record) => {
     setIsDrawerVisible(true);

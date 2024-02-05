@@ -1,70 +1,61 @@
-import { Button, Col, Input, Pagination, Row, Typography } from "antd";
+import { Col, Pagination, Row, Typography } from "antd";
 import React, { useEffect, useState } from "react";
-import { BiSearch } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
-import HostRequestCard from "../../../Components/Card/HostRequestCard";
-import { HostsData } from "../../../ReduxSlices/HostsSlice";
+import CarRequestCard from "../../../Components/Card/CarRequestCard";
+import { CarsData } from "../../../ReduxSlices/CarsSlice";
 
 const { Text } = Typography;
 
-const HostRequest = () => {
-  const { hostsData, pagination } = useSelector((state) => state.hostsData);
+const CarRequest = () => {
+  const carData = useSelector((state) => state.carsData.carsData);
+  const { cars, pagination } = carData;
   const dispatch = useDispatch();
   const [autoReload, setAutoReload] = useState(1);
   const [searchData, setSearchData] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 6;
 
-  const handleSearch = (page) => {
-    const data = {
-      approve: "false",
-      page: page,
-      search: searchData,
-      limit: 6,
-    };
-    if (searchData !== "") {
-      dispatch(HostsData(data));
-    }
-  };
+  console.log(pagination);
+
+  // const handleSearch = (page) => {
+  //   const data = {
+  //     approve: "false",
+  //     page: page,
+  //     search: searchData,
+  //     limit: 6,
+  //   };
+  //   if (searchData !== "") {
+  //     dispatch(HostsData(data));
+  //   }
+  // };
 
   const handlePagination = (page) => {
-    const data = {
-      approve: "false",
+    const value = {
       page: page,
-      search: searchData,
       limit: 6,
+      isCarActive: "Pending",
     };
-
-    if (searchData === "") {
-      dispatch(HostsData(data));
-    }
+    dispatch(CarsData(value));
   };
 
   const onChangePage = (page) => {
     setCurrentPage(page);
     handlePagination(page);
-    handleSearch(page);
+    // handleSearch(page);
   };
 
   useEffect(() => {
-    const data = {
-      approve: "false",
+    const value = {
       page: 1,
-      search: "",
       limit: 6,
+      isCarActive: "Pending",
     };
-    if (searchData === "") {
-      dispatch(HostsData(data));
-    }
-  }, [autoReload, searchData]);
-
-  const items = hostsData.filter(
-    (hostRequest) => hostRequest.host.isBanned !== "trash"
-  );
+    dispatch(CarsData(value));
+  }, [autoReload, searchData, dispatch]);
 
   return (
     <div style={{ padding: "0px 60px" }}>
-      <Text
+      {/* <Text
         style={{ fontSize: "25px", marginBottom: "10px", fontWeight: "normal" }}
       >
         Search
@@ -74,7 +65,7 @@ const HostRequest = () => {
           onChange={(e) => setSearchData(e.target.value)}
           style={{ height: "50px" }}
           size="large"
-          placeholder="Search by name/email/phone"
+          placeholder="Search by name"
           prefix={<BiSearch style={{ color: "#cccccc" }} />}
         />
         <Button
@@ -88,7 +79,7 @@ const HostRequest = () => {
         >
           Search
         </Button>
-      </div>
+      </div> */}
 
       <h2
         style={{
@@ -98,17 +89,17 @@ const HostRequest = () => {
           fontWeight: "normal",
         }}
       >
-        Host request
+        Car request
       </h2>
       <div
         style={{ background: "white", padding: "30px", borderRadius: "10px" }}
       >
         {
           <Row gutter={[16, 16]}>
-            {items?.map((item) => (
-              <HostRequestCard
+            {cars?.map((item) => (
+              <CarRequestCard
                 key={item._id}
-                cardData={item}
+                data={item}
                 setAutoReload={setAutoReload}
               />
             ))}
@@ -121,7 +112,7 @@ const HostRequest = () => {
               pageSize={pageSize}
               current={currentPage}
               onChange={onChangePage}
-              total={pagination?.totalHosts}
+              total={pagination?.totalDocuments}
             />
           </Col>
         </Row>
@@ -130,4 +121,4 @@ const HostRequest = () => {
   );
 };
 
-export default HostRequest;
+export default CarRequest;

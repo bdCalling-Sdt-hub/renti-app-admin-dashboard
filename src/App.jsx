@@ -3,6 +3,7 @@ import NotFound from "./404";
 import "./App.css";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import CarInformation from "./Pages/Dashboard/CarInformation/CarInformation";
+import CarRequest from "./Pages/Dashboard/CarInformation/CarRequest";
 import CarKyc from "./Pages/Dashboard/CarKyc/CarKyc";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import DashboardHome from "./Pages/Dashboard/DashboardHome/DashboardHome";
@@ -19,6 +20,7 @@ import Setting from "./Pages/Dashboard/Setting/Setting";
 import SettingPage from "./Pages/Dashboard/Setting/SettingPage/SettingPage";
 import StripeBills from "./Pages/Dashboard/StripeBills/StripeBills";
 import UserInfo from "./Pages/Dashboard/UserInfo/UserInfo";
+import UserRequest from "./Pages/Dashboard/UserInfo/UserRequest";
 import UserKyc from "./Pages/Dashboard/UserKyc/UserKyc";
 import UserPayment from "./Pages/Dashboard/UserPayment/UserPayment";
 import Wallet from "./Pages/Dashboard/Wallet/Wallet";
@@ -49,10 +51,11 @@ function App() {
               <Route path="/host-request" element={<HostRequest />} />
               <Route path="/kyc-form" element={<KycForm />} />
               <Route path="/wallet" element={<Wallet />} />
-
               <Route path="/user-information" element={<UserInfo />} />
+              <Route path="/user-request" element={<UserRequest />} />
               <Route path="/rent-information" element={<RentInformation />} />
               <Route path="/car-information" element={<CarInformation />} />
+              <Route path="/car-request" element={<CarRequest />} />
               <Route path="/user-payment" element={<UserPayment />} />
               <Route path="/renti-income" element={<RentisIncome />} />
               <Route path="/host-payment" element={<HostPayment />} />

@@ -72,7 +72,7 @@ const Earning = () => {
           >
             <div>
               <LiaHandHoldingUsdSolid style={{ fontSize: "50px" }} />
-              <h2 className={style.cardTitle}>Weakly Income</h2>
+              <h2 className={style.cardTitle}>Weekly Income</h2>
               <h2 className={style.cardTitle}>${incomeData.weeklyIncome}</h2>
             </div>
           </div>

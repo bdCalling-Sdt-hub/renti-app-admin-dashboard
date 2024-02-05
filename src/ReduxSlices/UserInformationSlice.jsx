@@ -15,8 +15,10 @@ export const UserInformationData = createAsyncThunk(
   "UserInfo",
   async (value, thunkAPI) => {
     try {
+      console.log(value);
       let response = await axios.get(
-        `/api/user/all-user?limit=${value.limit}&page=${value.page}&search=${value.search}`,
+        `/api/user/all-user?approve=${value?.approve}&isBanned=${value?.isBanned}&limit=${value?.limit}&page=${value?.page}&search=${value?.search}`,
+        // `/api/user/all-user?limit=${value.limit}&page=${value.page}&search=${value.search}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -24,6 +26,7 @@ export const UserInformationData = createAsyncThunk(
           },
         }
       );
+      console.log("res", response.data);
       return response.data;
     } catch (error) {
       if (
