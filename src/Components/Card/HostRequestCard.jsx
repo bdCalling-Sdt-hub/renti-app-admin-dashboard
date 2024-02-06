@@ -24,7 +24,7 @@ const HostRequestCard = ({ cardData, setAutoReload }) => {
   const handleApprove = () => {
     axios
       .post(
-        `api/user/approve-user/${_id}`,
+        `api/user/approve/${_id}`,
         { approved: true },
         {
           headers: {
@@ -37,8 +37,7 @@ const HostRequestCard = ({ cardData, setAutoReload }) => {
         if (res.status == 200) {
           Swal.fire({
             icon: "success",
-            title: "Successfull",
-            text: `${fullName} approved`,
+            text: res.data.message,
           });
           setAutoReload((prev) => prev + 1);
         }
