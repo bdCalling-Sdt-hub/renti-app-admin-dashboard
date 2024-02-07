@@ -79,7 +79,6 @@ const CarKycTable = ({
               text: err.response.data.message,
             });
           });
-      } else {
       }
     });
   };
@@ -90,34 +89,7 @@ const CarKycTable = ({
       email: item?.carOwner?.email,
       contact: item?.carOwner?.phoneNumber,
       type: "pdf",
-      status:
-        item?.tripStatus === "Start" ? (
-          <div
-            style={{
-              background: "#FBE9EC",
-              color: "#D7263D",
-              padding: "5px",
-              fontSize: "11px",
-              borderRadius: "4px",
-              textAlign: "center",
-            }}
-          >
-            Reserved
-          </div>
-        ) : (
-          <div
-            style={{
-              background: "#E6F6F4",
-              color: "#00A991",
-              padding: "5px",
-              fontSize: "11px",
-              borderRadius: "4px",
-              textAlign: "center",
-            }}
-          >
-            Active
-          </div>
-        ),
+      status: item?.isCarActive,
       actions: item,
     };
   });
@@ -246,3 +218,31 @@ const CarKycTable = ({
 };
 
 export default CarKycTable;
+
+// item?.isCarActive === "Pending" ? (
+//         <div
+//           style={{
+//             background: "#FBE9EC",
+//             color: "#D7263D",
+//             padding: "5px",
+//             fontSize: "11px",
+//             borderRadius: "4px",
+//             textAlign: "center",
+//           }}
+//         >
+//           Pending
+//         </div>
+//       ) : (
+//         <div
+//           style={{
+//             background: "#E6F6F4",
+//             color: "#00A991",
+//             padding: "5px",
+//             fontSize: "11px",
+//             borderRadius: "4px",
+//             textAlign: "center",
+//           }}
+//         >
+//           Active
+//         </div>
+//       ),

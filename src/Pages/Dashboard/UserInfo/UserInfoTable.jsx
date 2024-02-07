@@ -40,11 +40,11 @@ const UserInfoTable = ({
     userDataGetBySearch(page);
   };
 
-  const withoutBlockUser = userInfoWithTripAmount?.filter(
-    (data) => data.user.isBanned !== "true" && data.user.isBanned !== "trash"
-  );
+  // const withoutBlockUser = userInfoWithTripAmount?.filter(
+  //   (data) => data.user.isBanned !== "true" && data.user.isBanned !== "trash"
+  // );
 
-  const data = withoutBlockUser?.map((item) => {
+  const data = userInfoWithTripAmount?.map((item) => {
     return {
       key: item?.user._id,
       name: item?.user.fullName,

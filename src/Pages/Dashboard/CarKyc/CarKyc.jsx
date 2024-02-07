@@ -20,7 +20,7 @@ function CarKyc() {
     if (searchData == "") {
       dispatch(CarInformationWithKycData(data));
     }
-  }, [searchData, reload]);
+  }, [searchData, reload, dispatch]);
 
   const carDataGetByPagination = (page) => {
     let data = {

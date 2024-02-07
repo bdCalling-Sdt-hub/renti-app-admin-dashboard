@@ -58,9 +58,9 @@ const HostRequest = () => {
     }
   }, [autoReload, searchData]);
 
-  const items = hostsData.filter(
-    (hostRequest) => hostRequest.host.isBanned !== "trash"
-  );
+  // const items = hostsData.filter(
+  //   (hostRequest) => hostRequest.host.isBanned !== "trash"
+  // );
 
   return (
     <div style={{ padding: "0px 60px" }}>
@@ -105,7 +105,7 @@ const HostRequest = () => {
       >
         {
           <Row gutter={[16, 16]}>
-            {items?.map((item) => (
+            {hostsData?.map((item) => (
               <HostRequestCard
                 key={item._id}
                 cardData={item}
