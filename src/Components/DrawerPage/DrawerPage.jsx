@@ -7,6 +7,7 @@ import { AiFillStar } from "react-icons/ai";
 import { useReactToPrint } from "react-to-print";
 import Swal from "sweetalert2";
 import axios from "../../../Config";
+import { imgUrl } from "../../../ImageConfig";
 import img from "../../Images/1.png";
 import pdfImg from "../../Images/PDF Icon.png";
 
@@ -102,7 +103,6 @@ const DrawerPage = (props) => {
             props.setIsDrawerVisible(false);
             props?.setUserInfoReload((prev) => prev + 1);
           });
-      } else {
       }
     });
   };
@@ -139,7 +139,6 @@ const DrawerPage = (props) => {
               props?.setUserInfoReload((prev) => prev + 1);
             }
           });
-      } else {
       }
     });
   };
@@ -215,6 +214,79 @@ const DrawerPage = (props) => {
     });
   };
 
+  //car information
+  const handleBlockCar = () => {
+    Swal.fire({
+      title: "Are you sure!",
+      text: "You want to block user",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#000B90",
+      cancelButtonColor: "#d33333",
+      confirmButtonText: "Yes, Block",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .post(
+            `api/car/banned/${props.carDetails?.key}`,
+            { isCarActive: "cancel" },
+            {
+              headers: {
+                "Content-type": "application/json",
+                authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            if (res.status === 200) {
+              Swal.fire({
+                icon: "success",
+                text: "Car Block successfully",
+              });
+            }
+            props.setIsDrawerVisible(false);
+            props?.setReload((prev) => prev + 1);
+          });
+      }
+    });
+  };
+
+  const handleDeleteCar = () => {
+    Swal.fire({
+      title: "Moved to trash",
+      text: "User go to the trash",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#000B90",
+      cancelButtonColor: "#d33333",
+      confirmButtonText: "Yes, Delete",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .post(
+            `api/car/banned/${props.carDetails?.key}`,
+            { isCarActive: "trash" },
+            {
+              headers: {
+                "Content-type": "application/json",
+                authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            if (res.status === 200) {
+              Swal.fire({
+                icon: "success",
+                text: "Car Delete successfully",
+              });
+              props.setIsDrawerVisible(false);
+              props?.setReload((prev) => prev + 1);
+            }
+          });
+      }
+    });
+  };
+
   return (
     <>
       {props.userInfoData && (
@@ -232,7 +304,7 @@ const DrawerPage = (props) => {
               <img
                 width={120}
                 style={{ borderRadius: "5px" }}
-                src={props.userInfoData?.userInfo?.image}
+                src={`${imgUrl}${props.userInfoData?.userInfo?.image}`}
                 alt=""
               />
             </div>
@@ -534,7 +606,7 @@ const DrawerPage = (props) => {
                 <img
                   width={120}
                   style={{ borderRadius: "5px" }}
-                  src={props.earningData.printView?.userId?.image}
+                  src={`${imgUrl}${props.earningData.printView?.userId?.image}`}
                   alt=""
                 />
               </div>
@@ -693,7 +765,7 @@ const DrawerPage = (props) => {
               <img
                 width={120}
                 style={{ borderRadius: "5px" }}
-                src={props.hostData?.action?.host?.image}
+                src={`${imgUrl}${props.hostData?.action?.host?.image}`}
                 alt=""
               />
             </div>
@@ -827,7 +899,7 @@ const DrawerPage = (props) => {
               <img
                 width={180}
                 style={{ borderRadius: "6px" }}
-                src={props.carDetails?.printView?.image[0]}
+                src={`${imgUrl}${props.carDetails?.printView?.image[0]}`}
                 alt=""
               />
             </div>
@@ -951,8 +1023,8 @@ const DrawerPage = (props) => {
           >
             <Title level={4}>Documents</Title>
             <div style={{ display: "flex", gap: "15px" }}>
-              {props.carDetails?.printView?.KYC.map((kyc) => (
-                <div>
+              {props.carDetails?.printView?.KYC.map((kyc, index) => (
+                <div key={index}>
                   <a
                     href={kyc}
                     target="_blank"
@@ -962,13 +1034,52 @@ const DrawerPage = (props) => {
 
                       color: "#000b90",
                     }}
+                    rel="noreferrer"
                   >
-                    <img width="50px" src={pdfImg} alt="PDF Icon" />
+                    <img
+                      width="50px"
+                      src={`${imgUrl}${pdfImg}`}
+                      alt="PDF Icon"
+                    />
                     View PDF
                   </a>
                 </div>
               ))}
             </div>
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              gap: 10,
+              position: "absolute",
+              bottom: 10,
+            }}
+          >
+            <Button
+              block
+              onClick={handleBlockCar}
+              style={{
+                border: "1px solid red",
+                color: "red",
+                height: 50,
+                width: "270px",
+              }}
+            >
+              Block
+            </Button>
+            <Button
+              block
+              onClick={handleDeleteCar}
+              style={{
+                background: "#000B90",
+                color: "white",
+                height: 50,
+                width: "270px",
+              }}
+            >
+              Delete
+            </Button>
           </div>
         </div>
       )}
@@ -987,7 +1098,7 @@ const DrawerPage = (props) => {
                 <img
                   width={120}
                   style={{ borderRadius: "5px" }}
-                  src={props.rentInfoData?.actionData?.carId?.image[0]}
+                  src={`${imgUrl}${props.rentInfoData?.actionData?.carId?.image[0]}`}
                   alt=""
                 />
               </div>
@@ -1170,7 +1281,7 @@ const DrawerPage = (props) => {
                 <img
                   width={120}
                   style={{ borderRadius: "5px" }}
-                  src={props.userPaymentData?.actions?.userInfo?.image}
+                  src={`${imgUrl}${props.userPaymentData?.actions?.userInfo?.image}`}
                   alt=""
                 />
               </div>
@@ -1319,7 +1430,7 @@ const DrawerPage = (props) => {
                 <img
                   width={120}
                   style={{ borderRadius: "5px" }}
-                  src={props.hostPaymentData?.actions?.carOwner?.image}
+                  src={`${imgUrl}${props.hostPaymentData?.actions?.carOwner?.image}`}
                   alt=""
                 />
               </div>
@@ -1483,7 +1594,7 @@ const DrawerPage = (props) => {
                 <img
                   width={120}
                   style={{ borderRadius: "5px" }}
-                  src={props.dashboardEarningData?.printView?.userId?.image}
+                  src={`${imgUrl}${props.dashboardEarningData?.printView?.userId?.image}`}
                   alt=""
                 />
               </div>
@@ -1660,7 +1771,7 @@ const DrawerPage = (props) => {
               <img
                 width={120}
                 style={{ borderRadius: "5px" }}
-                src={props.hostKycData?.actions?.image}
+                src={`${imgUrl}${props.hostKycData?.actions?.image}`}
                 alt=""
               />
             </div>
@@ -1738,8 +1849,8 @@ const DrawerPage = (props) => {
             }}
           >
             <Title level={4}>KYC Documents</Title>
-            {props.hostKycData?.actions?.KYC.map((kyc) => (
-              <div style={{ marginBottom: "10px" }}>
+            {props.hostKycData?.actions?.KYC.map((kyc, index) => (
+              <div key={index} style={{ marginBottom: "10px" }}>
                 <a
                   href={kyc}
                   target="_blank"
@@ -1749,8 +1860,9 @@ const DrawerPage = (props) => {
                     gap: 12,
                     color: "#000b90",
                   }}
+                  rel="noreferrer"
                 >
-                  <img src={pdfImg} alt="PDF Icon" />
+                  <img src={`${imgUrl}${pdfImg}`} alt="PDF Icon" />
                   View PDF Document
                 </a>
               </div>
@@ -1773,7 +1885,7 @@ const DrawerPage = (props) => {
               <img
                 width={120}
                 style={{ borderRadius: "5px" }}
-                src={props.userKycData?.actions?.image}
+                src={`${imgUrl}${props.userKycData?.actions?.image}`}
                 alt=""
               />
             </div>
@@ -1851,8 +1963,8 @@ const DrawerPage = (props) => {
             }}
           >
             <Title level={4}>KYC Documents</Title>
-            {props.userKycData?.actions?.KYC.map((kyc) => (
-              <div style={{ marginBottom: "10px" }}>
+            {props.userKycData?.actions?.KYC.map((kyc, index) => (
+              <div key={index} style={{ marginBottom: "10px" }}>
                 <a
                   href={kyc}
                   target="_blank"
@@ -1862,8 +1974,9 @@ const DrawerPage = (props) => {
                     gap: 12,
                     color: "#000b90",
                   }}
+                  rel="noreferrer"
                 >
-                  <img src={pdfImg} alt="PDF Icon" />
+                  <img src={`${imgUrl}${pdfImg}`} alt="PDF Icon" />
                   View PDF Document
                 </a>
               </div>
@@ -1886,7 +1999,7 @@ const DrawerPage = (props) => {
               <img
                 width={120}
                 style={{ borderRadius: "5px" }}
-                src={props.carKycData?.actions?.image[0]}
+                src={`${imgUrl}${props.carKycData?.actions?.image[0]}`}
                 alt=""
               />
             </div>
@@ -1989,8 +2102,8 @@ const DrawerPage = (props) => {
             }}
           >
             <Title level={4}>KYC Documents</Title>
-            {props.carKycData?.actions?.KYC.map((kyc) => (
-              <div style={{ marginBottom: "10px" }}>
+            {props.carKycData?.actions?.KYC.map((kyc, index) => (
+              <div key={index} style={{ marginBottom: "10px" }}>
                 <a
                   href={kyc}
                   target="_blank"
@@ -2000,8 +2113,9 @@ const DrawerPage = (props) => {
                     gap: 12,
                     color: "#000b90",
                   }}
+                  rel="noreferrer"
                 >
-                  <img src={pdfImg} alt="PDF Icon" />
+                  <img src={`${imgUrl}${pdfImg}`} alt="PDF Icon" />
                   View PDF Document
                 </a>
               </div>
@@ -2025,7 +2139,7 @@ const DrawerPage = (props) => {
                 <img
                   width={120}
                   style={{ borderRadius: "5px" }}
-                  src={props.rentiIncomeData?.actions?.carOwner?.image}
+                  src={`${imgUrl}${props.rentiIncomeData?.actions?.carOwner?.image}`}
                   alt=""
                 />
               </div>

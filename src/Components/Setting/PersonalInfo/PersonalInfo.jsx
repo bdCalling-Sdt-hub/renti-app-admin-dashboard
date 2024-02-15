@@ -15,6 +15,7 @@ import React, { useState } from "react";
 import { LiaEditSolid } from "react-icons/lia";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
+import { imgUrl } from "../../../../ImageConfig";
 import { AdminData } from "../../../ReduxSlices/ProfileUpdatedSlice";
 
 const PersonalInfo = () => {
@@ -47,7 +48,7 @@ const PersonalInfo = () => {
       uid: "-1",
       name: "image.png",
       status: "done",
-      url: image,
+      url: `${imgUrl}${image}`,
     },
   ]);
 
@@ -99,7 +100,11 @@ const PersonalInfo = () => {
             }}
           >
             <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
-              <Image width={150} style={{ borderRadius: "6px" }} src={image} />
+              <Image
+                width={150}
+                style={{ borderRadius: "6px" }}
+                src={`${imgUrl}${image}`}
+              />
               <div>
                 <h2>{fullName}</h2>
                 <p>@{fullName}</p>

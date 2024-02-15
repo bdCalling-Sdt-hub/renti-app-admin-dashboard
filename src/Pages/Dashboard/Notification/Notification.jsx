@@ -2,6 +2,7 @@ import { Col, Modal, Pagination, Row } from "antd";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import baseAxios from "../../../../Config";
+import { imgUrl } from "../../../../ImageConfig";
 import { Notifications } from "../../../ReduxSlices/NotificationSlice";
 import "./Notification.css";
 
@@ -118,7 +119,7 @@ function Notification() {
                       width: "60px",
                       borderRadius: "50%",
                     }}
-                    src={item.image}
+                    src={`${imgUrl}${item.image}`}
                   />
                 </div>
                 <div className="">
@@ -167,7 +168,7 @@ function Notification() {
                 height: "500px",
                 objectFit: "cover",
               }}
-              src={modalData?.image}
+              src={`${imgUrl}${modalData?.image}`}
               alt=""
             />
 

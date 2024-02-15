@@ -54,7 +54,7 @@ const CarRequest = () => {
   }, [autoReload, searchData, dispatch]);
 
   return (
-    <div style={{ padding: "0px 60px" }}>
+    <div>
       {/* <Text
         style={{ fontSize: "25px", marginBottom: "10px", fontWeight: "normal" }}
       >

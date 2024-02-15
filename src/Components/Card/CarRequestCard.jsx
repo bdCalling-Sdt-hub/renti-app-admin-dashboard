@@ -2,6 +2,7 @@ import { Button, Col } from "antd";
 import React from "react";
 import Swal from "sweetalert2";
 import baseAxios from "../../../Config";
+import { imgUrl } from "../../../ImageConfig";
 
 const CarRequestCard = ({ data, setAutoReload }) => {
   const { _id, image, carOwner, carModelName } = data;
@@ -73,11 +74,11 @@ const CarRequestCard = ({ data, setAutoReload }) => {
   };
 
   return (
-    <Col span={8}>
+    <Col span={6}>
       <div style={style.cardStyle}>
         <img
           style={{ width: "150px", height: "150px", borderRadius: "50%" }}
-          src={image[0]}
+          src={`${imgUrl}${image[0]}`}
           alt=""
         />
         <h2 style={{ color: "#000B90", marginTop: "10px" }}>{carModelName}</h2>

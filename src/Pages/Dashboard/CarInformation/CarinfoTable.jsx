@@ -4,11 +4,10 @@ import React, { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
-import Print from "../../../icons/Print";
-import Save from "../../../icons/Save";
+import Eye from "../../../icons/Eye";
 const { Title, Text } = Typography;
 
-const CarInfoTable = ({ carDataByPagination }) => {
+const CarInfoTable = ({ carDataByPagination, setReload }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10;
   const { cars, pagination } = useSelector((state) => state.carsData.carsData);
@@ -109,11 +108,11 @@ const CarInfoTable = ({ carDataByPagination }) => {
       render: (_, record) => (
         <div style={{ display: "flex", alignItems: "center" }}>
           <Button onClick={() => showDrawer(record)} type="text">
-            <Print />
+            <Eye />
           </Button>
-          <Button onClick={() => showDrawer(record)} type="text">
+          {/* <Button onClick={() => showDrawer(record)} type="text">
             <Save />
-          </Button>
+          </Button> */}
         </div>
       ),
     },
@@ -171,7 +170,13 @@ const CarInfoTable = ({ carDataByPagination }) => {
           </Space>
         }
       >
-        {carDetailsData && <DrawerPage carDetails={carDetailsData} />}
+        {carDetailsData && (
+          <DrawerPage
+            carDetails={carDetailsData}
+            setReload={setReload}
+            setIsDrawerVisible={setIsDrawerVisible}
+          />
+        )}
       </Drawer>
     </div>
   );

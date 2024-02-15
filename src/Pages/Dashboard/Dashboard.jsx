@@ -23,6 +23,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
 import Swal from "sweetalert2";
+import { imgUrl } from "../../../ImageConfig";
 import rentiLogo from "../../Images/favLogo.png";
 import { Notifications } from "../../ReduxSlices/NotificationSlice";
 import { GoPeople } from "./../../../node_modules/react-icons/go/index.esm";
@@ -73,7 +74,7 @@ const Dashboard = () => {
       page: 1,
     };
     dispatch(Notifications(data));
-  }, []);
+  }, [dispatch]);
 
   const commonData = notifications?.allNotification
     ? notifications
@@ -120,7 +121,7 @@ const Dashboard = () => {
               }}
               width="30"
               height="30"
-              src={item.image}
+              src={`${imgUrl}${item.image}`}
               alt="person-male--v2"
             />
             <div className="" style={{ marginTop: "" }}>
@@ -136,16 +137,16 @@ const Dashboard = () => {
   });
 
   //profile
-  let imgUrl;
+  let imgUri;
   if (
     user.image !== null &&
     user.image !== undefined &&
     user.image !== "" &&
     user.image.length !== 0
   ) {
-    imgUrl = user.image;
+    imgUri = `${imgUrl}${user.image}`;
   } else {
-    imgUrl = "https://siffahim.github.io/MetaCGI-Tailwind/images/2.jpg";
+    imgUri = "https://siffahim.github.io/MetaCGI-Tailwind/images/2.jpg";
   }
 
   const handleSelectLanguage = (value) => {
@@ -717,7 +718,7 @@ const Dashboard = () => {
                     borderRadius: "100%",
                     cursor: "pointer",
                   }}
-                  src={imgUrl}
+                  src={imgUri}
                   alt="profile"
                 />
               </Dropdown>

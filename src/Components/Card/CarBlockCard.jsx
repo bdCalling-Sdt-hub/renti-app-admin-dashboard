@@ -1,12 +1,13 @@
 import { Button, Col } from "antd";
 import React from "react";
 import Swal from "sweetalert2";
-import axios from "../../../Config";
-import { imgUrl } from "../../../ImageConfig";
+import baseAxios from "../../../Config";
 
-const UserRequestCard = ({ cardData, setAutoReload }) => {
-  const { _id, fullName, email, phoneNumber, approved, isBanned, image } =
-    cardData.user;
+const CarBlockCard = ({ data, setBannedCarReload }) => {
+  const { _id, image, carOwner, carModelName } = data;
+  console.log(data);
+
+  console.log(data);
 
   const style = {
     cardStyle: {
@@ -22,11 +23,11 @@ const UserRequestCard = ({ cardData, setAutoReload }) => {
 
   const token = localStorage.token;
 
-  const handleApprove = () => {
-    axios
+  const handleUnblock = () => {
+    baseAxios
       .post(
-        `/api/user/approve-user/${_id}`,
-        { approved: true },
+        `api/car/banned/${_id}`,
+        { isCarActive: "Active" },
         {
           headers: {
             "Content-type": "application/json",
@@ -35,22 +36,23 @@ const UserRequestCard = ({ cardData, setAutoReload }) => {
         }
       )
       .then((res) => {
+        console.log(res);
         if (res.status == 200) {
           Swal.fire({
             icon: "success",
-            title: "Successfull",
-            text: `${fullName} approved`,
+            title: "Successful",
+            text: `${carModelName} approved`,
           });
-          setAutoReload((prev) => prev + 1);
+          setBannedCarReload((prev) => prev + 1);
         }
       });
   };
 
   const handleCancel = () => {
-    axios
+    baseAxios
       .post(
-        `api/user/banned/${_id}`,
-        { isApprove: "trash" },
+        `api/car/banned/${_id}`,
+        { isCarActive: "trash" },
         {
           headers: {
             "Content-type": "application/json",
@@ -62,9 +64,9 @@ const UserRequestCard = ({ cardData, setAutoReload }) => {
         if (res.status === 200) {
           Swal.fire({
             icon: "success",
-            text: "User cancel successfully",
+            text: "Car cancel successfully",
           });
-          setAutoReload((prev) => prev + 1);
+          setBannedCarReload((prev) => prev + 1);
         }
       });
   };
@@ -73,17 +75,18 @@ const UserRequestCard = ({ cardData, setAutoReload }) => {
     <Col span={6}>
       <div style={style.cardStyle}>
         <img
-          style={{ width: "150px", height: "150px", borderRadius: "50%" }}
-          src={`${imgUrl}${image}`}
+          src={image[0]}
           alt=""
+          style={{ width: "120px", height: "120px", borderRadius: "50%" }}
         />
-        <h2 style={{ color: "#000B90", marginTop: "20px" }}>{fullName}</h2>
-        <p>{email}</p>
-        <p>{phoneNumber}</p>
+        <h2 style={{ color: "#000B90", marginBottom: "5px" }}>
+          {carModelName}
+        </h2>
+
         <div style={{ marginTop: "20px" }}>
           <Button
-            className={style.cardBtn}
             onClick={handleCancel}
+            className={style.cardBtn}
             style={{
               background: "#D7263D",
               ...style.cardBtn,
@@ -94,9 +97,9 @@ const UserRequestCard = ({ cardData, setAutoReload }) => {
           </Button>
           <Button
             style={{ background: "#000B90", ...style.cardBtn }}
-            onClick={handleApprove}
+            onClick={handleUnblock}
           >
-            Approve
+            Unblock
           </Button>
         </div>
       </div>
@@ -104,4 +107,4 @@ const UserRequestCard = ({ cardData, setAutoReload }) => {
   );
 };
 
-export default UserRequestCard;
+export default CarBlockCard;

@@ -56,14 +56,14 @@ const HostRequest = () => {
     if (searchData === "") {
       dispatch(HostsData(data));
     }
-  }, [autoReload, searchData]);
+  }, [autoReload, dispatch, searchData]);
 
   // const items = hostsData.filter(
   //   (hostRequest) => hostRequest.host.isBanned !== "trash"
   // );
 
   return (
-    <div style={{ padding: "0px 60px" }}>
+    <div style={{ padding: "10px 0px" }}>
       <Text
         style={{ fontSize: "25px", marginBottom: "10px", fontWeight: "normal" }}
       >

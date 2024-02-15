@@ -2,10 +2,12 @@ import { Button, Col } from "antd";
 import React from "react";
 import Swal from "sweetalert2";
 import axios from "../../../Config";
-import img from "../../Images/Photo.png";
+import { imgUrl } from "../../../ImageConfig";
 
 const BlockUserCard = ({ data, setReload }) => {
-  const { _id, fullName, email, phoneNumber, approved } = data;
+  const { _id, fullName, email, phoneNumber, approved, image } = data;
+
+  console.log(data);
 
   const style = {
     cardStyle: {
@@ -66,9 +68,9 @@ const BlockUserCard = ({ data, setReload }) => {
   };
 
   return (
-    <Col span={8}>
+    <Col span={6}>
       <div style={style.cardStyle}>
-        <img src={img} alt="" />
+        <img src={`${imgUrl}${image}`} alt="" />
         <h2 style={{ color: "#000B90", marginBottom: "5px" }}>{fullName}</h2>
         <p>{email}</p>
         <p style={{ margin: "8px 0" }}>{phoneNumber}</p>

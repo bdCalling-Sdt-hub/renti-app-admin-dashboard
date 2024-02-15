@@ -2,6 +2,7 @@ import { Button, Col } from "antd";
 import React from "react";
 import Swal from "sweetalert2";
 import axios from "../../../Config";
+import { imgUrl } from "../../../ImageConfig";
 
 const HostRequestCard = ({ cardData, setAutoReload }) => {
   const { _id, fullName, email, phoneNumber, approved, isBanned, image } =
@@ -68,11 +69,11 @@ const HostRequestCard = ({ cardData, setAutoReload }) => {
   };
 
   return (
-    <Col span={8}>
+    <Col span={6}>
       <div style={style.cardStyle}>
         <img
           style={{ width: "150px", height: "150px", borderRadius: "50%" }}
-          src={image}
+          src={`${imgUrl}${image}`}
           alt=""
         />
         <h2 style={{ color: "#000B90", marginTop: "20px" }}>{fullName}</h2>

@@ -1,5 +1,5 @@
 import { Col, Row } from "antd";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CarsData } from "../../../ReduxSlices/CarsSlice";
 import "./CarInformation.css";
@@ -7,7 +7,7 @@ import CarInfoTable from "./CarinfoTable";
 
 function CarInformation() {
   const dispatch = useDispatch();
-
+  const [reload, setReload] = useState(0);
   const carData = useSelector((state) => state.carsData.carsData);
 
   const { activeCar, totalCar, reservedCar, cars } = carData;
@@ -28,7 +28,7 @@ function CarInformation() {
       isCarActive: "Active",
     };
     dispatch(CarsData(value));
-  }, [dispatch]);
+  }, [dispatch, reload]);
 
   return (
     <div style={{ padding: "0 60px" }}>
@@ -152,7 +152,10 @@ function CarInformation() {
 
       <Row>
         <Col lg={{ span: 24 }}>
-          <CarInfoTable carDataByPagination={carDataByPagination} />
+          <CarInfoTable
+            carDataByPagination={carDataByPagination}
+            setReload={setReload}
+          />
         </Col>
       </Row>
     </div>
