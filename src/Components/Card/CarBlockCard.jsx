@@ -2,6 +2,7 @@ import { Button, Col } from "antd";
 import React from "react";
 import Swal from "sweetalert2";
 import baseAxios from "../../../Config";
+import { imgUrl } from "../../../ImageConfig";
 
 const CarBlockCard = ({ data, setBannedCarReload }) => {
   const { _id, image, carOwner, carModelName } = data;
@@ -75,7 +76,7 @@ const CarBlockCard = ({ data, setBannedCarReload }) => {
     <Col span={6}>
       <div style={style.cardStyle}>
         <img
-          src={image[0]}
+          src={`${imgUrl}${image[0]}`}
           alt=""
           style={{ width: "120px", height: "120px", borderRadius: "50%" }}
         />

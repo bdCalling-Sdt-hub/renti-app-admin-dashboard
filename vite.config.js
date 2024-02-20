@@ -5,8 +5,9 @@ export default defineConfig({
   plugins: [react()],
   server: {
     //host: "159.65.25.16",
+    // host: "192.168.10.16",
     host: "192.168.10.16",
-    port: "3001",
+    port: "3000",
   },
 });
 
@@ -15,3 +16,4 @@ export default defineConfig({
 //1-vite-config-file
 //2-Config.jsx file
 //3-Dashboard.jsx file
+//4-ImageConfig file

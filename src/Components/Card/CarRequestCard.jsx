@@ -87,7 +87,7 @@ const CarRequestCard = ({ data, setAutoReload }) => {
           {carOwner?.fullName}
         </p>
         <p>
-          <span style={{ fontWeight: "bold" }}>Owner name:</span>{" "}
+          <span style={{ fontWeight: "bold" }}>Owner email:</span>{" "}
           {carOwner?.email}
         </p>
         <div style={{ marginTop: "20px" }}>

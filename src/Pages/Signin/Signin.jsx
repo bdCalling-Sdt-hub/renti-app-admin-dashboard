@@ -32,6 +32,7 @@ const Signin = () => {
   }, [isLoading, isError, isSuccess, dispatch, navigate]);
 
   const handleSignIn = (values) => {
+    console.log(values);
     const loginTime = new Date().getTime();
     dispatch(UserData(values));
     localStorage.setItem("loginTime", loginTime);

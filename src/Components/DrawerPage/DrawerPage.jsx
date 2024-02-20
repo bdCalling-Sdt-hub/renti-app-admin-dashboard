@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 import axios from "../../../Config";
 import { imgUrl } from "../../../ImageConfig";
 import img from "../../Images/1.png";
-import pdfImg from "../../Images/PDF Icon.png";
+import pdfImg from "../../Images/file.png";
 
 const { Title } = Typography;
 
@@ -1852,7 +1852,7 @@ const DrawerPage = (props) => {
             {props.hostKycData?.actions?.KYC.map((kyc, index) => (
               <div key={index} style={{ marginBottom: "10px" }}>
                 <a
-                  href={kyc}
+                  href={`${imgUrl}${kyc}`}
                   target="_blank"
                   style={{
                     display: "flex",
@@ -1862,8 +1862,12 @@ const DrawerPage = (props) => {
                   }}
                   rel="noreferrer"
                 >
-                  <img src={`${imgUrl}${pdfImg}`} alt="PDF Icon" />
-                  View PDF Document
+                  <img
+                    src={pdfImg}
+                    style={{ width: "50px", height: "50px" }}
+                    alt="PDF Icon"
+                  />
+                  View Document
                 </a>
               </div>
             ))}
@@ -1966,7 +1970,7 @@ const DrawerPage = (props) => {
             {props.userKycData?.actions?.KYC.map((kyc, index) => (
               <div key={index} style={{ marginBottom: "10px" }}>
                 <a
-                  href={kyc}
+                  href={`${imgUrl}${kyc}`}
                   target="_blank"
                   style={{
                     display: "flex",
@@ -1976,8 +1980,12 @@ const DrawerPage = (props) => {
                   }}
                   rel="noreferrer"
                 >
-                  <img src={`${imgUrl}${pdfImg}`} alt="PDF Icon" />
-                  View PDF Document
+                  <img
+                    src={pdfImg}
+                    alt="PDF Icon"
+                    style={{ width: "50px", height: "50px" }}
+                  />
+                  View Document
                 </a>
               </div>
             ))}
@@ -2105,7 +2113,7 @@ const DrawerPage = (props) => {
             {props.carKycData?.actions?.KYC.map((kyc, index) => (
               <div key={index} style={{ marginBottom: "10px" }}>
                 <a
-                  href={kyc}
+                  href={`${imgUrl}${kyc}`}
                   target="_blank"
                   style={{
                     display: "flex",
@@ -2115,8 +2123,12 @@ const DrawerPage = (props) => {
                   }}
                   rel="noreferrer"
                 >
-                  <img src={`${imgUrl}${pdfImg}`} alt="PDF Icon" />
-                  View PDF Document
+                  <img
+                    src={pdfImg}
+                    alt="PDF Icon"
+                    style={{ width: "50px", height: "50px" }}
+                  />
+                  View Document
                 </a>
               </div>
             ))}

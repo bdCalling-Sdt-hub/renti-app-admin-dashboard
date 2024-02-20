@@ -5,6 +5,7 @@ import { MdRestore } from "react-icons/md";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import Swal from "sweetalert2";
 import axios from "../../../../Config";
+import { imgUrl } from "../../../../ImageConfig";
 const { Title, Text } = Typography;
 
 const TrashCarTable = ({ setCarReload, trashCar, trashCarPagination }) => {
@@ -17,7 +18,7 @@ const TrashCarTable = ({ setCarReload, trashCar, trashCarPagination }) => {
     return {
       image: (
         <img
-          src={filterUser.image[0]}
+          src={`${imgUrl}${filterUser.image[0]}`}
           style={{ width: "50px", height: "50px", borderRadius: "50%" }}
           alt=""
         />

@@ -26,8 +26,6 @@ export const CarInformationWithKycData = createAsyncThunk(
         }
       );
 
-      console.log("car kyc", response.data);
-
       return response.data;
     } catch (error) {
       if (
