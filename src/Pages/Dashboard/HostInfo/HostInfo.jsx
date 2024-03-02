@@ -48,7 +48,7 @@ const HostInfo = () => {
     if (searchData === "") {
       dispatch(HostsData(data));
     }
-  }, [searchData, reload]);
+  }, [searchData, reload, dispatch]);
 
   return (
     <div style={{ padding: "0px 60px" }}>

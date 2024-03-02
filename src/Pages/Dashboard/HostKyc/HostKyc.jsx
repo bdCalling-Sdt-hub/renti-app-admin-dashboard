@@ -22,7 +22,7 @@ function HostKyc() {
     if (searchData == "") {
       dispatch(HostInformationWithKycData(data));
     }
-  }, [searchData]);
+  }, [dispatch, searchData]);
 
   const hostDataGetByPagination = (page) => {
     let data = {
@@ -54,9 +54,6 @@ function HostKyc() {
     <div>
       <Row style={{ marginBottom: "30px" }}>
         <img src={imagePath} />
-        {/* <a href={mypdf} download>
-        Download PDF
-    </a> */}
 
         <h2
           style={{

@@ -995,7 +995,6 @@ const DrawerPage = (props) => {
           <div
             style={{
               margin: "15px 0",
-              borderBottom: "1px solid gray",
               paddingBottom: "15px",
             }}
           >
@@ -1014,38 +1013,6 @@ const DrawerPage = (props) => {
                 <p>{props.carDetails?.printView?.carOwner?.address?.city}</p>
               </Col>
             </Row>
-          </div>
-          <div
-            style={{
-              margin: "15px 0",
-              paddingBottom: "15px",
-            }}
-          >
-            <Title level={4}>Documents</Title>
-            <div style={{ display: "flex", gap: "15px" }}>
-              {props.carDetails?.printView?.KYC.map((kyc, index) => (
-                <div key={index}>
-                  <a
-                    href={kyc}
-                    target="_blank"
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-
-                      color: "#000b90",
-                    }}
-                    rel="noreferrer"
-                  >
-                    <img
-                      width="50px"
-                      src={`${imgUrl}${pdfImg}`}
-                      alt="PDF Icon"
-                    />
-                    View PDF
-                  </a>
-                </div>
-              ))}
-            </div>
           </div>
 
           <div

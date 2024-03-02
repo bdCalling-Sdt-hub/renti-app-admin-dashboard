@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
-import Delete from "../../../icons/Delete";
 import Eye from "../../../icons/Eye";
 const { Title, Text } = Typography;
 
@@ -92,9 +91,6 @@ const HostKycTable = ({ hostDataGetByPagination, hostDataGetBySearch }) => {
         <div style={{ display: "flex", alignItems: "center" }}>
           <Button onClick={() => showDrawer(record)} type="text">
             <Eye />
-          </Button>
-          <Button type="text">
-            <Delete />
           </Button>
         </div>
       ),

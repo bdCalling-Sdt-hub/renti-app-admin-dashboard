@@ -1,12 +1,8 @@
 import { Button, Drawer, Space, Table, Typography } from "antd";
 import React, { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
-import { TbTrashOff } from "react-icons/tb";
 import { useSelector } from "react-redux";
-import Swal from "sweetalert2";
-import axios from "../../../../Config";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
-import Delete from "../../../icons/Delete";
 import Eye from "../../../icons/Eye";
 const { Title, Text } = Typography;
 
@@ -40,48 +36,48 @@ const CarKycTable = ({
 
   const token = localStorage.token;
 
-  const handleCarDelete = (id) => {
-    Swal.fire({
-      title: "Are you sure!",
-      text: "You want to block user",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#000B90",
-      cancelButtonColor: "#d33333",
-      confirmButtonText: "Yes, Block",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios
-          .delete(
-            `api/user/delete-car/${id}`,
+  // const handleCarDelete = (id) => {
+  //   Swal.fire({
+  //     title: "Are you sure!",
+  //     text: "You want to block user",
+  //     icon: "warning",
+  //     showCancelButton: true,
+  //     confirmButtonColor: "#000B90",
+  //     cancelButtonColor: "#d33333",
+  //     confirmButtonText: "Yes, Block",
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       axios
+  //         .delete(
+  //           `api/user/delete-car/${id}`,
 
-            {
-              headers: {
-                "Content-type": "application/json",
-                authorization: `Bearer ${token}`,
-              },
-            }
-          )
-          .then((res) => {
-            if (res.data) {
-              Swal.fire({
-                icon: "success",
-                title: "Successfully!",
-                text: res.data.message,
-              });
-              setReload((prev) => prev + 1);
-            }
-          })
-          .catch((err) => {
-            Swal.fire({
-              icon: "warning",
-              title: "Sorry!",
-              text: err.response.data.message,
-            });
-          });
-      }
-    });
-  };
+  //           {
+  //             headers: {
+  //               "Content-type": "application/json",
+  //               authorization: `Bearer ${token}`,
+  //             },
+  //           }
+  //         )
+  //         .then((res) => {
+  //           if (res.data) {
+  //             Swal.fire({
+  //               icon: "success",
+  //               title: "Successfully!",
+  //               text: res.data.message,
+  //             });
+  //             setReload((prev) => prev + 1);
+  //           }
+  //         })
+  //         .catch((err) => {
+  //           Swal.fire({
+  //             icon: "warning",
+  //             title: "Sorry!",
+  //             text: err.response.data.message,
+  //           });
+  //         });
+  //     }
+  //   });
+  // };
 
   const data = CarData?.map((item) => {
     return {
@@ -133,7 +129,7 @@ const CarKycTable = ({
           <Button onClick={() => showDrawer(record)} type="text">
             <Eye />
           </Button>
-          {record?.actions?.tripStatus == "Start" ? (
+          {/* {record?.actions?.tripStatus == "Start" ? (
             <div
               type="text"
               style={{ marginLeft: "20px", cursor: "not-allowed" }}
@@ -147,7 +143,7 @@ const CarKycTable = ({
             >
               <Delete />
             </Button>
-          )}
+          )} */}
         </div>
       ),
     },
