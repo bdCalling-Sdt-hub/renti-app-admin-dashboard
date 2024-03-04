@@ -5,7 +5,6 @@ import { AiOutlineClose } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 import Eye from "../../../icons/Eye";
-import Print from "../../../icons/Print";
 const { Title, Text } = Typography;
 
 const UserInfoTable = ({
@@ -51,7 +50,7 @@ const UserInfoTable = ({
       email: item?.user.email,
       contact: item?.user.phoneNumber,
       joiningDate: moment(item?.user.createdAt).format("lll"),
-      trips: "$" + item?.totalTripAmount,
+      trips: "$" + item?.totalTripAmount / 100,
       userInfo: item.user,
     };
   });
@@ -96,9 +95,9 @@ const UserInfoTable = ({
           <Button onClick={() => showDrawer(record)} type="text">
             <Eye />
           </Button>
-          <Button onClick={() => showDrawer(record)} type="text">
+          {/* <Button onClick={() => showDrawer(record)} type="text">
             <Print />
-          </Button>
+          </Button> */}
         </div>
       ),
     },

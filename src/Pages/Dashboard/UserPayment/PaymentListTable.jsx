@@ -35,7 +35,7 @@ const PaymentListTable = ({ handleUserPaymentsPagination }) => {
       time: moment(userPayment.time).format("lll"),
       username: userPayment.userInfo?.fullName,
       method: userPayment.method,
-      amount: userPayment.amount,
+      amount: userPayment.amount / 100,
       status: userPayment.status ? (
         <div
           style={{

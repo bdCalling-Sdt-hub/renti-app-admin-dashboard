@@ -43,8 +43,8 @@ const HostPaymentTable = ({
       tripno: item.rentTripNumber,
       time: moment(item.time).format("lll"),
       username: item.carOwner?.fullName,
-      totalamount: item.originalAmount,
-      paidamount: item.paidAmount,
+      totalamount: item.originalAmount / 100,
+      paidamount: Math.round(item.paidAmount / 100),
       status:
         item.status === "succeeded" ? (
           <div

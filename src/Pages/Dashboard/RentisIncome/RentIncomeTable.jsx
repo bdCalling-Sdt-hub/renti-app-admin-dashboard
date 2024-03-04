@@ -32,9 +32,9 @@ const RentiIncomeTable = ({ handlePagination, handleRentiIncomeSearch }) => {
       key: rtIncome._id,
       tripNo: rtIncome.rentTripNumbers,
       time: moment(rtIncome.time).format("llll"),
-      totalAmount: rtIncome.totalAmount,
+      totalAmount: rtIncome.totalAmount / 100,
       stripeFee: rtIncome.stripeFee,
-      hostPayment: rtIncome.hostPayment,
+      hostPayment: Math.round(rtIncome.hostPayment / 100),
       rentiIncome: rtIncome.rentiIncome,
       actions: rtIncome,
     };
