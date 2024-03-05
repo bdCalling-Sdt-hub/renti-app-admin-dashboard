@@ -4,7 +4,6 @@ import { AiOutlineClose } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 import Print from "../../../icons/Print";
-import Save from "../../../icons/Save";
 const { Title, Text } = Typography;
 
 const EarnHistoryTable = ({ recentDataGetByPagination }) => {
@@ -189,9 +188,6 @@ const EarnHistoryTable = ({ recentDataGetByPagination }) => {
         <div style={{ display: "flex", alignItems: "center" }}>
           <Button onClick={() => showDrawer(record)} type="text">
             <Print />
-          </Button>
-          <Button onClick={() => showDrawer(record)} type="text">
-            <Save />
           </Button>
         </div>
       ),

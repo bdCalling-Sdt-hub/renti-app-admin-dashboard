@@ -628,35 +628,7 @@ const DrawerPage = (props) => {
               </div>
             </div>
             <div>
-              <Title level={4}>
-                Trip Details{" "}
-                {props.earningData?.printView?.paymentData?.status ===
-                "succeeded" ? (
-                  <Badge
-                    className="site-badge-count-109"
-                    count={"Completed"}
-                    style={{
-                      background: "#E6F6F4",
-                      color: "#00A991",
-                      fontSize: "11px",
-                      borderRadius: "4px",
-                      textAlign: "center",
-                    }}
-                  />
-                ) : (
-                  <Badge
-                    className="site-badge-count-109"
-                    count={"Pending"}
-                    style={{
-                      background: "#FBE9EC",
-                      color: "#D7263D",
-                      fontSize: "11px",
-                      borderRadius: "4px",
-                      textAlign: "center",
-                    }}
-                  />
-                )}
-              </Title>
+              <Title level={4}>Trip Details </Title>
             </div>
             <div
               style={{
@@ -712,7 +684,35 @@ const DrawerPage = (props) => {
                 margin: "15px 0",
               }}
             >
-              <Title level={4}>Payment Information</Title>
+              <Title level={4}>
+                Payment Information{" "}
+                {props.earningData?.printView?.paymentData?.status ===
+                "succeeded" ? (
+                  <Badge
+                    className="site-badge-count-109"
+                    count={"Completed"}
+                    style={{
+                      background: "#E6F6F4",
+                      color: "#00A991",
+                      fontSize: "11px",
+                      borderRadius: "4px",
+                      textAlign: "center",
+                    }}
+                  />
+                ) : (
+                  <Badge
+                    className="site-badge-count-109"
+                    count={"Pending"}
+                    style={{
+                      background: "#FBE9EC",
+                      color: "#D7263D",
+                      fontSize: "11px",
+                      borderRadius: "4px",
+                      textAlign: "center",
+                    }}
+                  />
+                )}
+              </Title>
               <Row>
                 <Col span={12} style={{ textAlign: "left" }}>
                   <p>Payment By</p>
@@ -1278,24 +1278,7 @@ const DrawerPage = (props) => {
               </div>
             </div>
             <div>
-              <Title level={4}>
-                Trip Details{" "}
-                <Badge
-                  className="site-badge-count-109"
-                  count={
-                    props.userPaymentData?.actions?.status
-                      ? "Completed"
-                      : "Pending"
-                  }
-                  style={{
-                    background: "#E6F6F4",
-                    color: "#00A991",
-                    fontSize: "11px",
-                    borderRadius: "4px",
-                    textAlign: "center",
-                  }}
-                />
-              </Title>
+              <Title level={4}>Trip Details </Title>
             </div>
             <div
               style={{
@@ -1342,7 +1325,24 @@ const DrawerPage = (props) => {
                 paddingBottom: "15px",
               }}
             >
-              <Title level={4}>Payment Information</Title>
+              <Title level={4}>
+                Payment Information{" "}
+                <Badge
+                  className="site-badge-count-109"
+                  count={
+                    props.userPaymentData?.actions?.status
+                      ? "Completed"
+                      : "Pending"
+                  }
+                  style={{
+                    background: "#E6F6F4",
+                    color: "#00A991",
+                    fontSize: "11px",
+                    borderRadius: "4px",
+                    textAlign: "center",
+                  }}
+                />
+              </Title>
               <Row>
                 <Col span={12} style={{ textAlign: "left" }}>
                   <p>Payment By</p>
@@ -1420,34 +1420,7 @@ const DrawerPage = (props) => {
               </div>
             </div>
             <div>
-              <Title level={4}>
-                Payment Information{" "}
-                {props.hostPaymentData?.actions?.status === "succeeded" ? (
-                  <Badge
-                    className="site-badge-count-109"
-                    count={"Completed"}
-                    style={{
-                      background: "#E6F6F4",
-                      color: "#00A991",
-                      fontSize: "11px",
-                      borderRadius: "4px",
-                      textAlign: "center",
-                    }}
-                  />
-                ) : (
-                  <Badge
-                    className="site-badge-count-109"
-                    count={"Pending"}
-                    style={{
-                      background: "#FBE9EC",
-                      color: "#D7263D",
-                      fontSize: "11px",
-                      borderRadius: "4px",
-                      textAlign: "center",
-                    }}
-                  />
-                )}
-              </Title>
+              <Title level={4}>Payment Information </Title>
             </div>
             <div
               style={{
@@ -1488,22 +1461,41 @@ const DrawerPage = (props) => {
                 paddingBottom: "15px",
               }}
             >
-              <Title level={4}>More Information</Title>
+              <Title level={4}>
+                More Information{" "}
+                {props.hostPaymentData?.actions?.status === "succeeded" ? (
+                  <Badge
+                    className="site-badge-count-109"
+                    count={"Completed"}
+                    style={{
+                      background: "#E6F6F4",
+                      color: "#00A991",
+                      fontSize: "11px",
+                      borderRadius: "4px",
+                      textAlign: "center",
+                    }}
+                  />
+                ) : (
+                  <Badge
+                    className="site-badge-count-109"
+                    count={"Pending"}
+                    style={{
+                      background: "#FBE9EC",
+                      color: "#D7263D",
+                      fontSize: "11px",
+                      borderRadius: "4px",
+                      textAlign: "center",
+                    }}
+                  />
+                )}
+              </Title>
               <Row>
                 <Col span={12} style={{ textAlign: "left" }}>
-                  {/* <p>Total Trips Completed</p>
-                  <p>Trip Cancel</p> */}
                   <p>Week Start Date</p>
                   <p>Week End Date</p>
                   <p>Total Rental Time</p>
                 </Col>
                 <Col span={12} style={{ textAlign: "right" }}>
-                  {/* <p>
-                    {props.hostPaymentData?.actions?.carOwner?.tripCompleted ||
-                      0}
-                  </p>
-                  <p>Trip Cancel</p> */}
-
                   <p>
                     {moment(props.hostPaymentData?.actions?.startDate).format(
                       "lll"
@@ -1588,35 +1580,7 @@ const DrawerPage = (props) => {
               </div>
             </div>
             <div>
-              <Title level={5}>
-                Trip Details{" "}
-                {props.dashboardEarningData?.printView?.paymentData?.status ===
-                "succeeded" ? (
-                  <Badge
-                    className="site-badge-count-109"
-                    count={"Completed"}
-                    style={{
-                      background: "#E6F6F4",
-                      color: "#00A991",
-                      fontSize: "11px",
-                      borderRadius: "4px",
-                      textAlign: "center",
-                    }}
-                  />
-                ) : (
-                  <Badge
-                    className="site-badge-count-109"
-                    count={"Pending"}
-                    style={{
-                      background: "#FBE9EC",
-                      color: "#D7263D",
-                      fontSize: "11px",
-                      borderRadius: "4px",
-                      textAlign: "center",
-                    }}
-                  />
-                )}
-              </Title>
+              <Title level={5}>Trip Details </Title>
             </div>
 
             <div
@@ -1681,7 +1645,35 @@ const DrawerPage = (props) => {
                 paddingBottom: "15px",
               }}
             >
-              <Title level={5}>Payment Information</Title>
+              <Title level={5}>
+                Payment Information{" "}
+                {props.dashboardEarningData?.printView?.paymentData?.status ===
+                "succeeded" ? (
+                  <Badge
+                    className="site-badge-count-109"
+                    count={"Completed"}
+                    style={{
+                      background: "#E6F6F4",
+                      color: "#00A991",
+                      fontSize: "11px",
+                      borderRadius: "4px",
+                      textAlign: "center",
+                    }}
+                  />
+                ) : (
+                  <Badge
+                    className="site-badge-count-109"
+                    count={"Pending"}
+                    style={{
+                      background: "#FBE9EC",
+                      color: "#D7263D",
+                      fontSize: "11px",
+                      borderRadius: "4px",
+                      textAlign: "center",
+                    }}
+                  />
+                )}
+              </Title>
               <Row>
                 <Col span={12} style={{ textAlign: "left" }}>
                   <p>Payment By</p>

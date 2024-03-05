@@ -46,7 +46,7 @@ const HostKycTable = ({ hostDataGetByPagination, hostDataGetBySearch }) => {
             textAlign: "center",
           }}
         >
-          {item.host.approved == true ? "Approve" : "Cencel"}
+          {item.host.approved == true ? "Approve" : "Cancel"}
         </div>
       ),
       actions: item.host,
