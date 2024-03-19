@@ -1971,39 +1971,6 @@ const DrawerPage = (props) => {
               />
             </div>
             <div style={{ marginTop: "-7px" }}>
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "10px" }}
-              >
-                {" "}
-                <p style={{ fontSize: "20px" }}>{props.carKycData?.name}</p>
-                {props.carKycData?.actions?.tripStatus === "Start" ? (
-                  <div
-                    style={{
-                      background: "#FBE9EC",
-                      color: "#D7263D",
-                      padding: "5px",
-                      fontSize: "11px",
-                      borderRadius: "4px",
-                      textAlign: "center",
-                    }}
-                  >
-                    Reserved
-                  </div>
-                ) : (
-                  <div
-                    style={{
-                      background: "#E6F6F4",
-                      color: "#00A991",
-                      padding: "5px",
-                      fontSize: "11px",
-                      borderRadius: "4px",
-                      textAlign: "center",
-                    }}
-                  >
-                    Active
-                  </div>
-                )}
-              </div>
               <p>
                 <span style={{ fontWeight: "bold" }}>License:</span>{" "}
                 {props.carKycData?.actions?.carLicenseNumber}

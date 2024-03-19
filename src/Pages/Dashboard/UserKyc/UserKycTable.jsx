@@ -33,20 +33,18 @@ const UserKycTable = ({ userDataGetByPagination, userDataGetBySearch }) => {
       name: item.user.fullName,
       email: item.user.email,
       contact: item.user.phoneNumber,
-      type: "pdf",
       status: (
         <div
           style={{
-            color: item.user.isBanned === "false" ? "#00A991" : "#D7263D",
-            backgroundColor:
-              item.user.isBanned === "false" ? "#E6F6F4" : "#FBE9EC",
+            color: item.user.approved ? "#00A991" : "#D7263D",
+            backgroundColor: item.user.approved ? "#E6F6F4" : "#FBE9EC",
             padding: "5px",
             fontSize: "11px",
             borderRadius: "4px",
             textAlign: "center",
           }}
         >
-          {item.user.isBanned === "false" ? "Active" : "Disabled"}
+          {item.user.approved ? "Approved" : "Pending"}
         </div>
       ),
       actions: item.user,
@@ -71,11 +69,7 @@ const UserKycTable = ({ userDataGetByPagination, userDataGetBySearch }) => {
       key: "contact",
       responsive: ["lg"],
     },
-    {
-      title: "Type",
-      dataIndex: "type",
-      key: "type",
-    },
+
     {
       title: "Status",
       dataIndex: "status",

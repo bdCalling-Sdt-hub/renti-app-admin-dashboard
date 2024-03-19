@@ -60,7 +60,7 @@ const BlockUserCard = ({ data, setReload }) => {
         if (res.status === 200) {
           Swal.fire({
             icon: "success",
-            text: "User cancel successfully",
+            text: "User canceled successfully",
           });
           setReload((prev) => prev + 1);
         }

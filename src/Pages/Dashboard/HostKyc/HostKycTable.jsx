@@ -34,19 +34,18 @@ const HostKycTable = ({ hostDataGetByPagination, hostDataGetBySearch }) => {
       name: item.host.fullName,
       email: item.host.email,
       contact: item.host.phoneNumber,
-      type: "pdf",
       status: (
         <div
           style={{
-            color: item.host.approved == true ? "#00A991" : "#D7263D",
-            backgroundColor: item.host.approved == true ? "#E6F6F4" : "#FBE9EC",
+            color: item.host.approved ? "#00A991" : "#D7263D",
+            backgroundColor: item.host.approved ? "#E6F6F4" : "#FBE9EC",
             padding: "5px",
             fontSize: "11px",
             borderRadius: "4px",
             textAlign: "center",
           }}
         >
-          {item.host.approved == true ? "Approve" : "Cancel"}
+          {item.host.approved ? "Approved" : "Pending"}
         </div>
       ),
       actions: item.host,
@@ -70,11 +69,6 @@ const HostKycTable = ({ hostDataGetByPagination, hostDataGetBySearch }) => {
       dataIndex: "contact",
       key: "contact",
       responsive: ["lg"],
-    },
-    {
-      title: "Type",
-      dataIndex: "type",
-      key: "type",
     },
     {
       title: "Status",

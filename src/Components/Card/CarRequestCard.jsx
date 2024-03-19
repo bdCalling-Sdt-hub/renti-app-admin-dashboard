@@ -66,7 +66,7 @@ const CarRequestCard = ({ data, setAutoReload }) => {
         if (res.status === 200) {
           Swal.fire({
             icon: "success",
-            text: "Car cancel successfully",
+            text: "Car canceled successfully",
           });
           setAutoReload((prev) => prev + 1);
         }

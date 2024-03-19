@@ -62,7 +62,7 @@ const UserRequestCard = ({ cardData, setAutoReload }) => {
         if (res.status === 200) {
           Swal.fire({
             icon: "success",
-            text: "User cancel successfully",
+            text: "User canceled successfully",
           });
           setAutoReload((prev) => prev + 1);
         }

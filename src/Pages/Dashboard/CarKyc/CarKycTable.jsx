@@ -84,8 +84,21 @@ const CarKycTable = ({
       name: item?.carModelName,
       email: item?.carOwner?.email,
       contact: item?.carOwner?.phoneNumber,
-      type: "pdf",
-      status: item?.isCarActive,
+      status: (
+        <div
+          style={{
+            color: item?.isCarActive === "Active" ? "#00A991" : "#D7263D",
+            backgroundColor:
+              item?.isCarActive === "Active" ? "#E6F6F4" : "#FBE9EC",
+            padding: "5px",
+            fontSize: "11px",
+            borderRadius: "4px",
+            textAlign: "center",
+          }}
+        >
+          {item?.isCarActive}
+        </div>
+      ),
       actions: item,
     };
   });
@@ -107,11 +120,6 @@ const CarKycTable = ({
       dataIndex: "contact",
       key: "contact",
       responsive: ["lg"],
-    },
-    {
-      title: "Type",
-      dataIndex: "type",
-      key: "type",
     },
     {
       title: "Status",
